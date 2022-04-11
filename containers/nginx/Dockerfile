@@ -6,7 +6,7 @@
 #    By: acoezard <acoezard@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/06 11:57:53 by acoezard          #+#    #+#              #
-#    Updated: 2022/04/11 15:18:24 by acoezard         ###   ########.fr        #
+#    Updated: 2022/04/11 15:22:55 by acoezard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ COPY	conf/default.conf /etc/nginx/http.d/default.conf
 RUN		apk add openssl
 RUN		mkdir -p /etc/nginx/ssl
 
-RUN	openssl req \
+RUN		openssl req \
 		-newkey rsa:4096 \
 		-x509 \
 		-sha256 \
