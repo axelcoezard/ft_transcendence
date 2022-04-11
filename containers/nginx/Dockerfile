@@ -6,7 +6,7 @@
 #    By: acoezard <acoezard@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/06 11:57:53 by acoezard          #+#    #+#              #
-#    Updated: 2022/04/11 11:15:09 by acoezard         ###   ########.fr        #
+#    Updated: 2022/04/11 12:39:19 by acoezard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,8 +34,6 @@ RUN			openssl req \
 			-subj "/C=FR/ST=PACA/L=Nice/O=42/OU=acoezard/CN=localhost" \
 			-keyout /etc/nginx/ssl/transcendence.key \
 			-out /etc/nginx/ssl/transcendence.cert
-
-#RUN			openssl dhparam -out /etc/nginx/ssl/transcendence.dhparam 2048
 
 #==== OPENRC ==================================================================#
 RUN			apk add openrc
