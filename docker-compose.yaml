@@ -1,0 +1,46 @@
+version: "3.9"
+services:
+#==== NGINX ===================================================================#
+  nginx:
+    container_name: nginx
+    build: containers/nginx
+    image: nginx
+    env_file: .env
+#    depends_on:
+#      - postgresql
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - transcendence
+    stdin_open: true
+    restart: unless-stopped
+
+#==== POSTGRESQL ==============================================================#
+#  postgresql:
+#    container_name: postgresql
+#    build: containers/postgresql
+#    image: postgresql
+#    env_file: .env
+#    networks:
+#      - transcendence
+#    volumes:
+#      - database:/var/lib/mysql
+#    restart: unless-stopped
+
+#==============================================================================#
+volumes:
+  database:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${VOLUME_DB_PATH}
+      o: bind
+
+  #============================================================================#
+networks:
+  transcendence:
+    name: transcendence
+    driver: bridge
