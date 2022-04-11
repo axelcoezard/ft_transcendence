@@ -6,18 +6,32 @@ services:
     build: containers/nginx
     image: nginx
     env_file: .env
+    depends_on:
+      - nodejs
+#     - postgresql
+    ports:
+      - 80:80
+    networks:
+      - transcendence
+    restart: unless-stopped
+
+#==== NODEJS ==================================================================#
+  nodejs:
+    container_name: nodejs
+    build: containers/nodejs
+    image: nodejs
+    env_file: .env
 #    depends_on:
 #      - postgresql
     volumes:
       - ./:/var/www/html
     ports:
-      - 80:80
-      - 443:443
+      - 3000:3000
+      - 6000:6000
     networks:
       - transcendence
     stdin_open: true
     restart: unless-stopped
-
 #==== POSTGRESQL ==============================================================#
 #  postgresql:
 #    container_name: postgresql
@@ -27,19 +41,10 @@ services:
 #    networks:
 #      - transcendence
 #    volumes:
-#      - database:/var/lib/mysql
+#      - ~/data:/var/lib/mysql
 #    restart: unless-stopped
 
-#==============================================================================#
-volumes:
-  database:
-    driver: local
-    driver_opts:
-      type: none
-      device: ${VOLUME_DB_PATH}
-      o: bind
-
-  #============================================================================#
+#============================================================================#
 networks:
   transcendence:
     name: transcendence
