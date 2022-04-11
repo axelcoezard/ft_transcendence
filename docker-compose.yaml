@@ -6,11 +6,11 @@ services:
     build: containers/nginx
     image: nginx
     env_file: .env
-    depends_on:
-      - nodejs
+#    depends_on:
 #     - postgresql
     ports:
       - 80:80
+      - 443:443
     networks:
       - transcendence
     restart: unless-stopped
@@ -25,13 +25,11 @@ services:
 #      - postgresql
     volumes:
       - ./:/var/www/html
-    ports:
-      - 3000:3000
-      - 6000:6000
     networks:
       - transcendence
     stdin_open: true
     restart: unless-stopped
+
 #==== POSTGRESQL ==============================================================#
 #  postgresql:
 #    container_name: postgresql
