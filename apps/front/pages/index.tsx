@@ -5,11 +5,10 @@ import useSession from '../components/useSession'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
-	const {
-		session,
-		setSessionEntry,
-		getSessionEntry
-	 } = useSession("session", ["name"]);
+	const session = useSession("session", {
+		connected: false,
+		token: ""
+	});
 
 	const handleClick = async (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
 		e.preventDefault()
@@ -40,16 +39,16 @@ const Home: NextPage = () => {
 			</h1>
 
 			<button type="button" onClick={handleClick}>Se connecter</button>
-			{getSessionEntry("name") && <p>Hello {getSessionEntry("prout")}</p>}
+			<p>Hello {session.get("name")},  {session.get("prout")}</p>
 			<input
 				type="text"
-				value={getSessionEntry("name")}
-				onChange={(e) => setSessionEntry("name", e.target.value)}
+				value={session.get("name")}
+				onChange={(e) => session.set("name", e.target.value)}
 			/>
 			<input
 				type="text"
-				value={getSessionEntry("prout")}
-				onChange={(e) => setSessionEntry("prout", e.target.value)}
+				value={session.get("prout")}
+				onChange={(e) => session.set("prout", e.target.value)}
 			/>
 		</main>
 
