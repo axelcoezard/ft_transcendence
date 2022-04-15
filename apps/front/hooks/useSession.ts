@@ -1,7 +1,8 @@
+import useCookie from "./useCookie";
 import useLocalStorage from "./useLocalStorage";
 
-const useSession = (name: string, defaults={}) => {
-	const [storage, setStorage] = useLocalStorage(name, defaults);
+const useSession = (name: string, defaults={}, storageHook=useCookie) => {
+	const [storage, setStorage] = storageHook(name, defaults);
 
 	const setEntry = (key: string, value: any) => {
 		setStorage({ ...storage, [key]: value });

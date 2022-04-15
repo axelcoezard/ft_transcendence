@@ -1,13 +1,13 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { MouseEvent } from 'react'
-import useSession from '../components/useSession'
+import useSession from '../hooks/useSession'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
 	const session = useSession("session", {
 		connected: false,
-		token: ""
+		token: "",
 	});
 
 	const handleClick = async (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
