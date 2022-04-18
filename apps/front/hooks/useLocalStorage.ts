@@ -4,18 +4,23 @@ const useLocalStorage = <__TYPE> (key: string, defaultValue: __TYPE) => {
 	const hook = useState<__TYPE>(defaultValue);
 
 	useEffect(() => {
-		const saved: string = localStorage.getItem(key) || "";
-		let value: any = {};
-		try { value = JSON.parse(Buffer.from(saved).toString()); }
-		catch (e) { value = saved; }
-		hook[1](value);
+		let base64: string = localStorage.getItem(key) || "";
+		let json: any = {};
+		try {
+			base64 = Buffer.from(base64, "base64").toString("utf8");
+			json = JSON.parse(base64);
+		}
+		catch (e) { json = base64; }
+		hook[1](json || defaultValue);
 		return () => {}
 	}, []);
 
 	useEffect(() => {
 		if (hook[0] === defaultValue)
 			return;
-		localStorage.setItem(key, Buffer.from(JSON.stringify(hook[0])).toString("base64"));
+		let json = JSON.stringify(hook[0]);
+		let base64 = Buffer.from(json, "utf8").toString("base64");
+		localStorage.setItem(key, base64);
 	}, [hook[0]]);
 
 	return hook;
