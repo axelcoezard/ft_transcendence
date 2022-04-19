@@ -6,7 +6,7 @@ import usePaddle, { PADDLE_HEIGHT, PADDLE_WIDTH } from "../hooks/usePaddle";
 import { useAppContext } from "../contexts/AppContext";
 import useAudio from "../hooks/useAudio";
 
-export const PONG_HEIGHT: number = 600;
+export const PONG_HEIGHT: number = 400;
 export const PONG_WIDTH: number = 600;
 
 const Pong = () => {
