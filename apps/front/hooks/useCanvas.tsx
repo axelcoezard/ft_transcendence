@@ -1,8 +1,10 @@
 import { useEffect, useRef } from "react";
+import { PONG_HEIGHT, PONG_WIDTH } from "../components/Pong";
 
 export declare type CanvasDrawFunction = (context: CanvasRenderingContext2D, frameCount: number) => void;
+export declare type CanvasProcessFunction = (frameCount: number) => void;
 
-const useCanvas = (draw: CanvasDrawFunction) => {
+const useCanvas = (update: CanvasProcessFunction, draw: CanvasDrawFunction) => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 
 	useEffect(() => {
@@ -12,12 +14,18 @@ const useCanvas = (draw: CanvasDrawFunction) => {
 
 		(function render() {
 		  frameCount++
-		  if (context) draw(context, frameCount)
+		  if (context)
+		  {
+		  	update(frameCount);
+			context.fillStyle = "black";
+			context.fillRect(0, 0, PONG_WIDTH, PONG_HEIGHT);
+			draw(context, frameCount);
+		  }
 		  animationFrameId = window.requestAnimationFrame(render)
 		})();
 
 		return () =>  window.cancelAnimationFrame(animationFrameId)
-	}, [draw])
+	}, [update, draw])
 
 	return canvasRef
 }
