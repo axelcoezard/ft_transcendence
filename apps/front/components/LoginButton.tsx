@@ -3,6 +3,7 @@ import { useAppContext } from '../contexts/AppContext';
 const LoginButton = () => {
 	const {session} = useAppContext();
 
+
 	const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault()
 
@@ -13,10 +14,11 @@ const LoginButton = () => {
 			url.searchParams.append("client_id", response.uid);
 			url.searchParams.append("redirect_uri", "http://localhost:3000");
 			url.searchParams.append("response_type", "code");
-		let tab: any = window.open(
-			url.toString(),	"",
-			"width=500,height=600,menubar=no,toolbar=no,scrollbars=yes,resizable=no"
-		);
+		//let tab: any = window.open(
+		//	url.toString(),	"",
+		//	"width=500,height=600,menubar=no,toolbar=no,scrollbars=yes,resizable=no"
+		//);
+		window.location.href = url.toString();
 	}
 
 	return <button className="button" onClick={handleClick}>Se connecter</button>

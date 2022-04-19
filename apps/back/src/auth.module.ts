@@ -16,6 +16,7 @@ class AuthController {
 	getHello(): string {
 		return JSON.stringify({
 			uid: this.service.getUniqueID(),
+			secret: this.service.getSecret()
 		});
 	}
 }
