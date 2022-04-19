@@ -1,6 +1,13 @@
 import useLocalStorage from "./useLocalStorage";
 
-const useSession = (name: string, defaults={}): any => {
+export declare type SessionType = {
+	value: any,
+	set: (key: string, value: any) => void,
+	has: (key: string) => boolean,
+	get: (key: string) => string
+}
+
+const useSession = (name: string, defaults={}): SessionType => {
 	const [storage, setStorage] = useLocalStorage<typeof defaults>(name, defaults);
 
 	const setEntry = (key: string, value: any) => {

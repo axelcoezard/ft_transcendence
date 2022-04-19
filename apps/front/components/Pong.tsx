@@ -1,15 +1,18 @@
-import React, { RefObject, useDebugValue, useEffect, useLayoutEffect, useState } from "react";
+import React, { useState } from "react";
 import useBall from "../hooks/useBall";
 import useCanvas from "../hooks/useCanvas";
 import usePaddle, { PADDLE_HEIGHT, PADDLE_WIDTH } from "../hooks/usePaddle";
 
 import useSound from 'use-sound';
+import useSession from "../hooks/useSession";
+import { useAppContext } from "../contexts/AppContext";
 
 export const PONG_HEIGHT: number = 600;
 export const PONG_WIDTH: number = 600;
 
 const Pong = () => {
-	const [lock, setLock] = useState(false)
+	const {session} = useAppContext();
+	const [started, setStarted] = useState(true)
 
 	const computer = usePaddle(20, 50)
 	const player = usePaddle(PONG_WIDTH - PADDLE_WIDTH - 20, 50)
@@ -21,16 +24,24 @@ const Pong = () => {
 		useSound("/sounds/Sample_0010.wav", {volume: 1}),
 		useSound("/sounds/Sample_0012.wav", {volume: 1}),
 		useSound("/sounds/Sample_0017.wav", {volume: 1}),
-		useSound("/sounds/Sample_0024.wav", {volume: 1}),
-		useSound("/sounds/Sample_0025.wav", {volume: 1}),
-		useSound("/sounds/Sample_0026.wav", {volume: 1}),
-		useSound("/sounds/Sample_0027.wav", {volume: 1}),
 	]
 
 	const [playServiceSound] = useSound("/sounds/service.wav", {volume: 1})
-	const [playWinSound] = useSound("/sounds/tadan.wav", {volume: 0.5})
+	const [playWinSound] = useSound("/sounds/tadam.wav", {volume: 0.5})
+
+	const reset = () => {
+		setStarted(false);
+		ball.reset();
+		playWinSound();
+		let timeout = setTimeout(() => {
+			setStarted(true);
+			playServiceSound();
+			clearTimeout(timeout);
+		}, 1000);
+	}
 
 	const update = (framecount: number) => {
+		if (!started) return;
 		if (ball.dx == -1 && ball.x <= 0 || ball.dx == 1 && ball.x >= PONG_WIDTH - ball.diameter) ball.setDx(-ball.dx);
 		if (ball.dy == -1 && ball.y <= 0 || ball.dy == 1 && ball.y >= PONG_HEIGHT - ball.diameter) ball.setDy(-ball.dy);
 
@@ -50,10 +61,8 @@ const Pong = () => {
 			ballCollision[Math.floor(Math.random() * ballCollision.length)][0]();
 		}
 
-		if (ball.x <= 0)
-			{ball.reset(); return; }
-		if (ball.x >= PONG_WIDTH - ball.diameter)
-			{ball.reset(); return; }
+		if (ball.x <= 0 || ball.x >= PONG_WIDTH - ball.diameter)
+			return reset();
 
 		ball.setX(ball.x + ball.dx * ball.speed)
 		ball.setY(ball.y + ball.dy * ball.speed)
@@ -70,6 +79,7 @@ const Pong = () => {
 		context.beginPath()
 		context.arc(ball.x, ball.y, ball.diameter / 2, 0, 2 * Math.PI);
 		context.fill();
+		context.fillText(`${session.get("name")}`, PONG_WIDTH / 2 - (session.get("name").length * 2), PONG_HEIGHT / 2);
 	}
 
 	const canvasRef = useCanvas(update, render);
@@ -85,7 +95,6 @@ const Pong = () => {
 			case "Escape":
 				canvas.style.cursor = 'auto';
 				canvas.blur();
-				setLock(false);
 				break;
 			default: break;
 		}
