@@ -39,7 +39,7 @@ const Pong = () => {
 		}, 1000);
 	}
 
-	const update = (framecount: number) => {
+	const update = async (framecount: number) => {
 		if (!started) return;
 		if (ball.dx == -1 && ball.x <= 0 || ball.dx == 1 && ball.x >= PONG_WIDTH - ball.diameter) ball.setDx(-ball.dx);
 		if (ball.dy == -1 && ball.y <= 0 || ball.dy == 1 && ball.y >= PONG_HEIGHT - ball.diameter) ball.setDy(-ball.dy);
@@ -70,12 +70,12 @@ const Pong = () => {
 		player.setY(ball.y - PADDLE_HEIGHT / 2);
 	}
 
-	const render = (context: CanvasRenderingContext2D, _: any) => {
-		context.fillStyle = "white";
+	const render = async (context: CanvasRenderingContext2D, _: any) => {
+		context.fillStyle = "#60B5E7";
 		context.fillRect(player.x, player.y, PADDLE_WIDTH, PADDLE_HEIGHT)
-		context.fillStyle = "white";
+		context.fillStyle = "#60B5E7";
 		context.fillRect(computer.x, computer.y, PADDLE_WIDTH, PADDLE_HEIGHT)
-		context.fillStyle = "white";
+		context.fillStyle = "#48DAC3";
 		context.beginPath()
 		context.arc(ball.x, ball.y, ball.diameter / 2, 0, 2 * Math.PI);
 		context.fill();
