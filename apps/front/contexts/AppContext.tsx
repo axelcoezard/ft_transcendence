@@ -13,7 +13,9 @@ const AppContext = createContext<any>({
 const useAppContext = () => useContext(AppContext);
 
 const AppProvider = (props: any) => {
-	const session = useSession("session", {});
+	const session = useSession("session", {
+		audio: false
+	});
 
 	const defaultValue = {
 		session

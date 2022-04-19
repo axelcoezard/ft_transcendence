@@ -3,9 +3,8 @@ import useBall from "../hooks/useBall";
 import useCanvas from "../hooks/useCanvas";
 import usePaddle, { PADDLE_HEIGHT, PADDLE_WIDTH } from "../hooks/usePaddle";
 
-import useSound from 'use-sound';
-import useSession from "../hooks/useSession";
 import { useAppContext } from "../contexts/AppContext";
+import useAudio from "../hooks/useAudio";
 
 export const PONG_HEIGHT: number = 600;
 export const PONG_WIDTH: number = 600;
@@ -19,15 +18,15 @@ const Pong = () => {
 	const ball = useBall();
 
 	const ballCollision: any = [
-		useSound("/sounds/Sample_0005.wav", {volume: 1}),
-		useSound("/sounds/Sample_0007.wav", {volume: 1}),
-		useSound("/sounds/Sample_0010.wav", {volume: 1}),
-		useSound("/sounds/Sample_0012.wav", {volume: 1}),
-		useSound("/sounds/Sample_0017.wav", {volume: 1}),
+		useAudio("/sounds/Sample_0005.wav", {volume: 1}),
+		useAudio("/sounds/Sample_0007.wav", {volume: 1}),
+		useAudio("/sounds/Sample_0010.wav", {volume: 1}),
+		useAudio("/sounds/Sample_0012.wav", {volume: 1}),
+		useAudio("/sounds/Sample_0017.wav", {volume: 1}),
 	]
 
-	const [playServiceSound] = useSound("/sounds/service.wav", {volume: 1})
-	const [playWinSound] = useSound("/sounds/tadam.wav", {volume: 0.5})
+	const {play: playServiceSound} = useAudio("/sounds/service.wav", {volume: 1})
+	const {play: playWinSound} = useAudio("/sounds/tadam.wav", {volume: 0.5})
 
 	const reset = () => {
 		setStarted(false);
@@ -50,7 +49,7 @@ const Pong = () => {
 			&& ball.y <= computer.y + PADDLE_HEIGHT)
 		{
 			ball.setDx(-ball.dx);
-			ballCollision[Math.floor(Math.random() * ballCollision.length)][0]();
+			ballCollision[Math.floor(Math.random() * ballCollision.length)].play();
 		}
 
 		if (ball.dx == 1 && ball.x + ball.diameter >= player.x
@@ -58,7 +57,7 @@ const Pong = () => {
 			&& ball.y <= player.y + PADDLE_HEIGHT)
 		{
 			ball.setDx(-ball.dx);
-			ballCollision[Math.floor(Math.random() * ballCollision.length)][0]();
+			ballCollision[Math.floor(Math.random() * ballCollision.length)].play();
 		}
 
 		if (ball.x <= 0 || ball.x >= PONG_WIDTH - ball.diameter)
@@ -68,6 +67,7 @@ const Pong = () => {
 		ball.setY(ball.y + ball.dy * ball.speed)
 
 		computer.setY(ball.y - PADDLE_HEIGHT / 2);
+		player.setY(ball.y - PADDLE_HEIGHT / 2);
 	}
 
 	const render = (context: CanvasRenderingContext2D, _: any) => {
@@ -79,7 +79,6 @@ const Pong = () => {
 		context.beginPath()
 		context.arc(ball.x, ball.y, ball.diameter / 2, 0, 2 * Math.PI);
 		context.fill();
-		context.fillText(`${session.get("name")}`, PONG_WIDTH / 2 - (session.get("name").length * 2), PONG_HEIGHT / 2);
 	}
 
 	const canvasRef = useCanvas(update, render);

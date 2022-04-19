@@ -17,7 +17,7 @@ const useCanvas = (update: CanvasProcessFunction, draw: CanvasDrawFunction) => {
 		  if (context)
 		  {
 		  	update(frameCount);
-			context.fillStyle = "black";
+			context.fillStyle = "#2A2E5E";
 			context.fillRect(0, 0, PONG_WIDTH, PONG_HEIGHT);
 			draw(context, frameCount);
 		  }

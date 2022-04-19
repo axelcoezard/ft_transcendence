@@ -4,7 +4,9 @@ import { AppProvider } from '../contexts/AppContext'
 export default () => <Html>
 	<Head />
 	<body>
-		<Main />
+		<AppProvider>
+			<Main />
+		</AppProvider>
 		<NextScript />
 	</body>
 </Html>

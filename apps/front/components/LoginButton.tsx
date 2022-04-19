@@ -1,7 +1,6 @@
 import { useAppContext } from '../contexts/AppContext';
-import styles from '../styles/Home.module.css'
 
-const Form = () => {
+const LoginButton = () => {
 	const {session} = useAppContext();
 
 	const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -20,23 +19,7 @@ const Form = () => {
 		);
 	}
 
-	return <>
-		<h1 className={styles.title}>
-			Welcome to <a>Transcendence</a>
-		</h1>
-
-		<button type="button" onClick={handleClick}>Se connecter</button>
-		<input
-			type="text"
-			value={session.get("name")}
-			onChange={(e) => session.set("name", e.target.value)}
-		/>
-		<input
-			type="text"
-			value={session.get("prout")}
-			onChange={(e) => session.set("prout", e.target.value)}
-		/>
-	</>
+	return <button className="button" onClick={handleClick}>Se connecter</button>
 }
 
-export default Form;
+export default LoginButton;
