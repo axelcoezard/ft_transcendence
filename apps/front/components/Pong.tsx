@@ -3,14 +3,12 @@ import useBall from "../hooks/useBall";
 import useCanvas from "../hooks/useCanvas";
 import usePaddle, { PADDLE_HEIGHT, PADDLE_WIDTH } from "../hooks/usePaddle";
 
-import { useAppContext } from "../contexts/AppContext";
 import useAudio from "../hooks/useAudio";
 
 export const PONG_HEIGHT: number = 400;
 export const PONG_WIDTH: number = 600;
 
 const Pong = () => {
-	const {session} = useAppContext();
 	const [started, setStarted] = useState(true)
 
 	const computer = usePaddle(20, 50)
