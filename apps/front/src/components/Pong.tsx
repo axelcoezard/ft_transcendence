@@ -3,28 +3,15 @@ import useBall from "../hooks/useBall";
 import useCanvas from "../hooks/useCanvas";
 import usePaddle, { PADDLE_HEIGHT, PADDLE_WIDTH } from "../hooks/usePaddle";
 
-import useAudio from "../hooks/useAudio";
-
 export const PONG_HEIGHT: number = 400;
 export const PONG_WIDTH: number = 600;
 
-const Pong = () => {
-	const [started, setStarted] = useState(true)
+export default () => {
+	const [started, setStarted] = useState(false)
 
 	const computer = usePaddle(20, 50)
 	const player = usePaddle(PONG_WIDTH - PADDLE_WIDTH - 20, 50)
 	const ball = useBall();
-
-	//const ballCollision: any = [
-	//	useAudio("/sounds/Sample_0005.wav", {volume: 1}),
-	//	useAudio("/sounds/Sample_0007.wav", {volume: 1}),
-	//	useAudio("/sounds/Sample_0010.wav", {volume: 1}),
-	//	useAudio("/sounds/Sample_0012.wav", {volume: 1}),
-	//	useAudio("/sounds/Sample_0017.wav", {volume: 1}),
-	//]
-
-	//const {play: playServiceSound} = useAudio("/sounds/service.wav", {volume: 1})
-	//const {play: playWinSound} = useAudio("/sounds/tadam.wav", {volume: 0.5})
 
 	const reset = () => {
 		setStarted(false);
@@ -38,34 +25,28 @@ const Pong = () => {
 	}
 
 	const update = async (framecount: number) => {
-		if (!started) return;
 		if (ball.dx == -1 && ball.x <= 0 || ball.dx == 1 && ball.x >= PONG_WIDTH - ball.diameter) ball.setDx(-ball.dx);
 		if (ball.dy == -1 && ball.y <= 0 || ball.dy == 1 && ball.y >= PONG_HEIGHT - ball.diameter) ball.setDy(-ball.dy);
 
 		if (ball.dx == -1 && ball.x <= computer.x + PADDLE_WIDTH
 			&& ball.y + ball.diameter > computer.y
 			&& ball.y <= computer.y + PADDLE_HEIGHT)
-		{
 			ball.setDx(-ball.dx);
-			//ballCollision[Math.floor(Math.random() * ballCollision.length)].play();
-		}
 
 		if (ball.dx == 1 && ball.x + ball.diameter >= player.x
 			&& ball.y + ball.diameter >= player.y
 			&& ball.y <= player.y + PADDLE_HEIGHT)
-		{
 			ball.setDx(-ball.dx);
-			//ballCollision[Math.floor(Math.random() * ballCollision.length)].play();
-		}
 
 		if (ball.x <= 0 || ball.x >= PONG_WIDTH - ball.diameter)
 			return reset();
 
-		ball.setX(ball.x + ball.dx * ball.speed)
-		ball.setY(ball.y + ball.dy * ball.speed)
-
 		computer.setY(ball.y - PADDLE_HEIGHT / 2);
 		player.setY(ball.y - PADDLE_HEIGHT / 2);
+
+		if (!started) return;
+		ball.setX(ball.x + ball.dx * ball.speed)
+		ball.setY(ball.y + ball.dy * ball.speed)
 	}
 
 	const render = async (context: CanvasRenderingContext2D, _: any) => {
@@ -110,5 +91,3 @@ const Pong = () => {
 		onKeyDown={handleKeyboard}
 	/>;
 };
-
-export default Pong;

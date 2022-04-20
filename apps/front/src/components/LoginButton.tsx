@@ -1,8 +1,7 @@
 import { useAppContext } from '../contexts/AppContext';
 
-const LoginButton = () => {
+export default () => {
 	const {session} = useAppContext();
-
 
 	const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault()
@@ -10,11 +9,8 @@ const LoginButton = () => {
 		let request = await fetch('http://localhost:3030/auth/authorize');
 		let response = await request.json();
 
-		session.set("token", "test")
-		//window.location.href = response.url;
+		window.location.href = response.url;
 	}
 
 	return <button className="button" onClick={handleClick}>Se connecter</button>
 }
-
-export default LoginButton;

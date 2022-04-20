@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
+import { Buffer } from "buffer";
 
 const useLocalStorage = <__TYPE> (key: string, defaultValue: __TYPE) => {
-	const hook = useState<__TYPE>(defaultValue);
-
-	useEffect(() => {
+	const hook = useState<__TYPE>(() => {
 		let base64: string = localStorage.getItem(key) || "";
 		let json: any = {};
 		try {
@@ -11,9 +10,9 @@ const useLocalStorage = <__TYPE> (key: string, defaultValue: __TYPE) => {
 			json = JSON.parse(base64);
 		}
 		catch (e) { json = base64; }
-		hook[1](json || defaultValue);
-		return () => {}
-	}, []);
+		return json || defaultValue;
+	});
+
 
 	useEffect(() => {
 		if (hook[0] === defaultValue)

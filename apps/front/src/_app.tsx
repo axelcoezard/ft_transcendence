@@ -1,8 +1,20 @@
-import React from 'react';
-import AppDocument from './_document';
+import {
+	BrowserRouter,
+	Routes,
+	Route,
+} from "react-router-dom";
+
+import { AppProvider } from "./contexts/AppContext";
+import Home from "./pages/Home";
+
+import "./styles/globals.scss";
 
 export default () => {
-  return  <React.StrictMode>
-	  <AppDocument />
-  </React.StrictMode>
+	return <AppProvider>
+		<BrowserRouter>
+			<Routes>
+				<Route path="/" element={<Home />} />
+			</Routes>
+		</BrowserRouter>
+	</AppProvider>
 }
