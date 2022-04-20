@@ -1,4 +1,4 @@
-import { createContext, FC, useContext } from "react";
+import { createContext, FC, Suspense, useContext, useEffect } from "react";
 import useSession, { SessionType } from "../hooks/useSession";
 
 const AppContext = createContext<any>({
@@ -13,15 +13,11 @@ const AppContext = createContext<any>({
 const useAppContext = () => useContext(AppContext);
 
 const AppProvider = (props: any) => {
-	const session = useSession("session", {
-		audio: false
-	});
+	const session = useSession("session", {});
 
 	const defaultValue = {
 		session
 	}
-
-	console.log(defaultValue)
 
 	return <AppContext.Provider value={defaultValue}>
 		{props.children}

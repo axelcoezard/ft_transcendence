@@ -3,7 +3,7 @@ import { useAppContext } from "../contexts/AppContext";
 
 const useAudio = (path: string, options?: {}) => {
 	const {session} = useAppContext();
-	const [playSound, ...rest] = useSound(path, options);
+	const [playSound] = useSound(path, options);
 
 	const play = () => {
 		if (session.audio) playSound();
