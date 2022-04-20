@@ -15,24 +15,24 @@ const Pong = () => {
 	const player = usePaddle(PONG_WIDTH - PADDLE_WIDTH - 20, 50)
 	const ball = useBall();
 
-	const ballCollision: any = [
-		useAudio("/sounds/Sample_0005.wav", {volume: 1}),
-		useAudio("/sounds/Sample_0007.wav", {volume: 1}),
-		useAudio("/sounds/Sample_0010.wav", {volume: 1}),
-		useAudio("/sounds/Sample_0012.wav", {volume: 1}),
-		useAudio("/sounds/Sample_0017.wav", {volume: 1}),
-	]
+	//const ballCollision: any = [
+	//	useAudio("/sounds/Sample_0005.wav", {volume: 1}),
+	//	useAudio("/sounds/Sample_0007.wav", {volume: 1}),
+	//	useAudio("/sounds/Sample_0010.wav", {volume: 1}),
+	//	useAudio("/sounds/Sample_0012.wav", {volume: 1}),
+	//	useAudio("/sounds/Sample_0017.wav", {volume: 1}),
+	//]
 
-	const {play: playServiceSound} = useAudio("/sounds/service.wav", {volume: 1})
-	const {play: playWinSound} = useAudio("/sounds/tadam.wav", {volume: 0.5})
+	//const {play: playServiceSound} = useAudio("/sounds/service.wav", {volume: 1})
+	//const {play: playWinSound} = useAudio("/sounds/tadam.wav", {volume: 0.5})
 
 	const reset = () => {
 		setStarted(false);
 		ball.reset();
-		playWinSound();
+		//playWinSound();
 		let timeout = setTimeout(() => {
 			setStarted(true);
-			playServiceSound();
+			//playServiceSound();
 			clearTimeout(timeout);
 		}, 1000);
 	}
@@ -47,7 +47,7 @@ const Pong = () => {
 			&& ball.y <= computer.y + PADDLE_HEIGHT)
 		{
 			ball.setDx(-ball.dx);
-			ballCollision[Math.floor(Math.random() * ballCollision.length)].play();
+			//ballCollision[Math.floor(Math.random() * ballCollision.length)].play();
 		}
 
 		if (ball.dx == 1 && ball.x + ball.diameter >= player.x
@@ -55,7 +55,7 @@ const Pong = () => {
 			&& ball.y <= player.y + PADDLE_HEIGHT)
 		{
 			ball.setDx(-ball.dx);
-			ballCollision[Math.floor(Math.random() * ballCollision.length)].play();
+			//ballCollision[Math.floor(Math.random() * ballCollision.length)].play();
 		}
 
 		if (ball.x <= 0 || ball.x >= PONG_WIDTH - ball.diameter)

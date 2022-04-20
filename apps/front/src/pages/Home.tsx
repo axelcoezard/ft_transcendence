@@ -1,6 +1,3 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { Navbar, Navlink } from '../components/Navigation'
 import Pong from '../components/Pong'
@@ -8,9 +5,8 @@ import { useAppContext } from '../contexts/AppContext'
 
 import styles from '../styles/Home.module.scss'
 
-const Home: NextPage = () => {
+export default () => {
 	const {session} = useAppContext()
-	const router = useRouter()
 
 	const requestToken = (code: string) => {
 		fetch(`http://localhost:3030/auth/token/${code}`)
@@ -29,14 +25,8 @@ const Home: NextPage = () => {
 		.catch(err => console.error(err))
 	}
 
-	if (router.query.code)
-		requestToken(router.query.code as string)
-
 
 	return <div className={styles.container}>
-		<Head>
-			<title>Transcendence</title>
-		</Head>
 		<Navbar>
 			<Navlink href="/">Home</Navlink>
 			<Navlink href="/">About</Navlink>
@@ -53,5 +43,3 @@ const Home: NextPage = () => {
 		</main>
 	</div>;
 }
-
-export default Home

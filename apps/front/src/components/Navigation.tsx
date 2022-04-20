@@ -1,4 +1,5 @@
-import Link from 'next/link'
+import {Link} from 'react-router-dom';
+
 import styles from '../styles/Navigation.module.scss'
 import LoginButton from './LoginButton'
 
@@ -17,7 +18,7 @@ const Navbar = (props: any) => {
 }
 
 const Navlink = (props: any) => {
-	return <Link href={props.href}>{props.children}</Link>
+	return <Link to={props.href}>{props.children}</Link>
 }
 
 export {Navbar, Navlink}
