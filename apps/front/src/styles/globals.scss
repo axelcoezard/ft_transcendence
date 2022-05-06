@@ -1,3 +1,21 @@
+/* STRANSCENDENCE COLORS */
+$eerie : #212121; 
+$jet : #323232;
+
+$turquoise : #48DAC3;
+$minth: #A4EDE1;
+
+$aero : #60B5E7;
+$uranina: #B0DAF3;
+
+$lavender: #BB86FC;
+$mauve: #DDC3FE;
+
+$bettersweet: #FF6667;
+$pinkish: #FFB3B3;
+
+/* GLOBAL STYLE */
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -6,8 +24,7 @@
 
 html,
 body {
-	font-family: sans-serif;
-
+	font-family: Roboto, sans-serif;
 	background: #171933;
 }
 
