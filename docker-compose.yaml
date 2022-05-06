@@ -16,23 +16,35 @@ services:
    # restart: unless-stopped
 
 #==== NODEJS ==================================================================#
-  nodejs:
-    container_name: nodejs
-    build: containers/nodejs
-    image: nodejs
+  front:
+    container_name: front
+    build: containers/front
+    image: front
     env_file: .env
-#    depends_on:
-#      - postgresql
     ports:
       - 3000:3000
-      - 3030:3030
     volumes:
-      - ./:/var/www/html
+      - ./apps/front:/var/www/html/front
     networks:
       - transcendence
     stdin_open: true
     restart: unless-stopped
 
+  back:
+    container_name: back
+    build: containers/back
+    image: back
+    env_file: .env
+    depends_on:
+      - db
+    ports:
+      - 3030:3030
+    volumes:
+      - ./apps/back:/var/www/html/back
+    networks:
+      - transcendence
+    stdin_open: true
+    restart: unless-stopped
 #==== POSTGRESQL ==============================================================#
   db:
     container_name: postgres

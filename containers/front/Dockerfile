@@ -1,24 +1,26 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
+#    Dockerfile                                         :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: acoezard <acoezard@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/04/11 15:19:09 by acoezard          #+#    #+#              #
-#    Updated: 2022/05/06 11:21:54 by acoezard         ###   ########.fr        #
+#    Created: 2022/04/06 11:57:53 by acoezard          #+#    #+#              #
+#    Updated: 2022/05/06 11:07:41 by acoezard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-all: start
+FROM		alpine:3.14
 
-start:
-	@docker-compose up --build --remove-orphans
+RUN			apk update
+RUN			apk upgrade
 
-stop:
-	@docker-compose dowm
+#==== NODEJS ==================================================================#
+RUN			apk add --update git nodejs-current npm
+RUN			mkdir -p /var/www/html/front
+VOLUME		["/var/www/html/front"]
 
-clean:
-	@rm -rf apps/*/node_modules apps/*/dist
+EXPOSE		3000
 
-.PHONY: all start stop
+WORKDIR 	/var/www/html/front
+ENTRYPOINT	["./entrypoint.sh"]

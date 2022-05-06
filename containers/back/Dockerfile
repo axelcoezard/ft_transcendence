@@ -6,7 +6,7 @@
 #    By: acoezard <acoezard@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/06 11:57:53 by acoezard          #+#    #+#              #
-#    Updated: 2022/04/14 14:16:03 by acoezard         ###   ########.fr        #
+#    Updated: 2022/05/06 11:09:33 by acoezard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,12 +16,11 @@ RUN			apk update
 RUN			apk upgrade
 
 #==== NODEJS ==================================================================#
-RUN			apk add --update nodejs-current npm
-RUN			mkdir -p /var/www/html/
-VOLUME		["/var/www/html"]
+RUN			apk add --update git nodejs-current npm
+RUN			mkdir -p /var/www/html/back
+VOLUME		["/var/www/html/back"]
 
-EXPOSE		3000
 EXPOSE		3030
 
-WORKDIR 	/var/www/html
+WORKDIR 	/var/www/html/back
 ENTRYPOINT	["./entrypoint.sh"]
