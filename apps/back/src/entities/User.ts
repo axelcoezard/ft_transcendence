@@ -1,9 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm"
-import { Messages } from "./Messages";
-import { Avatars } from "./Avatars";
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToOne, JoinColumn } from "typeorm"
+import { Message } from "./Message";
+import { Avatar } from "./Avatar";
 
-@Entity('users')
-export class Users extends BaseEntity {
+@Entity("User")
+export class User extends BaseEntity {
 
     @PrimaryGeneratedColumn()
     id: number;
@@ -36,12 +36,12 @@ export class Users extends BaseEntity {
 	@Column({
 		type: 'boolean'
 	})
-	FA_status: boolean;
+	"2FA_status": boolean;
 
 	@Column({
 		type: 'boolean'
 	})
-	FA_secret: boolean;
+	"2FA_secret": boolean;
 
 	@Column({
 		type: 'int'
@@ -49,19 +49,19 @@ export class Users extends BaseEntity {
 	ELO_score: number;
 
 	@OneToMany(
-		() => Messages,
+		() => Message,
 		messages => messages.users
 	)
-	messages: Messages[];
+	messages: Message[];
 
 	@ManyToOne(
-		() => Avatars,
+		() => Avatar,
 		avatars => avatars.users
 	)
 	@JoinColumn({
 		name: 'avatars'
 	})
-	users: Users;
+	users: User[];
 
 	@CreateDateColumn()
 	creation: Date;

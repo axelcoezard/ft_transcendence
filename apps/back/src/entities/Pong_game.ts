@@ -1,34 +1,40 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm"
-import { Users } from "./Users"
+import { User } from "./User"
 
-@Entity(Pong_game)
+@Entity("Pong_game")
 export class Pong_game extends BaseEntity {
 
 	@PrimaryGeneratedColumn()
 	id: number;
 
-   //user1
+	@Column({
+		type: 'int'
+	})
+	user1_id: number;
 
-   @Column({
-	   type: 'int'
-   })
-   user1_score: number;
+	@Column({
+		type: 'int'
+	})
+	user2_id: number;
 
-   //user2
+	@Column({
+		type: 'int'
+	})
+	user1_score: number;
 
-   @Column({
-	   type: 'int'
-   })
-   user2_score: number;
+	@Column({
+		type: 'int'
+	})
+	user2_score: number;
 
-   @Column({
-	   type: 'varchar'
-   })
-   status: string;
+	@Column({
+		type: 'varchar'
+	})
+	status: string;
 
-   @CreateDateColumn()
-   creattion: Date;
+	@CreateDateColumn()
+	creattion: Date;
 
-   @UpdateDateColumn()
-   update: Date;
-} 
+	@UpdateDateColumn()
+	update: Date;
+}

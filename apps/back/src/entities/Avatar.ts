@@ -1,12 +1,14 @@
 import { title } from "process";
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm"
-import { Users } from "./Users"
+import { User } from "./User"
 
+@Entity("Avatar")
+export class Avatar extends BaseEntity {
 	@OneToMany(
-		() => Users,
-		users => users.avatars
+		() => User,
+		users => users.avatar_id
 	)
-	users: Users[];
+	users: User[];
 
 	@Column({
 		type: "varchar"
@@ -16,7 +18,7 @@ import { Users } from "./Users"
 	@Column({
 		type: "varchar"
 	})
-	uri: title;
+	uri: typeof title;
 
 	@CreateDateColumn()
 	creation: Date;

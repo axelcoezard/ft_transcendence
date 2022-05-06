@@ -1,8 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from "typeorm"
-import { Users } from "./Users"
+import { User } from "./User"
 
-@Entity(Channels)
-export class channels extends BaseEntity {
+@Entity("Channel")
+export class Channel extends BaseEntity {
 	//id
 	//creator
 	@Column({

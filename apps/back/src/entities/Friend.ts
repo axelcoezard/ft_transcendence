@@ -1,15 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm"
-import { Users } from "./Users"
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn, OneToMany, JoinTable } from "typeorm"
+import { User } from "./User"
 
-@Entity('friends')
-export class Friends extends BaseEntity {
+@Entity("Friend")
+export class Friend extends BaseEntity {
 	@PrimaryGeneratedColumn({
 		type: 'number'
 	})
 	id: number;
-	@ManyToMany(
-		()=> Friends
-	)
 
 	@JoinTable({
 		name: 'friends',
@@ -22,7 +19,7 @@ export class Friends extends BaseEntity {
 			referencedColumnName: 'id',
 		},
 	})
-	users: Users[]
+	users: User[]
 
 	@Column({
 		type: 'varchar'
