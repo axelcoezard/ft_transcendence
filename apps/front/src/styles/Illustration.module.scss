@@ -1,0 +1,15 @@
+/* ----------- COLOR PALETTE -----------*/
+
+@use 'Colors' as *;
+
+/* ----------- BASIC SHAPES ------------*/
+
+.scenary {
+	width: 100%;
+	height: 100%;
+}
+
+.waves {
+	background-color: $color-cornflower;
+	opacity: .25;
+}
