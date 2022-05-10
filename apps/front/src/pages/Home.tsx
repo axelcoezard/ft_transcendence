@@ -5,7 +5,7 @@ import { useAppContext } from '../contexts/AppContext'
 
 import styles from '../styles/Home.module.scss'
 
-export default () => {
+const Home = () => {
 	const {session} = useAppContext()
 	const [params] = useSearchParams();
 	const navigate = useNavigate()
@@ -34,3 +34,5 @@ export default () => {
 		<Illustration />
 	</div>;
 }
+
+export default Home;
