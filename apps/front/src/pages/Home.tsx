@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
-import { useSearchParams, useNavigate } from "react-router-dom";
-import { Navbar, Navlink } from '../components/Navigation'
-import Pong from '../components/Pong'
+import { useSearchParams, useNavigate } from "react-router-dom"
+import Illustration from '../components/Scenery/Illustration'
 import { useAppContext } from '../contexts/AppContext'
 
 import styles from '../styles/Home.module.scss'
@@ -32,15 +31,6 @@ export default () => {
 	}, [])
 
 	return <div className={styles.container}>
-		<Navbar>
-			<Navlink href="/">Home</Navlink>
-			<Navlink href="/">About</Navlink>
-		</Navbar>
-		<main className={styles.main}>
-			<h1 className={styles.title}>
-				Welcome to <a>Transcendence</a>
-			</h1>
-			<Pong />
-		</main>
+		<Illustration />
 	</div>;
 }

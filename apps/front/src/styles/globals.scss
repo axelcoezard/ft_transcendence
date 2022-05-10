@@ -1,3 +1,9 @@
+/* ----------- COLOR PALETTE -----------*/
+
+@use 'Colors' as *;
+
+/* ---------------- ELSE ---------------*/
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -8,7 +14,7 @@ html,
 body {
 	font-family: sans-serif;
 
-	background: #171933;
+	background: $color-eerie;;
 }
 
 .button {
