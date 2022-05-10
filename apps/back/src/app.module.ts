@@ -1,6 +1,7 @@
 import { Module, Controller, Get, Injectable } from '@nestjs/common';
 import { RouterModule } from '@nestjs/core';
 import AuthModule from './auth.module';
+import UserModule from './user.module';
 
 @Injectable()
 class AppService
@@ -27,6 +28,10 @@ class AppController {
 			{
 				path: 'auth',
 				module: AuthModule,
+			},
+			{
+				path: 'user',
+				module: UserModule,
 			},
 		]),
 	],

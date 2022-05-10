@@ -6,7 +6,7 @@
 #    By: acoezard <acoezard@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/11 15:19:09 by acoezard          #+#    #+#              #
-#    Updated: 2022/05/06 11:21:54 by acoezard         ###   ########.fr        #
+#    Updated: 2022/05/09 10:20:36 by acoezard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,5 +20,7 @@ stop:
 
 clean:
 	@rm -rf apps/*/node_modules apps/*/dist
+
+re: clean start
 
 .PHONY: all start stop
