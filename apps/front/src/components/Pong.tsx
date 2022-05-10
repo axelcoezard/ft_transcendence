@@ -6,7 +6,7 @@ import usePaddle, { PADDLE_HEIGHT, PADDLE_WIDTH } from "../hooks/usePaddle";
 export const PONG_HEIGHT: number = 400;
 export const PONG_WIDTH: number = 600;
 
-export default () => {
+const Pong = () => {
 	const [started, setStarted] = useState(false)
 
 	const computer = usePaddle(20, 50)
@@ -91,3 +91,5 @@ export default () => {
 		onKeyDown={handleKeyboard}
 	/>;
 };
+
+export default Pong;

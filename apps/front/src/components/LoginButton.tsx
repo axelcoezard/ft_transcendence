@@ -1,8 +1,4 @@
-import { useAppContext } from '../contexts/AppContext';
-
-export default () => {
-	const {session} = useAppContext();
-
+const LoginButton = () => {
 	const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault()
 
@@ -14,3 +10,4 @@ export default () => {
 
 	return <button className="button" onClick={handleClick}>Se connecter</button>
 }
+export default LoginButton;
