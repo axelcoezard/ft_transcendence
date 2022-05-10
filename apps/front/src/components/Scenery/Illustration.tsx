@@ -1,11 +1,10 @@
 import * as React from "react";
-import Wave01 from "./Background.waves";
+import Waves from "./Background.waves";
 
 function Illustration() {
-  return (<div className="scenary">
-	  <Wave01 />
-  </div>
-  );
+  return <div className="scenary">
+	  <Waves/ >
+  </div>;
 }
 
 export default Illustration;

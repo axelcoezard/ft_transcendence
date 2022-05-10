@@ -6,8 +6,9 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
+ 
 
-# Make data base, printed on Sun May  8 13:16:30 2022
+# Make data base, printed on Mon May  9 21:58:49 2022
 
 # Variables
 
@@ -31,6 +32,7 @@ CURDIR := /Users/boymel29/Desktop/42/Ft_transcendence/ft_transcendence
 SHELL = /bin/sh
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-gb","availableLanguages":{},"_languagePackSupport":true}
+ 
 # environment
 _ = /usr/bin/make
 # makefile (from `Makefile', line 1)
@@ -42,7 +44,7 @@ __CFBundleIdentifier = com.microsoft.VSCode
 # environment
 INFOPATH = /opt/homebrew/share/info:
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/fl/xph2kxbs7qqcj4d204sq050r0000gn/T/vscode-ipc-3493aa21-de33-4dd8-b014-318416ad9079.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/fl/xph2kxbs7qqcj4d204sq050r0000gn/T/vscode-ipc-e3dcff71-9ae5-4203-83a9-1ce322323d0c.sock
 # environment
 VSCODE_CWD = /
 # environment
@@ -64,6 +66,7 @@ SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.ehHWEru0l8/Listeners
 # environment
 VSCODE_PIPE_LOGGING = true
 # environment
+ 
 PWD = /Users/boymel29/Desktop/42/Ft_transcendence/ft_transcendence
 # environment
 HOMEBREW_CELLAR = /opt/homebrew/Cellar
@@ -275,6 +278,6 @@ clean:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Sun May  8 13:16:30 2022
+# Finished Make data base on Mon May  9 21:58:49 2022
 
  

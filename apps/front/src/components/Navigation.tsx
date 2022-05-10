@@ -18,7 +18,7 @@ const Navbar = (props: any) => {
 }
 
 const Navlink = (props: any) => {
-	return <Link to={props.href}>{props.children}</Link>
+	<Link to={props.href}>{props.children}</Link>
 }
 
 export {Navbar, Navlink}
