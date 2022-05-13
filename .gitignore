@@ -23,4 +23,5 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # turbo
+.vscode
 .turbo
