@@ -8,10 +8,11 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Fri May 13 10:13:30 2022
+# Make data base, printed on Wed May 11 19:47:25 2022
 
 # Variables
 
+ 
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
@@ -27,11 +28,10 @@ NVM_INC = /Users/boymel29/.nvm/versions/node/v18.1.0/include/node
 # automatic
 @F = $(notdir $@)
 # makefile
-CURDIR := /Users/boymel29/Desktop/42/Ft_transcendence/ft_transcendence
+CURDIR := /Users/boymel29/Desktop/42/Ft_transcendence/Projet
 # makefile
 SHELL = /bin/sh
 # environment
- 
 VSCODE_NLS_CONFIG = {"locale":"en-gb","availableLanguages":{},"_languagePackSupport":true}
 # environment
 _ = /usr/bin/make
@@ -44,7 +44,7 @@ __CFBundleIdentifier = com.microsoft.VSCode
 # environment
 INFOPATH = /opt/homebrew/share/info:
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/fl/xph2kxbs7qqcj4d204sq050r0000gn/T/vscode-ipc-e5cc14ec-dd56-4961-a1f7-fb0d71edd066.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/fl/xph2kxbs7qqcj4d204sq050r0000gn/T/vscode-ipc-d1739b8d-ba0d-4700-ab0c-a87eb4026976.sock
 # environment
 VSCODE_CWD = /
 # environment
@@ -66,7 +66,7 @@ SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.1jHP8UBEIA/Listeners
 # environment
 VSCODE_PIPE_LOGGING = true
 # environment
-PWD = /Users/boymel29/Desktop/42/Ft_transcendence/ft_transcendence
+PWD = /Users/boymel29/Desktop/42/Ft_transcendence/Projet
 # environment
 HOMEBREW_CELLAR = /opt/homebrew/Cellar
 # environment
@@ -106,6 +106,7 @@ MAKE_VERSION := 3.81
 # environment
 USER = boymel29
 # makefile
+ 
 .DEFAULT_GOAL := all
 # environment
 LESS = -R
@@ -143,7 +144,6 @@ HOMEBREW_REPOSITORY = /opt/homebrew
 __CF_USER_TEXT_ENCODING = 0x1F5:0:0
 # environment
 COMMAND_MODE = unix2003
- 
 # default
 MAKEFILES := 
 # automatic
@@ -173,7 +173,7 @@ VSCODE_PID = 5258
 
 # Directories
 
-# . (device 16777231, inode 48104545): 11 files, no impossibilities.
+# . (device 16777231, inode 46718324): 11 files, no impossibilities.
 
 # 11 files, no impossibilities in 1 directories.
 
@@ -216,7 +216,7 @@ all: start
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-13 10:07:41
+#  Last modified 2022-05-10 19:18:38
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -238,6 +238,7 @@ start:
 # automatic
 # + := 
 # automatic
+ 
 # | := 
 # automatic
 # < := 
@@ -283,6 +284,6 @@ clean:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Fri May 13 10:13:30 2022
+# Finished Make data base on Wed May 11 19:47:25 2022
 
  
