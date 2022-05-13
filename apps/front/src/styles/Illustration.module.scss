@@ -2,77 +2,517 @@
 
 @use 'Colors' as *;
 
-/* ----------- BASIC SHAPES ------------*/
+/* --------- SCENERY ELEMENTS ----------*/
 
 .scenery {
+	background-color: $color-eerie;
+	
 	width: 100%;
 	height: 100%;
-	background-color: $color-eerie;
-}
 
-.top_frame_waves {
-	fill: url(#gradient_top_frame_waves);
 	position: absolute;
-	right: 0px;
-	top: 0px;
+	top: 0%;
+	left: 0%;
 }
 
-.bottom_frame_waves {
-	fill: url(#gradient_bottom_frame_waves);
-	position: absolute;
-	left: 0px;
-	bottom: 0px;
-}
+// BACKGROUND WAVES & BLOBS
 
-@mixin background_wave_fill {
+@mixin wave_blob_fill {
 	fill: $color_cornflower;
 	fill-opacity: 0.25;
 }
 
-.background_wave01 {
-	@include background_wave_fill();
+.background_waves {
+	@include wave_blob_fill();
+
+	height: 100%;
+	width: 100%;
 
 	position: absolute;
-	left: 0%;
 	top: 0%;
+	left: 0%;
 }
 
-.background_wave02 {
-	@include background_wave_fill();
+.background_blobs {
+	@include wave_blob_fill();
+	
+	height: 100%;
+	width: 100%;
 
 	position: absolute;
-	left: 0%;
 	top: 0%;
-}
-
-.background_wave03 {
-	@include background_wave_fill();
-
-	position: absolute;
 	left: 0%;
-	bottom: 0%;
 }
 
-.background_wave04 {
-	@include background_wave_fill();
+// ASTEROIDES
 
+.asteroides {
+	fill: $color_violet;
+
+	height: 100%;
+	width: 100%;
+	
 	position: absolute;
+	top: 0%;
 	left: 0%;
-	bottom: 0%;
 }
 
-.background_wave05 {
-	@include background_wave_fill();
+// CONFETTIES
+
+.round_white_confetti {
+	fill: white;
+
+	width: 10%;
+	height: 10%;
+	max-width: 31px;
+	max-height: 34px;
 
 	position: absolute;
+	top: 5%;
+	left: 40%;
+}
+
+.round_blue_confetti {
+	fill: $color_uranian;
+
+	width: 10%;
+	height: 10%;
+	max-width: 32px;
+	max-height: 35px;
+
+	position: absolute;
+	bottom: 40%;
+	right: 20%;
+}
+
+.round_green_confetti {
+	fill: $color_mint;
+
+	width: 10%;
+	height: 10%;
+	max-width: 31px;
+	max-height: 34px;
+
+	position: absolute;
+	bottom: 1%;
+	right: 4%;
+}
+
+.round_purple_confetti {
+	fill: $color_mauve;
+
+	width: 10%;
+	height: 10%;
+	max-width: 32px;
+	max-height: 35px;
+
+	position: absolute;
+	bottom: 11%;
+	left: 10%;
+	
+}
+
+.round_red_confetti {
+	fill: $color_pinkish;
+
+	width: 10%;
+	height: 10%;
+	max-width: 32px;
+	max-height: 34px;
+
+	position: absolute;
+	top: 37%;
+	left: 3%;
+}
+
+.square_white_confetti {
+	fill: white;
+
+	width: 10%;
+	height: 10%;
+	max-width: 28px;
+	max-height: 29px;
+
+	position: absolute;
+	bottom: 11%;
+	right: 31%;
+}
+
+.square_blue_confetti {
+	fill: $color_aero;
+
+	width: 10%;
+	height: 10%;
+	max-width: 28px;
+	max-height: 29px;
+
+	position: absolute;
+	top: 5%;
+	left: 5%;
+}
+
+.square_green_confetti {
+	fill: $color_turquoise;
+
+	width: 10%;
+	height: 10%;
+	max-width: 28px;
+	max-height: 30px;
+
+	position: absolute;
+	bottom: 32%;
+	left: 29%;
+}
+
+.square_purple_confetti {
+	fill: $color_lavender;
+	
+	width: 10%;
+	height: 10%;
+	max-width: 27px;
+	max-height: 30px;
+	
+	position: absolute;
+	top: 14%;
+	right: 14%;
+}
+
+.square_red_confetti {
+	fill: $color_bitter;
+
+	width: 10%;
+	height: 10%;
+	max-width: 27px;
+	max-height: 29px;
+
+	position: absolute;
+	right: 48%;
+	top: 33%;
+}
+
+@mixin pattern_sample_confetties {
+	fill: none;
+
+	width: 25%;
+	height: 50%;
+
+	position: absolute;
+	display: inline;
+}
+
+.pattern_sample_confetties01 {
+	@include pattern_sample_confetties();
+
+	top: 0%;
+	left: 0%;
+}
+
+.pattern_sample_confetties02 {
+	@include pattern_sample_confetties();
+
+	top: 0%;
+	left: 25%;
+}
+
+.pattern_sample_confetties03 {
+	@include pattern_sample_confetties();
+
+	top: 0%;
+	right: 25%;
+}
+
+.pattern_sample_confetties04 {
+	@include pattern_sample_confetties();
+
+	top: 0%;
 	right: 0%;
-	top: 0%;
 }
 
-.background_wave06 {
-	@include background_wave_fill();
+.pattern_sample_confetties05 {
+	@include pattern_sample_confetties();
+
+	bottom: 0%;
+	left: 0%;
+}
+
+.pattern_sample_confetties06 {
+	@include pattern_sample_confetties();
+
+	bottom: 0%;
+	left: 25%;
+}
+
+.pattern_sample_confetties07 {
+	@include pattern_sample_confetties();
+
+	bottom: 0%;
+	right: 25%;
+}
+
+.pattern_sample_confetties07 {
+	@include pattern_sample_confetties();
+
+	bottom: 0%;
+	right: 25%;
+}
+
+.pattern_sample_confetties08 {
+	@include pattern_sample_confetties();
+
+	bottom: 0%;
+	right: 0%;
+}
+
+.confetties {
+	fill: none;
+	fill-opacity: .5;
+
+	width: 100%;
+	height: 100%;
 
 	position: absolute;
-	right: 0%;
+	display: inline;
 	top: 0%;
+	left: 0%;
+}
+
+// SHOOTING STARS
+
+.blue_shooting_star {
+	fill: $color_aero;
+
+	width: 25%;
+	height: 25%;
+
+	position: absolute;
+	bottom: 0%;
+	right: 0%;
+}
+
+.purple_shooting_star {
+	fill: $color_mauve;
+
+	width: 25%;
+	height: 25%;
+
+	position: absolute;
+	bottom: 15%;
+	left: 5%;
+}
+
+.green_shooting_star {
+	fill: $color_mint;
+
+	width: 25%;
+	height: 25%;
+
+	position: absolute;
+	top: 0%;
+	left: 30%;
+}
+
+// BIG PLANET
+
+.big_planet {
+	fill: $color_violet;
+
+	width: 40%;
+	height: 40%;
+	
+	position: absolute;
+	z-index: 1;
+	top: -15%;
+	left: 0%;
+}
+
+// MEDIUM PLANET
+
+.medium_planet {
+	fill: $color_violet;
+
+	width: 30%;
+	height: 30%;
+	
+	position: absolute;
+	z-index: 1;
+	bottom: 15%;
+	right: 10%;
+}
+
+// SMALL PLANET
+
+.small_planet {
+	fill: $color_violet;
+
+	width: 15%;
+	height: 15%;
+	
+	position: absolute;
+	z-index: 1;
+	bottom: 16%;
+	left: 19%;
+}
+
+// MICRO PLANETS
+
+.green_micro_planet01 {
+	width: 5%;
+	height: 5%;
+
+	position: absolute;
+	z-index: 1;
+	top: 55%;
+	left: 45%;
+}
+
+
+.green_micro_planet02 {
+	width: 4%;
+	height: 4%;
+
+	position: absolute;
+	z-index: 1;
+	bottom: 10%;
+	left: 5%;
+}
+
+.green_micro_planet03 {
+	width: 2%;
+	height: 2%;
+
+	position: absolute;
+	z-index: 1;
+	top: 35%;
+	right: 5%;
+}
+
+.green_micro_planet04 {
+	width: 6%;
+	height: 6%;
+
+	position: absolute;
+	z-index: 1;
+	bottom: 1%;
+	right: 2%;
+}
+
+.red_micro_planet01 {
+	width: 6%;
+	height: 6%;
+
+	position: absolute;
+	z-index: 1;
+	top: 17%;
+	right: 12%;
+}
+
+.red_micro_planet02 {
+	width: 3%;
+	height: 3%;
+
+	position: absolute;
+	z-index: 1;
+	top: 31%;
+	left: 3%;
+}
+
+.red_micro_planet03 {
+	width: 4%;
+	height: 4%;
+
+	position: absolute;
+	z-index: 1;
+	bottom: 5%;
+	right: 48%;
+}
+
+.red_micro_planet04 {
+	width: 2%;
+	height: 2%;
+
+	position: absolute;
+	z-index: 1;
+	top: 50%;
+	left: 35%;
+}
+
+.blue_micro_planet01 {
+	width: 5%;
+	height: 5%;
+
+	position: absolute;
+	z-index: 1;
+	top: 15%;
+	left: 38%;
+}
+
+.blue_micro_planet02 {
+	width: 7%;
+	height: 7%;
+
+	position: absolute;
+	z-index: 1;
+	top: 42%;
+	right: 20%;
+}
+
+.blue_micro_planet03 {
+	width: 4%;
+	height: 4%;
+
+	position: absolute;
+	z-index: 1;
+	bottom: 45%;
+	left: 20%;
+}
+
+.blue_micro_planet04 {
+	width: 3%;
+	height: 3%;
+
+	position: absolute;
+	z-index: 1;
+	top: 1%;
+	right: 40%;
+}
+
+// FRAME WAVES
+
+.top_frame_wave {
+	width: 50%;
+	height: auto;
+	
+	position: absolute;
+	z-index: 1;
+	top: 0%;
+	right: 0%;
+}
+
+.bottom_frame_wave {
+	width: 50%;
+	height: auto;
+	
+	position: absolute;
+	z-index: 1;
+	bottom: 0%;
+	left: 0%;
+}
+
+.frame_waves {
+	width: 100%;
+	height: 100%;
+
+	position: relative;
+}
+
+// ROCKET
+
+.rocket {
+	width: 40%;
+	height: 40%;
+
+	position: absolute;
+	z-index: 1;
+	top: 30%;
+	left: 25%;
 }
