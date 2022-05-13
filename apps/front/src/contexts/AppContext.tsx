@@ -1,6 +1,6 @@
-import { createContext, FC, Suspense, useContext, useEffect } from "react";
+import { createContext, useContext } from "react";
 import { Socket } from "socket.io-client";
-import useSession, { SessionType } from "../hooks/useSession";
+import useSession from "../hooks/useSession";
 import useSocket from "../hooks/useSocket";
 
 const AppContext = createContext<any>({

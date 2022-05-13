@@ -1,9 +1,6 @@
-import { cloneElement, useEffect, useRef, useState } from 'react'
 import { Navbar, Navlink } from '../components/Navigation'
-import io from 'socket.io-client'
 
 import styles from '../styles/Home.module.scss'
-import useSocket from '../hooks/useSocket'
 import Pong from '../components/Pong'
 import Tchat from '../components/Tchat'
 

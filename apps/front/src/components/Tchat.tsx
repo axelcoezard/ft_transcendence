@@ -1,7 +1,6 @@
 import { useState } from 'react'
 
 import styles from '../styles/Home.module.scss'
-import useSocket from '../hooks/useSocket'
 import { useAppContext } from '../contexts/AppContext';
 
 const Tchat = () => {

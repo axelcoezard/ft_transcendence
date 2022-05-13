@@ -1,4 +1,4 @@
-import { MutableRefObject, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { io, Socket } from "socket.io-client";
 
 const useSocket = (url: string): any => {
@@ -16,10 +16,10 @@ const useSocket = (url: string): any => {
 			_socket.disconnect()
 			console.log("Socket disconnected")
 		}
-	}, [])
+	}, [events, url])
 
 	const on = (name: string, callback: any) => {
-		if (events.findIndex(event => event.name === name) != -1)
+		if (events.findIndex(event => event.name === name) !== -1)
 			return;
 
 		if (socket.current)

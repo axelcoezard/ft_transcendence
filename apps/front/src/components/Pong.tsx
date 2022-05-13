@@ -1,9 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useAppContext } from "../contexts/AppContext";
 import useBall from "../hooks/useBall";
 import useCanvas from "../hooks/useCanvas";
 import usePaddle, { PADDLE_HEIGHT, PADDLE_WIDTH } from "../hooks/usePaddle";
-import useSocket from "../hooks/useSocket";
 
 export const PONG_HEIGHT: number = 400;
 export const PONG_WIDTH: number = 600;
@@ -39,15 +38,15 @@ const Pong = () => {
 	const update = (framecount: number) => {
 		if (!started) return;
 
-		if (ball.dx == -1 && ball.x <= 0 || ball.dx == 1 && ball.x >= PONG_WIDTH - ball.diameter) ball.setDx(-ball.dx);
-		if (ball.dy == -1 && ball.y <= 0 || ball.dy == 1 && ball.y >= PONG_HEIGHT - ball.diameter) ball.setDy(-ball.dy);
+		if ((ball.dx === -1 && ball.x <= 0) ||(ball.dx === 1 && ball.x >= PONG_WIDTH - ball.diameter)) ball.setDx(-ball.dx);
+		if ((ball.dy === -1 && ball.y <= 0) || (ball.dy === 1 && ball.y >= PONG_HEIGHT - ball.diameter)) ball.setDy(-ball.dy);
 
-		if (ball.dx == -1 && ball.x <= computer.x + PADDLE_WIDTH
+		if (ball.dx === -1 && ball.x <= computer.x + PADDLE_WIDTH
 			&& ball.y + ball.diameter > computer.y
 			&& ball.y <= computer.y + PADDLE_HEIGHT)
 			ball.setDx(-ball.dx);
 
-		if (ball.dx == 1 && ball.x + ball.diameter >= player.x
+		if (ball.dx === 1 && ball.x + ball.diameter >= player.x
 			&& ball.y + ball.diameter >= player.y
 			&& ball.y <= player.y + PADDLE_HEIGHT)
 			ball.setDx(-ball.dx);
