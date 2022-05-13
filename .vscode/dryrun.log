@@ -1,0 +1,5 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory `/Users/boymel29/Desktop/42/Ft_transcendence/Projet'
+docker-compose up --build --remove-orphans
+make: Leaving directory `/Users/boymel29/Desktop/42/Ft_transcendence/Projet'
+ 
