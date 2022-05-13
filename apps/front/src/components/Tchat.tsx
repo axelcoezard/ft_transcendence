@@ -2,14 +2,13 @@ import { useState } from 'react'
 
 import styles from '../styles/Home.module.scss'
 import useSocket from '../hooks/useSocket'
+import { useAppContext } from '../contexts/AppContext';
 
 const Tchat = () => {
+	const {socket} = useAppContext();
 	let [messages, setMessages] = useState<any[]>([]);
 	let [value, setValue] = useState("");
-	let [id, setId] = useState(0);
 
-	let socket = useSocket("http://localhost:3030/tchat")
-	socket.on("id", ({id}: {id: any}) => setId(id))
 	socket.on("privmsg", (message: any) => {
 		messages.push({
 			id: messages.length+1,
@@ -19,7 +18,6 @@ const Tchat = () => {
 	})
 
 	return <main className={styles.main}>
-		<h1 className={styles.title}>{id}</h1>
 		<ul className={styles.tchat}>
 		{
 			messages.map((message: any, index: number) => <li key={index}>

@@ -3,14 +3,13 @@ import { SubscribeMessage, WebSocketGateway, WebSocketServer } from "@nestjs/web
 import { Socket, Server } from 'socket.io';
 
 @WebSocketGateway({
-	cors: { origin: '*',},
-	namespace: 'pong'
+	cors: { origin: '*',}
 })
-export class PongGateway {
+export class AppGateway {
 
 	@WebSocketServer()
 	private server: Server;
-	private logger: Logger = new Logger('PongGateway');
+	private logger: Logger = new Logger('AppGateway');
 	private users: any;
 
 	afterInit(server: Server) {
@@ -27,6 +26,15 @@ export class PongGateway {
 		this.users.set(client.id, client)
 		client.emit("id", {id: client.id});
 		this.logger.log(`Client connected: ${client.id}`);
+	}
+
+	@SubscribeMessage("privmsg")
+	onPrivmsg(client: Socket, {value}) {
+		this.server.emit("privmsg", {
+			sender: client.id,
+			value
+		});
+		console.log(`${client.id}: ${value}`);
 	}
 
 	@SubscribeMessage("paddleMove")

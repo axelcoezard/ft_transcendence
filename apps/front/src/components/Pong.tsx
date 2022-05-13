@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { useAppContext } from "../contexts/AppContext";
 import useBall from "../hooks/useBall";
 import useCanvas from "../hooks/useCanvas";
 import usePaddle, { PADDLE_HEIGHT, PADDLE_WIDTH } from "../hooks/usePaddle";
@@ -8,8 +9,8 @@ export const PONG_HEIGHT: number = 400;
 export const PONG_WIDTH: number = 600;
 
 const Pong = () => {
+	const {socket} = useAppContext();
 	const [started, setStarted] = useState(false)
-	let socket = useSocket("http://localhost:3030/pong")
 	let [id, setId] = useState<string>("");
 
 	const computer = usePaddle(20, 50)

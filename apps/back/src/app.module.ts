@@ -1,8 +1,7 @@
 import { Module, Controller, Get, Injectable } from '@nestjs/common';
 import { RouterModule } from '@nestjs/core';
 import AuthModule from './auth.module';
-import { PongGateway } from './pong.gateway';
-import { TchatGateway } from './tchat.gateway';
+import { AppGateway } from './app.gateway';
 import UserModule from './user.module';
 
 @Injectable()
@@ -40,8 +39,7 @@ class AppController {
 	controllers: [AppController],
 	providers: [
 		AppService,
-		TchatGateway,
-		PongGateway
+		AppGateway
 	],
 })
 export default class AppModule {}
