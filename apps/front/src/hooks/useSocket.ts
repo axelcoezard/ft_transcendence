@@ -6,7 +6,7 @@ const useSocket = (url: string): any => {
 	const [events, setEvents] = useState<any[]>([])
 
 	useEffect(() => {
-		let _socket = io(url)
+		let _socket = io(url, { forceNew: true })
 		events.forEach(event => {
 			_socket.on(event.name, event.callback)
 		})

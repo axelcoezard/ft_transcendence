@@ -2,12 +2,15 @@ import { Module, Logger } from '@nestjs/common';
 import { SubscribeMessage, WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
 import { Socket, Server } from 'socket.io';
 
-@WebSocketGateway({cors: { origin: '*',}})
-export class TchatGateway {
+@WebSocketGateway({
+	cors: { origin: '*',},
+	namespace: 'pong'
+})
+export class PongGateway {
 
 	@WebSocketServer()
 	private server: Server;
-	private logger: Logger = new Logger('AppGateway');
+	private logger: Logger = new Logger('PongGateway');
 	private users: any;
 
 	afterInit(server: Server) {
@@ -26,12 +29,10 @@ export class TchatGateway {
 		this.logger.log(`Client connected: ${client.id}`);
 	}
 
-	@SubscribeMessage("privmsg")
-	onPrivmsg(client: Socket, {value}) {
-		this.server.emit("privmsg", {
-			sender: client.id,
-			value
+	@SubscribeMessage("paddleMove")
+	onPaddleMove(client: Socket, {y}) {
+		this.server.emit("paddleMove", {
+			sender: client.id, y
 		});
-		console.log(`${client.id}: ${value}`);
 	}
 }
