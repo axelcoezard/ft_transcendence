@@ -1,5 +1,5 @@
 
-import { useEffect, useRef, useState } from 'react'
+import { cloneElement, useEffect, useRef, useState } from 'react'
 import { Navbar, Navlink } from '../components/Navigation'
 import io from 'socket.io-client'
 
@@ -7,36 +7,27 @@ import styles from '../styles/Home.module.scss'
 import { useAppContext } from '../contexts/AppContext'
 
 const Rtc = () => {
-	const {session} = useAppContext();
+	const [messages, setMessages] = useState<any>([]);
 	const [value, setValue] = useState("");
 	const socket = useRef<any>();
+	const [id, setId] = useState(0);
 
-	const [id, setId] = useState(Math.floor(Math.random() * 100000000).toString(16));
-	const [to, setTo] = useState("");
-
-	const addMessage = (value: string) => {
-
+	const addMessage = (message: any) => {
+		setMessages([...messages, message]);
+		console.log(message);
 	}
 
 	useEffect(() => {
 		const _socket = io("http://localhost:3030");
-
-		_socket.on("privmsg", ({from, value}) => {
-			console.log("Message received:", value);
-			const messages = [...session.get("messages"), value];
-			session.set("messages", messages);
-		})
-
-		_socket.emit("join", {id});
-
+		setMessages([])
+		_socket.on("id", ({id}: {id: any}) => setId(id))
+		_socket.on("privmsg", (message: any) => addMessage(message))
 		socket.current = _socket;
-	}, [session])
+	}, [])
 
 	const sendMessage = async (e: any) => {
 		e.preventDefault()
-		const messages = [...session.get("messages"), value];
-		session.set("messages", messages);
-		socket.current.emit("privmsg", {to, from: id, value});
+		socket.current.emit("privmsg", {value});
 	}
 
 	return <div className={styles.container}>
@@ -46,49 +37,21 @@ const Rtc = () => {
 		</Navbar>
 		<main className={styles.main}>
 			<h1 className={styles.title}>{id}</h1>
-
-			<input type="text" value={to} onChange={(e: any) => {
-				setTo(e.currentTarget.value || e.target.value)
-			}}/>
+			<ul className={styles.tchat}>
+			{
+				messages.map((message: any, index: number) => <li key={index}>
+					<b>{message.sender} </b>
+					{message.value}
+				</li>)
+			}
+			</ul>
 			<input type="text" value={value} onChange={(e: any) => {
 				setValue(e.currentTarget.value || e.target.value)
 			}}/>
 			<button onClick={sendMessage}>Send</button>
-			{
-				session.has("messages")
-				? session.get("messages").map((message: any, index: number) => <p key={index}>{message}</p>)
-				: null
-			}
+
 		</main>
 	</div>;
 }
 
 export default Rtc;
-
-//const pc = useRef<RTCPeerConnection>()
-
-//const configuration = {'iceServers': [{'urls': 'stun:stun.l.google.com:19302'}]}
-//const _pc = new RTCPeerConnection(configuration);
-
-//_pc.onicecandidate = (e: RTCPeerConnectionIceEvent) => {
-//	if (e.candidate)
-//		console.log(e.candidate);
-//}
-
-//_pc.oniceconnectionstatechange = (e: any) => {
-//	console.log(e)
-//}
-
-//_pc.ontrack = (e: any) => {
-//	console.log(e)
-//}
-//pc.current = _pc;
-
-
-//pc.current?.createOffer()
-//	.then((offer: RTCSessionDescriptionInit) => {
-//		console.log(offer)
-//		pc.current?.setLocalDescription(offer)
-//	}).catch((e: any) => {
-
-//	})
