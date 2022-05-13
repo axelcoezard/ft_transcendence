@@ -24,7 +24,6 @@ class AppController {
 
 @Module({
 	imports: [
-		AuthModule,
 		RouterModule.register([
 			{
 				path: 'auth',
