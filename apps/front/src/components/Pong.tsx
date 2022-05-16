@@ -11,16 +11,17 @@ export const PONG_WIDTH: number = 600;
 const Pong = () => {
 	const {socket} = useAppContext();
 	const [started, setStarted] = useState(false)
-	let [id, setId] = useLocalStorage<string>("socket_id", "");
+	let [id, setId] = useState("0")
 
 	const computer = usePaddle(20, 50)
 	const player = usePaddle(PONG_WIDTH - PADDLE_WIDTH - 20, 50)
 	const ball = useBall();
 
+	socket.on("connect", () => setId(socket.id));
 	socket.on("id", ({id}: any) => setId(id))
 	socket.on("paddleMove", ({sender, y}: any) => {
-		console.log(`${sender} === ${id}`)
-		if (sender === id)
+		console.log(`${sender} === ${socket.id}`)
+		if (sender === socket.id)
 			return;
 		computer.setY(y)
 	})
@@ -86,7 +87,7 @@ const Pong = () => {
 		const canvas = e.currentTarget || e.target;
 		const y = e.clientY - canvas.getBoundingClientRect().y - 50;
 		player.setY(y)
-		socket.emit("paddleMove", { y })
+		socket.emit("paddleMove", { sender: id, y })
 	}
 
 	return <>

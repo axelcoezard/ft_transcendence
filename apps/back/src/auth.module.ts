@@ -35,7 +35,9 @@ class AuthController {
 		let request = await fetch("https://api.intra.42.fr/oauth/token", {
 			method: "POST",
 			headers: {
-				'Content-type': 'application/json; charset=UTF-8'
+				'Content-Type': 'application/json',
+				'Accept': 'application/json',
+				'cors': 'true'
 			},
 			body: JSON.stringify(body)
 		})

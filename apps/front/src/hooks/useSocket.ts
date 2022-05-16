@@ -34,7 +34,11 @@ const useSocket = (url: string): any => {
 			socket.current.emit(event, data)
 	}
 
-	return {on, emit, ref: socket.current}
+	return {
+		on, emit,
+		current: socket.current,
+		id: socket.current ? socket.current.id : null
+	}
 }
 
 export default useSocket;

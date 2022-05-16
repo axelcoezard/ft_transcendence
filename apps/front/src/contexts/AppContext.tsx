@@ -7,13 +7,15 @@ const AppContext = createContext<any>({
 	session: {
 		value: {},
 		set: (key: string, value: any) => { },
+		setAll: (entries: any) => { },
 		has: (key: string) => false,
 		get: (key: string) => "",
 	},
 	socket: {
 		on: (name: string, callback: any) => { },
 		emit: (name: string, value: any) => { },
-		ref: Socket
+		current: null,
+		id: null
 	}
 });
 

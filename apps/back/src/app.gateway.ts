@@ -38,9 +38,9 @@ export class AppGateway {
 	}
 
 	@SubscribeMessage("paddleMove")
-	onPaddleMove(client: Socket, {y}) {
+	onPaddleMove(client: Socket, {sender, y}) {
 		this.server.emit("paddleMove", {
-			sender: client.id,
+			sender,
 			y
 		});
 	}
