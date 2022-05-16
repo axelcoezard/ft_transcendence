@@ -18,9 +18,11 @@ body {
 }
 
 .button {
+	position: fixed;
 	display: inline-block;
 	height: 40px;
 	padding: 0 16px;
+	z-index: 1000;
 
 	color: #48DAC3;
 	font-weight: bold;
