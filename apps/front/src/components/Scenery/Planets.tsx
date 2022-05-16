@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import styles from '../../styles/Illustration.module.scss'
+import styles from '../../styles/Scenery.module.scss'
 
 // FILL IN PLANETS 
 

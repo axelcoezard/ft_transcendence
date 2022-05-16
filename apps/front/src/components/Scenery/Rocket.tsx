@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import styles from '../../styles/Illustration.module.scss'
+import styles from '../../styles/Scenery.module.scss'
 
 function FilterRocket() {
 	return <defs className={styles.rocket}>

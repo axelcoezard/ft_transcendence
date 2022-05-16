@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import styles from '../../styles/Illustration.module.scss'
+import styles from '../../styles/Scenery.module.scss'
 
 function Asteroides(props: any) {
 	return <svg className={styles.asteroides} width={props.width} height={props.height} fill="none" viewBox="0 0 1512 982">

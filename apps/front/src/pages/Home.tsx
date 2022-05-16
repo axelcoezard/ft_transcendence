@@ -1,6 +1,6 @@
 import { useAppContext } from '../contexts/AppContext'
 import styles from '../styles/Home.module.scss'
-
+import Scenery from '../components/Scenery/Scenery'
 const Home = () => {
 	const {session} = useAppContext()
 	return <div className={styles.container}>

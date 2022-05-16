@@ -22,20 +22,40 @@
 	fill-opacity: 0.25;
 }
 
-.background_waves {
+.background_wave01 {
 	@include wave_blob_fill();
-
-	height: 100%;
-	width: 100%;
-
+	
+	width: 80%;
+	height: 50%;
+	
 	position: absolute;
 	top: 0%;
 	left: 0%;
 }
 
-.background_blobs {
+.background_wave02 {
 	@include wave_blob_fill();
-	
+
+	width: 50%;
+	height: 50%;
+
+	position: absolute;
+	bottom: 0%;
+	left: 0%;
+}
+
+.background_wave03 {
+	@include wave_blob_fill();
+
+	width: 50%;
+	height: 100%;
+
+	position: absolute;
+	top: 0%;
+	right: 0%;
+}
+
+.background_waves {
 	height: 100%;
 	width: 100%;
 
