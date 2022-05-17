@@ -4,20 +4,6 @@
 
 /* ---------- LOGIN ELEMENTS -----------*/
 
-.h1 {
-	color: white;
-	
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 24px;
-	display: flex;
-	
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	padding: 20px;
-	gap: 20px;
-}
-
 .login {
 	width: 100%;
 	height: 100%;
@@ -28,34 +14,75 @@
 }
 
 .button {
-	background: $color_eerie;
+	background-color: $color_eerie;
 
 	width: 360px;
 	height: 80px;		
 	border-radius: 25px;
-	
-	position: absolute;
-	display: flex;
-
+	border-color: $color_eerie;
 }
 
 .content {
-	background: rgba(33, 33, 33, 0.8);
+	background: rgba(50, 50, 50, 0.5);
 	backdrop-filter: blur(50px);
 	
-	width: 40%;
-	height: 90%;
+	width: 45%;
+	height: 95%;
 	border-radius: 25px;
 	
 	position: absolute;
 	z-index: 1;
-	top: 5%;
-	right: 5%;
+	top: 2.5%;
+	right: 2.5%;
 
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	padding: 331px 178px;
-	gap: 80px;
 }
+
+.infography {
+	width: 50%;
+	height: 12%;
+
+	position: relative;
+	left: 0px;
+	top: 45%;
+
+	display: flex;
+	justify-content: center;
+}
+
+.title {
+	font-family: Helvetica, Arial, sans-serif;
+	font-style: bold;
+	font-size: 4.44vw;
+	
+	position: absolute;
+	top: 0%;
+	z-index: 1;
+	
+	display: flex;
+	align-items: center;
+	text-align: center;
+	text-transform: uppercase;
+
+	background: linear-gradient(90deg, $color_mauve 20.83%, $color_uranian 49.94%, $color_mint 80.3%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.text {
+	color: white;
+
+	font-family: Helvetica, Arial, sans-serif;
+	font-style: lighter;
+	font-size: 1.6vw;
+	
+	position: absolute;
+	z-index: 1;
+	bottom: 0%;
+
+}
+
+

@@ -8,7 +8,7 @@ import FrameWaves from "./Frame.waves";
 import Rocket from "./Rocket";
 import styles from '../../styles/Scenery.module.scss'
 
-function Scenery() {
+function 	DefaultScenery() {
   return <div className={styles.scenery}>
 		<BackgroundWaves />
 		<Asteroides />
@@ -19,4 +19,20 @@ function Scenery() {
   	</div>
 }
 
-export default Scenery;
+function 	LoginBackScenery() {
+	return <div className={styles.scenery}>
+		<BackgroundWaves />
+		<Asteroides />
+		<Confetties />
+		<Planets />
+		<ShootingStars />
+  	</div>
+}
+
+function	LoginFrontScenery() {
+	return <div className={styles.scenery}>
+			<FrameWaves />
+  	</div>
+}
+
+export default { DefaultScenery, LoginBackScenery, LoginFrontScenery };

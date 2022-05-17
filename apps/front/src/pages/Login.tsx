@@ -32,10 +32,15 @@ const Login = () => {
 	}, [])
 
 	return <div className={styles.login}>
-		<Illustration />
+		<Illustration.LoginBackScenery />
+		<div className={styles.infography}>
+			<h1 className={styles.title}>TRANSCENDENCE</h1>
+			<h2 className={styles.text}>Pong to the extrem!</h2>
+		</div>
 		<div className={styles.content}>
 			<LoginButton />
 		</div>
+		<Illustration.LoginFrontScenery />
 	</div>;
 }
 

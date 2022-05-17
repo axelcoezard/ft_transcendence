@@ -43,7 +43,7 @@ const LoginButton = () => {
 	}
 
 	return <button className={styles.button} onClick={handleClick}>
-		<h1 className={styles.h1}>Login through <FourtyTwoLogo /> portal</h1>
 	</button>
 }
+
 export default LoginButton;
