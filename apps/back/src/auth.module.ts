@@ -25,24 +25,18 @@ class AuthController {
 
 	@Get("/token/:code")
 	async login(@Param("code") code: string): Promise<string> {
-		let body = {
-			grant_type: "authorization_code",
-			client_id: this.service.getUniqueID(),
-			client_secret: this.service.getSecret(),
-			code: code,
-			redirect_uri: "http://localhost:3000"
-		};
 		let request = await fetch("https://api.intra.42.fr/oauth/token", {
 			method: "POST",
-			headers: {
-				'Content-Type': 'application/json',
-				'Accept': 'application/json',
-				'cors': 'true'
-			},
-			body: JSON.stringify(body)
+			headers: {'Content-Type': 'application/json'},
+			body: JSON.stringify({
+				grant_type: "authorization_code",
+				client_id: this.service.getUniqueID(),
+				client_secret: this.service.getSecret(),
+				code: code,
+				redirect_uri: "http://localhost:3000"
+			})
 		})
 		let response = await request.json();
-		console.log(body, response)
 		return JSON.stringify(response);
 	}
 }

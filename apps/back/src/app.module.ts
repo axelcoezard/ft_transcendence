@@ -3,7 +3,7 @@ import { RouterModule } from '@nestjs/core';
 import AuthModule from './auth.module';
 import { AppGateway } from './app.gateway';
 import UserModule from './user.module';
-import { UserModule } from './user/user.module';
+import { TypeOrmModule } from '@nestjs/typeorm'
 
 @Injectable()
 class AppService
@@ -37,17 +37,17 @@ class AppController {
 			},
 		]),
 		UserModule,
-  TypeOrmModule.forRoot({
-	type: 'postgres',
-	host: 'localhost',
-	port: 5432,
-	username: 'postgres', 
-	password: 'postgres',
-	database: 'allusers',
-	autoLoadEntities: true,
-	entities: ["dist/**/*.entity{.ts,.js}"],
-	synchronize: true
-  }),
+		TypeOrmModule.forRoot({
+			type: 'postgres',
+			host: 'localhost',
+			port: 5432,
+			username: 'postgres',
+			password: 'postgres',
+			database: 'allusers',
+			autoLoadEntities: true,
+			entities: ["dist/**/*.entity{.ts,.js}"],
+			synchronize: true
+		})
 	],
 	controllers: [AppController],
 	providers: [
