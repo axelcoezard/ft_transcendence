@@ -18,32 +18,38 @@ export class User {
 	email: string;
 
 	@Column({
-		type: 'int'
+		type: 'int',
+		default: 0
 	})
 	avatar_id: number;
 
 	@Column({
-		type: 'int'
+		type: 'int',
+		default: 0
 	})
 	rank: number;
 
 	@Column({
-		type: 'varchar'
+		type: 'varchar',
+		default: 'offline',
 	})
 	status: string;
 
 	@Column({
-		type: 'boolean'
+		type: 'boolean',
+		default: false
 	})
 	"2FA_status": boolean;
 
 	@Column({
-		type: 'boolean'
+		type: 'varchar',
+		default: '',
 	})
 	"2FA_secret": boolean;
 
 	@Column({
-		type: 'int'
+		type: 'int',
+		default: 1000
 	})
 	ELO_score: number;
 
@@ -63,8 +69,8 @@ export class User {
 	users: User[];*/
 
 	@CreateDateColumn()
-	creation: Date;
+	created_at: Date;
 
 	@UpdateDateColumn()
-	update: Date;
+	updated_at: Date;
 }

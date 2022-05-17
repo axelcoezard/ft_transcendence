@@ -1,18 +1,62 @@
-import { Module, Controller, Get, Injectable, Param } from '@nestjs/common';
+import { Module, Controller, Get, Injectable, Param, Inject } from '@nestjs/common';
 import 'dotenv/config'
 import fetch from 'node-fetch';
+import { User } from './user/user.entity';
+import UserModule from './user/user.module';
+import { UserService } from './user/user.service';
 
 @Injectable()
 class AuthService
 {
+	@Inject(UserService)
+	public readonly userService: UserService;
+
 	getUniqueID(): string { return process.env.API_UID; }
 	getSecret(): string { return process.env.API_SECRET; }
 	getRedirectURI(): string { return process.env.API_REDIRECT_URI; }
+
+	async getUser(username: string): Promise<User> {
+		return await this.userService.userRepository.findOne({
+			where: {username}
+		})
+	}
+
+	async addUser(user: User) {
+		this.userService.userRepository.save(user);
+	}
 }
 
-@Controller()
+const getUserAccessToken = async (uid: string, secret: string, code: string): Promise<any> => {
+	let request = await fetch("https://api.intra.42.fr/oauth/token", {
+		method: "POST",
+		headers: {'Content-Type': 'application/json'},
+		body: JSON.stringify({
+			grant_type: "authorization_code",
+			client_id: uid,
+			client_secret: secret,
+			code: code,
+			redirect_uri: "http://localhost:3000"
+		})
+	})
+	return await request.json();
+}
+
+const getUserInformations = async (access_token: string): Promise<any> => {
+	let request = await fetch("https://api.intra.42.fr/v2/me", {
+		method: "GET",
+		headers: {
+			'Authorization': `Bearer ${access_token}`,
+			'Content-Type': 'application/json'
+		}
+	})
+	return await request.json();
+}
+
+@Controller('auth')
 class AuthController {
-	constructor(private readonly service: AuthService) {}
+
+	@Inject(AuthService)
+	private readonly service: AuthService;
 
 	@Get("/authorize")
 	authorize(req: any): string {
@@ -25,24 +69,30 @@ class AuthController {
 
 	@Get("/token/:code")
 	async login(@Param("code") code: string): Promise<string> {
-		let request = await fetch("https://api.intra.42.fr/oauth/token", {
-			method: "POST",
-			headers: {'Content-Type': 'application/json'},
-			body: JSON.stringify({
-				grant_type: "authorization_code",
-				client_id: this.service.getUniqueID(),
-				client_secret: this.service.getSecret(),
-				code: code,
-				redirect_uri: "http://localhost:3000"
-			})
-		})
-		let response = await request.json();
-		return JSON.stringify(response);
+		let api = await getUserAccessToken(
+			this.service.getUniqueID(),
+			this.service.getSecret(), code
+		);
+		let infos = await getUserInformations(api.access_token);
+
+		let user = await this.service.getUser(infos.login);
+		if (!user)
+		{
+			user = new User();
+			user.username = infos.login;
+			user.email = infos.email;
+			this.service.addUser(user);
+		}
+
+		return JSON.stringify({
+			api: api,
+			client: infos
+		});
 	}
 }
 
 @Module({
-	imports: [],
+	imports: [UserModule],
 	controllers: [AuthController],
 	providers: [AuthService],
 })

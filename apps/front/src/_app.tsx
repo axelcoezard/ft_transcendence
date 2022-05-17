@@ -14,7 +14,8 @@ import "./styles/globals.scss";
 const PrivateRoute = ({children}: {children: JSX.Element}) => {
 	const { session } = useAppContext();
 
-	return session.has("access_token") ? children : <Login />;
+	//return session.has("access_token") ? children : <Login />;
+	return children;
 }
 
 
