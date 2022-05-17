@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import { useSearchParams, useNavigate } from "react-router-dom"
 import LoginButton from '../components/LoginButton'
-import Illustration from '../components/Scenery/Illustration'
+import Illustration from '../components/Scenery/Scenery'
 import { useAppContext } from '../contexts/AppContext'
 
-import styles from '../styles/Home.module.scss'
+import styles from '../styles/Login.module.scss'
 
 const Login = () => {
 	const {session} = useAppContext()
@@ -31,9 +31,11 @@ const Login = () => {
 		return () => {}
 	}, [])
 
-	return <div className={styles.container}>
+	return <div className={styles.login}>
 		<Illustration />
-		<LoginButton />
+		<div className={styles.content}>
+			<LoginButton />
+		</div>
 	</div>;
 }
 
