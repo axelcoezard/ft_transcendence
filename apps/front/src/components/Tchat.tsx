@@ -4,7 +4,7 @@ import styles from '../styles/Home.module.scss'
 import { useAppContext } from '../contexts/AppContext';
 
 const Tchat = () => {
-	const {socket} = useAppContext();
+	const {session, socket} = useAppContext();
 	let [messages, setMessages] = useState<any[]>([]);
 	let [value, setValue] = useState("");
 
@@ -20,7 +20,7 @@ const Tchat = () => {
 		<ul className={styles.tchat}>
 		{
 			messages.map((message: any, index: number) => <li key={index}>
-				<b>{message.sender} </b>
+				<b>{message.username} </b>
 				{message.value}
 			</li>)
 		}
@@ -29,7 +29,9 @@ const Tchat = () => {
 			setValue(e.currentTarget.value || e.target.value)
 		}}/>
 		<button onClick={(e) => {
-			socket.emit("privmsg", {value})
+			socket.emit("privmsg", {
+				username: session.get("username"), value
+			})
 		}}>Send</button>
 	</main>
 }

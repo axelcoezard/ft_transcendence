@@ -4,7 +4,7 @@ import Scenery from '../components/Scenery/Scenery'
 const Home = () => {
 	const {session} = useAppContext()
 	return <div className={styles.container}>
-		{session.has("access_token") ? <h1>Connected</h1> : <h1>Not Connected</h1>}
+		<h1>Hello, {session.get("username")}</h1>
 	</div>;
 }
 

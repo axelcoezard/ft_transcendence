@@ -29,12 +29,11 @@ export class AppGateway {
 	}
 
 	@SubscribeMessage("privmsg")
-	onPrivmsg(client: Socket, {value}) {
+	onPrivmsg(client: Socket, msg) {
 		this.server.emit("privmsg", {
 			sender: client.id,
-			value
+			...msg
 		});
-		console.log(`${client.id}: ${value}`);
 	}
 
 	@SubscribeMessage("paddleMove")

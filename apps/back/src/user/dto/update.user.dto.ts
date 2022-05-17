@@ -36,6 +36,4 @@ export class UpdateUserDto {
 	@Type(() => Number )
 	@IsNumber()
 	ELO_score: number;
-
-	// join column ?
 }

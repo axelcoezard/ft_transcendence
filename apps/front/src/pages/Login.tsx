@@ -15,7 +15,7 @@ const Login = () => {
 		const code = params.get("code")
 		if (code && !session.has("access_token"))
 		{
-			const request = fetch(`http://localhost:3030/auth/token/${code}`, {
+			const request = fetch(`http://c2r2p3.42nice.fr:3030/auth/token/${code}`, {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',

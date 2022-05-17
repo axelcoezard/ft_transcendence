@@ -6,7 +6,7 @@ import {
 
 import { AppProvider, useAppContext } from "./contexts/AppContext";
 import Login from "./pages/Login";
-import Home from "./pages/Login";
+import Home from "./pages/Home";
 import Rtc from "./pages/Rtc";
 
 import "./styles/globals.scss";
