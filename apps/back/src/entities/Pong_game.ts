@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm"
-import { User } from "./User"
+import { User } from "../user/user.entity"
 
 @Entity("Pong_game")
 export class Pong_game extends BaseEntity {

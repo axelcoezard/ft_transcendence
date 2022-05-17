@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class AddUserDto {
@@ -26,11 +26,11 @@ export class AddUserDto {
   status: string;
 
   @IsNotEmpty()
-  @IsNumber
+  @IsNumber()
   "2FA_status": boolean;
 
   @IsNotEmpty()
-  @IsNumber
+  @IsNumber()
   "2FA_secret": boolean;
 
   @IsNotEmpty()

@@ -1,8 +1,9 @@
 import { Module, Controller, Get, Injectable } from '@nestjs/common';
 import { RouterModule } from '@nestjs/core';
-import AuthModule from './auth.module';
 import { AppGateway } from './app.gateway';
-import UserModule from './user.module';
+import AuthRoute from './auth.module';
+import UserRoute from './user.module';
+import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm'
 
 @Injectable()
@@ -25,25 +26,25 @@ class AppController {
 
 @Module({
 	imports: [
-		AuthModule,
+		AuthRoute,
 		RouterModule.register([
 			{
 				path: 'auth',
-				module: AuthModule,
+				module: AuthRoute,
 			},
 			{
 				path: 'user',
-				module: UserModule,
+				module: UserRoute,
 			},
 		]),
 		UserModule,
 		TypeOrmModule.forRoot({
 			type: 'postgres',
-			host: 'localhost',
+			host: 'postgres',
 			port: 5432,
 			username: 'postgres',
 			password: 'postgres',
-			database: 'allusers',
+			database: 'transcendence',
 			autoLoadEntities: true,
 			entities: ["dist/**/*.entity{.ts,.js}"],
 			synchronize: true

@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from "typeorm"
-import { User } from "./User"
+import { User } from "../user/user.entity"
 
 @Entity("Channel")
 export class Channel extends BaseEntity {

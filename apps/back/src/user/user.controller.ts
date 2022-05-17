@@ -1,5 +1,5 @@
 import { UserService } from './user.service';
-import { UserEntity } from './user.entity';
+import { User } from './user.entity';
 import { Reflector } from '@nestjs/core';
 import {  Get } from '@nestjs/common';
 import {
@@ -11,7 +11,7 @@ import {
 	Patch,
 	Post,
 	UseGuards, UseInterceptors,
-  } from '@nestjs/common'; 
+  } from '@nestjs/common';
 import { AddUserDto } from './dto/Add-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
@@ -23,14 +23,14 @@ export class UserController {
   ) {}
 
   @Get()
-  async getAllUrs(): Promise<UserEntity[]> {
+  async getAllUrs(): Promise<User[]> {
     return await this.userService.getUrs();
   }
 
   @Post()
   async addUser(
     @Body() addUserDto: AddUserDto,
-  ): Promise<UserEntity> {
+  ): Promise<User> {
 	console.log(addUserDto);
 	return await this.userService.addUrs(addUserDto);
   }
@@ -40,7 +40,7 @@ export class UserController {
   async updateUser(
 	@Body() UpdateUserDto: UpdateUserDto,
 	@Param('id', ParseIntPipe) id: number
-  ): Promise<UserEntity> {
+  ): Promise<User> {
 	  return await this.userService.updateUser(id, UpdateUserDto);
   }
 

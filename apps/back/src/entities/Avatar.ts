@@ -1,6 +1,6 @@
 import { title } from "process";
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm"
-import { User } from "./User"
+import { User } from "../user/user.entity"
 
 @Entity("Avatar")
 export class Avatar extends BaseEntity {

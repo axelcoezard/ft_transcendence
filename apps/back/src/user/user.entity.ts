@@ -1,8 +1,8 @@
-import { ManyToOne, Entity, PrimaryGeneratedColumn, Column} from 'typeorm';
+import { ManyToOne, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany} from 'typeorm';
 
 
-@Entity('user')
-export class UserEntity {
+@Entity('User')
+export class User {
 
 	@PrimaryGeneratedColumn()
     id: number;
@@ -67,6 +67,4 @@ export class UserEntity {
 
 	@UpdateDateColumn()
 	update: Date;
-
-
 }
