@@ -13,17 +13,57 @@
 	left: 0%;
 }
 
-.button {
-	background-color: $color_eerie;
+/* --- HEADER: TITLE / CATCH-PHRASE ----*/
 
-	width: 360px;
-	height: 80px;		
-	border-radius: 25px;
-	border-color: $color_eerie;
+.header {
+	width: 50%;
+	height: 100%;
+
+	position: relative;
+	top: 0%;
+	left: 0%;
 }
 
+.header_container {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+
+	transform: translate(-50%, -50%);
+}
+
+.header_h1 {
+	font-family: Helvetica, Arial, sans-serif;
+	font-style: bold;
+	font-size: 4.44vw;
+	text-transform: uppercase;
+	
+	background: linear-gradient(90deg, $color_mauve 20.83%, $color_uranian 49.94%, $color_mint 80.3%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+
+	z-index: 1;
+	max-height: 78px;
+}
+
+.header_h3 {
+	color: white;
+
+	font-family: Helvetica, Arial, sans-serif;
+	font-weight: lighter;
+	font-size: 1.6vw;
+	
+	z-index: 1;
+}
+
+/* ----------- PAGE CONTENT ------------*/
+
 .content {
-	background: rgba(50, 50, 50, 0.5);
+	background: rgba(33, 33, 33, 0.8);
 	backdrop-filter: blur(50px);
 	
 	width: 45%;
@@ -31,7 +71,7 @@
 	border-radius: 25px;
 	
 	position: absolute;
-	z-index: 1;
+	z-index: 500;
 	top: 2.5%;
 	right: 2.5%;
 
@@ -41,48 +81,110 @@
 	align-items: center;
 }
 
-.infography {
-	width: 50%;
-	height: 12%;
+/* ----------- BUTTON ELEMENT ----------*/
 
-	position: relative;
-	left: 0px;
-	top: 45%;
+.button {
+	background-color: $color_eerie;
+	border-radius: 25px;
+	padding: 25px;
+	border: none;
+	outline: none;
+	
+	cursor: pointer;
+	position: absolute;
+	top: 60%;
+	left: 50%;
+	z-index: 1000;
+	transform: translate(-50%, -60%);
 
 	display: flex;
 	justify-content: center;
-}
-
-.title {
+	flex-direction: row;
+	
 	font-family: Helvetica, Arial, sans-serif;
-	font-style: bold;
-	font-size: 4.44vw;
-	
-	position: absolute;
-	top: 0%;
-	z-index: 1;
-	
-	display: flex;
-	align-items: center;
-	text-align: center;
-	text-transform: uppercase;
-
-	background: linear-gradient(90deg, $color_mauve 20.83%, $color_uranian 49.94%, $color_mint 80.3%);
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-}
-
-.text {
+	font-size: 1.2vw;
+	font-weight: lighter;
 	color: white;
-
-	font-family: Helvetica, Arial, sans-serif;
-	font-style: lighter;
-	font-size: 1.6vw;
-	
-	position: absolute;
-	z-index: 1;
-	bottom: 0%;
-
+	text-align: center;
 }
 
+.button_icon {
+	width: 1.6vw;
+	height: 1.6vw;
+	margin: 0 10px;
+}
 
+.button_shadow {
+	background-color: black;
+	filter: blur(25px);
+	border-radius: 25px;
+	padding: 25px;
+	border: none;
+	outline: none;
+	
+	cursor: pointer;
+	position: absolute;
+	top: 60%;
+	left: 50%;
+	z-index: 1000;
+	transform: translate(-50%, -60%);
+
+	display: flex;
+	justify-content: center;
+	flex-direction: row;
+	
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 1.2vw;
+	font-weight: lighter;
+	color: white;
+	text-align: center;
+}
+
+/* ---------- WELCOME ELEMENT ----------*/
+
+.welcome {
+	top: 40%;
+	left: 50%;
+	z-index: 1000;
+	transform: translate(-50%, -40%);
+
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	text-align: center;
+}
+
+.welcome_to_pong {
+	position: absolute;
+	display: flex;
+	justify-self: center;
+	flex-direction: row;
+
+	top: 0%;
+	left: 25%;
+	transform: translate(25%, 0%);
+}
+
+.welcome_pong {
+	position: absolute;
+	display: flex;
+	justify-self: center;
+	flex-direction: row;
+}
+
+.welcome_svg {
+}
+
+.welcome_h2 {
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 4.44vw; 
+	text-transform: uppercase;
+	color: white;
+}
+
+.welcome_text {
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 4.44vw; 
+	color: white;
+	margin: 4px;
+}

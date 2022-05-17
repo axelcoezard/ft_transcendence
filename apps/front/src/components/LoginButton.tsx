@@ -2,8 +2,8 @@ import * as React from "react";
 
 import styles from '../styles/Login.module.scss'
 
-const FourtyTwoLogo = () => {
-	return  <svg width="39" height="28" fill="none" viewBox="0 0 39 28">
+const FourtyTwoLogo = (props:any) => {
+	return  <svg className={styles.button_icon} fill="none" viewBox="0 0 39 28">
 		<path fill="url(#paint0_linear_685_1162)" d="M24.75.75h13.5v6.625L31.5 14.5v7l6.75-7v7h-13.5v-7l6.75-7.125V.75l-6.75 6.625V.75z"> </path>
 		<path stroke="url(#paint1_linear_685_1162)" strokeLinecap="round" d="M31.5.75h-6.75v6.625L31.5.75zm0 0h6.75v6.625L31.5 14.5v7m0-20.75v6.625L24.75 14.5v7h6.75m0 0h6.75v-7l-6.75 7z"> </path>
 		<path fill="url(#paint2_linear_685_1162)" stroke="url(#paint3_linear_685_1162)" strokeLinecap="round" d="M1.25 14.375v5.75h13.5v7.125h7V14.375H8L21.75.75h-7L1.25 14.375z"> </path>
@@ -32,7 +32,7 @@ const FourtyTwoLogo = () => {
 	</svg>
 }
 
-const LoginButton = () => {
+const DefaultLoginButton = () => {
 	const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault()
 
@@ -43,7 +43,21 @@ const LoginButton = () => {
 	}
 
 	return <button className={styles.button} onClick={handleClick}>
+		Login through <FourtyTwoLogo /> portal
 	</button>
+}
+
+const ShadowLoginButton = () => {
+	return <div className={styles.button_shadow}>
+		Login through <FourtyTwoLogo /> portal
+	</div>
+}
+
+const LoginButton = () => {
+	return <div>
+		<ShadowLoginButton />
+		<DefaultLoginButton />
+	</div>
 }
 
 export default LoginButton;

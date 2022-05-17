@@ -54,6 +54,7 @@
 }
 
 .background_waves {
+	background-color: $color_eerie;
 	height: 100%;
 	width: 100%;
 
@@ -64,15 +65,79 @@
 
 // ASTEROIDES
 
+.asteroide01 {
+	fill: $color_violet;
+
+	height: 74px;
+	width: 50px;
+
+	position: absolute;
+	top: 10%;
+	left: 0%;
+}
+
+.asteroide02 {
+	fill: $color_violet;
+
+	height: 107px;
+	width: 111px;
+
+	position: absolute;
+	top: 35%;
+	left: 35%;
+}
+
+.asteroide03 {
+	fill: $color_violet;
+
+	height: 100px;
+	width: 69px;
+
+	position: absolute;
+	bottom: 20%;
+	right: 0%;
+}
+
+.asteroide04 {
+	fill: $color_violet;
+
+	height: 99px;
+	width: 96px;
+
+	position: absolute;
+	bottom: 30%;
+	left: 5%;
+}
+
+.asteroide05 {
+	fill: $color_violet;
+
+	height: 60px;
+	width: 88px;
+
+	position: absolute;
+	bottom: 0%;
+	right: 39%;
+}
+
+.asteroide06 {
+	fill: $color_violet;
+
+	height: 107px;
+	width: 111px;
+
+	position: absolute;
+	top: 13%;
+	right: 33%;
+}
+
 .asteroides {
 	fill: $color_violet;
 
 	height: 100%;
 	width: 100%;
 	
-	position: absolute;
-	top: 0%;
-	left: 0%;
+	position: relative;
 }
 
 // CONFETTIES
@@ -450,7 +515,7 @@
 
 	position: absolute;
 	z-index: 1;
-	top: 50%;
+	bottom: 42%;
 	left: 35%;
 }
 
@@ -480,7 +545,7 @@
 
 	position: absolute;
 	z-index: 1;
-	bottom: 45%;
+	top: 35%;
 	left: 20%;
 }
 
@@ -497,23 +562,23 @@
 // FRAME WAVES
 
 .top_frame_wave {
-	width: 50%;
-	height: auto;
+	aspect-ratio: 539.64 / 348.62;
+	height: 40%;
 	
 	position: absolute;
-	z-index: 1;
-	top: 0%;
-	right: 0%;
+	z-index: 750;
+	top: 0;
+	right: 0;
 }
 
 .bottom_frame_wave {
-	width: 50%;
-	height: auto;
+	aspect-ratio: 539.64 / 348.62;
+	height: 40%;
 	
 	position: absolute;
-	z-index: 1;
-	bottom: 0%;
-	left: 0%;
+	z-index: 750;
+	bottom: -10px;
+	left: 0;
 }
 
 .frame_waves {

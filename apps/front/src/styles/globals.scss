@@ -15,22 +15,6 @@ body {
 	font-family: sans-serif;
 
 	background: $color-eerie;;
-}
 
-.button {
-	position: fixed;
-	display: inline-block;
-	height: 40px;
-	padding: 0 16px;
-	z-index: 1000;
-
-	color: #48DAC3;
-	font-weight: bold;
-	font-size: 1rem;
-	background: rgba(#41CF7C, 0.1);
-
-	border: none;
-	border-radius: 40px;
-	outline: none;
-	cursor: pointer;
+  overflow: hidden;
 }
