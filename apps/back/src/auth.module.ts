@@ -1,4 +1,4 @@
-import { Module, Controller, Get, Injectable, Param, Inject } from '@nestjs/common';
+import { Module, Controller, Get, Injectable, Param, Inject, UseInterceptors } from '@nestjs/common';
 import 'dotenv/config'
 import fetch from 'node-fetch';
 import { User } from './user/user.entity';
@@ -74,7 +74,6 @@ class AuthController {
 			this.service.getSecret(), code
 		);
 		let infos = await getUserInformations(api.access_token);
-
 		let user = await this.service.getUser(infos.login);
 		if (!user)
 		{
@@ -85,8 +84,15 @@ class AuthController {
 		}
 
 		return JSON.stringify({
-			api: api,
-			client: infos
+			id: user.id,
+			username: user.username,
+			email: user.email,
+			"2FA_status": user["2FA_status"],
+			"2FA_secret": user["2FA_secret"],
+			ELO_score: user.ELO_score,
+			rank: user.rank,
+			access_token: api.access_token,
+			refresh_token: api.refresh_token
 		});
 	}
 }
