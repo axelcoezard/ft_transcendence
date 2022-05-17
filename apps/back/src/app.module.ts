@@ -36,7 +36,7 @@ class AppController {
 				module: UserModule,
 			},
 		]),
-		CvModule,
+		UserModule,
   TypeOrmModule.forRoot({
 	type: 'postgres',
 	host: 'localhost',
@@ -48,7 +48,6 @@ class AppController {
 	entities: ["dist/**/*.entity{.ts,.js}"],
 	synchronize: true
   }),
-  CvModule
 	],
 	controllers: [AppController],
 	providers: [

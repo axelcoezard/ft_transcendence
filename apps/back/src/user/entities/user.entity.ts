@@ -1,8 +1,8 @@
 import { ManyToOne, Entity, PrimaryGeneratedColumn, Column} from 'typeorm';
 
 
-@Entity('cv')
-export class CvEntity {
+@Entity('user')
+export class UserEntity {
 
   @PrimaryGeneratedColumn()
   id: number;
