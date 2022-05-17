@@ -5,29 +5,38 @@ export class AddUserDto {
 
   @IsNotEmpty()
   @IsString()
-  name: string;
+  username: string;
 
   @IsNotEmpty()
   @IsString()
-  firstname: string;
+  email: string;
 
   @IsNotEmpty()
   @Type(() => Number )
   @IsNumber()
-  @Min(15)
-  @Max(65)
-  age: number;
+  avatar_id: number;
 
   @IsNotEmpty()
   @Type(() => Number )
   @IsNumber()
-  cin: number;
+  rank: number;
 
   @IsNotEmpty()
   @IsString()
-  job: string;
+  status: string;
 
-  @IsOptional()
-  @IsString()
-  path: string;
+  @IsNotEmpty()
+  @IsNumber
+  "2FA_status": boolean;
+
+  @IsNotEmpty()
+  @IsNumber
+  "2FA_secret": boolean;
+
+  @IsNotEmpty()
+  @Type(() => Number )
+  @IsNumber()
+  ELO_score: number;
+
+  // join column ?
 }

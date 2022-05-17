@@ -3,7 +3,7 @@ import { RouterModule } from '@nestjs/core';
 import AuthModule from './auth.module';
 import { AppGateway } from './app.gateway';
 import UserModule from './user.module';
-import { CvModule } from './cv/cv.module';
+import { UserModule } from './user/user.module';
 
 @Injectable()
 class AppService

@@ -1,33 +1,41 @@
-import { IsNotEmpty, IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
+import { IsOptional, IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class UpdateUserDto {
-
-  @IsString()
-  @IsOptional()
-  name: string;
-
-  @IsOptional()
-  @IsString()
-  firstname: string;
-
-  @IsOptional()
-  @Type(() => Number )
-  @IsNumber()
-  @Min(15)
-  @Max(65)
-  age: number;
-
-  @IsOptional()
-  @Type(() => Number )
-  @IsNumber()
-  cin: number;
-
-  @IsOptional()
-  @IsString()
-  job: string;
-
-  @IsOptional()
-  @IsString()
-  path: string;
+	@IsOptional()
+	@IsString()
+	username: string;
+  
+	@IsOptional()
+	@IsString()
+	email: string;
+  
+	@IsOptional()
+	@Type(() => Number )
+	@IsNumber()
+	avatar_id: number;
+  
+	@IsOptional()
+	@Type(() => Number )
+	@IsNumber()
+	rank: number;
+  
+	@IsOptional()
+	@IsString()
+	status: string;
+  
+	@IsOptional()
+	@IsNumber
+	"2FA_status": boolean;
+  
+	@IsOptional()
+	@IsNumber
+	"2FA_secret": boolean;
+  
+	@IsOptional()
+	@Type(() => Number )
+	@IsNumber()
+	ELO_score: number;
+  
+	// join column ?
 }

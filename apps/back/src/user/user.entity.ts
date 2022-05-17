@@ -1,11 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToOne, JoinColumn } from "typeorm"
-import { Message } from "./Message";
-import { Avatar } from "./Avatar";
+import { ManyToOne, Entity, PrimaryGeneratedColumn, Column} from 'typeorm';
 
-@Entity("User")
-export class User extends BaseEntity {
 
-    @PrimaryGeneratedColumn()
+@Entity('user')
+export class UserEntity {
+
+	@PrimaryGeneratedColumn()
     id: number;
 
     @Column({
@@ -48,7 +47,7 @@ export class User extends BaseEntity {
 	})
 	ELO_score: number;
 
-	@OneToMany(
+	/*@OneToMany(
 		() => Message,
 		messages => messages.users
 	)
@@ -61,12 +60,13 @@ export class User extends BaseEntity {
 	@JoinColumn({
 		name: 'avatars'
 	})
-	users: User[];
+	users: User[];*/
 
 	@CreateDateColumn()
 	creation: Date;
 
 	@UpdateDateColumn()
 	update: Date;
+
 
 }
