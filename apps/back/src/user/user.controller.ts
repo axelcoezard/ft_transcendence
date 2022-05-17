@@ -36,10 +36,13 @@ export class UserController {
   }
 
 
-  /*@Patch(':id')
-  async updateCv(@Param() { id }: ParamsWithId, @Body() cv: UpdateCvDto) {
-	return this.cvService.updateCv(id, cv);
-  }*/
+  @Patch(':id')
+  async updateUser(
+	@Body() UpdateUserDto: UpdateUserDto,
+	@Param('id', ParseIntPipe) id: number
+  ): Promise<UserEntity> {
+	  return await this.userService.updateUser(id, UpdateUserDto);
+  }
 
 }
 

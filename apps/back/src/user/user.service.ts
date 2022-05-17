@@ -23,11 +23,11 @@ export class UserService {
     return newUser;
   }
   
-  /*async updateCv(cv: UpdateCvDto): Promise<CvEntity> {
-	const newCv = await this.cvRepository.preload({
+  async updateUser(id: number, user: UpdateUserDto): Promise<UserEntity> {
+	const newUser = await this.userRepository.preload({
 		id,
-		...cv 
+		...user
 	})
-	
-  }*/
+	return await this.userRepository.save(newUser);
+}
 }
