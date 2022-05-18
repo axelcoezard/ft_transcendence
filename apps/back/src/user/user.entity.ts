@@ -1,5 +1,5 @@
 import { ManyToOne, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany} from 'typeorm';
-
+import { Message } from 'src/entities/Message';
 
 @Entity('User')
 export class User {
@@ -53,13 +53,13 @@ export class User {
 	})
 	ELO_score: number;
 
-	/*@OneToMany(
-		() => Message,
-		messages => messages.users
+	@OneToMany(
+		type => Message,
+		(messages) => messages.user,
 	)
-	messages: Message[];
+	messages : Message[];
 
-	@ManyToOne(
+	/*@ManyToOne(
 		() => Avatar,
 		avatars => avatars.users
 	)

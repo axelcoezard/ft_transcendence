@@ -1,23 +1,19 @@
+import { type } from "os";
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from "typeorm"
-import { User } from "../user/user.entity"
+import {  User } from "../user/user.entity"
+
 
 @Entity("Message")
 export class Message extends BaseEntity {
 	@PrimaryGeneratedColumn()
 	id: number;
 
-	/*@ManyToOne(
-		() => User,
-		users => users.messages
+	@ManyToOne(
+		type => UserEntity,
+		(user) => user.messages
 	)
+	user: UserEntity;
 
-	@JoinColumn({
-		name: 'username'
-	})
-	users: User[];
-	//recipient_id*/
-
-	//recipient_table
 	@Column({
 		type: 'varchar'
 	})
