@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { PONG_HEIGHT, PONG_WIDTH } from "../components/Pong";
+import { PONG_HEIGHT, PONG_WIDTH } from "../pages/Play";
 
 export declare type CanvasDrawFunction = (context: CanvasRenderingContext2D, frameCount: number) => void;
 export declare type CanvasProcessFunction = (frameCount: number) => void;

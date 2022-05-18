@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { PONG_HEIGHT, PONG_WIDTH } from "../components/Pong";
+import { PONG_HEIGHT, PONG_WIDTH } from "../pages/Play";
 import useVector from "./useVector";
 
 export const BALL_DIAMETER = 20;

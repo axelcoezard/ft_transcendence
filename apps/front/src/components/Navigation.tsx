@@ -11,7 +11,6 @@ const Navbar = (props: any) => {
 			</ul>
 			<ul className={styles.middle}>{props.children}</ul>
 			<ul className={styles.right}>
-				<LoginButton />
 			</ul>
 		</div>
 	</nav>

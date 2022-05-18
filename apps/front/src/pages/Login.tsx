@@ -38,7 +38,8 @@ const Login = (props: any) => {
 		const code = params.get("code")
 		if (code && !session.has("access_token"))
 		{
-			const request = fetch(`http://c2r2p3.42nice.fr:3030/auth/token/${code}`, {
+			console.log("test 1")
+			const request = fetch(`http://c2r10p3.42nice.fr:3030/auth/token/${code}`, {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
@@ -47,10 +48,13 @@ const Login = (props: any) => {
 			})
 			request.then(response => response.json().then((res: any) => {
 				session.setAll(res)
-				navigate("/home")
 			}))
-			request.catch(e => {})
+			request.catch(e => {console.error(e)})
 		}
+
+		if (session.has("access_token"))
+			navigate("/home")
+
 		return () => {}
 	}, [])
 
@@ -66,7 +70,7 @@ const Login = (props: any) => {
 			<div className={styles.welcome}>
 				<h2 className={styles.welcome_h2}>Welcome</h2>
 				<div className={styles.welcome_to}>
-					<text className={styles.welcome_text}>to</text>
+					<p className={styles.welcome_text}>to</p>
 					<div className={styles.welcome_pong}>
 						<h2 className={styles.welcome_h2}>P</h2>
 						<WelcomeToPong />

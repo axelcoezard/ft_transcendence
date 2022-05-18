@@ -1,27 +1,33 @@
+import { Navbar, Navlink } from '../components/Navigation';
 import React, { useState } from "react";
 import { useAppContext } from "../contexts/AppContext";
 import useBall from "../hooks/useBall";
 import useCanvas from "../hooks/useCanvas";
-import useLocalStorage from "../hooks/useLocalStorage";
 import usePaddle, { PADDLE_HEIGHT, PADDLE_WIDTH } from "../hooks/usePaddle";
+
+import styles from '../styles/Login.module.scss'
+import useColyseus from '../hooks/useColyseus';
 
 export const PONG_HEIGHT: number = 400;
 export const PONG_WIDTH: number = 600;
 
-const Pong = () => {
-	const {socket} = useAppContext();
+const Play = () => {
+	const {session, socket, colyseus} = useAppContext();
 	const [started, setStarted] = useState(false)
-	let [id, setId] = useState("0")
 
 	const computer = usePaddle(20, 50)
 	const player = usePaddle(PONG_WIDTH - PADDLE_WIDTH - 20, 50)
 	const ball = useBall();
 
-	socket.on("connect", () => setId(socket.id));
-	socket.on("id", ({id}: any) => setId(id))
+	try {
+		colyseus.join("default_room", {})
+		console.log("joined successfully");
+	  } catch (e) {
+		console.error("join error", e);
+	  }
+
 	socket.on("paddleMove", ({sender, y}: any) => {
-		console.log(`${sender} === ${socket.id}`)
-		if (sender === socket.id)
+		if (sender === session.get("username"))
 			return;
 		computer.setY(y)
 	})
@@ -87,11 +93,10 @@ const Pong = () => {
 		const canvas = e.currentTarget || e.target;
 		const y = e.clientY - canvas.getBoundingClientRect().y - 50;
 		player.setY(y)
-		socket.emit("paddleMove", { sender: id, y })
+		socket.emit("paddleMove", { sender: session.get("username"), y })
 	}
 
-	return <>
-		<h1>{id}</h1>
+	return <main className={styles.main}>
 		<canvas
 			ref={canvasRef}
 			width={PONG_WIDTH}
@@ -99,7 +104,7 @@ const Pong = () => {
 			onMouseMove={handleMove}
 			onKeyDown={handleKeyboard}
 		/>
-	</>;
+	</main>;
 };
 
-export default Pong;
+export default Play;
