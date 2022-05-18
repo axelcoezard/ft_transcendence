@@ -32,7 +32,7 @@ const FourtyTwoLogo = (props:any) => {
 	</svg>
 }
 
-const DefaultLoginButton = () => {
+const LoginButton = () => {
 	const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault()
 
@@ -47,17 +47,5 @@ const DefaultLoginButton = () => {
 	</button>
 }
 
-const ShadowLoginButton = () => {
-	return <div className={styles.button_shadow}>
-		Login through <FourtyTwoLogo /> portal
-	</div>
-}
-
-const LoginButton = () => {
-	return <div>
-		<ShadowLoginButton />
-		<DefaultLoginButton />
-	</div>
-}
 
 export default LoginButton;

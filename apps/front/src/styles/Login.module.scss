@@ -11,6 +11,11 @@
 	position: absolute;
 	top: 0%;
 	left: 0%;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	-webkit-flex-wrap: wrap;
 }
 
 /* --- HEADER: TITLE / CATCH-PHRASE ----*/
@@ -22,6 +27,8 @@
 	position: relative;
 	top: 0%;
 	left: 0%;
+	-webkit-flex-wrap: wrap;
+	flex-wrap: wrap;
 }
 
 .header_container {
@@ -39,7 +46,7 @@
 .header_h1 {
 	font-family: Helvetica, Arial, sans-serif;
 	font-style: bold;
-	font-size: 4.44vw;
+	font-size: 64px;
 	text-transform: uppercase;
 	
 	background: linear-gradient(90deg, $color_mauve 20.83%, $color_uranian 49.94%, $color_mint 80.3%);
@@ -55,7 +62,7 @@
 
 	font-family: Helvetica, Arial, sans-serif;
 	font-weight: lighter;
-	font-size: 1.6vw;
+	font-size: 24px;
 	
 	z-index: 1;
 }
@@ -70,7 +77,6 @@
 	height: 95%;
 	border-radius: 25px;
 	
-	position: absolute;
 	z-index: 500;
 	top: 2.5%;
 	right: 2.5%;
@@ -91,21 +97,28 @@
 	outline: none;
 	
 	cursor: pointer;
-	position: absolute;
-	top: 60%;
-	left: 50%;
+	order: 1;
 	z-index: 1000;
-	transform: translate(-50%, -60%);
 
 	display: flex;
 	justify-content: center;
 	flex-direction: row;
 	
 	font-family: Helvetica, Arial, sans-serif;
-	font-size: 1.2vw;
+	font-size: 24px;
 	font-weight: lighter;
 	color: white;
 	text-align: center;
+}
+
+.button:hover {
+	background-color: $color_jet;
+}
+
+.button:active {
+  background-color: $color_jet;
+  box-shadow: 0 5px black;
+  transform: translateY(4px);
 }
 
 .button_icon {
@@ -114,77 +127,55 @@
 	margin: 0 10px;
 }
 
-.button_shadow {
-	background-color: black;
-	filter: blur(25px);
-	border-radius: 25px;
-	padding: 25px;
-	border: none;
-	outline: none;
-	
-	cursor: pointer;
-	position: absolute;
-	top: 60%;
-	left: 50%;
-	z-index: 1000;
-	transform: translate(-50%, -60%);
-
-	display: flex;
-	justify-content: center;
-	flex-direction: row;
-	
-	font-family: Helvetica, Arial, sans-serif;
-	font-size: 1.2vw;
-	font-weight: lighter;
-	color: white;
-	text-align: center;
-}
-
 /* ---------- WELCOME ELEMENT ----------*/
 
 .welcome {
-	top: 40%;
-	left: 50%;
-	z-index: 1000;
-	transform: translate(-50%, -40%);
+	margin: 50px;
 
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
-	text-align: center;
+	z-index: 1000;
+	order: 0;
 }
 
-.welcome_to_pong {
-	position: absolute;
+.welcome_to {
+	position: relative;
+	right: -20%;
+	top: 0%;
+	
 	display: flex;
 	justify-self: center;
 	flex-direction: row;
-
-	top: 0%;
-	left: 25%;
-	transform: translate(25%, 0%);
 }
 
 .welcome_pong {
-	position: absolute;
+	width: 100%;
+	height: 100%;
+
 	display: flex;
 	justify-self: center;
 	flex-direction: row;
+	align-items: center;
 }
 
 .welcome_svg {
+	width: 40px;
+	height: 40px;
 }
 
 .welcome_h2 {
-	font-family: Helvetica, Arial, sans-serif;
-	font-size: 4.44vw; 
-	text-transform: uppercase;
 	color: white;
+
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 40px; 
+	text-transform: uppercase;
 }
 
 .welcome_text {
-	font-family: Helvetica, Arial, sans-serif;
-	font-size: 4.44vw; 
 	color: white;
+
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 24px; 
 	margin: 4px;
 }

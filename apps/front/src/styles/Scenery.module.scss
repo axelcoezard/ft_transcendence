@@ -379,8 +379,8 @@
 	height: 25%;
 
 	position: absolute;
-	bottom: 15%;
-	left: 5%;
+	bottom: -10%;
+	left: 20%;
 }
 
 .green_shooting_star {
@@ -590,12 +590,22 @@
 
 // ROCKET
 
-.rocket {
+.trail_rocket {
 	width: 40%;
 	height: 40%;
 
 	position: absolute;
-	z-index: 1;
+	z-index: 1000;
 	top: 30%;
 	left: 25%;
+}
+
+.cloud_rocket {
+	width: 40%;
+	height: 40%;
+
+	position: absolute;
+	z-index: 1000;
+	bottom: 5%;
+	left: -8%;
 }

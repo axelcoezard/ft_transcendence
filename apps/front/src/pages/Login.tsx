@@ -7,8 +7,8 @@ import { useAppContext } from '../contexts/AppContext'
 import styles from '../styles/Login.module.scss'
 
 const WelcomeToPong = () => {
-	return  <svg className={styles.welcome_svg} width="40px" height="40px">
-		<mask id="mask0_706_1066" style={{ maskType: "alpha" }} width="41" height="40" x="0" y="0" maskUnits="userSpaceOnUse">
+	return  <svg className={styles.welcome_svg}>
+		<mask id="mask0_706_1066" style={{ maskType: "alpha" }} x="0" y="0" maskUnits="userSpaceOnUse">
 			<circle cx="20.308" cy="20" r="20" fill="#fff"> </circle>
 		</mask>
 		<g mask="url(#mask0_706_1066)">
@@ -29,7 +29,7 @@ const WelcomeToPong = () => {
 	</svg>
 }
 
-const Login = () => {
+const Login = (props: any) => {
 	const {session} = useAppContext()
 	const [params] = useSearchParams();
 	const navigate = useNavigate()
@@ -63,14 +63,18 @@ const Login = () => {
 			</div>
 		</section>
 		<section className={styles.content}>
-			<LoginButton />
 			<div className={styles.welcome}>
-				<div className={styles.welcome_pong}>
-					<h2 className={styles.welcome_h2}>P</h2>
-					<WelcomeToPong />
-					<h2 className={styles.welcome_h2}>NG</h2>
+				<h2 className={styles.welcome_h2}>Welcome</h2>
+				<div className={styles.welcome_to}>
+					<text className={styles.welcome_text}>to</text>
+					<div className={styles.welcome_pong}>
+						<h2 className={styles.welcome_h2}>P</h2>
+						<WelcomeToPong />
+						<h2 className={styles.welcome_h2}>NG</h2>
+					</div>
 				</div>
 			</div>
+			<LoginButton />
 		</section>
 		<Illustration.LoginFrontScenery />
 	</main>;
