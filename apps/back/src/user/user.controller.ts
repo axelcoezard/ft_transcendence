@@ -1,5 +1,5 @@
-import { UserService } from './user.service';
-import { User } from './user.entity';
+import { UserService } from '../services/user.service';
+import { User } from '../entities/user.entity';
 import { Reflector } from '@nestjs/core';
 import {  Get, Inject } from '@nestjs/common';
 import {

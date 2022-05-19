@@ -19,12 +19,12 @@ const Play = () => {
 	const player = usePaddle(PONG_WIDTH - PADDLE_WIDTH - 20, 50)
 	const ball = useBall();
 
-	try {
-		colyseus.join("default_room", {})
-		console.log("joined successfully");
-	  } catch (e) {
-		console.error("join error", e);
-	  }
+	//try {
+	//	colyseus.join("default_room", {})
+	//	console.log("joined successfully");
+	//  } catch (e) {
+	//	console.error("join error", e);
+	//  }
 
 	socket.on("paddleMove", ({sender, y}: any) => {
 		if (sender === session.get("username"))

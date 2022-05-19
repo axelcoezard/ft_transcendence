@@ -36,7 +36,7 @@ const LoginButton = () => {
 	const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault()
 
-		let request = await fetch('http://c2r10p3.42nice.fr:3030/auth/authorize');
+		let request = await fetch('http://localhost:3030/auth/authorize');
 		let response = await request.json();
 
 		window.location.href = response.url;

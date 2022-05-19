@@ -8,9 +8,9 @@ import AppRoom from './app.room';
 		cors: true
 	})
 
-	const game = new Server();
-	game.define("default_room", AppRoom);
-	game.attach({server: api.getHttpServer()});
+	//const game = new Server();
+	//game.define("default_room", AppRoom);
+	//game.attach({server: api.getHttpServer()});
 
 	api.listen(3030);
 })();

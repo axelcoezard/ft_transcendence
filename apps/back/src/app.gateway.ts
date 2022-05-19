@@ -1,6 +1,7 @@
-import { Module, Logger } from '@nestjs/common';
+import { Module, Logger, Inject } from '@nestjs/common';
 import { SubscribeMessage, WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
 import { Socket, Server } from 'socket.io';
+import { MessageService } from './services/message.service';
 
 @WebSocketGateway({
 	cors: { origin: '*',}

@@ -1,6 +1,6 @@
 import { type } from "os";
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, OneToOne } from "typeorm"
-import {  User } from "../user/user.entity"
+import {  User } from "./user.entity"
 
 
 @Entity("Message")
@@ -9,10 +9,10 @@ export class Message extends BaseEntity {
 	id: number;
 
 	@ManyToOne(
-		type => UserEntity,
+		type => User,
 		(user) => user.messages
 	)
-	user: UserEntity;
+	user: User;
 
 	@Column({
 		type: 'int'

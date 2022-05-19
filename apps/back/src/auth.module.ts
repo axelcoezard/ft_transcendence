@@ -1,9 +1,9 @@
 import { Module, Controller, Get, Injectable, Param, Inject, UseInterceptors } from '@nestjs/common';
 import 'dotenv/config'
 import fetch from 'node-fetch';
-import { User } from './user/user.entity';
-import UserModule from './user/user.module';
-import { UserService } from './user/user.service';
+import { User } from './entities/user.entity';
+import UserModule from './modules/user.module';
+import { UserService } from './services/user.service';
 
 @Injectable()
 class AuthService

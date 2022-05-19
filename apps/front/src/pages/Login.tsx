@@ -39,7 +39,7 @@ const Login = (props: any) => {
 		if (code && !session.has("access_token"))
 		{
 			console.log("test 1")
-			const request = fetch(`http://c2r10p3.42nice.fr:3030/auth/token/${code}`, {
+			const request = fetch(`http://localhost:3030/auth/token/${code}`, {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
