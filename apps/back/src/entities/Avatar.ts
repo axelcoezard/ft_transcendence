@@ -4,6 +4,9 @@ import { User } from "../user/user.entity"
 
 @Entity("Avatar")
 export class Avatar extends BaseEntity {
+	@PrimaryGeneratedColumn()
+    id: number;
+
 	@OneToMany(
 		() => User,
 		users => users.avatar_id

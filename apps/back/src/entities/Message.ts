@@ -1,5 +1,5 @@
 import { type } from "os";
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, OneToOne } from "typeorm"
 import {  User } from "../user/user.entity"
 
 
@@ -13,6 +13,14 @@ export class Message extends BaseEntity {
 		(user) => user.messages
 	)
 	user: UserEntity;
+
+	@Column({
+		type: 'int'
+	})
+	recipient_id: number;
+
+	/*@OneToOne()
+	recipient_table: string;*/
 
 	@Column({
 		type: 'varchar'
