@@ -11,7 +11,7 @@ export class UpdateAvatarDto {
 	uri: string;
 
 	@IsOptional()
-	@isString()
+	@IsString()
 	type: string;
 
 }
