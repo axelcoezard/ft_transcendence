@@ -1,0 +1,67 @@
+/* ----------- COLOR PALETTE -----------*/
+
+@use 'Colors' as *;
+
+/* ---------- AVATARS PALETTE ----------*/
+
+.avatars {
+	fill: none;
+
+	width: 3.9vw;
+	height: 3.9vw;
+}
+
+/* ----------- COLOR PALETTE -----------*/
+
+$height: 90px;
+$background: #22244D;
+
+.nav_bar {
+    background-color: rgba(33, 33, 33, 0.8);
+	z-index: 1000;
+	
+	height: 100%;
+	width: 5%;
+	border-radius: 0px 25px 25px 0px;
+
+	position: absolute;
+	top: 50%;
+	left: 0%;
+	transform: translate(0%, -50%);
+
+	display: flex;
+	flex-direction: column;
+}
+
+.left { text-align: left; }
+.middle { text-align: center; }
+.right { text-align: right; }
+
+.left, .right {
+	flex: 0 0 25%;
+}
+
+.middle {
+	flex: 0 0 50%;
+
+	line-height: $height;
+	text-align: center;
+	a {
+		text-decoration: none;
+		color: #fff;
+		padding: 0 8px;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+}
+
+.brand {
+	line-height: $height;
+	color: #48DAC3;
+}
+
+.right {
+	line-height: $height;
+}
