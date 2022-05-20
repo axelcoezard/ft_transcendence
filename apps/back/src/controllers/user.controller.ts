@@ -3,18 +3,16 @@ import { User } from '../entities/user.entity';
 import { Reflector } from '@nestjs/core';
 import {  Get, Inject } from '@nestjs/common';
 import {
-	Body, CacheInterceptor, CacheKey, CacheTTL,
+	Body,
 	Controller,
 	Delete,
 	Param,
 	ParseIntPipe,
 	Patch,
-	Post,
-	UseGuards, UseInterceptors,
   } from '@nestjs/common';
 import { UpdateUserDto } from '../dto/update.user.dto';
 
-@Controller('user')
+@Controller('users')
 export class UserController {
 	@Inject(UserService)
 	private readonly service: UserService;

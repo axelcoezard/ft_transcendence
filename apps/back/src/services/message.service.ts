@@ -1,10 +1,11 @@
-import { CACHE_MANAGER, Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
-import { Message } from 'src/entities/message.entity';
+import { Injectable } from '@nestjs/common';
+import Message from 'src/entities/message.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import MessageBuilder from '../builder/message.builder';
 
 @Injectable()
-export class MessageService {
+export default class MessageService {
 	constructor(
 		@InjectRepository(Message)
 		public messageRepository: Repository<Message>,
@@ -14,8 +15,8 @@ export class MessageService {
 		return await this.messageRepository.find();
 	}
 
-	async addMessage(message: Message): Promise<Message> {
-		const newMessage = this.messageRepository.create(message);
+	async addMessage(message: MessageBuilder): Promise<Message> {
+		const newMessage = this.messageRepository.create(message.build());
 		await this.messageRepository.save(newMessage);
 		return newMessage;
 	}

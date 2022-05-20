@@ -2,27 +2,40 @@ import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, U
 import { User } from "./user.entity"
 
 @Entity("Channel")
-export class Channel extends BaseEntity {
+export default class Channel extends BaseEntity {
 	@PrimaryGeneratedColumn()
 	id: number;
-	//creator
+
+	@Column({
+		type: 'int'
+	})
+	creator_id: number;
+
+	@Column({
+		type: 'varchar'
+	})
+	slug: string;
+
 	@Column({
 		type: 'varchar'
 	})
 	title: string;
 
 	@Column({
-		type: 'varchar'
+		type: 'varchar',
+		nullable: true
 	})
 	description: string;
 
 	@Column({
-		type: 'varchar'
+		type: 'varchar',
+		nullable: true
 	})
 	password: string;
 
 	@Column({
-		type: "varchar"
+		type: "varchar",
+		default: "public"
 	})
 	status: string;
 

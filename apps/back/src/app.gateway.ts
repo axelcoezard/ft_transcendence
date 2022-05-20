@@ -1,7 +1,9 @@
 import { Module, Logger, Inject } from '@nestjs/common';
 import { SubscribeMessage, WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
 import { Socket, Server } from 'socket.io';
-import { Message } from './entities/message.entity';
+import ChannelBuilder from './builder/channel.builder';
+import MessageBuilder from './builder/message.builder';
+import Message from './entities/message.entity';
 import AppService from './services/app.service';
 
 @WebSocketGateway({
@@ -33,17 +35,31 @@ export class AppGateway
 		this.logger.log(`Client connected: ${client.id}`);
 	}
 
-	@SubscribeMessage("privmsg")
-	onPrivmsg(client: Socket, msg) {
-		let message = new Message()
-		message.sender_id = msg.sender_id;
-		message.recipient_id = msg.recipient_id;
-		message.recipient_table = msg.recipient_table;
-		message.type = "text";
-		message.value = msg.value;
+	@SubscribeMessage("channel_join")
+	async onJoinChannel(client: Socket, info) {
+		console.log("joined channel")
+		if (await this.service.channels.getBySlug(info.channel_slug))
+			return;
 
-		this.server.emit("privmsg", msg);
-		this.service.messageService.addMessage(message);
+		console.error(`Channel ${info.channel_slug} does not exist: creating...`)
+		await this.service.channels.create(
+			ChannelBuilder.new("default")
+			.setCreator(info.sender_id)
+			.setDescription("")
+			.setSlug(info.channel_slug)
+		)
+	}
+
+	@SubscribeMessage("channel_msg")
+	async onPrivmsg(client: Socket, msg) {
+		let channel = await this.service.channels.getBySlug(msg.channel_slug);
+		let message = MessageBuilder.new(msg.value)
+			.setSender(msg.sender_id)
+			.setChannel(channel.id)
+			.setType(msg.type);
+
+		this.server.emit("channel_msg", msg);
+		this.service.messages.addMessage(message);
 	}
 
 	@SubscribeMessage("paddleMove")

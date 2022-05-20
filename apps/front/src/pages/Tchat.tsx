@@ -1,14 +1,27 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import styles from '../styles/Tchat.module.scss'
 import { useAppContext } from '../contexts/AppContext';
+import { useParams } from 'react-router-dom';
 
 const Tchat = () => {
 	const {session, socket} = useAppContext();
 	let [messages, setMessages] = useState<any[]>([]);
 	let [value, setValue] = useState("");
+	let {slug} = useParams();
 
-	socket.on("privmsg", (message: any) => {
+	useEffect(() => {
+		socket.emit("channel_join", {
+			sender_id: session.get("id"),
+			channel_slug: slug
+		})
+	}, [slug])
+
+	socket.on("channel_join", (res: any) => {
+
+	})
+
+	socket.on("channel_msg", (message: any) => {
 		messages.unshift({
 			id: messages.length+1,
 			...message
@@ -18,7 +31,7 @@ const Tchat = () => {
 
 	return (
 		<div className={styles.tchat}>
-			<ul className={styles.tchat_list}></ul>
+			<ul className={styles.tchat_list}>{slug}</ul>
 			<div className={styles.tchat_container}>
 				<ul className={styles.tchat_messages}>
 					{ messages.map((message: any, index: number) => <li key={index}>
@@ -37,14 +50,14 @@ const Tchat = () => {
 					<button
 						className={styles.tchat_button}
 						onClick={(e) => {
-						socket.emit("privmsg", {
+						socket.emit("channel_msg", {
 							sender_id: session.get("id"),
 							sender_username: session.get("username"),
-							recipient_table: "channel",
-							recipient_id: 0,
+							channel_slug: slug,
 							type: "text",
 							value: value
 						})
+						setValue("")
 					}}>Send</button>
 				</div>
 			</div>

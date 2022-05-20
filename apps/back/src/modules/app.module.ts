@@ -6,6 +6,7 @@ import AuthModule from './auth.module';
 import UserModule from './user.module';
 import MessageModule from './message.module';
 import AppService from '../services/app.service';
+import ChannelModule from './channel.module';
 
 @Controller()
 class AppController
@@ -19,6 +20,7 @@ class AppController
 		AuthModule,
 		UserModule,
 		MessageModule,
+		ChannelModule,
 		TypeOrmModule.forRoot({
 			type: 'postgres',
 			host: 'postgres',

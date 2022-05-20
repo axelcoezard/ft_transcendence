@@ -29,9 +29,9 @@ const useSocket = (url: string): any => {
 		setEvents(events)
 	}
 
-	const emit = (event: string, data: any) => {
+	const emit = (name: string, data: any) => {
 		if (socket.current)
-			socket.current.emit(event, data)
+			return socket.current.emit(name, data)
 	}
 
 	return {
