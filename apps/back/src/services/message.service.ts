@@ -1,8 +1,7 @@
 import { CACHE_MANAGER, Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
-import { Message } from 'src/entities/Message';
+import { Message } from 'src/entities/message.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-//import { UpdateUserDto } from './dto/update.user.dto';
 
 @Injectable()
 export class MessageService {
@@ -20,12 +19,4 @@ export class MessageService {
 		await this.messageRepository.save(newMessage);
 		return newMessage;
 	}
-
-	/*async updateUser(id: number, user: UpdateUserDto): Promise<User> {
-		const newUser = await this.userRepository.preload({
-			id,
-			...user
-		})
-		return await this.userRepository.save(newUser);
-	}*/
 }

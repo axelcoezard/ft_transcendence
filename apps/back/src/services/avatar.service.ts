@@ -1,5 +1,5 @@
 import { CACHE_MANAGER, Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
-import { Avatar } from 'src/entities/Avatar';
+import { Avatar } from 'src/entities/avatar.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UpdateAvatarDto } from 'src/dto/update.avatar';
@@ -15,7 +15,6 @@ export class AvatarService {
 		return await this.avatarRepository.find();
 	}
 
-	//only on
 	async getOneAvatar(id: number): Promise<Avatar> {
 		return await this.avatarRepository.findOne({id});
 	}

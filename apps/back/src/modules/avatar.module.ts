@@ -1,8 +1,8 @@
-import { CacheModule, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Controller } from '@nestjs/common';
-import { Avatar } from 'src/entities/Avatar';
+import { Avatar } from 'src/entities/avatar.entity';
 import { AvatarService } from 'src/services/avatar.service';
+
 @Module({
 	providers: [AvatarService],
 	imports: [TypeOrmModule.forFeature([Avatar])],
