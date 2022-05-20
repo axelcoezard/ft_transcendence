@@ -2,7 +2,7 @@ import { type } from "os";
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, OneToOne } from "typeorm"
 import {  User } from "./user.entity"
 
-@Entity("Message")
+@Entity("message")
 export default class Message extends BaseEntity {
 	@PrimaryGeneratedColumn()
 	id: number;
@@ -27,8 +27,8 @@ export default class Message extends BaseEntity {
 	value: string;
 
 	@CreateDateColumn()
-	creation: Date;
+	created_at: Date;
 
 	@UpdateDateColumn()
-	update: Date;
+	updated_at: Date;
 }

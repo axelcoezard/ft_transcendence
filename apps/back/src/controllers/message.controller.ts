@@ -6,6 +6,7 @@ import {
   } from '@nestjs/common';
 import MessageService from '../services/message.service';
 import Message from '../entities/message.entity';
+import { Channel } from 'diagnostics_channel';
 
 @Controller('messages')
 export default class MessageController {
@@ -17,12 +18,6 @@ export default class MessageController {
 		return await this.service.getMessages();
 	}
 
-	@Get("/channel/:slug")
-	async getAllFromChannel(
-		@Param('slug') id: number
-	) {
-		// TODO: Update a message by id
-	}
 
 	@Get('/:id')
 	async getMessgage(

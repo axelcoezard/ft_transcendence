@@ -2,7 +2,6 @@ import { CACHE_MANAGER, Inject, Injectable, NotFoundException, UnauthorizedExcep
 import { User } from '../entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UpdateUserDto } from '../dto/update.user.dto';
 
 @Injectable()
 export class UserService {
@@ -21,7 +20,7 @@ export class UserService {
 		return newUser;
 	}
 
-	async updateUser(id: number, user: UpdateUserDto): Promise<User> {
+	async updateUser(id: number, user: any): Promise<User> {
 		const newUser = await this.userRepository.preload({
 			id,
 			...user

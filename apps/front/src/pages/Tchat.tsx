@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react'
 
 import styles from '../styles/Tchat.module.scss'
 import { useAppContext } from '../contexts/AppContext';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { setMaxListeners } from 'process';
 
 const Tchat = () => {
 	const {session, socket} = useAppContext();
 	let [messages, setMessages] = useState<any[]>([]);
+	let [channels, setChannels] = useState<any[]>([]);
 	let [value, setValue] = useState("");
 	let {slug} = useParams();
 
@@ -15,23 +17,26 @@ const Tchat = () => {
 			sender_id: session.get("id"),
 			channel_slug: slug
 		})
-	}, [slug])
+	}, [socket.current, slug])
 
-	socket.on("channel_join", (res: any) => {
-
-	})
-
-	socket.on("channel_msg", (message: any) => {
+	socket.on("channel_msg", (res: any) => {
 		messages.unshift({
-			id: messages.length+1,
-			...message
+			id: messages.length + 1,
+			...res
 		})
-		setMessages([...messages])
+		setMessages(messages)
 	})
+
+	socket.on("channel_set_list", (res: any) => setChannels(res))
+	socket.on("channel_set_msg", (res: any) => setMessages(res))
 
 	return (
 		<div className={styles.tchat}>
-			<ul className={styles.tchat_list}>{slug}</ul>
+			<ul className={styles.tchat_list}>
+				{ channels.map((channel: any, index: number) => <li key={index}>
+					<Link to={`/tchat/${channel.slug}`}>Channel {channel.slug}</Link>
+				</li>) }
+			</ul>
 			<div className={styles.tchat_container}>
 				<ul className={styles.tchat_messages}>
 					{ messages.map((message: any, index: number) => <li key={index}>

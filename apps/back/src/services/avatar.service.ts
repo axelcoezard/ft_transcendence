@@ -2,8 +2,6 @@ import { CACHE_MANAGER, Inject, Injectable, NotFoundException, UnauthorizedExcep
 import { Avatar } from 'src/entities/avatar.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UpdateAvatarDto } from 'src/dto/update.avatar.dto';
-
 @Injectable()
 export class AvatarService {
 	constructor(
@@ -25,7 +23,7 @@ export class AvatarService {
 		return newAvatar;
 	}
 
-	async updateAvatar(id: number, avatar: UpdateAvatarDto): Promise<Avatar> {
+	async updateAvatar(id: number, avatar: any): Promise<Avatar> {
 		const newAvatar = await this.avatarRepository.preload({
 			id,
 			...avatar

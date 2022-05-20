@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn, OneToMany, JoinTable } from "typeorm"
 import { User } from "./user.entity"
 
-@Entity("Friend")
+@Entity("friend")
 export class Friend extends BaseEntity {
 	@PrimaryGeneratedColumn()
     id: number;
@@ -23,4 +23,10 @@ export class Friend extends BaseEntity {
 		type: 'varchar'
 	})
 	status: string;
+
+	@CreateDateColumn()
+	created_at: Date;
+
+	@UpdateDateColumn()
+	updated_at: Date;
 }

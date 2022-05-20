@@ -4,12 +4,10 @@ export default class ChannelBuilder {
 
 	private channel: Channel;
 
-	constructor(title: string)
+	constructor()
 	{
 		this.channel = new Channel();
-		this.channel.title = title;
 		this.channel.status = "public";
-
 		this.channel.slug = Math
 			.random()
 			.toString(16)
@@ -19,12 +17,6 @@ export default class ChannelBuilder {
 	public setCreator(user_id: number) : ChannelBuilder
 	{
 		this.channel.creator_id = user_id;
-		return this;
-	}
-
-	public setDescription(desc: string) : ChannelBuilder
-	{
-		this.channel.description = desc;
 		return this;
 	}
 
@@ -46,8 +38,8 @@ export default class ChannelBuilder {
 		return this.channel;
 	}
 
-	public static new(title: string)
+	public static new()
 	{
-		return new ChannelBuilder(title);
+		return new ChannelBuilder();
 	}
 }

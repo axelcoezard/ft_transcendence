@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from "typeorm"
 import { User } from "./user.entity"
 
-@Entity("Channel")
+@Entity("channel")
 export default class Channel extends BaseEntity {
 	@PrimaryGeneratedColumn()
 	id: number;
@@ -17,17 +17,6 @@ export default class Channel extends BaseEntity {
 	slug: string;
 
 	@Column({
-		type: 'varchar'
-	})
-	title: string;
-
-	@Column({
-		type: 'varchar',
-		nullable: true
-	})
-	description: string;
-
-	@Column({
 		type: 'varchar',
 		nullable: true
 	})
@@ -40,8 +29,8 @@ export default class Channel extends BaseEntity {
 	status: string;
 
 	@CreateDateColumn()
-	creation: Date;
+	created_at: Date;
 
 	@UpdateDateColumn()
-	update: Date;
+	updated_at: Date;
 }

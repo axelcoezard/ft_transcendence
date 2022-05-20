@@ -2,7 +2,7 @@ import { title } from "process";
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm"
 import { User } from "./user.entity"
 
-@Entity("Avatar")
+@Entity("avatar")
 export class Avatar extends BaseEntity {
 	@PrimaryGeneratedColumn()
     id: number;
@@ -24,8 +24,8 @@ export class Avatar extends BaseEntity {
 	uri: typeof title;
 
 	@CreateDateColumn()
-	creation: Date;
+	created_at: Date;
 
 	@UpdateDateColumn()
-	updated: Date;
+	updated_at: Date;
 }

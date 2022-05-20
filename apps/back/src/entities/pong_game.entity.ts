@@ -33,8 +33,8 @@ export class PongGame extends BaseEntity {
 	status: string;
 
 	@CreateDateColumn()
-	creattion: Date;
+	created_at: Date;
 
 	@UpdateDateColumn()
-	update: Date;
+	updated_at: Date;
 }

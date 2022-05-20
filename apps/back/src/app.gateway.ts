@@ -1,5 +1,6 @@
 import { Module, Logger, Inject } from '@nestjs/common';
 import { SubscribeMessage, WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
+import { channel } from 'diagnostics_channel';
 import { Socket, Server } from 'socket.io';
 import ChannelBuilder from './builder/channel.builder';
 import MessageBuilder from './builder/message.builder';
@@ -39,13 +40,16 @@ export class AppGateway
 	async onJoinChannel(client: Socket, info) {
 		console.log("joined channel")
 		if (await this.service.channels.getBySlug(info.channel_slug))
+		{
+			client.emit("channel_set_list", await this.service.channels.getAll());
+			client.emit("channel_set_msg", await this.service.messages.getByChannel(info.channel_slug));
 			return;
+		}
 
 		console.error(`Channel ${info.channel_slug} does not exist: creating...`)
 		await this.service.channels.create(
-			ChannelBuilder.new("default")
+			ChannelBuilder.new()
 			.setCreator(info.sender_id)
-			.setDescription("")
 			.setSlug(info.channel_slug)
 		)
 	}
@@ -58,7 +62,7 @@ export class AppGateway
 			.setChannel(channel.id)
 			.setType(msg.type);
 
-		this.server.emit("channel_msg", msg);
+		this.server.emit("channel_msg", {...msg, channel_id: channel.id});
 		this.service.messages.addMessage(message);
 	}
 
