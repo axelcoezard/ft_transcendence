@@ -18,13 +18,11 @@ const Tchat = () => {
 
 	return (
 		<div className={styles.tchat}>
-			<ul className={styles.tchat_list}>
-
-			</ul>
+			<ul className={styles.tchat_list}></ul>
 			<div className={styles.tchat_container}>
 				<ul className={styles.tchat_messages}>
 					{ messages.map((message: any, index: number) => <li key={index}>
-						<b>{message.username} </b>
+						<b>{message.sender_username} </b>
 						{message.value}
 					</li>) }
 				</ul>
@@ -40,7 +38,12 @@ const Tchat = () => {
 						className={styles.tchat_button}
 						onClick={(e) => {
 						socket.emit("privmsg", {
-							username: session.get("username"), value
+							sender_id: session.get("id"),
+							sender_username: session.get("username"),
+							recipient_table: "channel",
+							recipient_id: 0,
+							type: "text",
+							value: value
 						})
 					}}>Send</button>
 				</div>

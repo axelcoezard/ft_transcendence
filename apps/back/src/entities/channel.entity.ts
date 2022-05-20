@@ -3,7 +3,8 @@ import { User } from "./user.entity"
 
 @Entity("Channel")
 export class Channel extends BaseEntity {
-	//id
+	@PrimaryGeneratedColumn()
+	id: number;
 	//creator
 	@Column({
 		type: 'varchar'

@@ -12,15 +12,17 @@ export class Message extends BaseEntity {
 		type => User,
 		(user) => user.messages
 	)
-	user: User;
+	sender_id: User;
+
+	@Column({
+
+	})
+	recipient_table: string;
 
 	@Column({
 		type: 'int'
 	})
 	recipient_id: number;
-
-	/*@OneToOne()
-	recipient_table: string;*/
 
 	@Column({
 		type: 'varchar'

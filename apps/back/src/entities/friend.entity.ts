@@ -3,10 +3,8 @@ import { User } from "./user.entity"
 
 @Entity("Friend")
 export class Friend extends BaseEntity {
-	@PrimaryGeneratedColumn({
-		type: 'number'
-	})
-	id: number;
+	@PrimaryGeneratedColumn()
+    id: number;
 
 	@JoinTable({
 		name: 'friends',
