@@ -2,7 +2,7 @@ import { CACHE_MANAGER, Inject, Injectable, NotFoundException, UnauthorizedExcep
 import { Avatar } from 'src/entities/avatar.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UpdateAvatarDto } from 'src/dto/update.avatar';
+import { UpdateAvatarDto } from 'src/dto/update.avatar.dto';
 
 @Injectable()
 export class AvatarService {
