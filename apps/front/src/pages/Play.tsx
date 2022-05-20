@@ -1,4 +1,4 @@
-import { Navbar, Navlink } from '../components/Navigation';
+import Navbar from '../components/Navigation';
 import React, { useState } from "react";
 import { useAppContext } from "../contexts/AppContext";
 import useBall from "../hooks/useBall";

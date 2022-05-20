@@ -71,11 +71,10 @@
 
 .content {
 	background: rgba(33, 33, 33, 0.8);
-	backdrop-filter: blur(50px);
 	
 	width: 45%;
 	height: 95%;
-	border-radius: 25px;
+	border-radius: 1.3vw;
 	
 	z-index: 500;
 	top: 2.5%;
@@ -85,46 +84,6 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-}
-
-/* ----------- BUTTON ELEMENT ----------*/
-
-.button {
-	background-color: $color_eerie;
-	border-radius: 25px;
-	padding: 25px;
-	border: none;
-	outline: none;
-	
-	cursor: pointer;
-	order: 1;
-	z-index: 1000;
-
-	display: flex;
-	justify-content: center;
-	flex-direction: row;
-	
-	font-family: Helvetica, Arial, sans-serif;
-	font-size: 24px;
-	font-weight: lighter;
-	color: white;
-	text-align: center;
-}
-
-.button:hover {
-	background-color: $color_jet;
-}
-
-.button:active {
-  background-color: $color_jet;
-  box-shadow: 0 5px black;
-  transform: translateY(4px);
-}
-
-.button_icon {
-	width: 1.6vw;
-	height: 1.6vw;
-	margin: 0 10px;
 }
 
 /* ---------- WELCOME ELEMENT ----------*/

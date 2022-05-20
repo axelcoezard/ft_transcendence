@@ -10,12 +10,12 @@ import styles from '../../styles/Scenery.module.scss'
 
 function 	DefaultScenery() {
   return <div className={styles.scenery}>
+		<FrameWaves />
 		<BackgroundWaves />
 		<Asteroides />
 		<Confetties />
 		<Planets />
 		<ShootingStars />
-		<FrameWaves />
   	</div>
 }
 

@@ -1,82 +1,192 @@
-.title a {
-  color: #48DAC3;
-  text-decoration: none;
-}
+/* ----------- COLOR PALETTE -----------*/
 
+@use 'Colors' as *;
 
-.title {
-  margin: 30px 0;
-  line-height: 1.15;
-  font-size: 4rem;
-  color: white;
-}
+/* ----------- HOME ELEMENTS -----------*/
 
-.title,
-.description {
-  text-align: center;
-}
-
-.description {
-  margin: 4rem 0;
-  line-height: 1.5;
-  font-size: 1.5rem;
-}
-
-.code {
-  background: #fafafa;
-  border-radius: 5px;
-  padding: 0.75rem;
-  font-size: 1.1rem;
-  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-    Bitstream Vera Sans Mono, Courier New, monospace;
-}
-
-.grid {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  max-width: 800px;
-}
-
-.card {
-  margin: 1rem;
-  padding: 1.5rem;
-  text-align: left;
-  color: inherit;
-  text-decoration: none;
-  border: 1px solid #eaeaea;
-  border-radius: 10px;
-  transition: color 0.15s ease, border-color 0.15s ease;
-  max-width: 300px;
-}
-
-.card:hover,
-.card:focus,
-.card:active {
-  color: #0070f3;
-  border-color: #0070f3;
-}
-
-.card h2 {
-  margin: 0 0 1rem 0;
-  font-size: 1.5rem;
-}
-
-.card p {
-  margin: 0;
-  font-size: 1.25rem;
-  line-height: 1.5;
-}
-
-.logo {
-  height: 1em;
-  margin-left: 0.5rem;
-}
-
-@media (max-width: 600px) {
-  .grid {
+.home {
     width: 100%;
+    height: 100%;
+    z-index: 1000;
+
+    display: flex;
+    justify-content: space-evenly;
     flex-direction: column;
-  }
+    text-align: center;
+}
+
+/* ---------- HEADER ELEMENTS ----------*/
+
+.header {
+    background-color: rgba(33, 33, 33, 0.8);
+    border-radius: 1.3vw;
+    width: 90%;
+    height: 40%;
+
+    position: absolute;
+    order: 0;
+    top: 5%;
+    left: 50%;
+    transform: translate(-50%, -5%);
+
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.header_container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+    transform: translate(-50%, -50%);
+}
+
+.header_avatar {
+    position: relative;
+    top: 20px;
+    left: 20px;
+
+    display: flex;
+    justify-self: center;
+    flex-direction: row;
+    align-items: center;
+}
+
+/* ----------- GAME ELEMENTS -----------*/
+
+.game {
+    border-radius: 1.3vw;
+    width: 90%;
+    height: 40%;
+
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translate(-50%, -5%);
+
+    display: flex;
+    justify-content: space-between;
+	flex-direction: row;
+}
+
+@mixin game_illustration {
+    top: -15%;
+    left: 50%;
+    transform: translate(0%, -50%);
+}
+
+@mixin game_content {
+    background-color: rgba(33, 33, 33, 0.8);
+    border-radius: 1.3vw;
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* ---------- RANDOM ELEMENTS ----------*/
+
+.random {
+    @include game_content();
+
+    width: 28%;
+    height: 100%;
+}
+
+.random_illustration {
+    @include game_illustration();
+    width: 12.24vw;
+    height:  9.9vw;
+
+    fill: none;
+
+    position: absolute;
+    top: -25%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+
+/* ---------- INVITE ELEMENTS ----------*/
+
+.invite {
+    @include game_content();
+
+    width: 30%;
+    height: 100%;
+}
+
+.invite_illustration {
+    @include game_illustration();
+
+    fill: none;
+
+    width: 10.21vw;
+    height: 11vw;
+
+    position: absolute;
+    top: -25%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+
+/* ----------- VIEW ELEMENTS -----------*/
+
+.view {
+    @include game_content();
+
+    width: 30%;
+    height: 100%;
+}
+
+.view_illustration {
+    @include game_illustration();
+
+    fill: none;
+
+    width: 8.8vw;
+    height: 10.8vw;
+
+    position: absolute;
+    top: -25%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+
+/* ----------- TEXT ELEMENTS -----------*/
+
+.h1 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-style: bold;
+    font-size: 3.33vw;
+    text-transform: uppercase;
+    
+    background: linear-gradient(90deg, $color_mauve 20.83%, $color_uranian 49.94%, $color_mint 80.3%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  
+    z-index: 1;
+    max-height: 78px;
+}
+
+.h3 {
+    color: white;
+
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: lighter;
+    font-size: 1.25vw;
+    
+    z-index: 1;
+}
+
+.text {
+    color: white;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 1.25vw; 
+    margin: 0.52vw;
 }

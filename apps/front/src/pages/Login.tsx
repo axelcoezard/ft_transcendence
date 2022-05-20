@@ -1,10 +1,14 @@
 import React, { useEffect } from 'react'
 import { useSearchParams, useNavigate } from "react-router-dom"
-import LoginButton from '../components/LoginButton'
+import Buttons from '../components/Buttons'
 import Illustration from '../components/Scenery/Scenery'
 import { useAppContext } from '../contexts/AppContext'
 
 import styles from '../styles/Login.module.scss'
+
+
+/* ------------- LOGIN SVG -------------*/
+
 
 const WelcomeToPong = () => {
 	return  <svg className={styles.welcome_svg}>
@@ -28,6 +32,8 @@ const WelcomeToPong = () => {
 		</defs>
 	</svg>
 }
+
+/* ------------- LOGIN PAGE ------------*/
 
 const Login = (props: any) => {
 	const {session} = useAppContext()
@@ -78,7 +84,7 @@ const Login = (props: any) => {
 					</div>
 				</div>
 			</div>
-			<LoginButton />
+			<Buttons.LoginButton />
 		</section>
 		<Illustration.LoginFrontScenery />
 	</main>;
