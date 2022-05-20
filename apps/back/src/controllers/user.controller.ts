@@ -12,7 +12,7 @@ import {
 	Post,
 	UseGuards, UseInterceptors,
   } from '@nestjs/common';
-import { UpdateUserDto } from './dto/update.user.dto';
+import { UpdateUserDto } from '../dto/update.user.dto';
 
 @Controller('user')
 export class UserController {

@@ -2,7 +2,7 @@ import { CACHE_MANAGER, Inject, Injectable, NotFoundException, UnauthorizedExcep
 import { User } from '../entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UpdateUserDto } from '../user/dto/update.user.dto';
+import { UpdateUserDto } from '../dto/update.user.dto';
 
 @Injectable()
 export class UserService {
