@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 
 import "./styles/globals.scss";
+import Profil from "./pages/Profil";
 import Tchat from "./pages/Tchat";
 import Play from "./pages/Play";
 import Wrapper from "./components/Wrapper";
@@ -29,6 +30,9 @@ const _App = () => {
 		<BrowserRouter>
 			<Routes>
 				<Route path="/" element={<Login />} />
+				<Route path="/profil" element={<PrivateRoute>
+					<Profil />
+				</PrivateRoute>} />
 				<Route path="/home" element={<PrivateRoute>
 					<Home />
 				</PrivateRoute>} />

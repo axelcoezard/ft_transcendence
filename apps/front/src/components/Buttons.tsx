@@ -49,7 +49,7 @@ const LoginButton = () => {
 
 
 const PlayButton = () => {
-	// Handle click
+	// Add link to game
 
 	return <button className={styles.play_button}>
 		<div className={styles.play_button_icon} />
