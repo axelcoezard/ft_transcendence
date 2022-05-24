@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import styles from '../styles/Tchat.module.scss'
 import { useAppContext } from '../contexts/AppContext';
 import { Link, useParams } from 'react-router-dom';
-import { setMaxListeners } from 'process';
 
 const Tchat = () => {
 	const {session, socket} = useAppContext();
