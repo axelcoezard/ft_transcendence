@@ -20,7 +20,7 @@
 .content {
     background-color: rgba(33, 33, 33, 0.8);
 
-    width: 35%;
+    width: 32%;
     height: 80%;
     border-radius: 1.3vw;
 
@@ -28,13 +28,26 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
 }
 
 /* ---------- HEADER ELEMENTS --------- */
 
 .general {
     display: flex;
+    justify-content: center;
+    flex-direction: row;
+    text-align: center;
+}
+
+.username_ranked {
+    display: flex;
     flex-direction: column;
+    justify-content: center;
     text-align: left;
 }
 
@@ -44,6 +57,28 @@
     align-items: flex-end;
     text-align: center;
 }
+
+/* ----------- VICTORY CROWN ---------- */
+
+.victories_defeats {
+    width: 75%;
+   
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: center;
+    align-items: baseline;
+}
+
+.victory_crown {
+	width: 1.3vw;
+	height: 1vw;
+	fill: none;
+}
+
+/* ----------- HISTORY SLIDE ---------- */
+
+
 
 /* ----------- TEXT ELEMENTS -----------*/
 
