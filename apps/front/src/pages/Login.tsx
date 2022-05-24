@@ -57,12 +57,13 @@ const Login = (props: any) => {
 			}))
 			request.catch(e => {console.error(e)})
 		}
-
-		if (session.has("access_token"))
-			navigate("/home")
-
 		return () => {}
 	}, [])
+
+	useEffect(() => {
+		if (session.has("access_token"))
+			navigate("/home")
+	}, [session])
 
 	return <main className={styles.login}>
 		<Illustration.LoginBackScenery />
