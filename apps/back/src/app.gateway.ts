@@ -36,7 +36,8 @@ export class AppGateway
 
 	async sendTchatInformations(client: Socket, slug: string) {
 		client.emit("channel_set_list", await this.service.channels.getAll());
-		client.emit("channel_set_msg", await this.service.messages.getByChannel(slug));
+		if (slug)
+			client.emit("channel_set_msg", await this.service.messages.getByChannel(slug));
 	}
 
 	@SubscribeMessage("channel_join")
