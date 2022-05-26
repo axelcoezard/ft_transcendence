@@ -39,8 +39,10 @@ const Play = () => {
 	socket.on("joinGame", ({position}: {position: string}) => setPosition(position))
 
 	socket.on("paddleMove", (data: any) => {
+		console.log(data.sender, session.get("username"))
 		if (data.sender === session.get("username"))
 			return;
+		console.log(data.sender_position)
 		if (data.sender_position === position)
 			return;
 		if (data.sender_position === "left")
@@ -74,13 +76,12 @@ const Play = () => {
 		let player = position === "left" ? left : right;
 		let lastY = player.y;
 		player.setY(y)
-		if (Math.abs(lastY - y) / PADDLE_HEIGHT > 0.1)
-			socket.emit("paddleMove", "game", id, {
-				sender: session.get("username"),
-				sender_position: position,
-				x: player.x,
-				y: player.y
-			})
+		socket.emit("paddleMove", "game", id, {
+			sender: session.get("username"),
+			sender_position: position,
+			x: player.x,
+			y: player.y
+		})
 	}
 
 	return <main className={styles.main}>

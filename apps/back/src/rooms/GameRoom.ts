@@ -41,7 +41,7 @@ export default class GameRoom extends Room {
 				this.leftPaddle = new Vector(data.x, data.y);
 			if(data.sender_position === "right")
 				this.rightPaddle = new Vector(data.x, data.y);
-			this.users.forEach(player => player.emit("playerMove", data))
+			this.users.forEach(p => p.emit("paddleMove", data))
 		})
 	}
 
