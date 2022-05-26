@@ -1,6 +1,5 @@
 import { createContext, useContext } from "react";
 import { Socket } from "socket.io-client";
-import useColyseus from "../hooks/useColyseus";
 import useSession from "../hooks/useSession";
 import useSocket from "../hooks/useSocket";
 
@@ -14,11 +13,10 @@ const AppContext = createContext<any>({
 	},
 	socket: {
 		on: (name: string, callback: any) => { },
-		emit: (name: string, value: any) => { },
+		emit: (name: string, room_type: string, room_id: string, value: any = {}) => { },
 		current: null,
 		id: null
-	},
-	colyseus: null
+	}
 });
 
 const useAppContext = () => useContext(AppContext);
@@ -26,12 +24,10 @@ const useAppContext = () => useContext(AppContext);
 const AppProvider = (props: any) => {
 	const session = useSession("session", {});
 	const socket = useSocket("localhost:3030")
-	const colyseus = useColyseus("ws://localhost:3030")
 
 	const defaultValue = {
 		session,
-		socket,
-		colyseus
+		socket
 	}
 
 	return <AppContext.Provider value={defaultValue}>

@@ -1,13 +1,13 @@
 import { Logger, Inject } from '@nestjs/common';
 import { SubscribeMessage, WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
-import { LobbyRoom } from 'colyseus';
 import { Socket, Server } from 'socket.io';
-import Room from './app.room';
 import ChannelBuilder from './builder/channel.builder';
 import MessageBuilder from './builder/message.builder';
 import ChatRoom from './rooms/ChatRoom';
 import GameRoom from './rooms/GameRoom';
-import AppRoon from './rooms/Room';
+import LobbyRoom from './rooms/LobbyRoom';
+import Player from './rooms/Player';
+import Room from './rooms/Room';
 import AppService from './services/app.service';
 
 @WebSocketGateway({
@@ -19,10 +19,10 @@ export class AppGateway
 	private readonly service: AppService;
 
 	@WebSocketServer()
-	private server: Server;
-	private logger: Logger = new Logger('AppGateway');
+	public server: Server;
+	public logger: Logger = new Logger('AppGateway');
 
-	private users: Map<string, Socket>;
+	private users: Map<string, Player>;
 
 	private lobby: LobbyRoom;
 	private games: Map<string, GameRoom>;
@@ -34,6 +34,11 @@ export class AppGateway
 		this.users = new Map();
 		this.games = new Map();
 		this.chats = new Map();
+
+		let game1 = new GameRoom("ewsdg");
+		game1.setService(this.service);
+		game1.setGateway(this);
+		this.games.set(game1.id, game1);
 	}
 
 	public handleDisconnect(client: Socket) {
@@ -42,48 +47,27 @@ export class AppGateway
 	}
 
 	public handleConnection(client: Socket, ...args: any[]) {
-		this.users.set(client.id, client)
-		client.emit("id", {id: client.id});
+		let player: Player = new Player(client);
+		this.users.set(player.id, player)
+
 		this.logger.log(`Client connected: ${client.id}`);
 	}
 
-	public async sendTchatInformations(client: Socket, slug: string) {
-		client.emit("channel_set_list", await this.service.channels.getAll());
-		if (slug)
-			client.emit("channel_set_msg", await this.service.messages.getByChannel(slug));
+	private getRoom(type: string, id: string): Room {
+		if (type === "game")
+			return this.games.get(id);
+		if (type === "chat")
+			return this.chats.get(id)
+		if (type === "lobby")
+			return this.lobby;
+		return null;
 	}
 
-	@SubscribeMessage("channel_join")
-	public async onJoinChannel(client: Socket, info) {
-		console.log("joined channel")
-		if (await this.service.channels.getBySlug(info.channel_slug))
-			return this.sendTchatInformations(client, info.channel_slug);
-
-		console.error(`Channel ${info.channel_slug} does not exist: creating...`)
-		this.service.channels.create(
-			ChannelBuilder.new()
-			.setCreator(info.sender_id)
-			.setSlug(info.channel_slug)
-		).then(res => this.sendTchatInformations(client, info.channel_slug));
-	}
-
-	@SubscribeMessage("channel_msg")
-	public async onPrivmsg(client: Socket, msg) {
-		let channel = await this.service.channels.getBySlug(msg.channel_slug);
-		let message = MessageBuilder.new(msg.value)
-			.setSender(msg.sender_id)
-			.setChannel(channel.id)
-			.setType(msg.type);
-
-		this.server.emit("channel_msg", {...msg, channel_id: channel.id});
-		this.service.messages.addMessage(message);
-	}
-
-	@SubscribeMessage("paddleMove")
-	public onPaddleMove(client: Socket, {sender, y}) {
-		this.server.emit("paddleMove", {
-			sender,
-			y
-		});
+	@SubscribeMessage('message')
+	public async onMessage(client: Socket, msg: any) {
+		let player = this.users.get(client.id);
+		let room = this.getRoom(msg.room, msg.room_id);
+		if (room)
+			room.callMessage(msg.type, player, msg.value);
 	}
 }

@@ -1,99 +1,86 @@
 import Navbar from '../components/Navigation';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppContext } from "../contexts/AppContext";
 import useBall from "../hooks/useBall";
 import useCanvas from "../hooks/useCanvas";
 import usePaddle, { PADDLE_HEIGHT, PADDLE_WIDTH } from "../hooks/usePaddle";
 
 import styles from '../styles/Login.module.scss'
-import useColyseus from '../hooks/useColyseus';
+import { useParams } from 'react-router-dom';
 
 export const PONG_HEIGHT: number = 400;
 export const PONG_WIDTH: number = 600;
 
 const Play = () => {
-	const {session, socket, colyseus} = useAppContext();
-	const [started, setStarted] = useState(false)
+	const {session, socket} = useAppContext();
+	const [started, setStarted] = useState<boolean>(false)
+	const [position, setPosition] = useState<string>("spectator")
 
-	const computer = usePaddle(20, 50)
-	const player = usePaddle(PONG_WIDTH - PADDLE_WIDTH - 20, 50)
+	const {id} = useParams()
+
+	const left = usePaddle(20, 50)
+	const right = usePaddle(PONG_WIDTH - PADDLE_WIDTH - 20, 50)
 	const ball = useBall();
 
-	//try {
-	//	colyseus.join("default_room", {})
-	//	console.log("joined successfully");
-	//  } catch (e) {
-	//	console.error("join error", e);
-	//  }
-
-	socket.on("paddleMove", ({sender, y}: any) => {
-		if (sender === session.get("username"))
-			return;
-		computer.setY(y)
+	const join = () => socket.emit("join", "game", id, {
+		id: session.get("id"),
+		username: session.get("username"),
 	})
 
-	const reset = () => {
-		setStarted(false);
-		ball.reset();
-		//playWinSound();
-		let timeout = setTimeout(() => {
-			setStarted(true);
-			//playServiceSound();
-			clearTimeout(timeout);
-		}, 1000);
-	}
+	useEffect(() => {
+		return () => {
+			socket.emit("leave", "game", id, {
+				id: session.get("id"),
+				username: session.get("username")
+			})
+		}
+	}, [])
 
-	const update = (framecount: number) => {
-		if (!started) return;
+	socket.on("joinGame", ({position}: {position: string}) => setPosition(position))
 
-		if ((ball.dx === -1 && ball.x <= 0) ||(ball.dx === 1 && ball.x >= PONG_WIDTH - ball.diameter)) ball.setDx(-ball.dx);
-		if ((ball.dy === -1 && ball.y <= 0) || (ball.dy === 1 && ball.y >= PONG_HEIGHT - ball.diameter)) ball.setDy(-ball.dy);
+	socket.on("paddleMove", (data: any) => {
+		if (data.sender === session.get("username"))
+			return;
+		if (data.sender_position === position)
+			return;
+		if (data.sender_position === "left")
+			left.setY(data.y)
+		if (data.sender_position === "right")
+			right.setY(data.y)
+	})
 
-		if (ball.dx === -1 && ball.x <= computer.x + PADDLE_WIDTH
-			&& ball.y + ball.diameter > computer.y
-			&& ball.y <= computer.y + PADDLE_HEIGHT)
-			ball.setDx(-ball.dx);
-
-		if (ball.dx === 1 && ball.x + ball.diameter >= player.x
-			&& ball.y + ball.diameter >= player.y
-			&& ball.y <= player.y + PADDLE_HEIGHT)
-			ball.setDx(-ball.dx);
-
-		if (ball.x <= 0 || ball.x >= PONG_WIDTH - ball.diameter)
-			return reset();
-
-		ball.setX(ball.x + ball.dx * ball.speed)
-		ball.setY(ball.y + ball.dy * ball.speed)
-	}
+	socket.on("ballMove", (data: any) => {
+		ball.setY(data.y)
+		ball.setX(data.x)
+	})
 
 	const render = (context: CanvasRenderingContext2D, _: any) => {
 		context.fillStyle = "#60B5E7";
-		context.fillRect(player.x, player.y, PADDLE_WIDTH, PADDLE_HEIGHT)
+		context.fillRect(left.x, left.y, PADDLE_WIDTH, PADDLE_HEIGHT)
 		context.fillStyle = "#60B5E7";
-		context.fillRect(computer.x, computer.y, PADDLE_WIDTH, PADDLE_HEIGHT)
+		context.fillRect(right.x, right.y, PADDLE_WIDTH, PADDLE_HEIGHT)
 		context.fillStyle = "#48DAC3";
 		context.beginPath()
 		context.arc(ball.x, ball.y, ball.diameter / 2, 0, 2 * Math.PI);
 		context.fill();
 	}
 
-	const canvasRef = useCanvas(update, render);
-
-	const handleKeyboard = (e: React.KeyboardEvent<HTMLCanvasElement>) => {
-		switch (e.key) {
-			case "w": player.move(-1); break;
-			case "ArrowUp": player.move(-1); break;
-			case "s": player.move(1); break;
-			case "ArrowDown": player.move(1); break;
-			default: break;
-		}
-	}
-
+	const canvasRef = useCanvas((framecount: number) => {}, render);
 	const handleMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
+		if (position === "spectator")
+			return;
 		const canvas = e.currentTarget || e.target;
 		const y = e.clientY - canvas.getBoundingClientRect().y - 50;
+		let player = position === "left" ? left : right;
+		let lastY = player.y;
 		player.setY(y)
-		socket.emit("paddleMove", { sender: session.get("username"), y })
+		if (Math.abs(lastY - y) / PADDLE_HEIGHT > 0.1)
+			socket.emit("paddleMove", "game", id, {
+				sender: session.get("username"),
+				sender_position: position,
+				x: player.x,
+				y: player.y
+			})
 	}
 
 	return <main className={styles.main}>
@@ -102,8 +89,8 @@ const Play = () => {
 			width={PONG_WIDTH}
 			height={PONG_HEIGHT}
 			onMouseMove={handleMove}
-			onKeyDown={handleKeyboard}
 		/>
+		<button onClick={join}>Join game</button>
 	</main>;
 };
 
