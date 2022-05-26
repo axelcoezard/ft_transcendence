@@ -22,23 +22,23 @@ const Play = () => {
 	const right = usePaddle(PONG_WIDTH - PADDLE_WIDTH - 20, 50)
 	const ball = useBall();
 
-	const join = () => socket.emit("join", "game", id, {
-		id: session.get("id"),
-		username: session.get("username"),
-	})
-
 	useEffect(() => {
+		if (socket.ready)
+			socket.emit("join", "game", id, {
+				id: session.get("id"),
+				username: session.get("username"),
+			})
 		return () => {
 			socket.emit("leave", "game", id, {
 				id: session.get("id"),
 				username: session.get("username")
 			})
 		}
-	}, [])
+	}, [socket.ready])
 
-	socket.on("joinGame", ({position}: {position: string}) => setPosition(position))
+	socket.onAfterInit("joinGame", ({position}: {position: string}) => setPosition(position))
 
-	socket.on("paddleMove", (data: any) => {
+	socket.onAfterInit("paddleMove", (data: any) => {
 		console.log(data.sender, session.get("username"))
 		if (data.sender === session.get("username"))
 			return;
@@ -51,7 +51,7 @@ const Play = () => {
 			right.setY(data.y)
 	})
 
-	socket.on("ballMove", (data: any) => {
+	socket.onAfterInit("ballMove", (data: any) => {
 		ball.setY(data.y)
 		ball.setX(data.x)
 	})
@@ -74,7 +74,6 @@ const Play = () => {
 		const canvas = e.currentTarget || e.target;
 		const y = e.clientY - canvas.getBoundingClientRect().y - 50;
 		let player = position === "left" ? left : right;
-		let lastY = player.y;
 		player.setY(y)
 		socket.emit("paddleMove", "game", id, {
 			sender: session.get("username"),
@@ -91,7 +90,6 @@ const Play = () => {
 			height={PONG_HEIGHT}
 			onMouseMove={handleMove}
 		/>
-		<button onClick={join}>Join game</button>
 	</main>;
 };
 

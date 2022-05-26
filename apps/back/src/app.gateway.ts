@@ -39,6 +39,11 @@ export class AppGateway
 		game1.setService(this.service);
 		game1.setGateway(this);
 		this.games.set(game1.id, game1);
+
+		let chat1 = new ChatRoom("ewsdg");
+		chat1.setService(this.service);
+		chat1.setGateway(this);
+		this.chats.set(chat1.id, chat1);
 	}
 
 	public handleDisconnect(client: Socket) {

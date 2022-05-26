@@ -54,6 +54,7 @@ export default class GameRoom extends Room {
 			player.emit("joinGame", {position: "right"})
 		if (this.users.length > 2)
 			player.emit("joinGame", {position: "spectator"})
+		player.type = (this.users.length > 2) ? "spectator" : "player";
 
 		console.log(`player ${player.id} joined ${this.id}`)
 
@@ -114,18 +115,23 @@ export default class GameRoom extends Room {
 				id: this.id
 			}))
 			this.updateBall(0);
+			console.log("START")
 	}
 
-	public stop() {
+	private stop() {
 		this.state = 0;
 		this.users.forEach(player => player.emit("stopGame", {
 			id: this.id
 		}))
+		console.log("STOP")
 	}
 
 	public onLeave(player: Player) {
 		this.users = this.users.filter((e: Player) => e.id !== player.id);
 		console.log(`player ${player.id} leaved ${this.id}`)
+
+		if (this.users.filter((e: Player) => e.type === "player").length < 2)
+			this.stop();
 	}
 }
 

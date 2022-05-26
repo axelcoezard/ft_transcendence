@@ -6,28 +6,28 @@ import { Link, useParams } from 'react-router-dom';
 
 const Tchat = () => {
 	const {session, socket} = useAppContext();
-	let [messages, setMessages] = useState<any[]>([]);
-	let [channels, setChannels] = useState<any[]>([]);
-	let [value, setValue] = useState("");
-	let {slug} = useParams();
+	const [messages, setMessages] = useState<any[]>([]);
+	const [channels, setChannels] = useState<any[]>([]);
+	const [value, setValue] = useState("");
+	const {slug} = useParams();
 
 	useEffect(() => {
-		socket.emit("channel_join", {
-			sender_id: session.get("id"),
-			channel_slug: slug
-		})
-	}, [socket.current, slug])
+		if (socket.ready)
+		{
+			socket.emit("join", "chat", slug)
+			socket.on("chat.msg", (res: any) => {
+				let tmp: any[] = [{
+					id: messages.length + 1,
+					...res
+				}].concat([...messages]);
+				console.log(tmp)
+				setMessages(tmp)
+			})
+		}
+	}, [socket.ready])
 
-	socket.on("channel_msg", (res: any) => {
-		messages.unshift({
-			id: messages.length + 1,
-			...res
-		})
-		setMessages(messages)
-	})
-
-	socket.on("channel_set_list", (res: any) => setChannels(res))
-	socket.on("channel_set_msg", (res: any) => setMessages(res))
+	//socket.on("channel_set_list", (res: any) => setChannels(res))
+	//socket.on("channel_set_msg", (res: any) => setMessages(res))
 
 	return (
 		<div className={styles.tchat}>
@@ -54,7 +54,7 @@ const Tchat = () => {
 					<button
 						className={styles.tchat_button}
 						onClick={(e) => {
-						socket.emit("channel_msg", {
+						socket.emit("msg", "chat", slug, {
 							sender_id: session.get("id"),
 							sender_username: session.get("username"),
 							channel_slug: slug,

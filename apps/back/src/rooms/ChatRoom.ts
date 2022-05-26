@@ -8,15 +8,22 @@ export default class ChatRoom extends Room {
 	}
 
 	public onCreate() {
-
+		this.onMessage("msg", (player: Player, data: any) => {
+			this.users.forEach((p: Player) => {
+				p.socket.emit("chat.msg", data);
+			});
+			console.log(data)
+		})
 	}
 
 	public onJoin(player: Player) {
 		this.users.push(player);
+		console.log(`${player.id} joined ${this.id}`);
 	}
 
 	public onLeave(player: Player) {
 		this.users = this.users.filter((e: Player) => e.id !== player.id);
+		console.log(`${player.id} leaved ${this.id}`);
 	}
 
 	/*

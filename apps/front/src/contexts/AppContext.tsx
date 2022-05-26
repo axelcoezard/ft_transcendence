@@ -13,7 +13,9 @@ const AppContext = createContext<any>({
 	},
 	socket: {
 		on: (name: string, callback: any) => { },
+		onAfterInit: (name: string, callback: any) => { },
 		emit: (name: string, room_type: string, room_id: string, value: any = {}) => { },
+		emitAfterInit: (name: string, room_type: string, room_id: string, value: any = {}) => { },
 		current: null,
 		id: null
 	}
