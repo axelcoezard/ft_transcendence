@@ -74,12 +74,6 @@
 	flex-direction: row;
 }
 
-@mixin game_illustration {
-    top: -15%;
-    left: 50%;
-    transform: translate(0%, -50%);
-}
-
 @mixin game_content {
     background-color: rgba(33, 33, 33, 0.8);
     border-radius: 1.3vw;
@@ -99,19 +93,6 @@
     height: 100%;
 }
 
-.random_illustration {
-    @include game_illustration();
-    width: 12.24vw;
-    height:  9.9vw;
-
-    fill: none;
-
-    position: absolute;
-    top: -25%;
-    left: 50%;
-    transform: translate(-50%, 0%);
-}
-
 /* ---------- INVITE ELEMENTS ----------*/
 
 .invite {
@@ -121,20 +102,6 @@
     height: 100%;
 }
 
-.invite_illustration {
-    @include game_illustration();
-
-    fill: none;
-
-    width: 10.21vw;
-    height: 11vw;
-
-    position: absolute;
-    top: -25%;
-    left: 50%;
-    transform: translate(-50%, 0%);
-}
-
 /* ----------- VIEW ELEMENTS -----------*/
 
 .view {
@@ -142,20 +109,6 @@
 
     width: 30%;
     height: 100%;
-}
-
-.view_illustration {
-    @include game_illustration();
-
-    fill: none;
-
-    width: 8.8vw;
-    height: 10.8vw;
-
-    position: absolute;
-    top: -25%;
-    left: 50%;
-    transform: translate(-50%, 0%);
 }
 
 /* ----------- TEXT ELEMENTS -----------*/

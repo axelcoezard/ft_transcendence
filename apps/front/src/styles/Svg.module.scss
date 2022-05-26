@@ -1,0 +1,67 @@
+/* ----------- COLOR PALETTE -----------*/
+
+@use 'Colors' as *;
+
+/* ----------- LOGIN ELEMENTS ----------*/
+
+.welcome_svg {
+	width: 40px;
+	height: 40px;
+}
+
+/* ---------- PROFIL ELEMENTS ----------*/
+
+.victory_crown {
+	width: 1.3vw;
+	height: 1vw;
+	fill: none;
+}
+
+/* --------- HOME ILLUSTRATION -------- */
+
+@mixin game_illustration {
+    top: -15%;
+    left: 50%;
+    transform: translate(0%, -50%);
+}
+
+.random_illustration {
+    @include game_illustration();
+    width: 12.24vw;
+    height:  9.9vw;
+
+    fill: none;
+
+    position: absolute;
+    top: -25%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+
+.invite_illustration {
+    @include game_illustration();
+
+    fill: none;
+
+    width: 10.21vw;
+    height: 11vw;
+
+    position: absolute;
+    top: -25%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+
+.view_illustration {
+    @include game_illustration();
+
+    fill: none;
+
+    width: 8.8vw;
+    height: 10.8vw;
+
+    position: absolute;
+    top: -25%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}

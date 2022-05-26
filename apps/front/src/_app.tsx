@@ -36,10 +36,13 @@ const _App = () => {
 				<Route path="/home" element={<PrivateRoute>
 					<Home />
 				</PrivateRoute>} />
-				<Route path="/tchat/:slug" element={<PrivateRoute>
+				<Route path="/tchat/" element={<PrivateRoute>
 					<Tchat />
 				</PrivateRoute>} />
 				<Route path="/play" element={<PrivateRoute>
+					<Play />
+				</PrivateRoute>} />
+				<Route path="/settings" element={<PrivateRoute>
 					<Play />
 				</PrivateRoute>} />
 			</Routes>
