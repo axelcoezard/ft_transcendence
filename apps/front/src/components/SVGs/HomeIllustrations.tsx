@@ -1,7 +1,4 @@
-import {Link} from 'react-router-dom';
-
 import styles from '../../styles/Svg.module.scss'
-
 
 /* ------------- HOME SVG --------------*/
 
@@ -158,4 +155,10 @@ const ViewIllustration = () => {
 	</svg>
 }
 
-export default { RandomIllustration, InviteIllustration, ViewIllustration }
+const ExportIllustration = {
+	RandomIllustration,
+	InviteIllustration,
+	ViewIllustration
+};
+
+export default ExportIllustration;

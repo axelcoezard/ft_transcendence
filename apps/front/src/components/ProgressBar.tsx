@@ -1,9 +1,7 @@
-import {Link} from 'react-router-dom';
-
 import styles from '../styles/Components.module.scss'
 
 const ProgressBar = (props: any) => {
-	const { bgcolor, progress, height} = props;
+	const { bgcolor, progress} = props;
 
 		return <div className={styles.progress_bar}>
 			<p className={styles.progress_bar_text}>15/150</p> {/* BACK */}

@@ -1,5 +1,3 @@
-import {Link} from 'react-router-dom';
-
 import styles from '../../styles/Svg.module.scss'
 
 /* ------------- LOGIN SVG -------------*/

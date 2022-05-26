@@ -1,7 +1,6 @@
 import {Link} from 'react-router-dom';
 
 import styles from '../styles/Components.module.scss'
-import LoginButton from './Buttons'
 
 /* ---------- NAVIGATION SVGS ----------*/
 
