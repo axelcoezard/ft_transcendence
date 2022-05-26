@@ -7,7 +7,7 @@ import Room from "./Room";
 export const PONG_HEIGHT: number = 400;
 export const PONG_WIDTH: number = 600;
 export const BALL_DIAMETER = 20;
-export const BALL_SPEED = 1;
+export const BALL_SPEED = 5;
 export const PADDLE_HEIGHT = 100;
 export const PADDLE_WIDTH = 20;
 
@@ -61,59 +61,59 @@ export default class GameRoom extends Room {
 			this.start();
 	}
 
-	public start() {
-		this.state = 1;
-		this.users.forEach(player => player.emit("startGame", {
-			id: this.id
-		}))
-
+	private resetBall() {
 		this.ball_pos = new Vector(200, 300);
 		this.ball_d = new Vector(
 			Math.round(Math.random()) * 2 - 1,
 			Math.round(Math.random()) * 2 - 1
 		);
+	}
 
-		console.log("start")
+	private async updateBall(updates: number) {
+		if ((this.ball_d.x === -1 && this.ball_pos.x <= 0)
+			||(this.ball_d.x === 1 && this.ball_pos.x >= PONG_WIDTH - BALL_DIAMETER))
+			this.ball_d.x = -this.ball_d.x;
 
-		let i: number = 0;
-		while (this.state)
+		if ((this.ball_d.y === -1 && this.ball_pos.y <= 0)
+			|| (this.ball_d.y === 1 && this.ball_pos.y >= PONG_HEIGHT - BALL_DIAMETER))
+			this.ball_d.y = -this.ball_d.y;
+
+		if (this.ball_d.x === -1 && this.ball_pos.x <= this.leftPaddle.x + PADDLE_WIDTH
+			&& this.ball_pos.y + BALL_DIAMETER > this.leftPaddle.y
+			&& this.ball_pos.y <= this.leftPaddle.y + PADDLE_HEIGHT)
+			this.ball_d.x = -this.ball_d.x;
+
+		if (this.ball_d.x === 1 && this.ball_pos.x + BALL_DIAMETER >= this.rightPaddle.x
+			&& this.ball_pos.y + BALL_DIAMETER >= this.rightPaddle.y
+			&& this.ball_pos.y <= this.rightPaddle.y + PADDLE_HEIGHT)
+			this.ball_d.x = -this.ball_d.x;
+
+		if (this.ball_pos.x <= 0 || this.ball_pos.x >= PONG_WIDTH - BALL_DIAMETER)
 		{
-			if(i++ % 100 != 0)
-				continue;
-
-			if ((this.ball_d.x === -1 && this.ball_pos.x <= 0)
-				||(this.ball_d.x === 1 && this.ball_pos.x >= PONG_WIDTH - BALL_DIAMETER))
-				this.ball_d.x = -this.ball_d.x;
-
-			if ((this.ball_d.y === -1 && this.ball_pos.y <= 0)
-				|| (this.ball_d.y === 1 && this.ball_pos.y >= PONG_HEIGHT - BALL_DIAMETER))
-				this.ball_d.y = -this.ball_d.y;
-
-			if (this.ball_d.x === -1 && this.ball_pos.x <= this.leftPaddle.x + PADDLE_WIDTH
-				&& this.ball_pos.y + BALL_DIAMETER > this.leftPaddle.y
-				&& this.ball_pos.y <= this.leftPaddle.y + PADDLE_HEIGHT)
-				this.ball_d.x = -this.ball_d.x;
-
-			if (this.ball_d.x === 1 && this.ball_pos.x + BALL_DIAMETER >= this.rightPaddle.x
-				&& this.ball_pos.y + BALL_DIAMETER >= this.rightPaddle.y
-				&& this.ball_pos.y <= this.rightPaddle.y + PADDLE_HEIGHT)
-				this.ball_d.x = -this.ball_d.x;
-
-			if (this.ball_pos.x <= 0 || this.ball_pos.x >= PONG_WIDTH - BALL_DIAMETER)
-			{
-				this.ball_pos.x = 200;
-				this.ball_pos.y = 300;
-			}
-
-			this.ball_pos.x += this.ball_d.x * BALL_SPEED
-			this.ball_pos.y += this.ball_d.y * BALL_SPEED
-
-			this.users.forEach(player => player.emit("ballMove", {
-				id: this.id,
-				x: this.ball_pos.x,
-				y: this.ball_pos.y
-			}))
+			this.ball_pos.x = 200;
+			this.ball_pos.y = 300;
 		}
+
+		this.ball_pos.x += this.ball_d.x * BALL_SPEED
+		this.ball_pos.y += this.ball_d.y * BALL_SPEED
+
+		this.users.forEach(player => player.emit("ballMove", {
+			id: this.id,
+			x: this.ball_pos.x,
+			y: this.ball_pos.y
+		}))
+
+		if (this.state !== 0)
+			setTimeout(() => this.updateBall(updates + 1), 1000 / 60)
+	}
+
+	private start() {
+			this.resetBall();
+			this.state = 1;
+			this.users.forEach(player => player.emit("startGame", {
+				id: this.id
+			}))
+			this.updateBall(0);
 	}
 
 	public stop() {
