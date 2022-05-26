@@ -14,6 +14,7 @@ import Profil from "./pages/Profil";
 import Tchat from "./pages/Tchat";
 import Play from "./pages/Play";
 import Wrapper from "./components/Wrapper";
+import Settings from "./pages/Settings";
 
 const PrivateRoute = ({children}: {children: JSX.Element}) => {
 	const { session } = useAppContext();
@@ -46,7 +47,7 @@ const _App = () => {
 					<Play />
 				</PrivateRoute>} />
 				<Route path="/settings" element={<PrivateRoute>
-					<Play />
+					<Settings />
 				</PrivateRoute>} />
 			</Routes>
 		</BrowserRouter>
