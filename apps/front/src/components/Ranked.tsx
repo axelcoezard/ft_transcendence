@@ -1,5 +1,3 @@
-import {Link} from 'react-router-dom';
-
 import styles from '../styles/Components.module.scss'
 
 /* ------------ HIGH RANKED ----------- */

@@ -1,7 +1,5 @@
 import * as React from "react";
 
-import styles from '../styles/Components.module.scss'
-
 const FilterAvatars = () => {
 	return <defs>
 		<filter id="filter_avatar_torso" width="62.455" height="37.421" x="8.388" y="50.632" colorInterpolationFilters="sRGB" filterUnits="userSpaceOnUse">
