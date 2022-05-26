@@ -1,8 +1,13 @@
 import { Logger, Inject } from '@nestjs/common';
 import { SubscribeMessage, WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
+import { LobbyRoom } from 'colyseus';
 import { Socket, Server } from 'socket.io';
+import Room from './app.room';
 import ChannelBuilder from './builder/channel.builder';
 import MessageBuilder from './builder/message.builder';
+import ChatRoom from './rooms/ChatRoom';
+import GameRoom from './rooms/GameRoom';
+import AppRoon from './rooms/Room';
 import AppService from './services/app.service';
 
 @WebSocketGateway({
@@ -16,32 +21,40 @@ export class AppGateway
 	@WebSocketServer()
 	private server: Server;
 	private logger: Logger = new Logger('AppGateway');
-	private users: any;
 
-	afterInit(server: Server) {
+	private users: Map<string, Socket>;
+
+	private lobby: LobbyRoom;
+	private games: Map<string, GameRoom>;
+	private chats: Map<string, ChatRoom>;
+
+	public afterInit(server: Server) {
 		this.logger.log('Init');
+
 		this.users = new Map();
+		this.games = new Map();
+		this.chats = new Map();
 	}
 
-	handleDisconnect(client: Socket) {
+	public handleDisconnect(client: Socket) {
 		this.users.delete(client.id);
 		this.logger.log(`Client disconnected: ${client.id}`);
 	}
 
-	handleConnection(client: Socket, ...args: any[]) {
+	public handleConnection(client: Socket, ...args: any[]) {
 		this.users.set(client.id, client)
 		client.emit("id", {id: client.id});
 		this.logger.log(`Client connected: ${client.id}`);
 	}
 
-	async sendTchatInformations(client: Socket, slug: string) {
+	public async sendTchatInformations(client: Socket, slug: string) {
 		client.emit("channel_set_list", await this.service.channels.getAll());
 		if (slug)
 			client.emit("channel_set_msg", await this.service.messages.getByChannel(slug));
 	}
 
 	@SubscribeMessage("channel_join")
-	async onJoinChannel(client: Socket, info) {
+	public async onJoinChannel(client: Socket, info) {
 		console.log("joined channel")
 		if (await this.service.channels.getBySlug(info.channel_slug))
 			return this.sendTchatInformations(client, info.channel_slug);
@@ -55,7 +68,7 @@ export class AppGateway
 	}
 
 	@SubscribeMessage("channel_msg")
-	async onPrivmsg(client: Socket, msg) {
+	public async onPrivmsg(client: Socket, msg) {
 		let channel = await this.service.channels.getBySlug(msg.channel_slug);
 		let message = MessageBuilder.new(msg.value)
 			.setSender(msg.sender_id)
@@ -67,7 +80,7 @@ export class AppGateway
 	}
 
 	@SubscribeMessage("paddleMove")
-	onPaddleMove(client: Socket, {sender, y}) {
+	public onPaddleMove(client: Socket, {sender, y}) {
 		this.server.emit("paddleMove", {
 			sender,
 			y
