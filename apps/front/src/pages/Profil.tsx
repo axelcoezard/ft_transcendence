@@ -12,7 +12,7 @@ const Profil = () => {
 	return <main className={styles.profil}>
 		<section className={styles.content}>
 			<Avatars.PurpleAvatar width="3.9vw" height="3.9vw"/> {/* BACK */}
-			
+
 			<div className={styles.general}>
 				<Ranked.MediumRanked />
 				<div className={styles.username_ranked}>
@@ -23,7 +23,7 @@ const Profil = () => {
 					</div>
 				</div>
 			</div>
-			
+
 			<ProgressBar progress={60} bgcolor="#60B5E7" /> {/* BACK */}
 
 			<div className={styles.victories_defeats}>
@@ -32,7 +32,7 @@ const Profil = () => {
 				<p className={styles.text}>4 defeats</p> {/* BACK */}
 			</div>
 
-			<History />
+			{/*<History />*/}
 		</section>
 	</main>
 }

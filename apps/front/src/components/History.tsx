@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 import Avatars from '../components/Avatars'
 import styles from '../styles/Components.module.scss'
 import VictoryCrown from './SVGs/VictoryCrown';
+import { useState } from 'react';
 
 const HistoryPlayer = (props: any) => {
 	const { session } = useAppContext();
@@ -40,15 +41,15 @@ const HistoryMatchWinner = (props: any) => {
 
 	if (winner == session.get("username")) {
 		return <div className={styles.history_match_winner}>
-			<VictoryCrown winner="true" /> 
-			<h2 className={styles.history_h2}>VS</h2> 
+			<VictoryCrown winner="true" />
+			<h2 className={styles.history_h2}>VS</h2>
 			<VictoryCrown winner="false" />
 		</div>
 	}
 	else {
 		return <div className={styles.history_match_winner}>
-			<VictoryCrown winner="false" /> 
-			<h2 className={styles.history_h2}>VS</h2> 
+			<VictoryCrown winner="false" />
+			<h2 className={styles.history_h2}>VS</h2>
 			<VictoryCrown winner="true" />
 		</div>
 	}
@@ -63,16 +64,16 @@ const HistoryMatch = (props: any) => {
 	</div>
 }
 
-// const History = () => {
-	
-// 	return  <div className={styles.history}>
-// 		<div className={styles.history_matches}>
-// 			<HistoryMatch opponant="mla-rosa" winner="mla-rosa"/>
-// 			<HistoryMatch opponant="acoezard" winner="mboy"/>
-// 			<HistoryMatch opponant="JB" winner="mboy"/>
-// 		</div>
-// 	</div>
-// }
+const History = () => {
+
+return  <div className={styles.history}>
+ 		<div className={styles.history_matches}>
+ 			<HistoryMatch opponant="mla-rosa" winner="mla-rosa"/>
+ 			<HistoryMatch opponant="acoezard" winner="mboy"/>
+ 			<HistoryMatch opponant="JB" winner="mboy"/>
+ 		</div>
+ 	</div>
+ }
 
 const MyCollection = [
 	{
@@ -91,16 +92,16 @@ const MyCollection = [
   "https://media.geeksforgeeks.org/wp-content/uploads/20210208000008/3.png",
 	},
   ];
-   
-  const History = () => {
+
+  /*const History = () => {
 	const CollectionSize = MyCollection.length;
 	const theme = useTheme();
-	const [index, setActiveStep] = React.useState(0);
-   
+	const [index, setActiveStep] = useState(0);
+
 	const goToNextPicture = () => {
 	  setActiveStep((prevActiveStep) => prevActiveStep + 1);
 	};
-   
+
 	return (
 	  <div
 		style={{
@@ -161,7 +162,7 @@ const MyCollection = [
 		</div>
 	  </div>
 	);
-  };
+  };*/
 
 export default History;
 
