@@ -22,7 +22,7 @@ class AuthService
 	}
 
 	async addUser(user: User) {
-		this.userService.userRepository.save(user);
+		return await this.userService.userRepository.save(user);
 	}
 }
 
@@ -77,10 +77,10 @@ class AuthController {
 		let user = await this.service.getUser(infos.login);
 		if (!user)
 		{
-			user = new User();
-			user.username = infos.login;
-			user.email = infos.email;
-			this.service.addUser(user);
+			let req = new User();
+			req.username = infos.login;
+			req.email = infos.email;
+			user = await this.service.addUser(req);
 		}
 
 		return JSON.stringify({
