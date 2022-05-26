@@ -6,7 +6,6 @@ import {
   } from '@nestjs/common';
 import MessageService from '../services/message.service';
 import Message from '../entities/message.entity';
-import { Channel } from 'diagnostics_channel';
 
 @Controller('messages')
 export default class MessageController {
