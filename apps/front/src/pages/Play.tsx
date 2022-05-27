@@ -6,7 +6,7 @@ import useCanvas from "../hooks/useCanvas";
 import usePaddle, { PADDLE_HEIGHT, PADDLE_WIDTH } from "../hooks/usePaddle";
 
 import styles from '../styles/Play.module.scss'
-import useColyseus from '../hooks/useColyseus';
+// import useColyseus from '../hooks/useColyseus';
 import Avatars from "../components/Avatars";
 import Pong from "../components/SVGs/Pong"
 import WriteIcon from "../components/SVGs/WriteIcon";
@@ -187,7 +187,6 @@ const Play = () => {
 				width={PONG_WIDTH}
 				height={PONG_HEIGHT}
 				onMouseMove={handleMove}
-				onKeyDown={handleKeyboard}
 			/>
 		</section>
 	</main>;
