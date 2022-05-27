@@ -27,7 +27,7 @@ const Login = (props: any) => {
 				}
 			})
 			request.then(response => response.json().then((res: any) => {
-				session.setAll(res)
+				session.setAll({...res})
 			}))
 			request.catch(e => {console.error(e)})
 		}

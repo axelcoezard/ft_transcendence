@@ -26,12 +26,11 @@ const Tchat = () => {
 		{
 			socket.emit("join", "chat", slug)
 			socket.on("chat.msg", (res: any) => {
-				let tmp: any[] = [{
+				messages.unshift({
 					id: messages.length + 1,
 					...res
-				}].concat([...messages]);
-				console.log(tmp)
-				setMessages(tmp)
+				})
+				setMessages(messages)
 			})
 		}
 	}, [socket.ready])
@@ -102,14 +101,15 @@ const Tchat = () => {
 				}}/>
 				<button className={styles.conversation_send_button}
 					onClick={(e) => {
-						socket.emit("channel_msg", {
+						socket.emit("msg", "chat", slug, {
 							sender_id: session.get("id"),
 							sender_username: session.get("username"),
 							channel_slug: slug,
 							type: "text",
 							value: value
 						})
-					setValue("")}}>
+						setValue("")
+					}}>
 					<SendIcon width="1.5vw" height="1.5vw" />
 				</button>
 			</div>
