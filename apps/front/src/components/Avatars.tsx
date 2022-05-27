@@ -40,7 +40,7 @@ const FilterAvatars = () => {
 const PurpleAvatar = (props : any) => {
 	const {width, height} = props
 	
-	return  <svg width={props.width} height={props.height} fill="none" viewBox="0 0 79 79">
+	return  <svg width={width} height={height} fill="none" viewBox="0 0 79 79">
 		<circle cx="39.115" cy="39.115" r="39.115" fill="#BB86FC"></circle>
 		<circle cx="39.115" cy="39.115" r="38.115" stroke="#fff" strokeOpacity="0.9" strokeWidth="2"></circle>
 		<mask id="mask0_142_443" style={{ maskType: "alpha" }} width="79" height="79" x="0" y="0" maskUnits="userSpaceOnUse">
@@ -59,7 +59,7 @@ const PurpleAvatar = (props : any) => {
 const BlueAvatar = (props : any) => {
 	const {width, height} = props
 
-	return  <svg width={props.width} height={props.height} fill="none" viewBox="0 0 79 79">
+	return  <svg width={width} height={height} fill="none" viewBox="0 0 79 79">
 		<circle cx="39.115" cy="39.115" r="39.115" fill="#60B5E7"></circle>
 		<circle cx="39.115" cy="39.115" r="38.115" stroke="#fff" strokeOpacity="0.9" strokeWidth="2"></circle>
 		<mask id="mask0_142_443" style={{ maskType: "alpha" }} width="79" height="79" x="0" y="0" maskUnits="userSpaceOnUse">
@@ -78,7 +78,7 @@ const BlueAvatar = (props : any) => {
 const GreenAvatar = (props : any) => {
 	const {width, height} = props
 	
-	return  <svg width={props.width} height={props.height} fill="none" viewBox="0 0 79 79">
+	return  <svg width={width} height={height} fill="none" viewBox="0 0 79 79">
 		<circle cx="39.115" cy="39.115" r="39.115" fill="#48DAC3"></circle>
 		<circle cx="39.115" cy="39.115" r="38.115" stroke="#fff" strokeOpacity="0.9" strokeWidth="2"></circle>
 		<mask id="mask0_142_443" style={{ maskType: "alpha" }} width="79" height="79" x="0" y="0" maskUnits="userSpaceOnUse">
@@ -97,7 +97,7 @@ const GreenAvatar = (props : any) => {
 const ImageAvatar = (props : any) => {
 	const {width, height} = props
 
-	return  <svg width={props.width} height={props.height} fill="none" viewBox="0 0 79 79">
+	return  <svg width={width} height={height} fill="none" viewBox="0 0 79 79">
 		<circle cx="39.115" cy="39.805" r="39.115" fill="url(#pattern0)"></circle>
 		<circle cx="39.115" cy="39.805" r="38.115" stroke="#fff" strokeOpacity="0.9" strokeWidth="2"></circle>
 		<defs>
@@ -112,7 +112,7 @@ const ImageAvatar = (props : any) => {
 const UploadAvatar = (props : any) => {
 	const {width, height} = props
 
-	return  <svg width={props.width} height={props.height} fill="none" viewBox="0 0 79 79">
+	return  <svg width={width} height={height} fill="none" viewBox="0 0 79 79">
 		<circle cx="39.115" cy="40.035" r="39.115" fill="#323232"></circle>
 		<circle cx="39.115" cy="40.035" r="38.115" stroke="#fff" strokeOpacity="0.9" strokeWidth="2"></circle>
 		<mask id="mask0_739_2093" style={{ maskType: "alpha" }} width="79" height="80" x="0" y="0" maskUnits="userSpaceOnUse">
@@ -125,5 +125,12 @@ const UploadAvatar = (props : any) => {
 	</svg>
 }
 
+const ExportAvatars = {
+	PurpleAvatar,
+	BlueAvatar,
+	GreenAvatar,
+	ImageAvatar,
+	UploadAvatar
+};
 
-export default { PurpleAvatar, BlueAvatar, GreenAvatar, ImageAvatar, UploadAvatar };
+export default ExportAvatars;

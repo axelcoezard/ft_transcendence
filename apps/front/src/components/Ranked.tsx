@@ -518,4 +518,10 @@ const LowRanked = () => {
 
 /* ------------ EXPORT ALL ------------ */
 
-export default { HighRanked, MediumRanked, LowRanked };
+const ExportRanks = {
+	HighRanked,
+	MediumRanked,
+	LowRanked
+};
+
+export default ExportRanks;

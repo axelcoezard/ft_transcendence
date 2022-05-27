@@ -1,5 +1,4 @@
 import { createContext, useContext } from "react";
-import { Socket } from "socket.io-client";
 import useColyseus from "../hooks/useColyseus";
 import useSession from "../hooks/useSession";
 import useSocket from "../hooks/useSocket";

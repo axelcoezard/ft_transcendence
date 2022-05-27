@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import styles from '../styles/Buttons.module.scss'
+import { Link } from 'react-router-dom';
 
 const FourtyTwoLogo = (props:any) => {
 	return  <svg className={styles.login_button_icon} fill="none" viewBox="0 0 39 28">
@@ -49,11 +50,14 @@ const LoginButton = () => {
 
 
 const PlayButton = () => {
-	// Add link to game
-
-	return <button className={styles.play_button}>
+	return <Link className={styles.play_button} to="/play">
 		<div className={styles.play_button_icon} />
-	</button>
+	</Link>
 }
 
-export default { LoginButton, PlayButton };
+const ExportButtons = {
+	LoginButton,
+	PlayButton
+};
+
+export default ExportButtons;

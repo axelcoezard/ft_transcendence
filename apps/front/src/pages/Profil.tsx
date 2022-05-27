@@ -3,7 +3,6 @@ import styles from '../styles/Profil.module.scss'
 import Avatars from '../components/Avatars';
 import Ranked from '../components/Ranked'
 import ProgressBar from '../components/ProgressBar';
-import History from '../components/History';
 import VictoryCrown from '../components/SVGs/VictoryCrown';
 
 const Profil = () => {

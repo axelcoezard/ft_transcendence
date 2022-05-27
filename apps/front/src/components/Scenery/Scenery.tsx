@@ -36,4 +36,10 @@ function	LoginFrontScenery() {
   	</div>
 }
 
-export default { DefaultScenery, LoginBackScenery, LoginFrontScenery };
+const ExportSceneries = {
+	DefaultScenery,
+	LoginBackScenery,
+	LoginFrontScenery
+};
+
+export default ExportSceneries;

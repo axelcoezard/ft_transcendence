@@ -229,4 +229,9 @@ function CloudRocket() {
 	</svg>
 }
 
-export default { TrailRocket, CloudRocket };
+const ExportRockets = {
+	TrailRocket,
+	CloudRocket
+};
+
+export default ExportRockets;

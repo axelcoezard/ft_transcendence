@@ -1,4 +1,3 @@
-import { Component } from "react";
 import Navbar from "./Navigation";
 
 import styles from '../styles/Wrapper.module.scss'
