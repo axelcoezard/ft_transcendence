@@ -8,7 +8,7 @@
 	width: 80%;
 	height: 90%;
 	border-radius: 1.7vw;
-	
+
 	position: absolute;
 	left: 50%;
 	top: 50%;
@@ -23,25 +23,11 @@
 
 /* ------------ HOME CONTENT ---------- */
 
-.play_tchat {
-	background-color: rgba(33, 33, 33, 0.8);
-
-	height: 100%;
-	width: 35%;
-	border-radius: 1.7vw;
-	padding: 1.7vw;
-
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: center;
-}
-
 .play_pong {
 	background-color: rgba(33, 33, 33, 0.8);
 
 	height: 100%;
-	width: 60%;
+	width: 100%;
 	border-radius: 1.7vw;
 	padding: 1.7vw;
 
@@ -50,88 +36,6 @@
 	justify-content: space-between;
 	align-items: center;
 }
-
-/* ----------- TCHAT HEADER ----------- */
-
-.tchat_header {
-	width: 100%;
-	height: 10%;
-
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.tchat_header_options {
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-end;
-	align-items: center;
-}
-
-/* -------- TCHAT CONVERSATION -------- */
-
-.tchat_conversation {
-	width: 100%;
-	height: 100%;
-	
-	overflow-y: scroll;
-
-	display: flex;
-	flex-direction: column-reverse;
-	align-items: center;
-	justify-content: flex-start;
-	gap: 1vw;
-}
-
-/* ------------ TCHAT SEND ------------ */
-
-.conversation_send {
-	background-color: $color_eerie;
-	
-	border-radius: 0.35vw;
-	height: 41.7vw;
-	width: 100%;
-	height: 8%;
-	
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-between;
-}
-
-.conversation_send_input {
-	background-color: $color_jet;
-	border-radius: 0.35vw;
-	border: $color_eerie;
-	width: 70%;
-	height: 50%;
-	padding:  0.7vw;
-
-	color: white;
-    font-family: Helvetica, Arial, sans-serif;
-    font-size: 1.25vw; 
-}
-
-.conversation_send_button {
-	background-color: transparent;
-	border: none;
-	
-	height: 70%;
-	width: 10%;
-	border-radius: 1.7vw;
-
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.conversation_send_button:hover {
-	background-color: $color_jet;
-}
-
-/* ----------- PONG CONTENT ----------- */
 
 .pong_header {
 	// background-color: bisque;
@@ -142,7 +46,7 @@
 
 	display: flex;
 	flex-direction: column;
-	justify-content: center;	
+	justify-content: center;
 	align-items: center;
 }
 
@@ -177,11 +81,11 @@
     font-style: bold;
     font-size: 3.33vw;
     text-transform: uppercase;
-    
+
     background: linear-gradient(90deg, $color_mauve 20.83%, $color_uranian 49.94%, $color_mint 80.3%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-  
+
     z-index: 1;
     max-height: 5.42vw;
 	padding: 1.7vw;
@@ -193,13 +97,13 @@
     font-family: Helvetica, Arial, sans-serif;
     font-weight: lighter;
     font-size: 1.25vw;
-    
+
     z-index: 1;
 }
 
 .text {
     color: white;
     font-family: Helvetica, Arial, sans-serif;
-    font-size: 1.25vw; 
+    font-size: 1.25vw;
     margin: 0.52vw;
 }

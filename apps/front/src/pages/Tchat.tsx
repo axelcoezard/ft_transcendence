@@ -40,10 +40,10 @@ const Tchat = () => {
 	//socket.on("channel_set_msg", (res: any) => setMessages(res))
 
 	return <main className={styles.tchat}>
-		
+
 		{/* CHAT INDEXING */}
-		<section className={styles.tchat_indexing}>	
-			
+		<section className={styles.tchat_indexing}>
+
 			{/* HEADER : NEW, DELETE */}
 			<div className={styles.indexing_header}>
 				<div className={styles.indexing_header_new}>
@@ -52,7 +52,7 @@ const Tchat = () => {
 				</div>
 				<BinIcon width="1.5vw" height="1.5vw" />
 			</div>
-			
+
 			{/* SEARCH */}
 			<div className={styles.indexing_search}>
 				<SearchIcon width="1.5vw" height="1.5vw" />
@@ -65,29 +65,18 @@ const Tchat = () => {
 
 			{/* LIST : CHANNELS, PRIVATE TACHAT */}
 			<ul className={styles.indexing_list}>
-				{/* { channels.map((channel: any, index: number) => <li key={index}>
-					<Link to={`/tchat/${channel.slug}`}>Channel {channel.slug}</Link>
-				</li>) } */}
-				{/* BACK: Actual conversations */}
-				<Conversations channel="Channelname/username" />
-				<Conversations channel="Ft_transcendence" />
-				<Conversations channel="General" />
-				<Conversations channel="Cacahuètes" />
-				<Conversations channel="Channelname/username" />
-				<Conversations channel="Ft_transcendence" />
-				<Conversations channel="General" />
-				<Conversations channel="Cacahuètes" />
-				<Conversations channel="Channelname/username" />
-				<Conversations channel="Ft_transcendence" />
-				<Conversations channel="General" />
+				{ channels.map((channel: any, index: number) => <Conversations
+					key={index}
+					channel={channel.slug}
+				/>)}
 			</ul>
 
 
 		</section>
-		
+
 		{/* CHAT CONVERSATION */}
 		<section className={styles.tchat_conversation}>
-			
+
 			{/* HEADER : NAME, EXIT, OPTIONS */}
 			<div className={styles.conversation_header}>
 				<DropdownMenu />
@@ -96,32 +85,14 @@ const Tchat = () => {
 			</div>
 
 			{/* MESSAGES */}
-			<ul className={styles.conversation_messages}> { 
-				messages.map((message: any, index: number) => 
-				<li key={index}>
-					<b>{message.sender_username} </b>
-					{message.value}
-				</li>) }
-				{/* BACK: Actual message */}
-				<Messages origin="mala" message={value} /> {/* BACK : send actually message */}
-				<Messages origin="mboy" message={value} /> {/* BACK : send actually message */}
-				<Messages origin="mala" message={value} /> {/* BACK : send actually message */}
-				<Messages origin="mboy" message={value} /> {/* BACK : send actually message */}
-				<Messages origin="mala" message={value} /> {/* BACK : send actually message */}
-				<Messages origin="mboy" message={value} /> {/* BACK : send actually message */}
-				<Messages origin="mala" message={value} /> {/* BACK : send actually message */}
-				<Messages origin="mboy" message={value} /> {/* BACK : send actually message */}
-				<Messages origin="mala" message={value} /> {/* BACK : send actually message */}
-				<Messages origin="mboy" message={value} /> {/* BACK : send actually message */}
-				<Messages origin="mala" message={value} /> {/* BACK : send actually message */}
-				<Messages origin="mboy" message={value} /> {/* BACK : send actually message */}
-				<Messages origin="mala" message={value} /> {/* BACK : send actually message */}
-				<Messages origin="mboy" message={value} /> {/* BACK : send actually message */}
-				<Messages origin="mala" message={value} /> {/* BACK : send actually message */}
-				<Messages origin="mboy" message={value} /> {/* BACK : send actually message */}
-
+			<ul className={styles.conversation_messages}>
+				{messages.map((message: any, index: number) => <Messages
+					key={index}
+					origin={message.sender_username}
+					message={message.value}
+				/>)}
 			</ul>
-			
+
 			{/* SEND : INPUT, BUTTON */}
 			<div className={styles.conversation_send}>
 				<WriteIcon width="1.5vw" height="1.5vw" />
@@ -129,10 +100,10 @@ const Tchat = () => {
 				onChange={(e: any) => {
 					setValue(e.currentTarget.value || e.target.value)
 				}}/>
-				<button className={styles.conversation_send_button} 
+				<button className={styles.conversation_send_button}
 					onClick={(e) => {
 						socket.emit("channel_msg", {
-							sender_id: session.get("id"), 
+							sender_id: session.get("id"),
 							sender_username: session.get("username"),
 							channel_slug: slug,
 							type: "text",
