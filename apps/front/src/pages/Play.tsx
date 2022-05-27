@@ -81,11 +81,11 @@ const Play = () => {
 	})
 
 	const render = (context: CanvasRenderingContext2D, _: any) => {
-		context.fillStyle = "#60B5E7";
+		context.fillStyle = "#ffffff";
 		context.fillRect(left.x, left.y, PADDLE_WIDTH, PADDLE_HEIGHT)
-		context.fillStyle = "#60B5E7";
+		context.fillStyle = "#ffffff";
 		context.fillRect(right.x, right.y, PADDLE_WIDTH, PADDLE_HEIGHT)
-		context.fillStyle = "#48DAC3";
+		context.fillStyle = "#BB86FC";
 		context.beginPath()
 		context.arc(ball.x, ball.y, ball.diameter / 2, 0, 2 * Math.PI);
 		context.fill();
@@ -121,23 +121,29 @@ const Play = () => {
 			{/* DAHSBOARD : PLAYERS, VS */}
 			<div className={styles.pong_dashboard}>
 				<div className={styles.pong_dashboard_user}>
-					<Avatars.PurpleAvatar width="4.2vw" height="4.2vw" />
-					<p className={styles.text}>{player1.name} {player1.score}</p>
+					<Avatars.PurpleAvatar width="3.125vw" height="3.125vw" />
+					<p className={styles.text}>{player1.name}</p>
 				</div>
-				<h2 className={styles.h2}>VS</h2>
+				<div className={styles.pong_dashboard_score}>
+					<p className={styles.h1}>{player1.score}</p>
+					<h2 className={styles.h2}>VS</h2>
+					<p className={styles.h1}>{player2.score}</p>
+				</div>
 				<div className={styles.pong_dashboard_opponant}>
-					<p className={styles.text}>{player2.name} {player2.score}</p>
-					<Avatars.GreenAvatar width="4.2vw" height="4.2vw" />
+					<Avatars.GreenAvatar width="3.125vw" height="3.125vw" />
+					<p className={styles.text}>{player2.name}</p>
 				</div>
 			</div>
 
 			{/* PONG */}
-			<canvas
-				ref={canvasRef}
-				width={PONG_WIDTH}
-				height={PONG_HEIGHT}
-				onMouseMove={handleMove}
-			/>
+			<div className={styles.pong}>
+				<canvas
+					ref={canvasRef}
+					width={PONG_WIDTH}
+					height={PONG_HEIGHT}
+					onMouseMove={handleMove}
+				/>
+			</div>
 		</section>
 	</main>;
 };

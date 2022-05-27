@@ -13,6 +13,7 @@ import "./styles/globals.scss";
 import Profil from "./pages/Profil";
 import Tchat from "./pages/Tchat";
 import Play from "./pages/Play";
+import Matching from "./pages/Matching"
 import Wrapper from "./components/Wrapper";
 import Settings from "./pages/Settings";
 
@@ -45,6 +46,9 @@ const _App = () => {
 				</PrivateRoute>} />
 				<Route path="/play/:id" element={<PrivateRoute>
 					<Play />
+				</PrivateRoute>} />
+				<Route path="/matching" element={<PrivateRoute>
+					<Matching />
 				</PrivateRoute>} />
 				<Route path="/settings" element={<PrivateRoute>
 					<Settings />
