@@ -45,9 +45,11 @@ export default class GameRoom extends Room {
 		})
 	}
 
-	public onJoin(player: Player) {
+	public onJoin(player: Player, data: any) {
 		this.users.push(player);
 
+		player.username = data.username;
+		player.score = 0;
 		if (this.users.length == 1)
 			player.emit("joinGame", {position: "left"})
 		if (this.users.length == 2)
@@ -63,7 +65,10 @@ export default class GameRoom extends Room {
 	}
 
 	private resetBall() {
-		this.ball_pos = new Vector(200, 300);
+		this.ball_pos = new Vector(
+			Math.floor((PONG_WIDTH - BALL_DIAMETER) / 2),
+			Math.floor((PONG_HEIGHT - BALL_DIAMETER) / 2)
+		);
 		this.ball_d = new Vector(
 			Math.round(Math.random()) * 2 - 1,
 			Math.round(Math.random()) * 2 - 1
@@ -71,6 +76,8 @@ export default class GameRoom extends Room {
 	}
 
 	private async updateBall(updates: number) {
+		let players = this.users.filter((p: Player) => p.type === "player");
+
 		if ((this.ball_d.x === -1 && this.ball_pos.x <= 0)
 			||(this.ball_d.x === 1 && this.ball_pos.x >= PONG_WIDTH - BALL_DIAMETER))
 			this.ball_d.x = -this.ball_d.x;
@@ -79,27 +86,42 @@ export default class GameRoom extends Room {
 			|| (this.ball_d.y === 1 && this.ball_pos.y >= PONG_HEIGHT - BALL_DIAMETER))
 			this.ball_d.y = -this.ball_d.y;
 
-		if (this.ball_d.x === -1 && this.ball_pos.x <= this.leftPaddle.x + PADDLE_WIDTH
+		if (this.ball_d.x === -1
+			&& this.ball_pos.x <= this.leftPaddle.x + PADDLE_WIDTH
 			&& this.ball_pos.y + BALL_DIAMETER > this.leftPaddle.y
 			&& this.ball_pos.y <= this.leftPaddle.y + PADDLE_HEIGHT)
 			this.ball_d.x = -this.ball_d.x;
 
-		if (this.ball_d.x === 1 && this.ball_pos.x + BALL_DIAMETER >= this.rightPaddle.x
+		if (this.ball_d.x === 1
+			&& this.ball_pos.x + BALL_DIAMETER >= this.rightPaddle.x
 			&& this.ball_pos.y + BALL_DIAMETER >= this.rightPaddle.y
 			&& this.ball_pos.y <= this.rightPaddle.y + PADDLE_HEIGHT)
 			this.ball_d.x = -this.ball_d.x;
 
+
+
+		if (this.ball_pos.x <= 0)
+			players[1].score++;
+
+		if (this.ball_pos.x >= PONG_WIDTH - BALL_DIAMETER)
+			players[0].score++;
+
 		if (this.ball_pos.x <= 0 || this.ball_pos.x >= PONG_WIDTH - BALL_DIAMETER)
-		{
-			this.ball_pos.x = 200;
-			this.ball_pos.y = 300;
-		}
+			this.resetBall();
 
 		this.ball_pos.x += this.ball_d.x * BALL_SPEED
 		this.ball_pos.y += this.ball_d.y * BALL_SPEED
 
-		this.users.forEach(player => player.emit("ballMove", {
+		this.users.forEach(player => player.emit("updateGame", {
 			id: this.id,
+			player1: {
+				name: players[0].username,
+				score: players[0].score
+			},
+			player2: {
+				name: players[1].username,
+				score: players[1].score
+			},
 			x: this.ball_pos.x,
 			y: this.ball_pos.y
 		}))
@@ -111,8 +133,17 @@ export default class GameRoom extends Room {
 	private start() {
 			this.resetBall();
 			this.state = 1;
+			let players = this.users.filter((p: Player) => p.type === "player");
 			this.users.forEach(player => player.emit("startGame", {
-				id: this.id
+				id: this.id,
+				player1: {
+					name: players[0].username,
+					score: players[0].score
+				},
+				player2: {
+					name: players[1].username,
+					score: players[1].score
+				}
 			}))
 			this.updateBall(0);
 			console.log("START")

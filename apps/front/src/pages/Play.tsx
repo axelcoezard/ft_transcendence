@@ -23,7 +23,14 @@ const Play = () => {
 	const {session, socket} = useAppContext();
 	const [started, setStarted] = useState<boolean>(false)
 	const [position, setPosition] = useState<string>("spectator")
-	const [value, setValue] = useState<string>("")
+	const [player1, setPlayer1] = useState<any>({
+		name: "",
+		score: 0
+	})
+	const [player2, setPlayer2] = useState<any>({
+		name: "",
+		score: 0
+	})
 
 	const {id} = useParams()
 
@@ -47,6 +54,19 @@ const Play = () => {
 
 	socket.onAfterInit("joinGame", ({position}: {position: string}) => setPosition(position))
 
+	socket.onAfterInit("startGame", (data: any) => {
+		setStarted(true)
+		setPlayer1(data.player1)
+		setPlayer2(data.player2)
+	})
+
+	socket.onAfterInit("updateGame", (data: any) => {
+		setPlayer1(data.player1)
+		setPlayer2(data.player2)
+		ball.setY(data.y)
+		ball.setX(data.x)
+	})
+
 	socket.onAfterInit("paddleMove", (data: any) => {
 		console.log(data.sender, session.get("username"))
 		if (data.sender === session.get("username"))
@@ -58,11 +78,6 @@ const Play = () => {
 			left.setY(data.y)
 		if (data.sender_position === "right")
 			right.setY(data.y)
-	})
-
-	socket.onAfterInit("ballMove", (data: any) => {
-		ball.setY(data.y)
-		ball.setX(data.x)
 	})
 
 	const render = (context: CanvasRenderingContext2D, _: any) => {
@@ -107,11 +122,11 @@ const Play = () => {
 			<div className={styles.pong_dashboard}>
 				<div className={styles.pong_dashboard_user}>
 					<Avatars.PurpleAvatar width="4.2vw" height="4.2vw" />
-					<p className={styles.text}>{session.get("username")}</p>
+					<p className={styles.text}>{player1.name} {player1.score}</p>
 				</div>
 				<h2 className={styles.h2}>VS</h2>
 				<div className={styles.pong_dashboard_opponant}>
-					<p className={styles.text}>acozard</p>
+					<p className={styles.text}>{player2.name} {player2.score}</p>
 					<Avatars.GreenAvatar width="4.2vw" height="4.2vw" />
 				</div>
 			</div>
