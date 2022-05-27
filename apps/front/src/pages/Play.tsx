@@ -14,7 +14,7 @@ import SendIcon from "../components/SVGs/SendIcon";
 import CrossIcon from "../components/SVGs/CrossIcon";
 import ReportIcon from "../components/SVGs/ReportIcon";
 import Messages from "../components/Messages";
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 export const PONG_HEIGHT: number = 400;
 export const PONG_WIDTH: number = 600;
