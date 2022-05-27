@@ -43,7 +43,7 @@ const _App = () => {
 				<Route path="/tchat/:slug" element={<PrivateRoute>
 					<Tchat />
 				</PrivateRoute>} />
-				<Route path="/play" element={<PrivateRoute>
+				<Route path="/play/:id" element={<PrivateRoute>
 					<Play />
 				</PrivateRoute>} />
 				<Route path="/settings" element={<PrivateRoute>

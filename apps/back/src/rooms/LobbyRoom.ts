@@ -1,4 +1,5 @@
 import { Socket } from "socket.io";
+import Player from "./Player";
 import Room from "./Room";
 
 export default class LobbyRoom extends Room {
@@ -10,15 +11,11 @@ export default class LobbyRoom extends Room {
 
 	}
 
-	public onJoin(client: Socket) {
-		this.users.push(client);
+	public onJoin(player: Player) {
+		this.users.push(player);
 	}
 
-	public onLeave(client: Socket) {
-		this.users = this.users.filter((e: Socket) => e.id !== client.id);
-	}
-
-	public onDispose() {
-
+	public onLeave(player: Player) {
+		this.users = this.users.filter((e: Player) => e.id !== player.id);
 	}
 }

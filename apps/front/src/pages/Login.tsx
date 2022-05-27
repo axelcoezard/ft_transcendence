@@ -19,7 +19,6 @@ const Login = (props: any) => {
 		const code = params.get("code")
 		if (code && !session.has("access_token"))
 		{
-			console.log("test 1")
 			const request = fetch(`http://localhost:3030/auth/token/${code}`, {
 				method: 'GET',
 				headers: {

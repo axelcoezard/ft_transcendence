@@ -6,7 +6,7 @@ import Scenery from '../components/Scenery/Scenery'
 const Wrapper = ({children}: {children: any}) => {
 	return <main className={styles.wrapper}>
 		<Navbar />
-		<Scenery.DefaultScenery />
+		{/*<Scenery.DefaultScenery />*/}
 		{children}
 	</main>
 }
