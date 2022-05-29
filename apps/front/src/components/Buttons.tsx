@@ -50,7 +50,7 @@ const LoginButton = () => {
 
 
 const PlayButton = () => {
-	return <Link className={styles.play_button} to="/play">
+	return <Link className={styles.play_button} to="/matching">
 		<div className={styles.play_button_icon} />
 	</Link>
 }

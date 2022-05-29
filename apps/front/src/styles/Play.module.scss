@@ -5,7 +5,7 @@
 /* ----------- PLAY ELEMENTS -----------*/
 
 .play {
-	width: 80%;
+	width: 40%;
 	height: 90%;
 	border-radius: 1.7vw;
 
@@ -33,8 +33,9 @@
 
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
+	justify-content: flex-start;
 	align-items: center;
+	gap: 2.6vw;
 }
 
 .pong_header {
@@ -42,7 +43,7 @@
 
 	width: 100%;
 	height: 10%;
-	padding: 1.7vw;
+	padding: 3vw;
 
 	display: flex;
 	flex-direction: column;
@@ -51,7 +52,7 @@
 }
 
 .pong_dashboard {
-	width: 90%;
+	width: 85%;
 	height: 10%;
 
 	display: flex;
@@ -60,18 +61,40 @@
 	align-items: center;
 }
 
-.pong_dashboard_user {
+.pong_dashboard_score {
+	height: 100%;
+	width: 40%;
+	
 	display: flex;
 	flex-direction: row;
-	justify-content: flex-start;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.pong_dashboard_user {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 	align-items: center;
 }
 
 .pong_dashboard_opponant {
 	display: flex;
-	flex-direction: row;
-	justify-content: flex-end;
+	flex-direction: column;
+	justify-content: center;
 	align-items: center;
+}
+
+/* ----------- TEXT ELEMENTS -----------*/
+
+.pong {
+	border-radius: 1.3vw;
+	border: 0.26vw solid;
+	padding: 1.3vw;
+
+	background-image: linear-gradient(135deg, rgba(187,134,252,0.2), rgba(96,181,231,0.2), rgba(72,218,195,0.2));
+	backdrop-filter: blur(5.2vw);
+	fill-opacity: 0.5;
 }
 
 /* ----------- TEXT ELEMENTS -----------*/
@@ -82,13 +105,24 @@
     font-size: 3.33vw;
     text-transform: uppercase;
 
-    background: linear-gradient(90deg, $color_mauve 20.83%, $color_uranian 49.94%, $color_mint 80.3%);
+    background: linear-gradient(135deg, $color_mauve 20.83%, $color_uranian 49.94%, $color_mint 80.3%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 
     z-index: 1;
     max-height: 5.42vw;
-	padding: 1.7vw;
+}
+
+.h2 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-style: bold;
+    font-size: 1.875vw;
+    text-transform: uppercase;
+	text-align: center;
+    color: white;
+
+    z-index: 1;
+    max-height: 5.4vw;
 }
 
 .h3 {
@@ -104,6 +138,6 @@
 .text {
     color: white;
     font-family: Helvetica, Arial, sans-serif;
-    font-size: 1.25vw;
+    font-size: 1vw;
     margin: 0.52vw;
 }
