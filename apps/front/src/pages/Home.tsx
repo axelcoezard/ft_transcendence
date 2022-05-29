@@ -1,5 +1,5 @@
 import { useAppContext } from '../contexts/AppContext'
-import styles from '../styles/Home.module.scss'
+import styles from '../styles/home_mobile.module.scss'
 import Avatars from '../components/Avatars'
 import Buttons from '../components/Buttons'
 import HomeIllustrations from '../components/SVGs/HomeIllustrations'
