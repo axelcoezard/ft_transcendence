@@ -1,23 +1,56 @@
-import styles from "../../styles/Svg.module.scss"
+// import styles from "../../styles/Svg.module.scss"
 
-const Loading = (props: any) => {
-	<div className={styles.cssload_dots}>
-		<div className={styles.cssload_dot}></div>
-		<div className={styles.cssload_dot}></div>
-		<div className={styles.cssload_dot}></div>
-		<div className={styles.cssload_dot}></div>
-		<div className={styles.cssload_dot}></div>
-	</div>
-
-	return <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
-		<defs>
-			<filter id="goo">
-				<feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="12" ></feGaussianBlur>
-				<feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0	0 1 0 0 0	0 0 1 0 0	0 0 0 18 -7" result="goo" ></feColorMatrix>
-				<feBlend in2="goo" in="SourceGraphic" result="mix" ></feBlend>
-			</filter>
-		</defs>
-	</svg>
-}
-
-export default Loading;
+// export type Props = {
+//   /** hex color */
+//   color?: string
+//   /** size in pixel */
+//   size?: number
+// } & React.HTMLAttributes<HTMLDivElement>
+// https://github.com/JoshK2/react-spinners-css/blob/master/src/components/Grid/index.tsx
+// export default function Laoding({ color = '#7f58af', className, style }: Props) {
+// 	return (
+// 	  <div className={classNames(styles['lds-orbitals'], className)} style={{ ...style }}>
+// 		<div className={classNames(styles['center'])} style={{ background: color }}></div>
+// 		<div className={classNames(styles['inner-spin'])}>
+// 		  <div
+// 			className={classNames(styles['inner-arc'], styles['inner-arc_start-a'])}
+// 			style={{ borderColor: color }}
+// 		  ></div>
+// 		  <div
+// 			className={classNames(styles['inner-arc'], styles['inner-arc_end-a'])}
+// 			style={{ borderColor: color }}
+// 		  ></div>
+// 		  <div
+// 			className={classNames(styles['inner-arc'], styles['inner-arc_start-b'])}
+// 			style={{ borderColor: color }}
+// 		  ></div>
+// 		  <div
+// 			className={classNames(styles['inner-arc'], styles['inner-arc_end-b'])}
+// 			style={{ borderColor: color }}
+// 		  ></div>
+// 		  <div className={classNames(styles['inner-moon-a'])} style={{ background: color }}></div>
+// 		  <div className={classNames(styles['inner-moon-b'])} style={{ background: color }}></div>
+// 		</div>
+// 		<div className={classNames(styles['outer-spin'])}>
+// 		  <div
+// 			className={classNames(styles['outer-arc'], styles['outer-arc_start-a'])}
+// 			style={{ borderColor: color }}
+// 		  ></div>
+// 		  <div
+// 			className={classNames(styles['outer-arc'], styles['outer-arc_end-a'])}
+// 			style={{ borderColor: color }}
+// 		  ></div>
+// 		  <div
+// 			className={classNames(styles['outer-arc'], styles['outer-arc_start-b'])}
+// 			style={{ borderColor: color }}
+// 		  ></div>
+// 		  <div
+// 			className={classNames(styles['outer-arc'], styles['outer-arc_end-b'])}
+// 			style={{ borderColor: color }}
+// 		  ></div>
+// 		  <div className={classNames(styles['outer-moon-a'])} style={{ background: color }}></div>
+// 		  <div className={classNames(styles['outer-moon-b'])} style={{ background: color }}></div>
+// 		</div>
+// 	  </div>
+// 	)
+// }

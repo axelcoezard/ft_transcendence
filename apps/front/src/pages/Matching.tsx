@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import styles from "../styles/Matching.module.scss"
-import Loading from "../components/SVGs/Loading"
+// import Loading from "../components/SVGs/Loading"
 
 const Matching = (props: any) => {
 	return <main className={styles.matching}>
-		<section><Loading/></section>
+		<section>Loading</section>
 	</main>
 }
 
