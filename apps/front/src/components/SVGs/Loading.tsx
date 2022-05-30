@@ -54,3 +54,5 @@
 // 	  </div>
 // 	)
 // }
+
+export default {}

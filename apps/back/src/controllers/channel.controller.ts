@@ -1,4 +1,4 @@
-import {  Get, Inject } from '@nestjs/common';
+import {  Get, Inject, Post } from '@nestjs/common';
 import {
 	Controller,
 	Param,
@@ -8,7 +8,7 @@ import ChannelService from '../services/channel.service';
 import Channel from '../entities/channel.entity';
 import Message from 'src/entities/message.entity';
 import { getManager } from 'typeorm';
-import {ChannelBuilder} from '../builder/channel.builder';
+import ChannelBuilder from '../builder/channel.builder';
 
 @Controller('channels')
 export default class ChannelController {
@@ -57,7 +57,7 @@ export default class ChannelController {
 	) {
 		return await this.service.getBySlug(slug);
 	}
-	
+
 	@Post("/")
 	async createNewRoom() {
 		console.log("createNewRoom");
