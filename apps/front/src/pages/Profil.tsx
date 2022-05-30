@@ -30,8 +30,8 @@ const Profil = () => {
 				<p className={styles.text}>8 victories</p>  {/* BACK */}
 				<p className={styles.text}>4 defeats</p> {/* BACK */}
 			</div>
-
-			{/*<History />*/}
+{/* 
+			<History /> */}
 		</section>
 	</main>
 }

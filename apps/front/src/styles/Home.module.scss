@@ -34,7 +34,7 @@
     text-align: center;
     @media screen and (max-width: 768px) {
         width: 99%;
-        height: 10%;
+        min-height: 10%;
         position: absolute;
         order: 0;
         top: 12%;
@@ -76,11 +76,10 @@
     left: 50%;
     transform: translate(-50%, 0%);
     @media screen and (min-width: 769px) {
-
-    display: flex;
-    justify-content: space-between;
-	flex-direction: row;
-    width: 80%;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        width: 80%;
     }
 }
 
@@ -99,11 +98,9 @@
 .random {
     @include game_content();
     @media screen and (min-width: 769px) {
-
-    width: 28%;
+        width: 28%;
+        min-height: 20%;
     }
-    height: 20%;
-    margin-bottom: 10%;
 }
 
 /* ---------- INVITE ELEMENTS ----------*/
@@ -111,11 +108,9 @@
 .invite {
     @include game_content();
     @media screen and (min-width: 769px) {
-
         width: 28%;
-        }
-    height: 20%;
-    margin-bottom: 10%;
+        min-height: 20%;
+    }
 }
 
 /* ----------- VIEW ELEMENTS -----------*/
@@ -123,11 +118,9 @@
 .view {
     @include game_content();
     @media screen and (min-width: 769px) {
-
         width: 28%;
-        }
-    height: 20%;
-    margin-bottom: 10%;
+        min-height: 20%;
+    }
 }
 
 /* ----------- TEXT ELEMENTS -----------*/
