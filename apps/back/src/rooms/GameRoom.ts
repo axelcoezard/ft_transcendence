@@ -1,6 +1,3 @@
-import { VariableDeclarator } from "@babel/types";
-import { Socket } from "socket.io";
-import MessageBuilder from "src/builder/message.builder";
 import Player from "./Player";
 import Room from "./Room";
 
@@ -28,6 +25,9 @@ export default class GameRoom extends Room {
 	leftPaddle: Vector
 	rightPaddle: Vector;
 
+	leftPlayer: Player = null;
+	rightPlayer: Player = null;
+
 	constructor(id: string) {
 		super(id)
 
@@ -46,21 +46,25 @@ export default class GameRoom extends Room {
 	}
 
 	public onJoin(player: Player, data: any) {
-		this.users.push(player);
+		let playerCount = this.getPlayerCountInPositions(["left", "right"]);
+		let position = "spectator";
 
-		player.username = data.username;
+		if (this.leftPlayer == null) {
+			position = "left";
+			this.leftPlayer = player;
+		} else if (this.rightPlayer == null) {
+			position = "right";
+			this.rightPlayer = player;
+		}
+
+		player.position = position;
 		player.score = 0;
-		if (this.users.length == 1)
-			player.emit("joinGame", {position: "left"})
-		if (this.users.length == 2)
-			player.emit("joinGame", {position: "right"})
-		if (this.users.length > 2)
-			player.emit("joinGame", {position: "spectator"})
-		player.type = (this.users.length > 2) ? "spectator" : "player";
+		player.emit("joinGame", {position})
 
-		console.log(`player ${player.id} joined ${this.id}`)
+		this.users.push(player);
+		console.log(`player ${player.username} joined ${this.id} as ${player.position}`)
 
-		if (this.users.length >= 2)
+		if (this.leftPlayer && this.rightPlayer)
 			this.start();
 	}
 
@@ -76,8 +80,6 @@ export default class GameRoom extends Room {
 	}
 
 	private async updateBall(updates: number) {
-		let players = this.users.filter((p: Player) => p.type === "player");
-
 		if ((this.ball_d.x === -1 && this.ball_pos.x <= 0)
 			||(this.ball_d.x === 1 && this.ball_pos.x >= PONG_WIDTH - BALL_DIAMETER))
 			this.ball_d.x = -this.ball_d.x;
@@ -98,13 +100,11 @@ export default class GameRoom extends Room {
 			&& this.ball_pos.y <= this.rightPaddle.y + PADDLE_HEIGHT)
 			this.ball_d.x = -this.ball_d.x;
 
-
-
 		if (this.ball_pos.x <= 0)
-			players[1].score++;
+			this.rightPlayer.score++;
 
 		if (this.ball_pos.x >= PONG_WIDTH - BALL_DIAMETER)
-			players[0].score++;
+			this.leftPlayer.score++;
 
 		if (this.ball_pos.x <= 0 || this.ball_pos.x >= PONG_WIDTH - BALL_DIAMETER)
 			this.resetBall();
@@ -115,12 +115,12 @@ export default class GameRoom extends Room {
 		this.users.forEach(player => player.emit("updateGame", {
 			id: this.id,
 			player1: {
-				name: players[0].username,
-				score: players[0].score
+				name: this.leftPlayer.username,
+				score: this.leftPlayer.score
 			},
 			player2: {
-				name: players[1].username,
-				score: players[1].score
+				name: this.rightPlayer.username,
+				score: this.rightPlayer.score
 			},
 			x: this.ball_pos.x,
 			y: this.ball_pos.y
@@ -133,16 +133,16 @@ export default class GameRoom extends Room {
 	private start() {
 			this.resetBall();
 			this.state = 1;
-			let players = this.users.filter((p: Player) => p.type === "player");
+			let players = this.getPlayerInPositions(["left", "right"]);
 			this.users.forEach(player => player.emit("startGame", {
 				id: this.id,
 				player1: {
-					name: players[0].username,
-					score: players[0].score
+					name: this.leftPlayer.username,
+					score: this.leftPlayer.score
 				},
 				player2: {
-					name: players[1].username,
-					score: players[1].score
+					name: this.rightPlayer.username,
+					score: this.rightPlayer.score
 				}
 			}))
 			this.updateBall(0);
@@ -157,12 +157,26 @@ export default class GameRoom extends Room {
 		console.log("STOP")
 	}
 
-	public onLeave(player: Player) {
-		this.users = this.users.filter((e: Player) => e.id !== player.id);
-		console.log(`player ${player.id} leaved ${this.id}`)
+	public onLeave(player: Player, data: any) {
+		if (player.position === "left") {
+			this.leftPlayer = null;
+		} else if (player.position === "right") {
+			this.rightPlayer = null;
+		}
 
-		if (this.users.filter((e: Player) => e.type === "player").length < 2)
+		this.users = this.users.filter((e: Player) => e.id !== player.id);
+		console.log(`player ${player.username} leaved ${this.id}`)
+
+		if (!this.leftPlayer || !this.rightPlayer)
 			this.stop();
+	}
+
+	private getPlayerInPositions(positions: string[]): Player[] {
+		return this.users.filter((p: Player) => p.position in positions);
+	}
+
+	private getPlayerCountInPositions(positions: string[]): number {
+		return this.getPlayerInPositions(positions).length;
 	}
 }
 

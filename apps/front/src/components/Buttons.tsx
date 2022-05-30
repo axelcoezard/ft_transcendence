@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import styles from '../styles/Buttons.module.scss'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const FourtyTwoLogo = (props:any) => {
 	return  <svg className={styles.login_button_icon} fill="none" viewBox="0 0 39 28">
@@ -40,7 +40,7 @@ const LoginButton = () => {
 		let request = await fetch('http://localhost:3030/auth/authorize');
 		let response = await request.json();
 
-		window.location.href = response.url;
+		document.location.href = response.url;
 	}
 
 	return <button className={styles.login_button} onClick={handleClick}>
@@ -48,16 +48,8 @@ const LoginButton = () => {
 	</button>
 }
 
-
-const PlayButton = () => {
-	return <Link className={styles.play_button} to="/matching">
-		<div className={styles.play_button_icon} />
-	</Link>
-}
-
 const ExportButtons = {
-	LoginButton,
-	PlayButton
+	LoginButton
 };
 
 export default ExportButtons;

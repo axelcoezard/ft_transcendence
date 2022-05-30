@@ -4,13 +4,14 @@ export default class Player {
 	public socket: Socket;
 	public id: string;
 	public username: string;
-	public type: string;
+	public position: string;
 	public score: number;
 
-	public constructor(socket: Socket) {
+	public constructor(socket: Socket, id: string, username: string) {
 		this.socket = socket;
 		this.id = socket.id;
-		this.type = "player";
+		this.username = username;
+		this.position = "player";
 	}
 
 	public emit(type: string, data: any) {

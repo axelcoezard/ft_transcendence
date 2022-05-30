@@ -15,12 +15,14 @@ import CrossIcon from "../components/SVGs/CrossIcon";
 import ReportIcon from "../components/SVGs/ReportIcon";
 import Messages from "../components/Messages";
 import { useParams } from 'react-router-dom';
+import useSession from "../hooks/useSession";
 
 export const PONG_HEIGHT: number = 400;
 export const PONG_WIDTH: number = 600;
 
 const Play = () => {
-	const {session, socket} = useAppContext();
+	const {socket} = useAppContext();
+	const session = useSession("session");
 	const [started, setStarted] = useState<boolean>(false)
 	const [position, setPosition] = useState<string>("spectator")
 	const [player1, setPlayer1] = useState<any>({

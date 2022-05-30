@@ -1,17 +1,21 @@
 import { useEffect, useRef, useState } from "react";
 import { io, Socket } from "socket.io-client";
+import { useAppContext } from "../contexts/AppContext";
+import useSession from "./useSession";
 
 const useSocket = (url: string): any => {
 	const socket: any = useRef<Socket>()
 	const [events, setEvents] = useState<any[]>([])
 	const [emits, setEmits] = useState<any[]>([])
 	const [ready, setReady] = useState<boolean>(false);
+	const session = useSession("session");
 
 	useEffect(() => {
 		let _socket = io(url, { forceNew: true })
 		_socket.on("connect", () => {
 			console.log("Socket connected")
 			setReady(true)
+			_socket.emit("connect_message", session.value);
 			events.forEach(event => _socket.on(event.name, event.callback))
 			emits.forEach(emit => _socket.emit(emit.name, emit.value))
 		})

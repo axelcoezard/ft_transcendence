@@ -81,10 +81,10 @@ const Navlink = (props: any) => {
 
 const DefaultNavBar = () => {
 	return <Navbar >
-		<Navlink href="/profil"><ProfileNavLink /></Navlink>
 		{/* <Navlink href="/contact"><ContactNavLink /></Navlink> */}
 		<Navlink href="/home"><GameNavLink /></Navlink>
 		<Navlink href="/tchat"><ChatNavLink /></Navlink>
+		<Navlink href="/profil"><ProfileNavLink /></Navlink>
 		<Navlink href="/settings"><SettingsNavLink /></Navlink>
 	</Navbar>
 }

@@ -46,16 +46,41 @@ export class AppGateway
 		this.chats.set(chat1.id, chat1);
 	}
 
-	public handleDisconnect(client: Socket) {
-		this.users.delete(client.id);
-		this.logger.log(`Client disconnected: ${client.id}`);
+
+	@SubscribeMessage('connect_message')
+	public async onConnectMessage(client: Socket, msg: any) {
+		if (this.users.has(msg.id))
+		{
+			let current = this.users.get(msg.id);
+			current.id = msg.id;
+			current.username = msg.username;
+			current.socket = client;
+			this.users.set(msg.id, current);
+		}
+		else this.users.set(msg.id, new Player(
+			client, msg.id, msg.username
+		))
+
+		this.logger.log(`Client connected: ${msg.username}`);
+	}
+	public handleConnection(client: Socket, ...args: any[]) {}
+
+	@SubscribeMessage('message')
+	public async onMessage(client: Socket, msg: any) {
+		let player = this.users.get(msg.value.id);
+		let room = this.getRoom(msg.room, msg.room_id);
+		if (room)
+			room.callMessage(msg.type, player, msg.value);
 	}
 
-	public handleConnection(client: Socket, ...args: any[]) {
-		let player: Player = new Player(client);
-		this.users.set(player.id, player)
-
-		this.logger.log(`Client connected: ${client.id}`);
+	public handleDisconnect(client: Socket) {
+		this.users.forEach((value: Player, key: string) => {
+			if (value.socket.id === client.id)
+			{
+				this.logger.log(`Client disconnected: ${value.username}`);
+				this.users.delete(key);
+			}
+		})
 	}
 
 	private getRoom(type: string, id: string): Room {
@@ -66,13 +91,5 @@ export class AppGateway
 		if (type === "lobby")
 			return this.lobby;
 		return null;
-	}
-
-	@SubscribeMessage('message')
-	public async onMessage(client: Socket, msg: any) {
-		let player = this.users.get(client.id);
-		let room = this.getRoom(msg.room, msg.room_id);
-		if (room)
-			room.callMessage(msg.type, player, msg.value);
 	}
 }
