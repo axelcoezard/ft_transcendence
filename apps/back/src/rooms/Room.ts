@@ -7,7 +7,8 @@ import Player from "./Player";
 
 export default abstract class Room {
 	public state: number;
-	public id: string;
+	public id: number;
+	public slug: string;
 
 	protected service: AppService;
 	protected gateway: AppGateway;
@@ -15,9 +16,10 @@ export default abstract class Room {
 
 	protected messages: Map<string, (player: Player, data: any) => any>;
 
-	constructor(id: string)
+	constructor(id: number, slug: string)
 	{
 		this.id = id;
+		this.slug = slug;
 		this.state = 0;
 		this.users = new Array();
 		this.messages = new Map();

@@ -49,12 +49,15 @@ const Play = () => {
 		return () => {
 			socket.emit("leave", "game", id, {
 				id: session.get("id"),
-				username: session.get("username")
+				username: session.get("username"),
+				position: position
 			})
 		}
 	}, [socket.ready])
 
-	socket.onAfterInit("joinGame", ({position}: {position: string}) => setPosition(position))
+	socket.onAfterInit("joinGame", ({p}: {p: string}) => {
+		setPosition(p)
+	})
 
 	socket.onAfterInit("startGame", (data: any) => {
 		setStarted(true)
@@ -110,17 +113,11 @@ const Play = () => {
 	}
 
 	return <main className={styles.play}>
-
-		{/* PLAY PONG */}
 		<section className={styles.play_pong}>
-
-			{/* HEDAR : NMAE, CATCHPHRASE */}
 			<div className={styles.pong_header}>
 				<h1 className={styles.h1}>TRANSCENDENCE</h1>
 				<h3 className={styles.h3}>Pong to the extrem!</h3>
 			</div>
-
-			{/* DAHSBOARD : PLAYERS, VS */}
 			<div className={styles.pong_dashboard}>
 				<div className={styles.pong_dashboard_user}>
 					<Avatars.PurpleAvatar width="3.125vw" height="3.125vw" />
@@ -136,8 +133,6 @@ const Play = () => {
 					<p className={styles.text}>{player2.name}</p>
 				</div>
 			</div>
-
-			{/* PONG */}
 			<div className={styles.pong}>
 				<canvas
 					ref={canvasRef}

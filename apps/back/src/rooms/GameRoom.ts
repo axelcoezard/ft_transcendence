@@ -28,8 +28,8 @@ export default class GameRoom extends Room {
 	leftPlayer: Player = null;
 	rightPlayer: Player = null;
 
-	constructor(id: string) {
-		super(id)
+	constructor(id: number, slug: string) {
+		super(id, slug)
 
 		this.leftPaddle = new Vector(20, 50);
 		this.rightPaddle = new Vector(PONG_WIDTH - PADDLE_WIDTH - 20, 50);
@@ -127,26 +127,28 @@ export default class GameRoom extends Room {
 		}))
 
 		if (this.state !== 0)
-			setTimeout(() => this.updateBall(updates + 1), 1000 / 60)
+			setTimeout(() => this.updateBall(updates + 1), 1000 / 30)
 	}
 
 	private start() {
-			this.resetBall();
-			this.state = 1;
-			let players = this.getPlayerInPositions(["left", "right"]);
-			this.users.forEach(player => player.emit("startGame", {
-				id: this.id,
-				player1: {
-					name: this.leftPlayer.username,
-					score: this.leftPlayer.score
-				},
-				player2: {
-					name: this.rightPlayer.username,
-					score: this.rightPlayer.score
-				}
-			}))
-			this.updateBall(0);
-			console.log("START")
+		if (this.state !== 0)
+			return;
+		this.resetBall();
+		this.state = 1;
+		let players = this.getPlayerInPositions(["left", "right"]);
+		this.users.forEach(player => player.emit("startGame", {
+			id: this.id,
+			player1: {
+				name: this.leftPlayer.username,
+				score: this.leftPlayer.score
+			},
+			player2: {
+				name: this.rightPlayer.username,
+				score: this.rightPlayer.score
+			}
+		}))
+		this.updateBall(0);
+		console.log("START")
 	}
 
 	private stop() {
@@ -158,14 +160,14 @@ export default class GameRoom extends Room {
 	}
 
 	public onLeave(player: Player, data: any) {
-		if (player.position === "left") {
+		if (data.position === "left") {
 			this.leftPlayer = null;
-		} else if (player.position === "right") {
+		} else if (data.position === "right") {
 			this.rightPlayer = null;
 		}
 
+		console.log(`player ${player.username} leaved ${this.id} as ${data.position}`)
 		this.users = this.users.filter((e: Player) => e.id !== player.id);
-		console.log(`player ${player.username} leaved ${this.id}`)
 
 		if (!this.leftPlayer || !this.rightPlayer)
 			this.stop();

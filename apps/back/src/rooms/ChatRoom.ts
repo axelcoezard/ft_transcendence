@@ -1,10 +1,12 @@
 import { Socket } from "socket.io";
+import MessageBuilder from "src/builder/message.builder";
 import Player from "./Player";
 import Room from "./Room";
 
 export default class ChatRoom extends Room {
-	constructor(id: string) {
-		super(id)
+
+	constructor(id: number, slug: string) {
+		super(id, slug);
 	}
 
 	public onCreate() {
@@ -12,18 +14,24 @@ export default class ChatRoom extends Room {
 			this.users.forEach((p: Player) => {
 				p.socket.emit("chat.msg", data);
 			});
-			console.log(data)
+
+			this.service.messages.addMessage(MessageBuilder
+				.new(data.value)
+				.setChannel(this.id)
+				.setSender(player.id)
+				.setType("chat")
+			)
 		})
 	}
 
 	public onJoin(player: Player) {
 		this.users.push(player);
-		console.log(`${player.id} joined ${this.id}`);
+		console.log(`${player.username} joined ${this.slug}`);
 	}
 
 	public onLeave(player: Player) {
 		this.users = this.users.filter((e: Player) => e.id !== player.id);
-		console.log(`${player.id} leaved ${this.id}`);
+		console.log(`${player.username} leaved ${this.slug}`);
 	}
 
 	/*

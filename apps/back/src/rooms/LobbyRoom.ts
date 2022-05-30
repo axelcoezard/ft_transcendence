@@ -4,7 +4,7 @@ import Room from "./Room";
 
 export default class LobbyRoom extends Room {
 	constructor() {
-		super("lobby")
+		super(0, "lobby")
 	}
 
 	public onCreate() {

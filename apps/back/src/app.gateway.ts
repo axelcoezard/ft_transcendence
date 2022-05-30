@@ -2,7 +2,7 @@ import { Logger, Inject } from '@nestjs/common';
 import { SubscribeMessage, WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
 import { Socket, Server } from 'socket.io';
 import ChannelBuilder from './builder/channel.builder';
-import MessageBuilder from './builder/message.builder';
+import Channel from './entities/channel.entity';
 import ChatRoom from './rooms/ChatRoom';
 import GameRoom from './rooms/GameRoom';
 import LobbyRoom from './rooms/LobbyRoom';
@@ -35,42 +35,80 @@ export class AppGateway
 		this.games = new Map();
 		this.chats = new Map();
 
-		let game1 = new GameRoom("ewsdg");
-		game1.setService(this.service);
-		game1.setGateway(this);
-		this.games.set(game1.id, game1);
+		this.service.channels.getAll().then((channels: any) => {
+			channels.forEach((channel: any) => {
+				let chat = new ChatRoom(channel.id, channel.slug);
+				chat.setService(this.service);
+				chat.setGateway(this);
+				this.chats.set(chat.slug, chat);
+				this.logger.log(`Added ${chat.slug} to avalaible chats`)
+			})
+		});
 
-		let chat1 = new ChatRoom("ewsdg");
-		chat1.setService(this.service);
-		chat1.setGateway(this);
-		this.chats.set(chat1.id, chat1);
 	}
-
 
 	@SubscribeMessage('connect_message')
 	public async onConnectMessage(client: Socket, msg: any) {
-		if (this.users.has(msg.id))
+		if (this.users.has(msg.username))
 		{
-			let current = this.users.get(msg.id);
-			current.id = msg.id;
+			let current = this.users.get(msg.username);
+			current.id = parseInt(msg.id);
 			current.username = msg.username;
 			current.socket = client;
-			this.users.set(msg.id, current);
+			this.users.set(msg.username, current);
 		}
-		else this.users.set(msg.id, new Player(
-			client, msg.id, msg.username
+		else this.users.set(msg.username, new Player(
+			client, parseInt(msg.id), msg.username
 		))
 
 		this.logger.log(`Client connected: ${msg.username}`);
 	}
 	public handleConnection(client: Socket, ...args: any[]) {}
 
+	private async createGameRoom(room_id: string)
+	{
+		let game = new GameRoom(0, room_id);
+		game.setService(this.service);
+		game.setGateway(this);
+
+		// ajouter la game dans la db et recup l'id
+
+		this.games.set(game.slug, game);
+		return game;
+	}
+
+	private async createChatRoom(room_id: string, player: Player): Promise<ChatRoom> {
+		//console.log(player, msg)
+		let room = new ChatRoom(0, room_id);
+		room.setService(this.service);
+		room.setGateway(this);
+
+		room.id = (await this.service.channels.create(
+			ChannelBuilder.new()
+			.setCreator(player.id)
+			.setSlug(room.slug)
+		)).id;
+
+		return room;
+	}
+
+	private async createRoom(msg: any, player: Player): Promise<Room> {
+		let room = null;
+		if (msg.room === "game")
+			room = await this.createGameRoom(msg);
+		if (msg.room === "chat")
+			room = await this.createChatRoom(msg.room_id, player);
+		return room;
+	}
+
 	@SubscribeMessage('message')
 	public async onMessage(client: Socket, msg: any) {
-		let player = this.users.get(msg.value.id);
+		console.log(msg)
+		let player = this.users.get(msg.value.username);
 		let room = this.getRoom(msg.room, msg.room_id);
-		if (room)
-			room.callMessage(msg.type, player, msg.value);
+		if (!room)
+			room = await this.createRoom(msg, player);
+		room.callMessage(msg.type, player, msg.value);
 	}
 
 	public handleDisconnect(client: Socket) {
