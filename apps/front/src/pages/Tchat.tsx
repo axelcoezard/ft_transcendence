@@ -68,6 +68,7 @@ const Tchat = () => {
 					key={index}
 					channel={channel.slug}
 				/>)}
+				<p className={styles.text}>No tchat.</p>
 			</ul>
 
 

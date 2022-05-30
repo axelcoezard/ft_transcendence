@@ -8,6 +8,7 @@ import ChannelService from '../services/channel.service';
 import Channel from '../entities/channel.entity';
 import Message from 'src/entities/message.entity';
 import { getManager } from 'typeorm';
+import {ChannelBuilder} from '../builder/channel.builder';
 
 @Controller('channels')
 export default class ChannelController {
@@ -55,6 +56,16 @@ export default class ChannelController {
 		@Param('slug') slug: string
 	) {
 		return await this.service.getBySlug(slug);
+	}
+	
+	@Post("/")
+	async createNewRoom() {
+		console.log("createNewRoom");
+		return await this.service.create(ChannelBuilder.new()
+			.setCreator(1)
+			.setSlug("test")
+			.setPassword("test")
+		);
 	}
 }
 
