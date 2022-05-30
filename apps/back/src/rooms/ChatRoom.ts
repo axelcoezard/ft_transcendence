@@ -1,70 +1,87 @@
 import { Socket } from "socket.io";
 import MessageBuilder from "src/builder/message.builder";
+import { FindAndModifyWriteOpResultObject, getManager } from "typeorm";
 import Player from "./Player";
 import Room from "./Room";
 
 export default class ChatRoom extends Room {
 
+	private msgs: any[];
+
 	constructor(id: number, slug: string) {
 		super(id, slug);
+
+		this.getMessages().then((messages: any[]) => {
+			this.msgs = messages;
+		});
 	}
 
 	public onCreate() {
-		this.onMessage("msg", (player: Player, data: any) => {
+		this.onMessage("msg", async (player: Player, data: any) => {
+			this.cacheMessage(data, player)
+
 			this.users.forEach((p: Player) => {
-				p.socket.emit("chat.msg", data);
+				p.socket.emit("chat.msg", this.msgs);
 			});
 
-			this.service.messages.addMessage(MessageBuilder
-				.new(data.value)
-				.setChannel(this.id)
-				.setSender(player.id)
-				.setType("chat")
-			)
+			this.addMessage(data, player);
 		})
 	}
 
 	public onJoin(player: Player) {
 		this.users.push(player);
-		console.log(`${player.username} joined ${this.slug}`);
+		player.socket.emit("chat.msg", this.msgs);
+		console.log(`${player.username} joined ${this.slug} chat`);
 	}
 
 	public onLeave(player: Player) {
 		this.users = this.users.filter((e: Player) => e.id !== player.id);
-		console.log(`${player.username} leaved ${this.slug}`);
+		console.log(`${player.username} leaved ${this.slug} chat`);
 	}
 
-	/*
-
-	public async sendTchatInformations(client: Socket, slug: string) {
-		client.emit("channel_set_list", await this.service.channels.getAll());
-		if (slug)
-			client.emit("channel_set_msg", await this.service.messages.getByChannel(slug));
-	}
-	@SubscribeMessage("channel_join")
-	public async onJoinChannel(client: Socket, info) {
-		console.log("joined channel")
-		if (await this.service.channels.getBySlug(info.channel_slug))
-			return this.sendTchatInformations(client, info.channel_slug);
-
-		console.error(`Channel ${info.channel_slug} does not exist: creating...`)
-		this.service.channels.create(
-			ChannelBuilder.new()
-			.setCreator(info.sender_id)
-			.setSlug(info.channel_slug)
-		).then(res => this.sendTchatInformations(client, info.channel_slug));
+	public async cacheMessage(data: any, player: Player) {
+		this.msgs.unshift({
+			id: -1,
+			sender_id: player.id,
+			sender_username: player.username,
+			channel_id: this.id,
+			channel_slug: this.slug,
+			type: "text",
+			value: data.value,
+			created_at: new Date(),
+			updated_at: new Date()
+		})
 	}
 
-	@SubscribeMessage("channel_msg")
-	public async onPrivmsg(client: Socket, msg) {
-		let channel = await this.service.channels.getBySlug(msg.channel_slug);
-		let message = MessageBuilder.new(msg.value)
-			.setSender(msg.sender_id)
-			.setChannel(channel.id)
-			.setType(msg.type);
+	public async addMessage(data: any, player: Player) {
+		this.service.messages.addMessage(MessageBuilder
+			.new(data.value)
+			.setChannel(this.id)
+			.setSender(player.id)
+			.setType("chat")
+		)
+	}
 
-		this.server.emit("channel_msg", {...msg, channel_id: channel.id});
-		this.service.messages.addMessage(message);
-	}*/
+	public async getMessages() {
+		let messages = await getManager().query(
+			`SELECT
+				m.id,
+				m.sender_id,
+				u.username as sender_username,
+				c.id as channel_id,
+				c.slug as channel_slug,
+				m.type,
+				m.value,
+				m.created_at,
+				m.updated_at
+			FROM "message" as m
+				INNER JOIN "channel" as c ON c.id = m.channel_id
+				INNER JOIN "user" as u ON u.id = m.sender_id
+			WHERE c.slug = $1
+			ORDER BY m.created_at DESC;`,
+			[this.slug]
+		);
+		return messages;
+	}
 }
 

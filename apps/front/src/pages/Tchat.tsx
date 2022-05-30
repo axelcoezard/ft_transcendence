@@ -29,11 +29,7 @@ const Tchat = () => {
 				username: session.get("username")
 			})
 			socket.on("chat.msg", (res: any) => {
-				messages.unshift({
-					id: messages.length + 1,
-					...res
-				})
-				setMessages(messages)
+				setMessages(res);
 			})
 		}
 	}, [socket.ready])

@@ -70,25 +70,20 @@ export class AppGateway
 		let game = new GameRoom(0, room_id);
 		game.setService(this.service);
 		game.setGateway(this);
-
 		// ajouter la game dans la db et recup l'id
-
 		this.games.set(game.slug, game);
 		return game;
 	}
 
 	private async createChatRoom(room_id: string, player: Player): Promise<ChatRoom> {
-		//console.log(player, msg)
 		let room = new ChatRoom(0, room_id);
 		room.setService(this.service);
 		room.setGateway(this);
-
 		room.id = (await this.service.channels.create(
 			ChannelBuilder.new()
 			.setCreator(player.id)
 			.setSlug(room.slug)
 		)).id;
-
 		return room;
 	}
 
@@ -103,7 +98,6 @@ export class AppGateway
 
 	@SubscribeMessage('message')
 	public async onMessage(client: Socket, msg: any) {
-		console.log(msg)
 		let player = this.users.get(msg.value.username);
 		let room = this.getRoom(msg.room, msg.room_id);
 		if (!room)
