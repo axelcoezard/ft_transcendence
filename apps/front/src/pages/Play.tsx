@@ -45,6 +45,7 @@ const Play = () => {
 			socket.emit("join", "game", id, {
 				id: session.get("id"),
 				username: session.get("username"),
+				elo: session.get("ELO_score")
 			})
 	}, [socket.ready, id])
 

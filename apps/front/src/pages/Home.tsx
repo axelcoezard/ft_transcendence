@@ -22,8 +22,8 @@ const Home = () => {
 		</section>
 		<section className={styles.game}>
 			<HomeSelection.HomeSelectionRandom url="/play/wait"/>
-			<HomeSelection.HomeSelectionInvite />
-			<HomeSelection.HomeSelectionView />
+			<HomeSelection.HomeSelectionInvite url="/play/invite" />
+			<HomeSelection.HomeSelectionView url="/play/view" />
 		</section>
 	</main>
 }

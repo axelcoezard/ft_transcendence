@@ -16,6 +16,9 @@ import Play from "./pages/Play";
 import Matching from "./pages/Matching"
 import Wrapper from "./components/Wrapper";
 import Settings from "./pages/Settings";
+import Import from "./pages/Invite"
+import Invite from "./pages/Invite";
+import View from "./pages/View";
 
 const PrivateRoute = ({children}: {children: JSX.Element}) => {
 	const { session } = useAppContext();
@@ -38,7 +41,7 @@ const _App = () => {
 				<Route path="/home" element={<PrivateRoute>
 					<Home />
 				</PrivateRoute>} />
-				<Route path="/chat" element={<PrivateRoute>
+				<Route path="/tchat" element={<PrivateRoute>
 					<Tchat />
 				</PrivateRoute>} />
 				<Route path="/chat/:slug" element={<PrivateRoute>
@@ -46,6 +49,12 @@ const _App = () => {
 				</PrivateRoute>} />
 				<Route path="/play/wait" element={<PrivateRoute>
 					<Matching />
+				</PrivateRoute>} />
+				<Route path="/play/invite" element={<PrivateRoute>
+					<Invite />
+				</PrivateRoute>} />
+				<Route path="/play/view" element={<PrivateRoute>
+					<View />
 				</PrivateRoute>} />
 				<Route path="/play/:id" element={<PrivateRoute>
 					<Play />

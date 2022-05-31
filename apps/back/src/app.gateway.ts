@@ -34,6 +34,9 @@ export class AppGateway
 		this.logger.log('Init');
 
 		this.lobby = new LobbyRoom();
+		this.lobby.setGateway(this)
+		this.lobby.setService(this.service);
+
 		this.users = new Map();
 		this.games = new Map();
 		this.chats = new Map();
@@ -79,7 +82,7 @@ export class AppGateway
 	}
 	public handleConnection(client: Socket, ...args: any[]) {}
 
-	private async createGameRoom(room_id: string): Promise<GameRoom>
+	public async createGameRoom(room_id: string): Promise<GameRoom>
 	{
 		let game = new GameRoom(0, room_id);
 		game.setService(this.service);
@@ -92,7 +95,7 @@ export class AppGateway
 		return game;
 	}
 
-	private async createChatRoom(room_id: string, player: Player): Promise<ChatRoom> {
+	public async createChatRoom(room_id: string, player: Player): Promise<ChatRoom> {
 		let room = new ChatRoom(0, room_id);
 		room.setService(this.service);
 		room.setGateway(this);
@@ -107,9 +110,10 @@ export class AppGateway
 
 	private async createRoom(msg: any, player: Player): Promise<Room> {
 		let room = null;
-		if (msg.room === "game")
-			room = await this.createGameRoom(msg.room_id);
-		else if (msg.room === "chat")
+		//if (msg.room === "game")
+		//	room = await this.createGameRoom(msg.room_id);
+		//else
+		if (msg.room === "chat")
 			room = await this.createChatRoom(msg.room_id, player);
 		else throw new Error("Invalid room type");
 		return room;
