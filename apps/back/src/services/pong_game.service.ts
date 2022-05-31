@@ -21,11 +21,11 @@ export class PongGameService {
 
 	async create(pongGame: GameBuilder): Promise<PongGame> {
 		const newPongGame: PongGame = this.pongGameRepository.create(pongGame.build());
-		//await this.pongGameRepository.save(newPongGame);
-		newPongGame.id = (await this.pongGameRepository.query(
+		await this.pongGameRepository.save(newPongGame);
+		/*newPongGame.id = (await this.pongGameRepository.query(
 			"INSERT INTO pong_game (slug, status) VALUES ($1, $2) ON CONFLICT DO NOTHING",
 			[newPongGame.slug, newPongGame.status]
-		)).id;
+		)).id;*/
 		console.log(newPongGame)
 		return newPongGame;
 	}

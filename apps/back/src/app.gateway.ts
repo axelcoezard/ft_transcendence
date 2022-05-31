@@ -68,10 +68,11 @@ export class AppGateway
 			current.id = parseInt(msg.id);
 			current.username = msg.username;
 			current.socket = client;
+			current.elo = msg.ELO_score;
 			this.users.set(msg.username, current);
 		}
 		else this.users.set(msg.username, new Player(
-			client, parseInt(msg.id), msg.username
+			client, parseInt(msg.id), msg.username, msg.ELO_score
 		))
 
 		this.logger.log(`Client connected: ${msg.username}`);
@@ -110,8 +111,7 @@ export class AppGateway
 			room = await this.createGameRoom(msg.room_id);
 		else if (msg.room === "chat")
 			room = await this.createChatRoom(msg.room_id, player);
-		else
-			throw new Error("Invalid room type");
+		else throw new Error("Invalid room type");
 		return room;
 	}
 
@@ -132,6 +132,14 @@ export class AppGateway
 			if (value.socket.id === client.id)
 			{
 				this.logger.log(`Client disconnected: ${value.username}`);
+				value.rooms.forEach((name: string) => {
+					let room;
+					if (name == "lobby") room = this.lobby;
+					else if (this.games.has(name)) room = this.games.get(name);
+					else if (this.chats.has(name)) room = this.chats.get(name);
+					else throw new Error("Invalid room");
+					room.onLeave(value)
+				});
 				this.users.delete(key);
 			}
 		})

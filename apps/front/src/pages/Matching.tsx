@@ -11,7 +11,7 @@ const Matching = () => {
 	useEffect(() => {
 		if (socket.current)
 		{
-			socket.emit("join", "lobby", "", {
+			socket.emit("join", "lobby", "lobby", {
 				id: session.get("id"),
 				username: session.get("username")
 			})

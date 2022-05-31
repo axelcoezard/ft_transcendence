@@ -46,33 +46,29 @@ const Play = () => {
 				id: session.get("id"),
 				username: session.get("username"),
 			})
-		return () => {
-			socket.emit("leave", "game", id, {
-				id: session.get("id"),
-				username: session.get("username"),
-				position: position
-			})
-		}
 	}, [socket.ready, id])
 
-	socket.onAfterInit("joinGame", ({position: p}: {position: string}) => {
+	socket.onAfterInit("game.join", ({position: p}: {position: string}) => {
 		setPosition(p)
 	})
 
-	socket.onAfterInit("startGame", (data: any) => {
+	socket.onAfterInit("game.start", (data: any) => {
 		setStarted(true)
 		setPlayer1(data.player1)
 		setPlayer2(data.player2)
 	})
 
-	socket.onAfterInit("updateGame", (data: any) => {
-		setPlayer1(data.player1)
-		setPlayer2(data.player2)
+	socket.onAfterInit("game.updateBall", (data: any) => {
 		ball.setY(data.y)
 		ball.setX(data.x)
 	})
 
-	socket.onAfterInit("paddleMove", (data: any) => {
+	socket.onAfterInit("game.updateScore", (data: any) => {
+		setPlayer1(data.player1)
+		setPlayer2(data.player2)
+	})
+
+	socket.onAfterInit("game.updatePaddle", (data: any) => {
 		if (data.sender === session.get("username"))
 			return;
 		console.log(data)

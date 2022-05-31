@@ -35,9 +35,12 @@ export default abstract class Room {
 	public callMessage(type: string, player: Player, data: any)
 	{
 		if (type == "join")
+		{
+			player.rooms.push(this.slug);
 			return this.onJoin(player, data)
+		}
 		if (type == "leave")
-			return this.onLeave(player, data)
+			return this.onLeave(player)
 
 		if (this.messages.has(type))
 			this.messages.get(type)(player, data);
@@ -55,6 +58,6 @@ export default abstract class Room {
 
 	public abstract onCreate();
 	public abstract onJoin(client: Player, data: any);
-	public abstract onLeave(client: Player, data: any);
+	public abstract onLeave(client: Player);
 }
 
