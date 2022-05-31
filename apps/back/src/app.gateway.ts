@@ -1,7 +1,9 @@
 import { Logger, Inject } from '@nestjs/common';
 import { SubscribeMessage, WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
+import { RoomInternalState } from 'colyseus';
 import { Socket, Server } from 'socket.io';
 import ChannelBuilder from './builder/channel.builder';
+import GameBuilder from './builder/game.builder';
 import Channel from './entities/channel.entity';
 import ChatRoom from './rooms/ChatRoom';
 import GameRoom from './rooms/GameRoom';
@@ -37,14 +39,24 @@ export class AppGateway
 
 		this.service.channels.getAll().then((channels: any) => {
 			channels.forEach((channel: any) => {
-				let chat = new ChatRoom(channel.id, channel.slug);
-				chat.setService(this.service);
-				chat.setGateway(this);
-				this.chats.set(chat.slug, chat);
-				this.logger.log(`Added ${chat.slug} to avalaible chats`)
+				let room = new ChatRoom(channel.id, channel.slug);
+				room.setService(this.service);
+				room.setGateway(this);
+				this.chats.set(room.slug, room);
+				this.logger.log(`Added ${room.slug} to avalaible chats`)
 			})
 		});
 
+		this.service.games.getAll().then((games: any) => {
+			games.forEach((game: any) => {
+				let room = new GameRoom(game.id, game.slug);
+				room.setService(this.service);
+				room.setGateway(this);
+				room.state = game.state;
+				this.games.set(room.slug, room);
+				this.logger.log(`Added ${room.slug} to avalaible games`)
+			})
+		});
 	}
 
 	@SubscribeMessage('connect_message')
@@ -65,13 +77,16 @@ export class AppGateway
 	}
 	public handleConnection(client: Socket, ...args: any[]) {}
 
-	private async createGameRoom(room_id: string)
+	private async createGameRoom(room_id: string): Promise<GameRoom>
 	{
 		let game = new GameRoom(0, room_id);
 		game.setService(this.service);
 		game.setGateway(this);
-		// ajouter la game dans la db et recup l'id
-		this.games.set(game.slug, game);
+		game.id = (await this.service.games.create(
+			GameBuilder.new()
+			.setSlug(game.slug)
+		)).id;
+		this.games.set(room_id, game);
 		return game;
 	}
 
@@ -83,16 +98,19 @@ export class AppGateway
 			ChannelBuilder.new()
 			.setCreator(player.id)
 			.setSlug(room.slug)
-		)).id;
+		)).id
+		this.chats.set(room_id, room);
 		return room;
 	}
 
 	private async createRoom(msg: any, player: Player): Promise<Room> {
 		let room = null;
 		if (msg.room === "game")
-			room = await this.createGameRoom(msg);
-		if (msg.room === "chat")
+			room = await this.createGameRoom(msg.room_id);
+		else if (msg.room === "chat")
 			room = await this.createChatRoom(msg.room_id, player);
+		else
+			throw new Error("Invalid room type");
 		return room;
 	}
 
@@ -101,8 +119,11 @@ export class AppGateway
 		let player = this.users.get(msg.value.username);
 		let room = this.getRoom(msg.room, msg.room_id);
 		if (!room)
-			room = await this.createRoom(msg, player);
-		room.callMessage(msg.type, player, msg.value);
+			this.createRoom(msg, player).then((room: Room) => {
+				room.callMessage(msg.type, player, msg.value);
+			});
+		else
+			room.callMessage(msg.type, player, msg.value);
 	}
 
 	public handleDisconnect(client: Socket) {

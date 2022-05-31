@@ -46,9 +46,7 @@ export default class GameRoom extends Room {
 	}
 
 	public onJoin(player: Player, data: any) {
-		let playerCount = this.getPlayerCountInPositions(["left", "right"]);
 		let position = "spectator";
-
 		if (this.leftPlayer == null) {
 			position = "left";
 			this.leftPlayer = player;
@@ -56,7 +54,6 @@ export default class GameRoom extends Room {
 			position = "right";
 			this.rightPlayer = player;
 		}
-
 		player.position = position;
 		player.score = 0;
 		player.emit("joinGame", {position})
@@ -135,7 +132,6 @@ export default class GameRoom extends Room {
 			return;
 		this.resetBall();
 		this.state = 1;
-		let players = this.getPlayerInPositions(["left", "right"]);
 		this.users.forEach(player => player.emit("startGame", {
 			id: this.id,
 			player1: {

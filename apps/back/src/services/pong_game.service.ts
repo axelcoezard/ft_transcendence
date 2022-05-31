@@ -2,6 +2,7 @@ import { CACHE_MANAGER, Inject, Injectable, NotFoundException, UnauthorizedExcep
 import { PongGame } from 'src/entities/pong_game.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import GameBuilder from 'src/builder/game.builder';
 
 @Injectable()
 export class PongGameService {
@@ -10,7 +11,7 @@ export class PongGameService {
 		public pongGameRepository: Repository<PongGame>,
 	) {}
 
-	async getPongGames(): Promise<PongGame[]> {
+	async getAll(): Promise<PongGame[]> {
 		return await this.pongGameRepository.find();
 	}
 
@@ -18,9 +19,13 @@ export class PongGameService {
 		return await this.pongGameRepository.findOne({id});
 	}
 
-	async addPongGame(pongGame: PongGame): Promise<PongGame> {
-		const newPongGame = this.pongGameRepository.create(pongGame);
-		await this.pongGameRepository.save(newPongGame);
+	async create(pongGame: GameBuilder): Promise<PongGame> {
+		const newPongGame: PongGame = this.pongGameRepository.create(pongGame.build());
+		//await this.pongGameRepository.save(newPongGame);
+		newPongGame.id = (await this.pongGameRepository.query(
+			"INSERT INTO pong_game (slug, status) VALUES ($1, $2) ON CONFLICT DO NOTHING",
+			[newPongGame.slug, newPongGame.status]
+		)).id;
 		return newPongGame;
 	}
 

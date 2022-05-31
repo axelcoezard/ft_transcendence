@@ -24,18 +24,16 @@ const Tchat = () => {
 	useEffect(() => {
 		if (socket.ready)
 		{
-			socket.emit("join", "chat", slug, {
+			if (slug) socket.emit("join", "chat", slug, {
 				id: session.get("id"),
 				username: session.get("username")
 			})
 			socket.on("chat.msg", (res: any) => {
 				setMessages(res);
+				console.log(res)
 			})
 		}
-	}, [socket.ready])
-
-	//socket.on("channel_set_list", (res: any) => setChannels(res))
-	//socket.on("channel_set_msg", (res: any) => setMessages(res))
+	}, [socket.ready, slug])
 
 	return <main className={styles.tchat}>
 		<section className={styles.tchat_indexing}>
@@ -74,7 +72,7 @@ const Tchat = () => {
 			<ul className={styles.conversation_messages}>
 				{messages.map((message: any, index: number) => <Messages
 					key={index}
-					origin={message.username}
+					origin={message.sender_username}
 					message={message.value}
 				/>)}
 			</ul>

@@ -1,6 +1,7 @@
 import { Inject, Injectable } from "@nestjs/common";
 import ChannelService from "./channel.service";
 import MessageService from "./message.service";
+import { PongGameService } from "./pong_game.service";
 import { UserService } from "./user.service";
 
 @Injectable()
@@ -14,6 +15,9 @@ export class AppService
 
 	@Inject(ChannelService)
 	public readonly channels: ChannelService;
+
+	@Inject(PongGameService)
+	public readonly games: PongGameService;
 }
 
 export default AppService

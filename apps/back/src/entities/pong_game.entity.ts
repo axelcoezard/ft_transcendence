@@ -8,27 +8,38 @@ export class PongGame extends BaseEntity {
 	id: number;
 
 	@Column({
-		type: 'int'
+		type: 'varchar',
+		unique: true
+	})
+	slug: string;
+
+	@Column({
+		type: 'int',
+		nullable: true
 	})
 	user1_id: number;
 
 	@Column({
-		type: 'int'
+		type: 'int',
+		nullable: true
 	})
 	user2_id: number;
 
 	@Column({
-		type: 'int'
+		type: 'int',
+		default: 0
 	})
 	user1_score: number;
 
 	@Column({
-		type: 'int'
+		type: 'int',
+		default: 0
 	})
 	user2_score: number;
 
 	@Column({
-		type: 'varchar'
+		type: 'varchar',
+		default: "waiting"
 	})
 	status: string;
 

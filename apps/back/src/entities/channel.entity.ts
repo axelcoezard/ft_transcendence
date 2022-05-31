@@ -12,7 +12,8 @@ export default class Channel extends BaseEntity {
 	creator_id: number;
 
 	@Column({
-		type: 'varchar'
+		type: 'varchar',
+		unique: true
 	})
 	slug: string;
 

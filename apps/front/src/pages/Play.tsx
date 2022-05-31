@@ -41,7 +41,7 @@ const Play = () => {
 	const ball = useBall();
 
 	useEffect(() => {
-		if (socket.ready)
+		if (socket.ready && id)
 			socket.emit("join", "game", id, {
 				id: session.get("id"),
 				username: session.get("username"),
@@ -53,9 +53,9 @@ const Play = () => {
 				position: position
 			})
 		}
-	}, [socket.ready])
+	}, [socket.ready, id])
 
-	socket.onAfterInit("joinGame", ({p}: {p: string}) => {
+	socket.onAfterInit("joinGame", ({position: p}: {position: string}) => {
 		setPosition(p)
 	})
 
@@ -73,10 +73,9 @@ const Play = () => {
 	})
 
 	socket.onAfterInit("paddleMove", (data: any) => {
-		console.log(data.sender, session.get("username"))
 		if (data.sender === session.get("username"))
 			return;
-		console.log(data.sender_position)
+		console.log(data)
 		if (data.sender_position === position)
 			return;
 		if (data.sender_position === "left")
