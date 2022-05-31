@@ -115,7 +115,7 @@ export class AppGateway
 	@SubscribeMessage('message')
 	public async onMessage(client: Socket, msg: any) {
 		let player = this.users.get(msg.value.username);
-		let room = this.getRoom(msg.room, msg.room_id);
+		let room = await this.getRoom(msg.room, msg.room_id, player);
 		if (!room)
 			throw new Error("Room not found");
 		room.callMessage(msg.type, player, msg.value);
@@ -139,13 +139,18 @@ export class AppGateway
 		})
 	}
 
-	private getRoom(type: string, id: string): Room {
+	private async getRoom(type: string, id: string, player: Player): Promise<Room> {
 		if (type === "lobby")
 			return this.lobby;
 		if (type === "game")
 			return this.games.get(id);
 		if (type === "chat")
-			return this.chats.get(id)
+		{
+			let chat = this.chats.get(id)
+			if (!chat)
+				return this.createChatRoom(id, player);
+			return chat;
+		}
 		return null;
 	}
 }
