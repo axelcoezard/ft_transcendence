@@ -1,4 +1,4 @@
-import { Module, Controller, Get, Injectable, Param, Inject, UseInterceptors } from '@nestjs/common';
+import { Module, Controller, Get, Injectable, Param, Inject, UseInterceptors, Body, Post } from '@nestjs/common';
 import 'dotenv/config'
 import fetch from 'node-fetch';
 import { User } from '../entities/user.entity';
@@ -26,7 +26,7 @@ class AuthService
 	}
 }
 
-const getUserAccessToken = async (uid: string, secret: string, code: string): Promise<any> => {
+const getUserAccessToken = async (uid: string, secret: string, code: string, redirect_uri: string): Promise<any> => {
 	let request = await fetch("https://api.intra.42.fr/oauth/token", {
 		method: "POST",
 		headers: {'Content-Type': 'application/json'},
@@ -35,7 +35,7 @@ const getUserAccessToken = async (uid: string, secret: string, code: string): Pr
 			client_id: uid,
 			client_secret: secret,
 			code: code,
-			redirect_uri: "http://localhost:3000"
+			redirect_uri
 		})
 	})
 	return await request.json();
@@ -58,21 +58,30 @@ class AuthController {
 	@Inject(AuthService)
 	private readonly service: AuthService;
 
-	@Get("/authorize")
-	authorize(req: any): string {
+	@Post("/authorize")
+	authorize(
+		@Body() body: any
+	): string {
 		let url: URL = new URL("https://api.intra.42.fr/oauth/authorize");
 			url.searchParams.append("client_id", this.service.getUniqueID());
-			url.searchParams.append("redirect_uri", this.service.getRedirectURI());
+			url.searchParams.append("redirect_uri", body.redirect_uri);
 			url.searchParams.append("response_type", "code");
+		console.log(body.redirect_uri)
 		return JSON.stringify({url: url.toString()});
 	}
 
-	@Get("/token/:code")
-	async login(@Param("code") code: string): Promise<string> {
+	@Post("/token/:code")
+	async login(
+		@Param("code") code: string,
+		@Body() body: any
+	): Promise<string> {
 		let api = await getUserAccessToken(
 			this.service.getUniqueID(),
-			this.service.getSecret(), code
+			this.service.getSecret(),
+			code,
+			body.redirect_uri
 		);
+		console.log(body.redirect_uri)
 		let infos = await getUserInformations(api.access_token);
 		let user = await this.service.getUser(infos.login);
 		if (!user)

@@ -17,14 +17,16 @@ const Login = (props: any) => {
 
 	useEffect(() => {
 		const code = params.get("code")
+		const {hostname, port} = document.location
 		if (code && !session.has("access_token"))
 		{
-			const request = fetch(`http://localhost:3030/auth/token/${code}`, {
-				method: 'GET',
+			const request = fetch(`http://c2r2p3.42nice.fr:3030/auth/token/${code}`, {
+				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 					'cors': 'true'
-				}
+				},
+				body: JSON.stringify({redirect_uri: `http://${hostname}:${port}`})
 			})
 			request.then(response => response.json().then((res: any) => {
 				session.setAll({...res})

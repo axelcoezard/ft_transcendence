@@ -1,7 +1,6 @@
 import * as React from "react";
 
 import styles from '../styles/Buttons.module.scss'
-import { Link, useNavigate } from 'react-router-dom';
 
 const FourtyTwoLogo = (props:any) => {
 	return  <svg className={styles.login_button_icon} fill="none" viewBox="0 0 39 28">
@@ -35,11 +34,20 @@ const FourtyTwoLogo = (props:any) => {
 
 const LoginButton = () => {
 	const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+		const {hostname, port} = document.location
+
 		e.preventDefault()
 
-		let request = await fetch('http://localhost:3030/auth/authorize');
-		let response = await request.json();
+		let request = await fetch('http://c2r2p3.42nice.fr:3030/auth/authorize', {
+			method: 'POST',
+			headers: {
+					'Content-Type': 'application/json',
+					'cors': 'true'
+			},
+			body: JSON.stringify({redirect_uri: `http://${hostname}:${port}`})
+		});
 
+		let response = await request.json();
 		document.location.href = response.url;
 	}
 

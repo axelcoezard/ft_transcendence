@@ -82,14 +82,18 @@ export class AppGateway
 	}
 	public handleConnection(client: Socket, ...args: any[]) {}
 
-	public async createGameRoom(room_id: string): Promise<GameRoom>
+	public async createGameRoom(room_id: string, A: Player, B: Player): Promise<GameRoom>
 	{
 		let game = new GameRoom(0, room_id);
 		game.setService(this.service);
 		game.setGateway(this);
+		game.leftPlayer = A;
+		game.rightPlayer = B;
 		game.id = (await this.service.games.create(
 			GameBuilder.new()
 			.setSlug(game.slug)
+			.setLeftPlayer(A.id)
+			.setRightPlayer(B.id)
 		)).id;
 		this.games.set(room_id, game);
 		return game;
@@ -108,27 +112,13 @@ export class AppGateway
 		return room;
 	}
 
-	private async createRoom(msg: any, player: Player): Promise<Room> {
-		let room = null;
-		//if (msg.room === "game")
-		//	room = await this.createGameRoom(msg.room_id);
-		//else
-		if (msg.room === "chat")
-			room = await this.createChatRoom(msg.room_id, player);
-		else throw new Error("Invalid room type");
-		return room;
-	}
-
 	@SubscribeMessage('message')
 	public async onMessage(client: Socket, msg: any) {
 		let player = this.users.get(msg.value.username);
 		let room = this.getRoom(msg.room, msg.room_id);
 		if (!room)
-			this.createRoom(msg, player).then((room: Room) => {
-				room.callMessage(msg.type, player, msg.value);
-			});
-		else
-			room.callMessage(msg.type, player, msg.value);
+			throw new Error("Room not found");
+		room.callMessage(msg.type, player, msg.value);
 	}
 
 	public handleDisconnect(client: Socket) {

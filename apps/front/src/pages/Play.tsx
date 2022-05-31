@@ -6,14 +6,7 @@ import useCanvas from "../hooks/useCanvas";
 import usePaddle, { PADDLE_HEIGHT, PADDLE_WIDTH } from "../hooks/usePaddle";
 
 import styles from '../styles/Play.module.scss'
-// import useColyseus from '../hooks/useColyseus';
 import Avatars from "../components/Avatars";
-import Pong from "../components/SVGs/Pong"
-import WriteIcon from "../components/SVGs/WriteIcon";
-import SendIcon from "../components/SVGs/SendIcon";
-import CrossIcon from "../components/SVGs/CrossIcon";
-import ReportIcon from "../components/SVGs/ReportIcon";
-import Messages from "../components/Messages";
 import { useParams } from 'react-router-dom';
 import useSession from "../hooks/useSession";
 
@@ -41,12 +34,17 @@ const Play = () => {
 	const ball = useBall();
 
 	useEffect(() => {
+		let data = {
+			id: session.get("id"),
+			username: session.get("username"),
+			elo: session.get("ELO_score")
+		};
 		if (socket.ready && id)
-			socket.emit("join", "game", id, {
-				id: session.get("id"),
-				username: session.get("username"),
-				elo: session.get("ELO_score")
-			})
+			socket.emit("join", "game", id, data)
+		return () => {
+			if (socket.current)
+				socket.emit("leave", "game", id, data)
+		}
 	}, [socket.ready, id])
 
 	socket.onAfterInit("game.join", ({position: p}: {position: string}) => {
@@ -101,7 +99,8 @@ const Play = () => {
 		let player = position === "left" ? left : right;
 		player.setY(y)
 		socket.emit("paddleMove", "game", id, {
-			sender: session.get("username"),
+			id: session.get("id"),
+			sender_username: session.get("username"),
 			sender_position: position,
 			x: player.x,
 			y: player.y

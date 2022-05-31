@@ -19,17 +19,6 @@ const ProfileNavLink = () => {
 	</svg>
 }
 
-// const ContactNavLink = () => {
-// 	return <svg className={styles.nav_bar_icons} viewBox="0 0 70 70">
-// 		<mask id="mask0_158_124" style={{ maskType: "alpha" }} width="60" height="60" x="5" y="5" maskUnits="userSpaceOnUse">
-// 			<path fill="#323232" d="M5 5H65V65H5z"></path>
-// 		</mask>
-// 		<g mask="url(#mask0_158_124)">
-// 			<path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.956 45.208c.546-2.32 1.787-4.378 3.526-5.848 1.74-1.469 3.879-2.267 6.08-2.267 2.202 0 4.342.798 6.081 2.267 1.74 1.47 2.98 3.527 3.526 5.848M27.417 36.167a6.417 6.417 0 110-12.834 6.417 6.417 0 010 12.834zM38.719 26.323h14.875M38.188 34.5h12.75M42.438 42.51h11.156"></path>
-// 		</g>
-// 	</svg>
-// }
-
 const GameNavLink = () => {
 	return  <svg className={styles.nav_bar_icons} viewBox="0 0 70 70">
 		<mask id="mask0_157_1200" style={{ maskType: "alpha" }} width="60" height="60" x="5" y="5" maskUnits="userSpaceOnUse">

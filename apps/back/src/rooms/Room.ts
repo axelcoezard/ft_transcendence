@@ -40,8 +40,10 @@ export default abstract class Room {
 			return this.onJoin(player, data)
 		}
 		if (type == "leave")
+		{
+			player.rooms = player.rooms.filter((room: string) => room != this.slug);
 			return this.onLeave(player)
-
+		}
 		if (this.messages.has(type))
 			this.messages.get(type)(player, data);
 	}

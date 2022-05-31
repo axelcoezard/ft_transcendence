@@ -28,6 +28,8 @@ export default class GameRoom extends Room {
 
 	leftPlayer: Player = null;
 	rightPlayer: Player = null;
+	leftPlayerJoined: boolean = false
+	rightPlayerJoined: boolean = false
 
 	constructor(id: number, slug: string) {
 		super(id, slug)
@@ -38,9 +40,10 @@ export default class GameRoom extends Room {
 
 	public onCreate() {
 		this.onMessage("paddleMove", (player: Player, data: any) => {
-			if(data.sender_position === "left")
+			//console.log(player)
+			if(data.id == this.leftPlayer.id)
 				this.leftPaddle = new Vector(data.x, data.y);
-			if(data.sender_position === "right")
+			if(data.id == this.rightPlayer.id)
 				this.rightPaddle = new Vector(data.x, data.y);
 			this.users.forEach(p => p.emit("game.updatePaddle", data))
 		})
@@ -48,13 +51,10 @@ export default class GameRoom extends Room {
 
 	public onJoin(player: Player, data: any) {
 		let position = "spectator";
-		if (this.leftPlayer == null) {
-			position = "left";
-			this.leftPlayer = player;
-		} else if (this.rightPlayer == null) {
-			position = "right";
-			this.rightPlayer = player;
-		}
+		if (this.leftPlayer.id == player.id)
+			this.leftPlayerJoined = true, position = "left";
+		else if (this.rightPlayer.id == player.id)
+			this.rightPlayerJoined = true, position = "right";
 		player.position = position;
 		player.score = 0;
 		player.emit("game.join", {position})
@@ -62,7 +62,7 @@ export default class GameRoom extends Room {
 		this.users.push(player);
 		console.log(`player ${player.username} joined ${this.id} as ${player.position}`)
 
-		if (this.leftPlayer && this.rightPlayer)
+		if (this.leftPlayerJoined && this.rightPlayerJoined)
 			this.start();
 	}
 
@@ -171,19 +171,15 @@ export default class GameRoom extends Room {
 	}
 
 	public onLeave(player: Player) {
-		let tmp = player.position;
+		if (player.id === this.leftPlayer.id)
+			this.leftPlayerJoined = false;
+		else if (player.id === this.rightPlayer.id)
+			this.rightPlayerJoined = false;
 
-		if (player.position === "left") {
-			this.leftPlayer = null;
-		} else if (player.position === "right") {
-			this.rightPlayer = null;
-		}
-		player.position = null;
-
-		console.log(`player ${player.username} leaved ${this.id} as ${tmp}`)
+		console.log(`player ${player.username} leaved ${this.id}`)
 		this.users = this.users.filter((e: Player) => e.id !== player.id);
 
-		if (!this.leftPlayer || !this.rightPlayer)
+		if (!this.leftPlayerJoined || !this.rightPlayerJoined)
 			this.stop();
 	}
 

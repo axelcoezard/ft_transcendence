@@ -9,26 +9,26 @@ export default class LobbyRoom extends Room {
 	}
 
 	public onCreate() {
+		let i = 0;
 		setInterval(() => {
-			for (let i = 0; i < this.users.length; i++)
+			if (this.users.length < 2)
+				return;
+			let min_player = this.users[i + 1 < this.users.length ? i + 1 : i - 1];
+			let min_dist = this.distance(this.users[i], min_player)
+
+			for (let j = 0; j < this.users.length; j++)
 			{
-				if (this.users.length < 2)
-					break;
-				let min_player = this.users[1];
-				let min_dist = this.distance(this.users[i], min_player)
+				if (this.users[i].id === this.users[j].id)
+					continue;
 
-				for (let j = i + 1; j < this.users.length; j++)
-				{
-					if (this.users[i].username === this.users[j].username)
-						continue;
-
-					let distance = this.distance(this.users[i], this.users[j]);
-					if (distance < min_dist)
-						min_dist = distance, min_player = this.users[j];
-				}
-
-				this.createGame(this.users[i], min_player);
+				let distance = this.distance(this.users[i], this.users[j]);
+				if (distance < min_dist)
+					min_dist = distance, min_player = this.users[j];
 			}
+
+			this.createGame(this.users[i], min_player);
+
+			if (++i >= this.users.length) i = 0;
 		}, 1000);
 	}
 
@@ -50,19 +50,18 @@ export default class LobbyRoom extends Room {
 
 	private async createGame(A: Player, B: Player) {
 		let slug: string = Math.random().toString(16).substring(2,16);
-		let room: GameRoom = await this.gateway.createGameRoom(slug);
 		let [pA, pB] = this.probabilities(A, B);
-
+		this.gateway.createGameRoom(slug, A, B).then(room => {
+			[A, B].forEach((player: Player) => {
+				player.emit("lobby.match", {
+					slug: room.slug,
+					pA,
+					pB
+				})
+				this.onLeave(player);
+			});
+		})
 		console.log(`${A.username} vs ${B.username}`);
-
-		[A, B].forEach((player: Player) => {
-			player.emit("lobby.match", {
-				slug: room.slug,
-				pA,
-				pB
-			})
-			this.onLeave(player);
-		});
 	}
 
 	public onJoin(player: Player, data: any) {
