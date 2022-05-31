@@ -1,4 +1,4 @@
-import styles from "../../styles/Svg.module.scss"
+import styles from "../styles/Svg.module.scss"
 import LoadingSpin from "react-loading-spin";
 import React, { useState } from "react";
 

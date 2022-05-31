@@ -4,7 +4,7 @@ import Loading from "../components/Loading"
 import { useAppContext } from "../contexts/AppContext";
 import useSession from "../hooks/useSession";
 
-const Matching = () => {
+const View = () => {
 	const {socket} = useAppContext();
 	const session = useSession("session");
 
@@ -25,9 +25,10 @@ const Matching = () => {
 			})
 		}
 	}, [socket.current])
+
 	return	<div className={styles.matching}>
-		<Loading title="Matchmaking" subtitle="Veuillez patienter pendant que nous recherchons un adversaire"/>
+		
 	</div>
 }
 
-export default Matching;
+export default View;

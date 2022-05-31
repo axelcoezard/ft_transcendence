@@ -17,53 +17,29 @@ const HomeSelectionRandom = (props: any) => {
 	</div>;
 }
 
-const HomeSelectionInvite = () => {
-	const {session, socket} = useAppContext()
-	const navigate = useNavigate()
-
-	const handleClick = () => {
-		alert("matchmaking...");
-
-		socket.emit("join", "lobby", "", {
-			id: session.get("id"),
-			username: session.get("username")
-		})
-
-		return navigate("/matching_invite")
-	}
+const HomeSelectionInvite = (props: any) => {
+	const {url} = props;
 
 	return <div className={styles.home_selection_invite}>
 		<HomeIllustrations.InviteIllustration /> {/* TO-DO: Link to invite game */}
 		<h1 className={styles.home_selection_h1}>invite</h1>
 		<h3 className={styles.home_selection_h3}>Challenge a friend at pong.</h3>
-		<button className={btn_styles.play_button} onClick={handleClick}>
+		<Link className={btn_styles.play_button} to={url}>
 			<div className={btn_styles.play_button_icon} />
-		</button>
+		</Link>
 	</div>
 }
 
-const HomeSelectionView = () => {
-	const {session, socket} = useAppContext()
-	const navigate = useNavigate()
-
-	const handleClick = () => {
-		alert("matchmaking...");
-
-		socket.emit("join", "lobby", "", {
-			id: session.get("id"),
-			username: session.get("username")
-		})
-
-		return navigate("/matching_view")
-	}
+const HomeSelectionView = (props: any) => {
+	const {url} = props;
 
 	return <div className={styles.home_selection_view}>
 		<HomeIllustrations.ViewIllustration />  {/* TO-DO: Link to view game */}
 		<h1 className={styles.home_selection_h1}>view</h1>
 		<h3 className={styles.home_selection_h3}>Don't pong, watch pong.</h3>
-		<button className={btn_styles.play_button} onClick={handleClick}>
+		<Link className={btn_styles.play_button} to={url}>
 			<div className={btn_styles.play_button_icon} />
-		</button>
+		</Link>
 	</div>
 }
 
