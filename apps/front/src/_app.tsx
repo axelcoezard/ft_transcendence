@@ -38,24 +38,19 @@ const _App = () => {
 				<Route path="/home" element={<PrivateRoute>
 					<Home />
 				</PrivateRoute>} />
-				<Route path="/tchat" element={<PrivateRoute>
+				<Route path="/chat" element={<PrivateRoute>
 					<Tchat />
 				</PrivateRoute>} />
-				<Route path="/tchat/:slug" element={<PrivateRoute>
+				<Route path="/chat/:slug" element={<PrivateRoute>
 					<Tchat />
+				</PrivateRoute>} />
+				<Route path="/play/wait" element={<PrivateRoute>
+					<Matching />
 				</PrivateRoute>} />
 				<Route path="/play/:id" element={<PrivateRoute>
 					<Play />
 				</PrivateRoute>} />
-				<Route path="/matching_random" element={<PrivateRoute>
-					<Matching type="random"/>
-				</PrivateRoute>} />
-				<Route path="/matching_invite" element={<PrivateRoute>
-					<Matching type="invite"/>
-				</PrivateRoute>} />
-				<Route path="/matching_view" element={<PrivateRoute>
-					<Matching type="view"/>
-				</PrivateRoute>} />
+
 				<Route path="/settings" element={<PrivateRoute>
 					<Settings />
 				</PrivateRoute>} />

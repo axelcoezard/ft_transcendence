@@ -33,6 +33,7 @@ export class AppGateway
 	public afterInit(server: Server) {
 		this.logger.log('Init');
 
+		this.lobby = new LobbyRoom();
 		this.users = new Map();
 		this.games = new Map();
 		this.chats = new Map();
@@ -137,12 +138,12 @@ export class AppGateway
 	}
 
 	private getRoom(type: string, id: string): Room {
+		if (type === "lobby")
+			return this.lobby;
 		if (type === "game")
 			return this.games.get(id);
 		if (type === "chat")
 			return this.chats.get(id)
-		if (type === "lobby")
-			return this.lobby;
 		return null;
 	}
 }

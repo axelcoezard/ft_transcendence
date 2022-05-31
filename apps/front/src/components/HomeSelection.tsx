@@ -4,28 +4,16 @@ import btn_styles from '../styles/Buttons.module.scss'
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppContext } from '../contexts/AppContext'
 
-const HomeSelectionRandom = () => {
-	const {session, socket} = useAppContext()
-	const navigate = useNavigate()
-
-	const handleClick = () => {
-		alert("matchmaking...");
-
-		socket.emit("join", "lobby", "", {
-			id: session.get("id"),
-			username: session.get("username")
-		})
-
-		return navigate("/matching_random")
-	}
+const HomeSelectionRandom = (props: any) => {
+	const {url} = props;
 
 	return <div className={styles.home_selection_random}>
 		<HomeIllustrations.RandomIllustration /> {/* TO-DO: Link to random game */}
 		<h1 className={styles.home_selection_h1}>random</h1>
 		<h3 className={styles.home_selection_h3}>Pong with a random player.</h3>
-		<button className={btn_styles.play_button} onClick={handleClick}>
+		<Link className={btn_styles.play_button} to={url}>
 			<div className={btn_styles.play_button_icon} />
-		</button>
+		</Link>
 	</div>;
 }
 

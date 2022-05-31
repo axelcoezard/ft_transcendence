@@ -13,6 +13,7 @@ export default class LobbyRoom extends Room {
 
 	public onJoin(player: Player) {
 		this.users.push(player);
+		console.log(`${player.username} joined lobby`);
 	}
 
 	public onLeave(player: Player) {

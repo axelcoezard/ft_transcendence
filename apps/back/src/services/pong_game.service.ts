@@ -26,6 +26,7 @@ export class PongGameService {
 			"INSERT INTO pong_game (slug, status) VALUES ($1, $2) ON CONFLICT DO NOTHING",
 			[newPongGame.slug, newPongGame.status]
 		)).id;
+		console.log(newPongGame)
 		return newPongGame;
 	}
 
