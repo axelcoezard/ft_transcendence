@@ -5,14 +5,14 @@
 /* --------- MATCHING ELEMENTS -------- */
 
 .matching {
-	background-color: aqua;
-    width: 50%;
-    height: 50%;
-
+	background-color:  rgba(33, 33, 33, 0.8);
+    width: 30%;
+    height: 30%;
+	border-radius: 1.3vw;
 	z-index: 1000;
 	position: absolute;
 	top: 50%;
-	width: 50%;
+	left: 50%;
 	transform: translate(-50%, -50%);
 
     display: flex;
@@ -21,4 +21,21 @@
     text-align: center;
 }
 
-    
+.loading_h2 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-style: bold;
+    font-size: 1.875vw;
+    text-transform: uppercase;
+
+    color: white;
+
+    z-index: 1;
+    max-height: 5.4vw;
+}
+
+.loading_text {
+    color: white;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 1.05vw;
+    margin: 0.52vw;
+}

@@ -1,58 +1,53 @@
-// import styles from "../../styles/Svg.module.scss"
+import styles from "../../styles/Svg.module.scss"
+import LoadingSpin from "react-loading-spin";
+import React, { useState } from "react";
 
-// export type Props = {
-//   /** hex color */
-//   color?: string
-//   /** size in pixel */
-//   size?: number
-// } & React.HTMLAttributes<HTMLDivElement>
-// https://github.com/JoshK2/react-spinners-css/blob/master/src/components/Grid/index.tsx
-// export default function Laoding({ color = '#7f58af', className, style }: Props) {
-// 	return (
-// 	  <div className={classNames(styles['lds-orbitals'], className)} style={{ ...style }}>
-// 		<div className={classNames(styles['center'])} style={{ background: color }}></div>
-// 		<div className={classNames(styles['inner-spin'])}>
-// 		  <div
-// 			className={classNames(styles['inner-arc'], styles['inner-arc_start-a'])}
-// 			style={{ borderColor: color }}
-// 		  ></div>
-// 		  <div
-// 			className={classNames(styles['inner-arc'], styles['inner-arc_end-a'])}
-// 			style={{ borderColor: color }}
-// 		  ></div>
-// 		  <div
-// 			className={classNames(styles['inner-arc'], styles['inner-arc_start-b'])}
-// 			style={{ borderColor: color }}
-// 		  ></div>
-// 		  <div
-// 			className={classNames(styles['inner-arc'], styles['inner-arc_end-b'])}
-// 			style={{ borderColor: color }}
-// 		  ></div>
-// 		  <div className={classNames(styles['inner-moon-a'])} style={{ background: color }}></div>
-// 		  <div className={classNames(styles['inner-moon-b'])} style={{ background: color }}></div>
-// 		</div>
-// 		<div className={classNames(styles['outer-spin'])}>
-// 		  <div
-// 			className={classNames(styles['outer-arc'], styles['outer-arc_start-a'])}
-// 			style={{ borderColor: color }}
-// 		  ></div>
-// 		  <div
-// 			className={classNames(styles['outer-arc'], styles['outer-arc_end-a'])}
-// 			style={{ borderColor: color }}
-// 		  ></div>
-// 		  <div
-// 			className={classNames(styles['outer-arc'], styles['outer-arc_start-b'])}
-// 			style={{ borderColor: color }}
-// 		  ></div>
-// 		  <div
-// 			className={classNames(styles['outer-arc'], styles['outer-arc_end-b'])}
-// 			style={{ borderColor: color }}
-// 		  ></div>
-// 		  <div className={classNames(styles['outer-moon-a'])} style={{ background: color }}></div>
-// 		  <div className={classNames(styles['outer-moon-b'])} style={{ background: color }}></div>
-// 		</div>
-// 	  </div>
-// 	)
-// }
+const LoadingRandom = () => {
+	return  <div className={styles.loading}>
+		 <LoadingSpin
+            width="0.78125vw"
+            size="7.8125vw"
+            primaryColor="#BB86FC"
+            secondaryColor="#ffffff"
+            numberOfRotationsInAnimation={2}
+        />
+		<h2 className={styles.loading_h2}>Matching...</h2>
+		<p className={styles.loading_text}>Please be patient.</p>
+	</div>
+}
 
-export default {}
+const LoadingInvite = () => {
+	return  <div className={styles.loading}>
+		 <LoadingSpin
+            width="0.78125vw"
+            size="7.8125vw"
+            primaryColor="#BB86FC"
+            secondaryColor="#ffffff"
+            numberOfRotationsInAnimation={2}
+        />
+		<h2 className={styles.loading_h2}>Invitation sent!</h2>
+		<p className={styles.loading_text}>Waiting for a response...</p>
+	</div>
+}
+
+const LoadingView = () => {
+	return  <div className={styles.loading}>
+		 <LoadingSpin
+            width="0.78125vw"
+            size="7.8125vw"
+            primaryColor="#BB86FC"
+            secondaryColor="#ffffff"
+            numberOfRotationsInAnimation={2}
+        />
+		<h2 className={styles.loading_h2}>Preparing viewing...</h2>
+		<p className={styles.loading_text}>Please be patient.</p>
+	</div>
+}
+
+const ExportLoading = {
+	LoadingRandom,
+	LoadingInvite,
+	LoadingView
+}
+
+export default ExportLoading;

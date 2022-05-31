@@ -83,46 +83,6 @@
     }
 }
 
-@mixin game_content {
-    background-color: rgba(33, 33, 33, 0.8);
-    border-radius: 1.3vw;
-
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-/* ---------- RANDOM ELEMENTS ----------*/
-
-.random {
-    @include game_content();
-    @media screen and (min-width: 769px) {
-        width: 28%;
-        min-height: 20%;
-    }
-}
-
-/* ---------- INVITE ELEMENTS ----------*/
-
-.invite {
-    @include game_content();
-    @media screen and (min-width: 769px) {
-        width: 28%;
-        min-height: 20%;
-    }
-}
-
-/* ----------- VIEW ELEMENTS -----------*/
-
-.view {
-    @include game_content();
-    @media screen and (min-width: 769px) {
-        width: 28%;
-        min-height: 20%;
-    }
-}
-
 /* ----------- TEXT ELEMENTS -----------*/
 
 .h1 {

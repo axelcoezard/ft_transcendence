@@ -254,3 +254,63 @@
 	font-size: 0.9vw; 
 	margin: 0vw 0.52vw;
 }
+
+/* ---------- HOME SELECTION ---------- */
+
+@mixin home_selection {
+    background-color: rgba(33, 33, 33, 0.8);
+    border-radius: 1.3vw;
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.home_selection_random {
+    @include home_selection();
+    @media screen and (min-width: 769px) {
+        width: 28%;
+        min-height: 20%;
+    }
+}
+
+.home_selection_invite {
+    @include home_selection();
+    @media screen and (min-width: 769px) {
+        width: 28%;
+        min-height: 20%;
+    }
+}
+
+.home_selection_view {
+    @include home_selection();
+    @media screen and (min-width: 769px) {
+        width: 28%;
+        min-height: 20%;
+    }
+}
+
+.home_selection_h1 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-style: bold;
+    font-size: 3.33vw;
+    text-transform: uppercase;
+    
+    background: linear-gradient(90deg, $color_mauve 20.83%, $color_uranian 49.94%, $color_mint 80.3%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  
+    z-index: 1;
+    max-height: 78px;
+}
+
+.home_selection_h3 {
+    color: white;
+
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: lighter;
+    font-size: 1.25vw;
+    
+    z-index: 1;
+}

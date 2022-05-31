@@ -47,8 +47,14 @@ const _App = () => {
 				<Route path="/play/:id" element={<PrivateRoute>
 					<Play />
 				</PrivateRoute>} />
-				<Route path="/matching" element={<PrivateRoute>
-					<Matching />
+				<Route path="/matching_random" element={<PrivateRoute>
+					<Matching type="random"/>
+				</PrivateRoute>} />
+				<Route path="/matching_invite" element={<PrivateRoute>
+					<Matching type="invite"/>
+				</PrivateRoute>} />
+				<Route path="/matching_view" element={<PrivateRoute>
+					<Matching type="view"/>
 				</PrivateRoute>} />
 				<Route path="/settings" element={<PrivateRoute>
 					<Settings />

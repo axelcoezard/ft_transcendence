@@ -1,62 +1,10 @@
 import { useAppContext } from '../contexts/AppContext'
 import styles from '../styles/Home.module.scss'
-import btn_styles from '../styles/Buttons.module.scss'
 import Avatars from '../components/Avatars'
-import Buttons from '../components/Buttons'
-import HomeIllustrations from '../components/SVGs/HomeIllustrations'
-import { Link, useNavigate } from 'react-router-dom';
+import HomeSelection from "../components/HomeSelection"
 
-/* -------------- HOME SVG -------------*/
+/* -------- HOME LINKS TO PONG ---------*/
 
-const MatchmakeButton = () => {
-	const {session, socket} = useAppContext()
-	const navigate = useNavigate()
-
-	const handleClick = () => {
-		alert("matchmaking...");
-
-		socket.emit("join", "lobby", "", {
-			id: session.get("id"),
-			username: session.get("username")
-		})
-
-		return navigate("/matching")
-	}
-
-	return <div className={styles.random}>
-				<HomeIllustrations.RandomIllustration /> {/* TO-DO: Link to random game */}
-				<h1 className={styles.h1}>random</h1>
-				<h3 className={styles.h3}>Pong with a random player.</h3>
-				<button className={btn_styles.play_button}
-					onClick={handleClick}
-				>
-					<div className={btn_styles.play_button_icon} />
-				</button>
-			</div>;
-}
-
-const DuelButton = () => {
-
-	return <div className={styles.invite}>
-				<HomeIllustrations.InviteIllustration /> {/* TO-DO: Link to invite game */}
-				<h1 className={styles.h1}>invite</h1>
-				<h3 className={styles.h3}>Challenge a friend at pong.</h3>
-				<Link className={btn_styles.play_button} to="/play">
-					<div className={btn_styles.play_button_icon} />
-				</Link>
-			</div>
-}
-
-const WatchButton = () => {
-	return <div className={styles.view}>
-				<HomeIllustrations.ViewIllustration />  {/* TO-DO: Link to view game */}
-				<h1 className={styles.h1}>view</h1>
-				<h3 className={styles.h3}>Don't pong, watch pong.</h3>
-				<Link className={btn_styles.play_button} to="/play/">
-					<div className={btn_styles.play_button_icon} />
-				</Link>
-			</div>
-}
 
 const Home = () => {
 	const {session} = useAppContext()
@@ -73,9 +21,9 @@ const Home = () => {
 			</div>
 		</section>
 		<section className={styles.game}>
-			<MatchmakeButton />
-			<DuelButton />
-			<WatchButton />
+			<HomeSelection.HomeSelectionRandom />
+			<HomeSelection.HomeSelectionInvite />
+			<HomeSelection.HomeSelectionView />
 		</section>
 	</main>
 }
