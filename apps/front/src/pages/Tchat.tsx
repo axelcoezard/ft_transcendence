@@ -3,13 +3,10 @@ import { useEffect, useState } from 'react'
 import styles from '../styles/Tchat.module.scss'
 import WriteIcon from '../components/SVGs/WriteIcon';
 import SendIcon from '../components/SVGs/SendIcon';
-import CrossIcon from "../components/SVGs/CrossIcon";
 import Messages from "../components/Messages";
 import Conversations from "../components/Conversations";
-import DropdownMenu from "../components/DropdownMenu";
 import BinIcon from '../components/SVGs/BinIcon';
 import PlusIcon from '../components/SVGs/PlusIcon';
-import SearchIcon from '../components/SVGs/SearchIcon';
 import { useAppContext } from '../contexts/AppContext';
 import { useParams } from 'react-router-dom';
 
@@ -19,19 +16,19 @@ const Tchat = () => {
 	const [channels, setChannels] = useState<any[]>([]);
 	const [value, setValue] = useState("");
 	const [search, setSearch] = useState("");
-	const {slug} = useParams();
+	let {slug} = useParams();
 
 	useEffect(() => {
+		if (slug === "@me")
+			slug = session.get("username");
 		if (socket.ready)
 		{
 			if (slug) socket.emit("join", "chat", slug, {
 				id: session.get("id"),
 				username: session.get("username")
 			})
-			socket.on("chat.msg", (res: any) => {
-				setMessages(res);
-				console.log(res)
-			})
+			socket.on("chat.channel", (res: any) => setChannels(res))
+			socket.on("chat.msg", (res: any) => setMessages(res))
 		}
 	}, [socket.ready, slug])
 
@@ -60,9 +57,9 @@ const Tchat = () => {
 			<ul className={styles.indexing_list}>
 				{ channels.map((channel: any, index: number) => <Conversations
 					key={index}
+					to={`/tchat/${channel.slug}`}
 					channel={channel.slug}
 				/>)}
-				<p className={styles.text}>No tchat.</p>
 			</ul>
 		</section>
 
@@ -73,6 +70,7 @@ const Tchat = () => {
 			<ul className={styles.conversation_messages}>
 				{messages.map((message: any, index: number) => <Messages
 					key={index}
+					type={message.type}
 					origin={message.sender_username}
 					message={message.value}
 				/>)}

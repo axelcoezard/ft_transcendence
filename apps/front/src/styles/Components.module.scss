@@ -7,7 +7,7 @@
 .nav_bar {
     background-color: rgba(33, 33, 33, 0.8);
 	z-index: 1000;
-	
+
 	height: 100%;
 	width: 5%;
 	border-radius: 0px 2.6vw 2.6vw 0px;
@@ -78,9 +78,9 @@
 	color: white;
 	width: 100%;
 	margin: 0.1vw;
-    
+
 	font-family: Helvetica, Arial, sans-serif;
-    font-size: 0.8vw; 
+    font-size: 0.8vw;
 	text-align: right;
 	font-weight: lighter;
 }
@@ -148,9 +148,9 @@
     font-style: bold;
     font-size: 1.875vw;
     text-transform: uppercase;
-    
+
     color: white;
-  
+
     z-index: 1;
     max-height: 5.4vw;
 	margin: 0.7vw;
@@ -159,7 +159,7 @@
 .history_text {
     color: white;
     font-family: Helvetica, Arial, sans-serif;
-    font-size: 1.05vw; 
+    font-size: 1.05vw;
     margin: 0.52vw;
 }
 
@@ -190,7 +190,7 @@
 
 	word-wrap: break-word;
 	font-family: Helvetica, Arial, sans-serif;
-	font-size: 1vw; 
+	font-size: 1vw;
 	margin: 0.52vw;
 }
 
@@ -198,20 +198,20 @@
 	word-wrap: break-word;
 	color: rgba(255, 255, 255, 0.25);
 	font-family: Helvetica, Arial, sans-serif;
-	font-size: 1vw; 
+	font-size: 1vw;
 	margin: 0.52vw;
 }
 
 /* ----------- DROPDOWN MENU ---------- */
 
 .dropdown_menu {
-} 
+}
 
 /* -------- TCHAT CONVERSATIONS ------- */
 
 .conversations {
 	// background-color: aqua;
-	
+
 	cursor: pointer;
 
 	z-index: 1000;
@@ -219,9 +219,11 @@
 	flex-direction: row;
 	align-items: flex-start;
 	justify-content: space-between;
+	text-decoration: none;
 
 	padding: 0.6vw 0.6vw;
 	border-radius: 1.7vw;
+	color: #fff;
 }
 
 .conversations:hover {
@@ -244,16 +246,10 @@
 
 .conversations_header {
 	font-family: Helvetica, Arial, sans-serif;
-	font-size: 1vw; 
-	margin: 0vw 0.52vw;
+	font-size: 1vw;
+	margin: 1vw 0.52vw;
 }
 
-.conversations_message {
-	color: rgba(255, 255, 255, 0.25);
-	font-family: Helvetica, Arial, sans-serif;
-	font-size: 0.9vw; 
-	margin: 0vw 0.52vw;
-}
 
 /* ---------- HOME SELECTION ---------- */
 
@@ -296,11 +292,11 @@
     font-style: bold;
     font-size: 3.33vw;
     text-transform: uppercase;
-    
+
     background: linear-gradient(90deg, $color_mauve 20.83%, $color_uranian 49.94%, $color_mint 80.3%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-  
+
     z-index: 1;
     max-height: 78px;
 }
@@ -311,6 +307,6 @@
     font-family: Helvetica, Arial, sans-serif;
     font-weight: lighter;
     font-size: 1.25vw;
-    
+
     z-index: 1;
 }

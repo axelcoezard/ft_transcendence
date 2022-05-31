@@ -4,7 +4,7 @@ import Avatars from "./Avatars";
 
 const Messages = (props: any) => {
 	const { session } = useAppContext();
-	const { origin, message } = props;
+	const { origin, message, type } = props;
 
 	const isMe = origin === session.get("username");
 
