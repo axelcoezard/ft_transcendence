@@ -40,8 +40,9 @@ const Login = (props: any) => {
 	}, [])
 
 	useEffect(() => {
+		const {hostname, port} = document.location
 		if (session.has("access_token"))
-			navigate("/home")
+			document.location.href = `http://${hostname}:${port}/home`;
 	}, [session])
 
 	return <main className={styles.login}>
