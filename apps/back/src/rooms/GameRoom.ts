@@ -152,8 +152,18 @@ export default class GameRoom extends Room {
 
 	private stop() {
 		this.state = 0;
+
+		let winner = null;
+		let loser = null;
+		if (this.leftPlayer.score >= this.rightPlayer.score)
+			winner = this.leftPlayer, loser = this.rightPlayer;
+		else
+			winner = this.rightPlayer, loser = this.leftPlayer;
+
 		this.users.forEach(player => player.emit("game.stop", {
-			id: this.id
+			id: this.id,
+			winner: winner.toObject(),
+			loser: loser.toObject()
 		}))
 		console.log(`${this.id} stopped`)
 	}
@@ -174,16 +184,8 @@ export default class GameRoom extends Room {
 	private getGamePlayersStatus(): any {
 		return {
 			id: this.id,
-			player1: {
-				id: this.leftPlayer.id,
-				name: this.leftPlayer.username,
-				score: this.leftPlayer.score
-			},
-			player2: {
-				id: this.rightPlayer.id,
-				name: this.rightPlayer.username,
-				score: this.rightPlayer.score
-			}
+			player1: this.leftPlayer.toObject(),
+			player2: this.rightPlayer.toObject()
 		}
 	}
 

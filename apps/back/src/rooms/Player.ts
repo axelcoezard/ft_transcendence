@@ -30,4 +30,14 @@ export default class Player {
 	public emit(type: string, data: any) {
 		this.socket.emit(type, data);
 	}
+
+	public toObject(): any {
+		return {
+			id: this.id,
+			username: this.username,
+			position: this.position,
+			score: this.score,
+			elo: this.elo
+		};
+	}
 }

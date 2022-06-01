@@ -19,8 +19,8 @@ const Play = () => {
 	const session = useSession("session");
 	const [started, setStarted] = useState<boolean>(false)
 	const [position, setPosition] = useState<string>("spectator")
-	const [player1, setPlayer1] = useState<any>({id: 0, name: "", score: 0})
-	const [player2, setPlayer2] = useState<any>({id: 0, name: "", score: 0})
+	const [player1, setPlayer1] = useState<any>({id: 0, username: "", score: 0})
+	const [player2, setPlayer2] = useState<any>({id: 0, username: "", score: 0})
 
 	const {id} = useParams()
 
@@ -34,6 +34,7 @@ const Play = () => {
 			username: session.get("username"),
 			elo: session.get("ELO_score")
 		};
+
 		if (socket.ready)
 		{
 			socket.emit("join", "game", id, data)
@@ -100,12 +101,12 @@ const Play = () => {
 		<section className={styles.play_pong}>
 			<div className={styles.pong_header}>
 				<h1 className={styles.h1}>TRANSCENDENCE</h1>
-				<h3 className={styles.h3}>Pong to the extrem!</h3>
+				<h3 className={styles.h3}>Pong to the extreme!</h3>
 			</div>
 			<div className={styles.pong_dashboard}>
 				<div className={styles.pong_dashboard_user}>
 					<Avatar user={player1.id} width="3.125vw" height="3.125vw"/>
-					<p className={styles.text}>{player1.name}</p>
+					<p className={styles.text}>{player1.username}</p>
 				</div>
 				<div className={styles.pong_dashboard_score}>
 					<p className={styles.h1}>{player1.score}</p>
@@ -114,7 +115,7 @@ const Play = () => {
 				</div>
 				<div className={styles.pong_dashboard_opponant}>
 					<Avatar user={player2.id} width="3.125vw" height="3.125vw"/>
-					<p className={styles.text}>{player2.name}</p>
+					<p className={styles.text}>{player2.username}</p>
 				</div>
 			</div>
 			<div className={styles.pong}>
