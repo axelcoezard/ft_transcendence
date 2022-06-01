@@ -1,6 +1,6 @@
 import { Socket } from "socket.io";
 import { AppGateway } from "src/app.gateway";
-import AppService from "src/services/app.service";
+import AppService from "src/app.service";
 import Player from "./Player";
 
 
