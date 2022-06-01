@@ -39,45 +39,39 @@ const Play = () => {
 			username: session.get("username"),
 			elo: session.get("ELO_score")
 		};
-		if (socket.ready && id)
+		if (socket.ready)
+		{
 			socket.emit("join", "game", id, data)
+			socket.on("game.start", (data: any) => {
+				setStarted(true)
+				setPlayer1(data.player1)
+				setPlayer2(data.player2)
+			})
+			socket.on("game.join", ({position: p}: {position: string}) => {
+				setPosition(p)
+			})
+			socket.on("game.updateBall", (data: any) => {
+				ball.setY(data.y)
+				ball.setX(data.x)
+			})
+			socket.on("game.updateScore", (data: any) => {
+				setPlayer1(data.player1)
+				setPlayer2(data.player2)
+			})
+			socket.on("game.updatePaddle", (data: any) => {
+				if (data.id === session.get("id"))	return;
+				if (data.position === position)		return;
+				if (data.position === "left")		left.setY(data.y)
+				if (data.position === "right")		right.setY(data.y)
+			})
+		}
 		return () => {
-			if (socket.current)
+			if (socket.ready)
 				socket.emit("leave", "game", id, data)
 		}
 	}, [socket.ready, id])
 
-	socket.onAfterInit("game.join", ({position: p}: {position: string}) => {
-		setPosition(p)
-	})
 
-	socket.onAfterInit("game.start", (data: any) => {
-		setStarted(true)
-		setPlayer1(data.player1)
-		setPlayer2(data.player2)
-	})
-
-	socket.onAfterInit("game.updateBall", (data: any) => {
-		ball.setY(data.y)
-		ball.setX(data.x)
-	})
-
-	socket.onAfterInit("game.updateScore", (data: any) => {
-		setPlayer1(data.player1)
-		setPlayer2(data.player2)
-	})
-
-	socket.onAfterInit("game.updatePaddle", (data: any) => {
-		if (data.sender === session.get("username"))
-			return;
-		console.log(data)
-		if (data.sender_position === position)
-			return;
-		if (data.sender_position === "left")
-			left.setY(data.y)
-		if (data.sender_position === "right")
-			right.setY(data.y)
-	})
 
 	const render = (context: CanvasRenderingContext2D, _: any) => {
 		context.fillStyle = "#ffffff";
@@ -100,8 +94,8 @@ const Play = () => {
 		player.setY(y)
 		socket.emit("paddleMove", "game", id, {
 			id: session.get("id"),
-			sender_username: session.get("username"),
-			sender_position: position,
+			username: session.get("username"),
+			position,
 			x: player.x,
 			y: player.y
 		})

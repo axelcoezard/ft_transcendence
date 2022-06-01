@@ -40,12 +40,14 @@ export default class GameRoom extends Room {
 
 	public onCreate() {
 		this.onMessage("paddleMove", (player: Player, data: any) => {
-			//console.log(player)
-			if(data.id == this.leftPlayer.id)
+			if(data.id === this.leftPlayer.id)
 				this.leftPaddle = new Vector(data.x, data.y);
-			if(data.id == this.rightPlayer.id)
+			else if(data.id === this.rightPlayer.id)
 				this.rightPaddle = new Vector(data.x, data.y);
-			this.users.forEach(p => p.emit("game.updatePaddle", data))
+			this.users.forEach(p => {
+				if (p.id !== data.id)
+					p.emit("game.updatePaddle", data)
+			})
 		})
 	}
 
@@ -139,27 +141,29 @@ export default class GameRoom extends Room {
 		}))
 
 		if (this.state !== 0)
-			setTimeout(() => this.update(updates + 1), 1000 / 50)
+			setTimeout(() => this.update(updates + 1), 1000 / 30)
 	}
 
 	private start() {
 		if (this.state !== 0)
 			return;
-		this.resetBall();
 		this.state = 1;
-		this.users.forEach(player => player.emit("game.start", {
-			id: this.id,
-			player1: {
-				name: this.leftPlayer.username,
-				score: this.leftPlayer.score
-			},
-			player2: {
-				name: this.rightPlayer.username,
-				score: this.rightPlayer.score
-			}
-		}))
-		this.update(0);
-		console.log(`${this.id} started`)
+		this.resetBall();
+		setTimeout(() => {
+			this.users.forEach(player => player.emit("game.start", {
+				id: this.id,
+				player1: {
+					name: this.leftPlayer.username,
+					score: this.leftPlayer.score
+				},
+				player2: {
+					name: this.rightPlayer.username,
+					score: this.rightPlayer.score
+				}
+			}))
+			this.update(0);
+			console.log(`${this.id} started`)
+		}, 1000);
 	}
 
 	private stop() {
