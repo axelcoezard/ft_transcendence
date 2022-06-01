@@ -141,7 +141,7 @@ export default class GameRoom extends Room {
 		}))
 
 		if (this.state !== 0)
-			setTimeout(() => this.update(updates + 1), 1000 / 30)
+			setTimeout(() => this.update(updates + 1), 1000 / 50)
 	}
 
 	private start() {

@@ -1,5 +1,5 @@
 import { Socket } from "socket.io";
-import MessageBuilder from "src/builder/message.builder";
+import MessageBuilder from "../modules/message/message.builder";
 import { FindAndModifyWriteOpResultObject, getManager } from "typeorm";
 import Player from "./Player";
 import Room from "./Room";
