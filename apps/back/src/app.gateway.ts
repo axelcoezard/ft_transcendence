@@ -92,8 +92,7 @@ export class AppGateway
 		game.id = (await this.service.games.create(
 			GameBuilder.new()
 			.setSlug(game.slug)
-			.setLeftPlayer(A.id)
-			.setRightPlayer(B.id)
+			.setPlayers(A, B)
 		)).id;
 		this.games.set(room_id, game);
 		return game;

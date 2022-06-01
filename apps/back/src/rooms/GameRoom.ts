@@ -1,3 +1,4 @@
+import GameBuilder from "src/modules/game/game.builder";
 import Player from "./Player";
 import Room from "./Room";
 
@@ -141,6 +142,15 @@ export default class GameRoom extends Room {
 			return;
 		this.state = 1;
 		this.resetBall();
+
+		this.service.games.update(
+			GameBuilder.new()
+			.setId(this.id)
+			.setSlug(this.slug)
+			.setPlayers(this.leftPlayer, this.rightPlayer)
+			.setStatus(GameBuilder.GAME_STARTED)
+		)
+
 		setTimeout(() => {
 			this.users.forEach(player => player.emit("game.start",
 				this.getGamePlayersStatus()
@@ -165,6 +175,16 @@ export default class GameRoom extends Room {
 			winner: winner.toObject(),
 			loser: loser.toObject()
 		}))
+
+		this.service.games.update(
+			GameBuilder.new()
+			.setId(this.id)
+			.setSlug(this.slug)
+			.setPlayers(this.leftPlayer, this.rightPlayer)
+			.setScores(this.leftPlayer.score, this.rightPlayer.score)
+			.setStatus(GameBuilder.GAME_ENDED)
+		)
+
 		console.log(`${this.id} stopped`)
 	}
 

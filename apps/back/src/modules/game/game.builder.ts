@@ -1,3 +1,4 @@
+import Player from "src/rooms/Player";
 import Channel from "../channel/channel.entity";
 import { PongGame } from "./game.entity";
 
@@ -5,31 +6,49 @@ export default class GameBuilder {
 
 	private game: PongGame;
 
+	public static GAME_WAITING: string = "waiting";
+	public static GAME_STARTED: string = "started";
+	public static GAME_ENDED: string = "ended";
+
 	constructor()
 	{
 		this.game = new PongGame();
-		this.game.status = "waiting";
+		this.game.status = GameBuilder.GAME_WAITING;
 		this.game.slug = Math
 			.random()
 			.toString(16)
 			.substring(2,16);
 	}
 
-	public setLeftPlayer(user_id: number) : GameBuilder
+	public setId(id: number): GameBuilder
 	{
-		this.game.user1_id = user_id;
+		this.game.id = id;
 		return this;
 	}
 
-	public setRightPlayer(user_id: number) : GameBuilder
+	public setPlayers(user1: Player, user2: Player) : GameBuilder
 	{
-		this.game.user2_id = user_id;
+		this.game.user1_id = user1.id;
+		this.game.user2_id = user2.id;
 		return this;
 	}
 
-	public setSlug(slug: string)
+	public setScores(left: number, right: number) : GameBuilder
+	{
+		this.game.user1_score = left;
+		this.game.user2_score = right;
+		return this;
+	}
+
+	public setSlug(slug: string): GameBuilder
 	{
 		this.game.slug = slug;
+		return this;
+	}
+
+	public setStatus(status: string): GameBuilder
+	{
+		this.game.status = status;
 		return this;
 	}
 
