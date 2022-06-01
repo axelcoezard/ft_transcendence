@@ -1,4 +1,4 @@
-import { CACHE_MANAGER, Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Avatar } from 'src/entities/avatar.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -9,7 +9,7 @@ export class AvatarService {
 		public avatarRepository: Repository<Avatar>,
 	) {}
 
-	async getAvatars(): Promise<Avatar[]> {
+	async getAll(): Promise<Avatar[]> {
 		return await this.avatarRepository.find();
 	}
 

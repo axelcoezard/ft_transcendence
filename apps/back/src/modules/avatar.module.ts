@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AvatarController } from 'src/controllers/avatar.controller';
 import { Avatar } from 'src/entities/avatar.entity';
 import { AvatarService } from 'src/services/avatar.service';
 
 @Module({
 	providers: [AvatarService],
+	controllers: [AvatarController],
 	imports: [TypeOrmModule.forFeature([Avatar])],
 	exports: [AvatarService]
 })

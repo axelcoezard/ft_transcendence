@@ -7,21 +7,17 @@ export class Avatar extends BaseEntity {
 	@PrimaryGeneratedColumn()
     id: number;
 
-	@OneToMany(
-		() => User,
-		users => users.avatar_id
-	)
-	users: User[];
-
 	@Column({
-		type: "varchar"
+		type: "varchar",
+		nullable: true
 	})
 	title: string;
 
 	@Column({
-		type: "varchar"
+		type: "varchar",
+		nullable: false
 	})
-	uri: typeof title;
+	image: string;
 
 	@CreateDateColumn()
 	created_at: Date;

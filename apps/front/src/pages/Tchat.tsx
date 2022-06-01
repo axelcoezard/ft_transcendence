@@ -15,12 +15,10 @@ const Tchat = () => {
 	const [messages, setMessages] = useState<any[]>([]);
 	const [channels, setChannels] = useState<any[]>([]);
 	const [value, setValue] = useState("");
-	const [search, setSearch] = useState("");
-	let {slug} = useParams();
+	let {slug: s} = useParams();
+	let slug = s == "@me" ? session.get("username") : s;
 
 	useEffect(() => {
-		if (slug === "@me")
-			slug = session.get("username");
 		if (socket.ready)
 		{
 			if (slug) socket.emit("join", "chat", slug, {

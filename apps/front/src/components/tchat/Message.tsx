@@ -1,6 +1,7 @@
 import styles from "../../styles/Message.module.scss";
 import { useAppContext } from '../../contexts/AppContext'
 import Avatars from "../Avatars";
+import Avatar from "../Avatar";
 
 const DefaultMessage = (props: any) => {
 	const message = props.value;
@@ -36,7 +37,7 @@ const Message = (props: any) => {
 
 	return <div className={isMe ? styles.message_right : styles.message_left}>
 		{!isMe && <div className={styles.message_origin}>{origin}</div>}
-		<Avatars.PurpleAvatar width="40px" height="40px" />
+		<Avatar className={styles.message_avatar} width="40px" height="40px" />
 		{
 			props.type === "invitation"
 			? <InvitationMessage {...props} />

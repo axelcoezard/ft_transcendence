@@ -4,13 +4,14 @@ import Avatars from '../components/Avatars';
 import Ranked from '../components/Ranked'
 import ProgressBar from '../components/ProgressBar';
 import VictoryCrown from '../components/SVGs/VictoryCrown';
+import Avatar from '../components/Avatar';
 
 const Profil = () => {
 	const {session} = useAppContext();
 
 	return <main className={styles.profil}>
 		<section className={styles.content}>
-			<Avatars.PurpleAvatar width="3.9vw" height="3.9vw"/>
+			<Avatar width="3.9vw" height="3.9vw"/>
 
 			<div className={styles.general}>
 				<Ranked.MediumRanked />

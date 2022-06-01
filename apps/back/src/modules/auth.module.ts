@@ -4,12 +4,19 @@ import fetch from 'node-fetch';
 import { User } from '../entities/user.entity';
 import UserModule from './user.module';
 import { UserService } from '../services/user.service';
+import { Avatar } from 'src/entities/avatar.entity';
+import { AvatarService } from 'src/services/avatar.service';
+import AvatarModule from './avatar.module';
+import fs from 'fs';
 
 @Injectable()
 class AuthService
 {
 	@Inject(UserService)
 	public readonly userService: UserService;
+
+	@Inject(AvatarService)
+	public readonly avatarService: AvatarService;
 
 	getUniqueID(): string { return process.env.API_UID; }
 	getSecret(): string { return process.env.API_SECRET; }
@@ -23,6 +30,17 @@ class AuthService
 
 	async addUser(user: User) {
 		return await this.userService.userRepository.save(user);
+	}
+
+	async getAvatar(id: number): Promise<Avatar> {
+		return await this.avatarService.avatarRepository.findOne({
+			where: {id}
+		})
+	}
+
+	async addAvatar(avatar: Avatar)
+	{
+		return await this.avatarService.avatarRepository.save(avatar);
 	}
 }
 
@@ -52,6 +70,12 @@ const getUserInformations = async (access_token: string): Promise<any> => {
 	return await request.json();
 }
 
+const getBase64FromURI = async (uri: string): Promise<string> => {
+	const data = await fetch(uri);
+	const buffer = await data.buffer();
+	return buffer.toString('base64');
+}
+
 @Controller('auth')
 class AuthController {
 
@@ -66,7 +90,6 @@ class AuthController {
 			url.searchParams.append("client_id", this.service.getUniqueID());
 			url.searchParams.append("redirect_uri", body.redirect_uri);
 			url.searchParams.append("response_type", "code");
-		console.log(body.redirect_uri)
 		return JSON.stringify({url: url.toString()});
 	}
 
@@ -86,16 +109,25 @@ class AuthController {
 		let user = await this.service.getUser(infos.login);
 		if (!user)
 		{
+			let avatar = new Avatar();
+			avatar.title = infos.login;
+			avatar.image =  await getBase64FromURI(infos.image_url);
+			avatar = await this.service.addAvatar(avatar);
+
 			let req = new User();
 			req.username = infos.login;
 			req.email = infos.email;
+			req.avatar_id = avatar.id;
 			user = await this.service.addUser(req);
 		}
+
+		let avatar = await this.service.getAvatar(user.avatar_id);
 
 		return JSON.stringify({
 			id: user.id,
 			username: user.username,
 			email: user.email,
+			avatar: `data:image/jpeg;base64,${avatar.image}`,
 			"2FA_status": user["2FA_status"],
 			"2FA_secret": user["2FA_secret"],
 			ELO_score: user.ELO_score,
@@ -107,7 +139,7 @@ class AuthController {
 }
 
 @Module({
-	imports: [UserModule],
+	imports: [UserModule, AvatarModule],
 	controllers: [AuthController],
 	providers: [AuthService],
 })

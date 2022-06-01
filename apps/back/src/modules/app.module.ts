@@ -8,6 +8,7 @@ import MessageModule from './message.module';
 import AppService from '../services/app.service';
 import ChannelModule from './channel.module';
 import PongGameModule from './pong_game.module';
+import AvatarModule from './avatar.module';
 
 @Controller()
 class AppController
@@ -23,6 +24,7 @@ class AppController
 		MessageModule,
 		ChannelModule,
 		PongGameModule,
+		AvatarModule,
 		TypeOrmModule.forRoot({
 			type: 'postgres',
 			host: 'postgres',

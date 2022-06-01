@@ -2,6 +2,7 @@ import { useAppContext } from '../contexts/AppContext'
 import styles from '../styles/Home.module.scss'
 import Avatars from '../components/Avatars'
 import HomeSelection from "../components/HomeSelection"
+import Avatar from '../components/Avatar'
 
 const Home = () => {
 	const {session} = useAppContext()
@@ -13,7 +14,7 @@ const Home = () => {
 				<h3 className={styles.h3}>Pong to the extrem!</h3>
 			</div>
 			<div className={styles.header_avatar}>
-				<Avatars.PurpleAvatar width="3.9vw" height="3.9vw"/>
+				<Avatar width="3.9vw" height="3.9vw"/>
 				<p className={styles.text}> {session.get("username")}</p>
 			</div>
 		</section>
