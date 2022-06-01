@@ -10,7 +10,7 @@ const Profil = () => {
 
 	return <main className={styles.profil}>
 		<section className={styles.content}>
-			<Avatars.PurpleAvatar width="3.9vw" height="3.9vw"/> {/* BACK */}
+			<Avatars.PurpleAvatar width="3.9vw" height="3.9vw"/>
 
 			<div className={styles.general}>
 				<Ranked.MediumRanked />
@@ -30,7 +30,7 @@ const Profil = () => {
 				<p className={styles.text}>8 victories</p>  {/* BACK */}
 				<p className={styles.text}>4 defeats</p> {/* BACK */}
 			</div>
-{/* 
+{/*
 			<History /> */}
 		</section>
 	</main>

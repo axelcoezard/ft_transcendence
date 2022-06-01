@@ -15,7 +15,7 @@ const Matching = () => {
 			username: session.get("username"),
 			elo: session.get("ELO_score")
 		};
-		if (socket.current)
+		if (socket.ready)
 		{
 			socket.emit("join", "lobby", "lobby", data)
 			socket.on("lobby.match", (data: any) => {
@@ -23,7 +23,8 @@ const Matching = () => {
 			})
 		}
 		return () => {socket.emit("leave", "lobby", "lobby", data)}
-	}, [socket.current])
+	}, [socket.ready])
+
 	return <Loading
 		title="Matchmaking"
 		subtitle="Veuillez patienter pendant que nous recherchons un adversaire"
