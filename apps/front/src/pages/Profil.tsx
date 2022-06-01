@@ -11,7 +11,7 @@ const Profil = () => {
 
 	return <main className={styles.profil}>
 		<section className={styles.content}>
-			<Avatar width="3.9vw" height="3.9vw"/>
+			<Avatar user={session.get("id")} width="3.9vw" height="3.9vw"/>
 
 			<div className={styles.general}>
 				<Ranked.MediumRanked />

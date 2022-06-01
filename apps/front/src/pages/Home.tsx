@@ -14,7 +14,7 @@ const Home = () => {
 				<h3 className={styles.h3}>Pong to the extrem!</h3>
 			</div>
 			<div className={styles.header_avatar}>
-				<Avatar width="3.9vw" height="3.9vw"/>
+				<Avatar user={session.get("id")} width="3.9vw" height="3.9vw"/>
 				<p className={styles.text}> {session.get("username")}</p>
 			</div>
 		</section>

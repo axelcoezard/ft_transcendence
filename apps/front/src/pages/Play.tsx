@@ -19,14 +19,8 @@ const Play = () => {
 	const session = useSession("session");
 	const [started, setStarted] = useState<boolean>(false)
 	const [position, setPosition] = useState<string>("spectator")
-	const [player1, setPlayer1] = useState<any>({
-		name: "",
-		score: 0
-	})
-	const [player2, setPlayer2] = useState<any>({
-		name: "",
-		score: 0
-	})
+	const [player1, setPlayer1] = useState<any>({id: 0, name: "", score: 0})
+	const [player2, setPlayer2] = useState<any>({id: 0, name: "", score: 0})
 
 	const {id} = useParams()
 
@@ -110,9 +104,7 @@ const Play = () => {
 			</div>
 			<div className={styles.pong_dashboard}>
 				<div className={styles.pong_dashboard_user}>
-					{player1.name === session.get("username")
-						? <Avatar width="3.125vw" height="3.125vw"/>
-						: <Avatars.PurpleAvatar width="3.125vw" height="3.125vw" />}
+					<Avatar user={player1.id} width="3.125vw" height="3.125vw"/>
 					<p className={styles.text}>{player1.name}</p>
 				</div>
 				<div className={styles.pong_dashboard_score}>
@@ -121,9 +113,7 @@ const Play = () => {
 					<p className={styles.h1}>{player2.score}</p>
 				</div>
 				<div className={styles.pong_dashboard_opponant}>
-					{player2.name === session.get("username")
-						? <Avatar width="3.125vw" height="3.125vw"/>
-						: <Avatars.PurpleAvatar width="3.125vw" height="3.125vw" />}
+					<Avatar user={player2.id} width="3.125vw" height="3.125vw"/>
 					<p className={styles.text}>{player2.name}</p>
 				</div>
 			</div>

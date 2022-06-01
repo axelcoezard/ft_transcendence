@@ -16,12 +16,5 @@ export default class MessageController {
 	async getAllMessages(): Promise<Message[]> {
 		return await this.service.getMessages();
 	}
-
-	@Get('/:id')
-	async getMessgage(
-		@Param('id', ParseIntPipe) id: number
-	) {
-		// TODO: Update a message by id
-	}
 }
 

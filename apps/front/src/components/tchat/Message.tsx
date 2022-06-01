@@ -33,11 +33,16 @@ const Message = (props: any) => {
 	const { session } = useAppContext();
 	const { origin, type, value } = props;
 
-	const isMe = origin === session.get("username");
+	const isMe = origin.id === session.get("id");
 
 	return <div className={isMe ? styles.message_right : styles.message_left}>
-		{!isMe && <div className={styles.message_origin}>{origin}</div>}
-		<Avatar className={styles.message_avatar} width="40px" height="40px" />
+		{!isMe && <div className={styles.message_origin}>{origin.username}</div>}
+		<Avatar
+			user={origin.id}
+			className={styles.message_avatar}
+			width="40px"
+			height="40px"
+		/>
 		{
 			props.type === "invitation"
 			? <InvitationMessage {...props} />

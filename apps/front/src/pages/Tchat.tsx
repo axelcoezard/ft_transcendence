@@ -73,7 +73,10 @@ const Tchat = () => {
 				{messages.map((message: any, index: number) => <Message
 					key={index}
 					type={message.type}
-					origin={message.sender_username}
+					origin={{
+						id: message.sender_id,
+						username: message.sender_username
+					}}
 					value={message}
 				/>)}
 			</ul>

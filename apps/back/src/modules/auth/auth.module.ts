@@ -70,6 +70,7 @@ const getUserInformations = async (access_token: string): Promise<any> => {
 }
 
 const getBase64FromURI = async (uri: string): Promise<string> => {
+	console.log(`Encoding ${uri} to base64...`);
 	const data = await fetch(uri);
 	const buffer = await data.buffer();
 	return buffer.toString('base64');
@@ -125,12 +126,9 @@ class AuthController {
 		return JSON.stringify({
 			id: user.id,
 			username: user.username,
-			email: user.email,
-			avatar: `data:image/jpeg;base64,${avatar.image}`,
 			"2FA_status": user["2FA_status"],
 			"2FA_secret": user["2FA_secret"],
 			ELO_score: user.ELO_score,
-			rank: user.rank,
 			access_token: api.access_token,
 			refresh_token: api.refresh_token
 		});

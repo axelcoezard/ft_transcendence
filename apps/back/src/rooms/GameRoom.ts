@@ -113,17 +113,9 @@ export default class GameRoom extends Room {
 		else if (this.ball_pos.x >= PONG_WIDTH - BALL_DIAMETER)
 			this.leftPlayer.score++, point = true;
 		if (point)
-			this.users.forEach(player => player.emit("game.updateScore", {
-				id: this.id,
-				player1: {
-					name: this.leftPlayer.username,
-					score: this.leftPlayer.score
-				},
-				player2: {
-					name: this.rightPlayer.username,
-					score: this.rightPlayer.score
-				}
-			}))
+			this.users.forEach(player => player.emit("game.updateScore",
+				this.getGamePlayersStatus()
+			))
 
 		if (this.leftPlayer.score >= 10 || this.rightPlayer.score >= 10)
 			this.stop();
@@ -150,17 +142,9 @@ export default class GameRoom extends Room {
 		this.state = 1;
 		this.resetBall();
 		setTimeout(() => {
-			this.users.forEach(player => player.emit("game.start", {
-				id: this.id,
-				player1: {
-					name: this.leftPlayer.username,
-					score: this.leftPlayer.score
-				},
-				player2: {
-					name: this.rightPlayer.username,
-					score: this.rightPlayer.score
-				}
-			}))
+			this.users.forEach(player => player.emit("game.start",
+				this.getGamePlayersStatus()
+			))
 			this.update(0);
 			console.log(`${this.id} started`)
 		}, 1000);
@@ -185,6 +169,22 @@ export default class GameRoom extends Room {
 
 		if (!this.leftPlayerJoined || !this.rightPlayerJoined)
 			this.stop();
+	}
+
+	private getGamePlayersStatus(): any {
+		return {
+			id: this.id,
+			player1: {
+				id: this.leftPlayer.id,
+				name: this.leftPlayer.username,
+				score: this.leftPlayer.score
+			},
+			player2: {
+				id: this.rightPlayer.id,
+				name: this.rightPlayer.username,
+				score: this.rightPlayer.score
+			}
+		}
 	}
 
 	private getPlayerInPositions(positions: string[]): Player[] {

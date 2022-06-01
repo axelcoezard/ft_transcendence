@@ -2,8 +2,8 @@ import useSession from "../hooks/useSession";
 import styles from "../styles/Avatar.module.scss";
 
 const Avatar = (props: any) => {
-	const session = useSession("session");
-	const avatar = session.get("avatar");
+	const {user, width, height} = props;
+	const avatar = `http://localhost:3030/users/${user}/avatar`;
 
 	return <div style={{
 		backgroundImage: `url(${avatar})`,
@@ -12,8 +12,8 @@ const Avatar = (props: any) => {
 		backgroundRepeat: "no-repeat",
 		borderRadius: "50%",
 		border: "2px solid #fff",
-		width: props.width,
-		height: props.height,
+		width: width,
+		height: height,
 	}} />
 }
 

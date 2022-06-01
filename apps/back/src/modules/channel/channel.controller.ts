@@ -7,7 +7,6 @@ import {
 import ChannelService from './channel.service';
 import Channel from './channel.entity';
 import { getManager } from 'typeorm';
-import ChannelBuilder from './channel.builder';
 
 @Controller('channels')
 export default class ChannelController {
@@ -22,7 +21,7 @@ export default class ChannelController {
 	@Get("/:slug")
 	async getAllFromChannel(
 		@Param('slug') slug: string
-	) {
+	){
 		return await getManager().query(
 			`SELECT
 				m.id,
@@ -43,28 +42,5 @@ export default class ChannelController {
 		)
 	}
 
-	@Get('/info/:id')
-	async getById(
-		@Param('id', ParseIntPipe) id: number
-	) {
-		return await this.service.getById(id);
-	}
-
-	@Get('/info/:slug')
-	async getBySlug(
-		@Param('slug') slug: string
-	) {
-		return await this.service.getBySlug(slug);
-	}
-
-	@Post("/")
-	async createNewRoom() {
-		console.log("createNewRoom");
-		return await this.service.create(ChannelBuilder.new()
-			.setCreator(1)
-			.setSlug("test")
-			.setPassword("test")
-		);
-	}
 }
 
