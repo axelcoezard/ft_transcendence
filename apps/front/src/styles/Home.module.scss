@@ -34,10 +34,11 @@
     text-align: center;
     @media screen and (max-width: 768px) {
         width: 99%;
-        min-height: 10%;
+   /*     min-height: 10%;*/
         position: absolute;
         order: 0;
-        top: 12%;
+        top: 0%;
+		height: 165px;
     }
 }
 
@@ -80,6 +81,10 @@
         justify-content: space-between;
         flex-direction: row;
         width: 80%;
+    }
+
+	@media screen and (max-width: 768px) {
+	bottom: 20%;
     }
 }
 
