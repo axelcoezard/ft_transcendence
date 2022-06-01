@@ -9,6 +9,7 @@ import styles from '../styles/Play.module.scss'
 import Avatars from "../components/Avatars";
 import { useParams } from 'react-router-dom';
 import useSession from "../hooks/useSession";
+import Avatar from "../components/Avatar";
 
 export const PONG_HEIGHT: number = 400;
 export const PONG_WIDTH: number = 600;
@@ -109,7 +110,9 @@ const Play = () => {
 			</div>
 			<div className={styles.pong_dashboard}>
 				<div className={styles.pong_dashboard_user}>
-					<Avatars.PurpleAvatar width="3.125vw" height="3.125vw" />
+					{player1.name === session.get("username")
+						? <Avatar width="3.125vw" height="3.125vw"/>
+						: <Avatars.PurpleAvatar width="3.125vw" height="3.125vw" />}
 					<p className={styles.text}>{player1.name}</p>
 				</div>
 				<div className={styles.pong_dashboard_score}>
@@ -118,7 +121,9 @@ const Play = () => {
 					<p className={styles.h1}>{player2.score}</p>
 				</div>
 				<div className={styles.pong_dashboard_opponant}>
-					<Avatars.GreenAvatar width="3.125vw" height="3.125vw" />
+					{player2.name === session.get("username")
+						? <Avatar width="3.125vw" height="3.125vw"/>
+						: <Avatars.PurpleAvatar width="3.125vw" height="3.125vw" />}
 					<p className={styles.text}>{player2.name}</p>
 				</div>
 			</div>
