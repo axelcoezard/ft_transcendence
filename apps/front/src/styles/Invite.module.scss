@@ -4,12 +4,12 @@
 
 /* -------- INVITE VIEW ELEMENTS ------ */
 
-.invite_view {
+.invite {
 	background-color: rgba(33, 33, 33, 0.8);
     width: 35%;
     height: 30%;
 	border-radius: 1.3vw;
-	
+
 	z-index: 1000;
 	position: absolute;
 	top: 50%;
@@ -25,7 +25,7 @@
 
 /* -------- INVITE VIEW CONTENT ------- */
 
-.invite_view_content {
+.invite_content {
 	width: 80%;
 	height: 20%;
 	display: flex;
@@ -34,7 +34,7 @@
 	align-items: center;
 }
 
-.invite_view_input {
+.invite_input {
 	background-color: $color_jet;
 	border-radius: 0.35vw;
 	border: $color_eerie;
@@ -48,11 +48,11 @@
 	text-align: left;
 }
 
-.invite_view_button {
+.invite_button {
 	cursor: pointer;
 
 	background-color: white;
-	width: 5.2vw; 
+	width: 5.2vw;
 	height: 3.13vw;
 
 	margin: 0.52vw 0.52vw;
@@ -61,11 +61,11 @@
 	outline: none;
 }
 
-.invite_view_button:hover {
+.invite_button:hover {
 	background-color: $color_jet;
 }
 
-.invite_view_button:active {
+.invite_button:active {
 	background-color: $color_jet;
 	box-shadow: 0 5px black;
 	transform: translateY(4px);
@@ -74,20 +74,18 @@
 	transform: translate(0%, -5%);
 }
 
-.invite_view_h1 {
+.invite_h1 {
 	color: white;
     font-family: Helvetica, Arial, sans-serif;
     font-style: bold;
     font-size: 3.33vw;
     text-transform: uppercase;
-    
+
     z-index: 1;
     max-height: 78px;
 }
 
-/* ----------- TEXT ELEMENTS -----------*/
-
-.invite_view_text {
+.invite_text {
     color: #A9A9A9;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 1.25vw;

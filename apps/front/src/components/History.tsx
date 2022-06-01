@@ -11,7 +11,8 @@ const HistoryPlayer = (props: any) => {
 	const { session } = useAppContext();
 	const { username } = props;
 
-	if (username == session.get("username")) {
+	if (username == session.get("username"))
+	{
 		return <div className={styles.history_player}>
 			<Avatars.PurpleAvatar width="3vw" height="3vw"/> {/* BACK : User avatar */}
 			<p className={styles.history_text}>{session.get("username")}</p> {/* BACK : User name */}
@@ -38,41 +39,30 @@ const HistoryMatchPlayers = (props: any) => {
 const HistoryMatchWinner = (props: any) => {
 	const { session } = useAppContext();
 	const { winner } = props;
+	const isWinner = props.winner == session.get("username");
 
-	if (winner == session.get("username")) {
-		return <div className={styles.history_match_winner}>
-			<VictoryCrown winner="true" />
-			<h2 className={styles.history_h2}>VS</h2>
-			<VictoryCrown winner="false" />
-		</div>
-	}
-	else {
-		return <div className={styles.history_match_winner}>
-			<VictoryCrown winner="false" />
-			<h2 className={styles.history_h2}>VS</h2>
-			<VictoryCrown winner="true" />
-		</div>
-	}
+	return <div className={styles.history_match_winner}>
+		<VictoryCrown winner={!isWinner} />
+		<h2 className={styles.history_h2}>VS</h2>
+		<VictoryCrown winner={isWinner} />
+	</div>
 }
 
 const HistoryMatch = (props: any) => {
-	const { opponant, winner } = props;
-
 	return <div className={styles.history_match}>
 		<HistoryMatchPlayers opponant={props.opponant}/>
 		<HistoryMatchWinner winner={props.winner}/>
 	</div>
 }
 
-const History = () => {
+const History = (props: any) => {
 	return  <div className={styles.history}>
 		<div className={styles.history_matches}>
-			<HistoryMatch opponant="mla-rosa" winner="mla-rosa"/>
-			<HistoryMatch opponant="acoezard" winner="mboy"/>
-			<HistoryMatch opponant="JB" winner="mboy"/>
+			{props.children}
 		</div>
 	</div>
 }
 
+export { HistoryMatch, HistoryMatchPlayers, HistoryMatchWinner }
 export default History;
 

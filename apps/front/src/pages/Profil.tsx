@@ -5,9 +5,30 @@ import Ranked from '../components/Ranked'
 import ProgressBar from '../components/ProgressBar';
 import VictoryCrown from '../components/SVGs/VictoryCrown';
 import Avatar from '../components/Avatar';
+import { useEffect, useState } from 'react';
+import useSession from '../hooks/useSession';
+import History, { HistoryMatch } from '../components/History';
 
 const Profil = () => {
-	const {session} = useAppContext();
+	const session = useSession("session");
+	const [history, setHistory] = useState([]);
+
+	useEffect(() => {
+		fetch("http://localhost:3030/users/14/games")
+		.then(res => res.json().then(data => {
+			setHistory(data);
+		})).catch(err => console.log(err))
+	}, [])
+
+	const getWinnerAndLoser = (match: any): [any, any] => {
+		let winner;
+		let loser;
+		if (match.user1_score >= match.user2_score)
+		{ winner = match.user1_id; loser = match.user2_id; }
+		else
+		{ winner = match.user2_id; loser = match.user1_id; }
+		return [winner, loser];
+	}
 
 	return <main className={styles.profil}>
 		<section className={styles.content}>
@@ -31,6 +52,13 @@ const Profil = () => {
 				<p className={styles.text}>8 victories</p>  {/* BACK */}
 				<p className={styles.text}>4 defeats</p> {/* BACK */}
 			</div>
+
+			<History>
+				{history.map((match: any, index: number) => {
+					let [winner, loser] = getWinnerAndLoser(match);
+					return <HistoryMatch key={index} winner={winner} opponant={loser} />
+				})}
+			</History>
 		</section>
 	</main>
 }

@@ -30,5 +30,26 @@ export class UserController {
 		res.end(file)
 		return new StreamableFile(file);
 	}
+
+	@Get('/:id/games')
+	async getUserGames(
+		@Param('id', ParseIntPipe) id: number
+	): Promise<any> {
+		const response = await getManager().query(
+			`SELECT
+				g.user1_id,
+				g.user1_score,
+				g.user2_id,
+				g.user2_score,
+				g.updated_at
+			FROM "pong_game" as g
+				INNER JOIN "user" as u ON u.id = g.user1_id OR u.id = g.user2_id
+			WHERE u.id = $1
+				AND g.status = $2
+			ORDER BY g.updated_at DESC;`,
+			[id, "ended"]
+		);
+		return response;
+	}
 }
 

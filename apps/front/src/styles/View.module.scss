@@ -1,0 +1,141 @@
+@use 'Colors' as *;
+
+.view {
+	width: 600px;
+	height: auto;
+
+	border-radius: 20px;
+	background-color: rgba(33, 33, 33, 0.8);
+
+	z-index: 1000;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+	display: flex;
+	flex-direction: column;
+}
+
+.view_header {
+	flex: 0 0 100px;
+	width: 100%;
+
+	text-align: center;
+	line-height: 50px;
+
+	padding: 20px 0;
+
+	h1 {
+		font-size: 3em;
+		text-transform: uppercase;
+
+		background: linear-gradient(
+			135deg,
+			$color_mauve 20.83%,
+			$color_uranian 49.94%,
+			$color_mint 80.3%
+		);
+		background-clip: text;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+}
+
+.view_table {
+	flex: 1;
+	width: 100%;
+
+	display: flex;
+	flex-direction: column;
+	list-style: none;
+	padding-bottom: 10px;
+}
+
+.view_table_item {
+	flex: 0 0 60px;
+	width: 95%;
+	height: 60px;
+
+	margin: 0 auto;
+	margin-bottom: 10px;
+
+	display: flex;
+	flex-direction: row;
+
+	border-radius: 25px;
+	background: $color_jet;
+}
+
+.view_table_item_left,
+.view_table_item_right {
+	flex: 0 0 50%;
+	width: 50%;
+	height: 100%;
+
+	display: flex;
+	flex-direction: row;
+	padding: 0 20px;
+
+	align-items: center;
+}
+
+.view_table_item_left {
+	justify-content: left;
+}
+
+.view_table_item_left div { //avatar
+	flex: 0 0 40px;
+	width: 40px;
+	height: 40px;
+
+
+	border-radius: 50px;
+	background-color: $color_jet;
+}
+
+.view_table_item_left strong {
+	flex: 0 0 auto;
+	width: auto;
+	height: auto;
+	padding: 0 20px;
+
+	font-size: 1.2em;
+	color: white;
+}
+
+.view_table_item_right {
+	justify-content: right;
+}
+
+.view_table_item_right button {
+	cursor: pointer;
+
+	background-color: white;
+	height: 40px;
+	line-height: 40px;
+	padding: 0 18px;
+	border-radius: 30px;
+	border: none;
+	outline: none;
+	color: $color_aero;
+	font-weight: bold;
+
+	transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+
+	&:hover {
+		background-color: $color_aero;
+		color: #fff;
+	}
+
+	&:active {
+		background-color: $color_jet;
+		box-shadow: 0 5px black;
+		transform: translateY(4px);
+
+		position: absolute;
+		bottom: 0%;
+		left: 50%;
+		transform: translate(-50%, 0%);
+	}
+}
