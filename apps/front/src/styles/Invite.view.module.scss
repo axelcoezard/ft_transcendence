@@ -1,0 +1,96 @@
+/* ----------- COLOR PALETTE -----------*/
+
+@use 'Colors' as *;
+
+/* -------- INVITE VIEW ELEMENTS ------ */
+
+.invite_view {
+	background-color: rgba(33, 33, 33, 0.8);
+    width: 35%;
+    height: 30%;
+	border-radius: 1.3vw;
+	
+	z-index: 1000;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	justify-content: space-around;
+}
+
+/* -------- INVITE VIEW CONTENT ------- */
+
+.invite_view_content {
+	width: 80%;
+	height: 20%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.invite_view_input {
+	background-color: $color_jet;
+	border-radius: 0.35vw;
+	border: $color_eerie;
+	width: 100%;
+	height: 100%;
+
+	color: white;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 1.25vw;
+	padding: 1.5vw;
+	text-align: left;
+}
+
+.invite_view_button {
+	cursor: pointer;
+
+	background-color: white;
+	width: 5.2vw; 
+	height: 3.13vw;
+
+	margin: 0.52vw 0.52vw;
+	border-radius: 1.3vw;
+	border: none;
+	outline: none;
+}
+
+.invite_view_button:hover {
+	background-color: $color_jet;
+}
+
+.invite_view_button:active {
+	background-color: $color_jet;
+	box-shadow: 0 5px black;
+	transform: translateY(4px);
+
+	top: 5%;
+	transform: translate(0%, -5%);
+}
+
+.invite_view_h1 {
+	color: white;
+    font-family: Helvetica, Arial, sans-serif;
+    font-style: bold;
+    font-size: 3.33vw;
+    text-transform: uppercase;
+    
+    z-index: 1;
+    max-height: 78px;
+}
+
+/* ----------- TEXT ELEMENTS -----------*/
+
+.invite_view_text {
+    color: #A9A9A9;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 1.25vw;
+	font-weight: bolder;
+    margin: 0.52vw;
+}
