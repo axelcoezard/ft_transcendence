@@ -30,8 +30,8 @@ export default class ChatRoom extends Room {
 
 	public async onJoin(player: Player) {
 		this.users.push(player);
-		player.socket.emit("chat.channel", await this.service.channels.getAll())
 		player.socket.emit("chat.msg", this.msgs);
+		player.socket.emit("chat.channel", await this.service.channels.getAll())
 		console.log(`${player.username} joined ${this.slug} chat`);
 	}
 

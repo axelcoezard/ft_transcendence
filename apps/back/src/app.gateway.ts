@@ -115,9 +115,10 @@ export class AppGateway
 	public async onMessage(client: Socket, msg: any) {
 		let player = this.users.get(msg.value.username);
 		let room = await this.getRoom(msg.room, msg.room_id, player);
-		if (!room)
-			throw new Error("Room not found");
-		room.callMessage(msg.type, player, msg.value);
+		if (msg.room === 'chat')
+			player.socket.emit("chat.channel", await this.service.channels.getAll())
+		if (room)
+			room.callMessage(msg.type, player, msg.value);
 	}
 
 	public handleDisconnect(client: Socket) {
@@ -146,7 +147,7 @@ export class AppGateway
 		if (type === "chat")
 		{
 			let chat = this.chats.get(id)
-			if (!chat)
+			if (!chat && id)
 				return this.createChatRoom(id, player);
 			return chat;
 		}

@@ -35,7 +35,7 @@ const _App = () => {
 		<BrowserRouter>
 			<Routes>
 				<Route path="/" element={<Login />} />
-				<Route path="/profil/:id" element={<PrivateRoute>
+				<Route path="/profil" element={<PrivateRoute>
 					<Profil />
 				</PrivateRoute>} />
 				<Route path="/home" element={<PrivateRoute>

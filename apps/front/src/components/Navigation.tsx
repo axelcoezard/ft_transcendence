@@ -72,8 +72,8 @@ const DefaultNavBar = () => {
 	return <Navbar >
 		{/* <Navlink href="/contact"><ContactNavLink /></Navlink> */}
 		<Navlink href="/home"><GameNavLink /></Navlink>
-		<Navlink href="/tchat/@me"><ChatNavLink /></Navlink>
-		<Navlink href="/profil/@me"><ProfileNavLink /></Navlink>
+		<Navlink href="/tchat"><ChatNavLink /></Navlink>
+		<Navlink href="/profil"><ProfileNavLink /></Navlink>
 		<Navlink href="/settings"><SettingsNavLink /></Navlink>
 	</Navbar>
 }
