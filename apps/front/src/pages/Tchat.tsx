@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import styles from '../styles/Tchat.module.scss'
 import WriteIcon from '../components/SVGs/WriteIcon';
 import SendIcon from '../components/SVGs/SendIcon';
-import Messages from "../components/Messages";
+import Message from "../components/tchat/Message";
 import Conversations from "../components/Conversations";
 import BinIcon from '../components/SVGs/BinIcon';
 import PlusIcon from '../components/SVGs/PlusIcon';
@@ -34,6 +34,10 @@ const Tchat = () => {
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
+		if (value.length < 1
+			|| value.length > 255
+			|| value.match(/^\s+$/)
+		) return;
 
 		socket.emit("msg", "chat", slug, {
 			id: session.get("id"),
@@ -65,14 +69,14 @@ const Tchat = () => {
 
 		<section className={styles.tchat_conversation}>
 			<div className={styles.conversation_header}>
-				<h1 className={styles.h1}>CHANNEL NAME/USER NAME</h1>
+				<h1 className={styles.h1}>{slug}</h1>
 			</div>
 			<ul className={styles.conversation_messages}>
-				{messages.map((message: any, index: number) => <Messages
+				{messages.map((message: any, index: number) => <Message
 					key={index}
 					type={message.type}
 					origin={message.sender_username}
-					message={message.value}
+					value={message}
 				/>)}
 			</ul>
 			<form className={styles.conversation_send}>
@@ -81,6 +85,7 @@ const Tchat = () => {
 					className={styles.conversation_send_input}
 					type="text"
 					value={value}
+					placeholder="Type your message here"
 					onChange={(e: any) => {
 					setValue(e.currentTarget.value || e.target.value)
 				}}/>

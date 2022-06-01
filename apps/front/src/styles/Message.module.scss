@@ -1,0 +1,77 @@
+/* ----------- COLOR PALETTE -----------*/
+
+@use 'Colors' as *;
+
+.message {
+	position: relative;
+	width: 90%;
+
+	display: flex;
+	align-items: top;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+
+	margin: 5px 0;
+}
+
+.message_left {
+	@extend .message;
+	flex-direction: row;
+	* {
+		margin-right: 10px;
+	}
+	.message_origin { text-align: left; }
+}
+
+.message_right {
+	@extend .message;
+	flex-direction: row-reverse;
+	* {
+		margin-left: 10px;
+	}
+	.message_origin { text-align: right; }
+}
+
+.message_origin {
+	flex: 0 0 100%;
+	padding: 2px calc(10px + 40px + 2px);
+	font-size: 12px;
+	color: rgba(255, 255, 255, 0.70);
+}
+
+.message_body {
+	min-height: 40px;
+	max-width: 70%;
+	line-height: 20px;
+
+	padding: 10px 15px;
+
+	border-radius: 16px;
+	text-align: left;
+	background-color: rgba(255, 255, 255, 0.25);
+
+	word-wrap: break-word;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 15px;
+}
+
+.message_time {
+	position: relative;
+	color: rgba(255, 255, 255, 0.25);
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 12px;
+	width: 40px;
+
+	span {
+		position: absolute;
+		top: 50%;
+		transform: translate(0, -50%);
+	}
+}
+
+.message_avatar {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background-color: rgba(255, 255, 255, 0.25);
+}
