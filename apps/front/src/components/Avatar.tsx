@@ -3,7 +3,7 @@ import styles from "../styles/Avatar.module.scss";
 
 const Avatar = (props: any) => {
 	const {user, width, height} = props;
-	const avatar = `http://localhost:3030/users/${user}/avatar`;
+	const avatar = `http://c2r2p3.42nice.fr:3030/users/${user}/avatar`;
 
 	return <div style={{
 		backgroundImage: `url(${avatar})`,
