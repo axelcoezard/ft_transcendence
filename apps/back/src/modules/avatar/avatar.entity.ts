@@ -7,12 +7,6 @@ export class Avatar extends BaseEntity {
 
 	@Column({
 		type: "varchar",
-		nullable: true
-	})
-	title: string;
-
-	@Column({
-		type: "varchar",
 		nullable: false
 	})
 	image: string;

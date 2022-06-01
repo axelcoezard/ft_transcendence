@@ -110,7 +110,6 @@ class AuthController {
 		if (!user)
 		{
 			let avatar = new Avatar();
-			avatar.title = infos.login;
 			avatar.image =  await getBase64FromURI(infos.image_url);
 			avatar = await this.service.addAvatar(avatar);
 
