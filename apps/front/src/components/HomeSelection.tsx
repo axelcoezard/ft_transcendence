@@ -1,5 +1,5 @@
 import styles from "../styles/Components.module.scss"
-import HomeIllustrations from '../components/SVGs/HomeIllustrations'
+import HomeIllustrations from './assets/SVGs/HomeIllustrations'
 import btn_styles from '../styles/Buttons.module.scss'
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppContext } from '../contexts/AppContext'

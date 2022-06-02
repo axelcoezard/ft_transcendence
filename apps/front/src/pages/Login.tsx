@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useSearchParams, useNavigate } from "react-router-dom"
 import Buttons from '../components/Buttons'
-import Illustration from '../components/Scenery/Scenery'
+import Illustration from '../components/assets/Scenery'
 import { useAppContext } from '../contexts/AppContext'
-import WelcomeToPong from '../components/SVGs/WelcomeToPong'
+import WelcomeToPong from '../components/assets/SVGs/WelcomeToPong'
 
 import styles from '../styles/Login.module.scss'
 import Loading from '../components/Loading'

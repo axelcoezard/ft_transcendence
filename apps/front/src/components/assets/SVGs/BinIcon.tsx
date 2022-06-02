@@ -1,4 +1,4 @@
-import styles from "../../styles/Svg.module.scss";
+import styles from "../../../styles/Svg.module.scss";
 
 const BinIcon = (props: any) => {
 	const { width, height} = props;

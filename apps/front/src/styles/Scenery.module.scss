@@ -5,12 +5,12 @@
 /* --------- SCENERY ELEMENTS ----------*/
 
 .scenery {
-	width: 100%;
-	height: 100%;
+	width: 100vw;
+	height: 100vh;
 
 	position: absolute;
-	top: 0%;
-	left: 0%;
+	top: 0;
+	left: 0;
 }
 
 // BACKGROUND WAVES & BLOBS
@@ -22,10 +22,10 @@
 
 .background_wave01 {
 	@include wave_blob_fill();
-	
+
 	width: 80%;
 	height: 50%;
-	
+
 	position: absolute;
 	top: 0%;
 	left: 0%;
@@ -136,7 +136,7 @@
 
 	height: 100%;
 	width: 100%;
-	
+
 	position: relative;
 }
 
@@ -192,7 +192,7 @@
 	position: absolute;
 	bottom: 11%;
 	left: 10%;
-	
+
 }
 
 .round_red_confetti {
@@ -249,12 +249,12 @@
 
 .square_purple_confetti {
 	fill: $color_lavender;
-	
+
 	width: 10%;
 	height: 10%;
 	max-width: 27px;
 	max-height: 30px;
-	
+
 	position: absolute;
 	top: 14%;
 	right: 14%;
@@ -401,7 +401,7 @@
 
 	width: 40%;
 	height: 40%;
-	
+
 	position: absolute;
 	z-index: 1;
 	top: -15%;
@@ -415,7 +415,7 @@
 
 	width: 30%;
 	height: 30%;
-	
+
 	position: absolute;
 	z-index: 1;
 	bottom: 15%;
@@ -429,7 +429,7 @@
 
 	width: 15%;
 	height: 15%;
-	
+
 	position: absolute;
 	z-index: 1;
 	bottom: 16%;
@@ -564,7 +564,7 @@
 .top_frame_wave {
 	aspect-ratio: 539.64 / 348.62;
 	height: 40%;
-	
+
 	position: absolute;
 	z-index: 750;
 	top: 0;
@@ -574,7 +574,7 @@
 .bottom_frame_wave {
 	aspect-ratio: 539.64 / 348.62;
 	height: 40%;
-	
+
 	position: absolute;
 	z-index: 750;
 	bottom: -10px;

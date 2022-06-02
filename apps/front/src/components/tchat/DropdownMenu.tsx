@@ -1,5 +1,5 @@
 import styles from "../styles/Components.module.scss";
-import MenuIcon from '../SVGs/MenuIcon';
+import MenuIcon from '../assets/SVGs/MenuIcon';
 
 const DropdownMenu = () => {
 

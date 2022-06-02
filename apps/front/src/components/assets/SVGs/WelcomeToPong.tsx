@@ -1,4 +1,4 @@
-import styles from '../../styles/Svg.module.scss'
+import styles from '../../../styles/Svg.module.scss'
 
 /* ------------- LOGIN SVG -------------*/
 

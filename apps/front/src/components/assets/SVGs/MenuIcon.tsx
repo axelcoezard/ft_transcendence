@@ -1,4 +1,4 @@
-import styles from "../../styles/Svg.module.scss";
+import styles from "../../../styles/Svg.module.scss";
 
 const MenuIcon = (props: any) => {
 	const { width, height } = props;

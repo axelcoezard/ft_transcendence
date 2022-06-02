@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 
 import styles from '../styles/Tchat.module.scss'
-import WriteIcon from '../components/SVGs/WriteIcon';
-import SendIcon from '../components/SVGs/SendIcon';
+import WriteIcon from '../components/assets/SVGs/WriteIcon';
+import SendIcon from '../components/assets/SVGs/SendIcon';
 import Message from "../components/tchat/Message";
 import Conversations from "../components/tchat/Conversations";
-import BinIcon from '../components/SVGs/BinIcon';
-import PlusIcon from '../components/SVGs/PlusIcon';
+import BinIcon from '../components/assets/SVGs/BinIcon';
+import PlusIcon from '../components/assets/SVGs/PlusIcon';
 import { useAppContext } from '../contexts/AppContext';
 import { useParams } from 'react-router-dom';
 import DropdownMenu from '../components/tchat/DropdownMenu';
