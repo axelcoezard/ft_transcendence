@@ -58,6 +58,12 @@
 	flex-direction: column;
 	list-style: none;
 	padding-bottom: 10px;
+
+	p {
+		font-size: .8em;
+		text-align: center;
+		padding-bottom: 10px;
+	}
 }
 
 .view_table_item {

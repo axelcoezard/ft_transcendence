@@ -29,9 +29,12 @@ const View = () => {
 	const [games, setGames] = useState<any[]>([]);
 
 	useEffect(() => {
+		let it = setInterval(() => {
 			fetch("http://c2r2p3.42nice.fr:3030/games/started")
 			.then(res => res.json().then(data => setGames(data)))
 			.catch(err => console.log(err))
+		}, 1000 * 60)
+		return () => clearInterval(it)
 	}, [])
 
 	return <main className={styles.view}>
@@ -40,10 +43,10 @@ const View = () => {
 			<p>Trouvez une partie à regarder en toute discretion</p>
 		</div>
 		<ul className={styles.view_table}>
-			{games.map((game, index) => <ViewGame
+			{games.length > 0 ? games.map((game, index) => <ViewGame
 				key={index}
 				value={game}
-			/>)}
+			/>) : <p>Aucune partie en cours</p>}
 		</ul>
 	</main>
 }
