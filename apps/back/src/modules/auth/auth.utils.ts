@@ -1,4 +1,5 @@
 import fetch from 'node-fetch';
+import * as sharp from 'sharp'
 
 const getUserAccessToken = async (uid: string, secret: string, code: string, redirect_uri: string): Promise<any> => {
 	let request = await fetch("https://api.intra.42.fr/oauth/token", {
@@ -27,10 +28,13 @@ const getUserInformations = async (access_token: string): Promise<any> => {
 }
 
 const getBase64FromURI = async (uri: string): Promise<string> => {
-	console.log(`Encoding ${uri} to base64...`);
+	console.log(`Fetching avatar from ${uri}...`);
 	const data = await fetch(uri);
 	const buffer = await data.buffer();
-	return buffer.toString('base64');
+	console.log(`=> Resizing to 256x256 pixels...`);
+	const resizedBuffer = await sharp(buffer).resize(256, 256).toBuffer();
+	console.log(`=> Converting to base64...`);
+	return resizedBuffer.toString('base64');
 }
 
 export {
