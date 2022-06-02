@@ -1,8 +1,7 @@
-import styles from "../styles/Components.module.scss";
-import { useAppContext } from '../contexts/AppContext'
-import Avatars from "./Avatars";
+import styles from "../../styles/Components.module.scss";
+import { useAppContext } from '../../contexts/AppContext'
 import { Link } from "react-router-dom";
-import Avatar from "./Avatar";
+import Avatar from "../Avatar";
 
 const Conversations = (props: any) => {
 	const { session } = useAppContext();

@@ -7,7 +7,6 @@ import useCanvas from "../hooks/useCanvas";
 import usePaddle, { PADDLE_HEIGHT, PADDLE_WIDTH } from "../hooks/usePaddle";
 
 import styles from '../styles/Play.module.scss'
-import Avatars from "../components/Avatars";
 import useSession from "../hooks/useSession";
 import Avatar from "../components/Avatar";
 import Results from "../components/Results";

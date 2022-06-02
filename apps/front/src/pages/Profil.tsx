@@ -1,6 +1,5 @@
 import { useAppContext } from '../contexts/AppContext'
 import styles from '../styles/Profil.module.scss'
-import Avatars from '../components/Avatars';
 import Ranked from '../components/Ranked'
 import ProgressBar from '../components/ProgressBar';
 import VictoryCrown from '../components/SVGs/VictoryCrown';

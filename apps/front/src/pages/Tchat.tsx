@@ -4,12 +4,12 @@ import styles from '../styles/Tchat.module.scss'
 import WriteIcon from '../components/SVGs/WriteIcon';
 import SendIcon from '../components/SVGs/SendIcon';
 import Message from "../components/tchat/Message";
-import Conversations from "../components/Conversations";
+import Conversations from "../components/tchat/Conversations";
 import BinIcon from '../components/SVGs/BinIcon';
 import PlusIcon from '../components/SVGs/PlusIcon';
 import { useAppContext } from '../contexts/AppContext';
 import { useParams } from 'react-router-dom';
-import DropdownMenu from '../components/DropdownMenu';
+import DropdownMenu from '../components/tchat/DropdownMenu';
 
 const Tchat = () => {
 	const {session, socket} = useAppContext();

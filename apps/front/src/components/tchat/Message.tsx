@@ -1,6 +1,5 @@
 import styles from "../../styles/Message.module.scss";
 import { useAppContext } from '../../contexts/AppContext'
-import Avatars from "../Avatars";
 import Avatar from "../Avatar";
 
 const DefaultMessage = (props: any) => {

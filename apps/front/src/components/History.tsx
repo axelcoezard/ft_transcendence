@@ -2,7 +2,6 @@ import { useAppContext } from '../contexts/AppContext'
 import exp from 'constants';
 import {Link} from 'react-router-dom';
 
-import Avatars from '../components/Avatars'
 import styles from '../styles/Components.module.scss'
 import VictoryCrown from './SVGs/VictoryCrown';
 import * as React from "react";
@@ -14,14 +13,14 @@ const HistoryPlayer = (props: any) => {
 	if (username == session.get("username"))
 	{
 		return <div className={styles.history_player}>
-			<Avatars.PurpleAvatar width="3vw" height="3vw"/> {/* BACK : User avatar */}
+			{/*<Avatars.PurpleAvatar width="3vw" height="3vw"/> {/* BACK : User avatar */}
 			<p className={styles.history_text}>{session.get("username")}</p> {/* BACK : User name */}
 		</div>
 	}
 	else {
 		return <div className={styles.history_player}>
 			<p className={styles.history_text}>{username}</p> {/* BACK : Opponant name */}
-			<Avatars.GreenAvatar width="3vw" height="3vw"/> {/* BACK : Opponant avatar */}
+			{/*<Avatars.GreenAvatar width="3vw" height="3vw"/> {/* BACK : Opponant avatar */}
 		</div>
 	}
 }
