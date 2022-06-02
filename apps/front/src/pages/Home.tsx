@@ -2,9 +2,10 @@ import { useAppContext } from '../contexts/AppContext'
 import styles from '../styles/Home.module.scss'
 import HomeSelection from "../components/HomeSelection"
 import Avatar from '../components/Avatar'
+import useSession from '../hooks/useSession'
 
 const Home = () => {
-	const {session} = useAppContext()
+	const session = useSession("session")
 
 	return <main className={styles.home}>
 		<section className={styles.header}>

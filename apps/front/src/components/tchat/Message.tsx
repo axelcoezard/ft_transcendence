@@ -1,6 +1,7 @@
 import styles from "../../styles/Message.module.scss";
 import { useAppContext } from '../../contexts/AppContext'
 import Avatar from "../Avatar";
+import useSession from "../../hooks/useSession";
 
 const DefaultMessage = (props: any) => {
 	const message = props.value;
@@ -28,8 +29,7 @@ const InvitationMessage = (props: any) => {
 }
 
 const Message = (props: any) => {
-
-	const { session } = useAppContext();
+	const session = useSession("session");
 	const { origin, type, value } = props;
 
 	const isMe = origin.id === session.get("id");

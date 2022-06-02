@@ -7,12 +7,13 @@ import WelcomeToPong from '../components/SVGs/WelcomeToPong'
 
 import styles from '../styles/Login.module.scss'
 import Loading from '../components/Loading'
+import useSession from '../hooks/useSession'
 
 
 /* ------------- LOGIN PAGE ------------*/
 
 const Login = (props: any) => {
-	const {session} = useAppContext()
+	const session = useSession("session");
 	const [params] = useSearchParams();
 	const [loading, setLoading] = useState(false)
 	const navigate = useNavigate()
@@ -23,7 +24,7 @@ const Login = (props: any) => {
 		if (code && !session.has("access_token"))
 		{
 			setLoading(true)
-			const request = fetch(`http://c2r2p3.42nice.fr:3030/auth/login/${code}`, {
+			const request = fetch(`http://c2r2p3.42nice.fr:3030/auth/token/${code}`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',

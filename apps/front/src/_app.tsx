@@ -20,9 +20,10 @@ import Import from "./pages/Invite"
 import Invite from "./pages/Invite";
 import View from "./pages/View";
 import Rank from "./pages/Rank";
+import useSession from "./hooks/useSession";
 
 const PrivateRoute = ({children}: {children: JSX.Element}) => {
-	const { session } = useAppContext();
+	const session = useSession("session");
 	const navigate = useNavigate();
 
 	if (!session.has("access_token"))

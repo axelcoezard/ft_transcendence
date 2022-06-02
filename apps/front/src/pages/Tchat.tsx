@@ -10,9 +10,11 @@ import PlusIcon from '../components/SVGs/PlusIcon';
 import { useAppContext } from '../contexts/AppContext';
 import { useParams } from 'react-router-dom';
 import DropdownMenu from '../components/tchat/DropdownMenu';
+import useSession from '../hooks/useSession';
 
 const Tchat = () => {
-	const {session, socket} = useAppContext();
+	const {socket} = useAppContext();
+	const session = useSession("session");
 	const [messages, setMessages] = useState<any[]>([]);
 	const [channels, setChannels] = useState<any[]>([]);
 	const [value, setValue] = useState("");

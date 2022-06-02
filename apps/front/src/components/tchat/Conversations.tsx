@@ -2,9 +2,10 @@ import styles from "../../styles/Components.module.scss";
 import { useAppContext } from '../../contexts/AppContext'
 import { Link } from "react-router-dom";
 import Avatar from "../Avatar";
+import useSession from "../../hooks/useSession";
 
 const Conversations = (props: any) => {
-	const { session } = useAppContext();
+	const session = useSession("session")
 	const { channel, to } = props;
 
 	return <Link className={styles.conversations} to={to}>

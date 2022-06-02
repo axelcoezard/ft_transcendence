@@ -1,34 +1,44 @@
+import { type } from "os";
 import { createContext, useContext } from "react";
 import { Socket } from "socket.io-client";
 import useSession from "../hooks/useSession";
 import useSocket from "../hooks/useSocket";
 
 const AppContext = createContext<any>({
-	session: {
+	/*session: {
 		value: {},
 		set: (key: string, value: any) => { },
 		setAll: (entries: any) => { },
 		has: (key: string) => false,
 		get: (key: string) => "",
-	},
+	},*/
 	socket: {
 		on: (name: string, callback: any) => { },
-		onAfterInit: (name: string, callback: any) => { },
 		emit: (name: string, room_type: string, room_id: string, value: any = {}) => { },
-		emitAfterInit: (name: string, room_type: string, room_id: string, value: any = {}) => { },
 		current: null,
+		ready: false,
 		id: null
 	}
 });
 
-const useAppContext = () => useContext(AppContext);
+type AppContextType = {
+	socket: {
+		on: (name: string, callback: any) => { },
+		emit: (name: string, room_type: string, room_id: string | undefined, value: any) => { },
+		current: Socket,
+		ready: boolean,
+		id: string
+	}
+}
+
+const useAppContext = (): AppContextType => useContext(AppContext);
 
 const AppProvider = (props: any) => {
-	const session = useSession("session", {});
-	const socket = useSocket("127.0.0.1:3030")
+	/*const session = useSession("session", {});*/
+	const socket = useSocket("http://c2r2p3.42nice.fr:3030")
 
 	const defaultValue = {
-		session,
+		/*session,*/
 		socket
 	}
 
@@ -36,7 +46,6 @@ const AppProvider = (props: any) => {
 		{props.children}
 	</AppContext.Provider>
 }
-
 
 export { AppProvider, useAppContext };
 export default AppContext;

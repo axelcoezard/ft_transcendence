@@ -5,9 +5,10 @@ import {Link} from 'react-router-dom';
 import styles from '../styles/Components.module.scss'
 import VictoryCrown from './SVGs/VictoryCrown';
 import * as React from "react";
+import useSession from '../hooks/useSession';
 
 const HistoryPlayer = (props: any) => {
-	const { session } = useAppContext();
+	const session = useSession("session");
 	const { username } = props;
 
 	if (username == session.get("username"))
@@ -26,7 +27,7 @@ const HistoryPlayer = (props: any) => {
 }
 
 const HistoryMatchPlayers = (props: any) => {
-	const { session } = useAppContext();
+	const session = useSession("session");
 	const { opponant } = props;
 
 	return 	<div className={styles.history_match_players}>
@@ -36,7 +37,7 @@ const HistoryMatchPlayers = (props: any) => {
 }
 
 const HistoryMatchWinner = (props: any) => {
-	const { session } = useAppContext();
+	const session = useSession("session");
 	const { winner } = props;
 	const isWinner = props.winner == session.get("username");
 
