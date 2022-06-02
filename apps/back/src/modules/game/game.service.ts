@@ -8,23 +8,26 @@ import GameBuilder from './game.builder';
 export class PongGameService {
 	constructor(
 		@InjectRepository(PongGame)
-		public pongGameRepository: Repository<PongGame>,
+		public repository: Repository<PongGame>,
 	) {}
 
-	async getAll(): Promise<PongGame[]> {
-		return await this.pongGameRepository.find();
+	async getAll(): Promise<PongGame[]>
+	{
+		return await this.repository.find();
 	}
 
-	async create(pongGame: GameBuilder): Promise<PongGame> {
-		const newPongGame: PongGame = this.pongGameRepository.create(pongGame.build());
-		await this.pongGameRepository.save(newPongGame);
-		return newPongGame;
+	async create(builder: GameBuilder): Promise<PongGame>
+	{
+		const res = this.repository.create(builder.build());
+		await this.repository.save(res);
+		return res;
 	}
 
-	async update(pongGame: GameBuilder): Promise<PongGame> {
-		const newPongGame = await this.pongGameRepository.preload({
-			...pongGame.build()
+	async update(builder: GameBuilder): Promise<PongGame>
+	{
+		const res = await this.repository.preload({
+			...builder.build()
 		})
-		return await this.pongGameRepository.save(newPongGame);
+		return await this.repository.save(res);
 	}
 }
