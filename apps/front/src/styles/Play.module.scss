@@ -85,8 +85,6 @@
 	align-items: center;
 }
 
-/* ----------- TEXT ELEMENTS -----------*/
-
 .pong {
 	border-radius: 1.3vw;
 	border: 0.26vw solid;
@@ -94,6 +92,12 @@
 
 	background-color: white;
 	fill-opacity: 0.5;
+
+	text-align: center;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
 }
 
 /* ----------- TEXT ELEMENTS -----------*/

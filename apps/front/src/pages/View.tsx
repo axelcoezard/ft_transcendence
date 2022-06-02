@@ -43,7 +43,7 @@ const View = () => {
 
 	return <main className={styles.view}>
 		<div className={styles.view_header}>
-			<h1>VIEW</h1>
+			<h1 className={styles.view_h1}>VIEW</h1>
 			<p>Trouvez une partie à regarder en toute discretion</p>
 		</div>
 		<ul className={styles.view_table}>

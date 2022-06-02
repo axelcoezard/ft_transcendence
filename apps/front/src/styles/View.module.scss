@@ -1,4 +1,8 @@
+/* ----------- COLOR PALETTE -----------*/
+
 @use 'Colors' as *;
+
+/* ----------- VIEW ELEMENTS -----------*/
 
 .view {
 	width: 600px;
@@ -16,6 +20,8 @@
 	display: flex;
 	flex-direction: column;
 }
+
+/* ----------- VIEW CONTENT -----------*/
 
 .view_header {
 	flex: 0 0 100px;
@@ -41,6 +47,8 @@
 		-webkit-text-fill-color: transparent;
 	}
 }
+
+/* ------------ VIEW TABLE ------------*/
 
 .view_table {
 	flex: 1;
@@ -133,3 +141,26 @@
 		box-shadow: 0 5px black;
 	}
 }
+
+/* ----------- TEXT ELEMENTS -----------*/
+
+
+.view_h1 {
+	color: white;
+    font-family: Helvetica, Arial, sans-serif;
+    font-style: bold;
+    font-size: 3.33vw;
+    text-transform: uppercase;
+
+    z-index: 1;
+    max-height: 78px;
+}
+
+.view_text {
+    color: #A9A9A9;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 1.25vw;
+	font-weight: bolder;
+    margin: 0.52vw;
+}
+

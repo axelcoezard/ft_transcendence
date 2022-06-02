@@ -10,6 +10,7 @@ import Avatars from "../components/Avatars";
 import { useParams } from 'react-router-dom';
 import useSession from "../hooks/useSession";
 import Avatar from "../components/Avatar";
+import Results from "../components/Results";
 
 export const PONG_HEIGHT: number = 400;
 export const PONG_WIDTH: number = 600;
@@ -125,6 +126,7 @@ const Play = () => {
 					height={PONG_HEIGHT}
 					onMouseMove={handleMove}
 				/>
+				<Results victory="true" url="/play/view" /> { /* url="/play/invite" url="/play/view" */}
 			</div>
 		</section>
 	</main>;
