@@ -57,9 +57,6 @@ const HistoryMatch = (props: any) => {
 
 const History = (props: any) => {
 	return  <div className={styles.history}>
-		<div className={styles.history_matches}>
-			{props.children}
-		</div>
 	</div>
 }
 

@@ -19,6 +19,17 @@ const ProfileNavLink = () => {
 	</svg>
 }
 
+const RankNavLink = () => {
+	return <svg className={styles.nav_bar_icons} width="70" height="70" viewBox="0 0 70 70">
+		<mask id="nav_link_mask01" style={{ maskType: "alpha" }} width="60" height="60" x="5" y="0" maskUnits="userSpaceOnUse">
+			<path fill="#323232" d="M5 0H65V60H5z"></path>
+		</mask>
+		<g mask="url(#nav_link_mask01)">
+			<path fill="#fff" d="M15 24v-1a1 1 0 00-1 1h1zm13 0h1a1 1 0 00-1-1v1zM15 48h-1a1 1 0 001 1v-1zm13-36v-1a1 1 0 00-1 1h1zm13 0h1a1 1 0 00-1-1v1zm0 20v-1a1 1 0 00-1 1h1zm13 0h1a1 1 0 00-1-1v1zm0 16v1a1 1 0 001-1h-1zM15 25h13v-2H15v2zm12-1v24h2V24h-2zm1 23H15v2h13v-2zm-12 1V24h-2v24h2zm12-35h13v-2H28v2zm12-1v36h2V12h-2zm1 35H28v2h13v-2zm-12 1V12h-2v36h2zm12-15h13v-2H41v2zm12-1v16h2V32h-2zm1 15H41v2h13v-2zm-12 1V32h-2v16h2z"></path>
+		</g>
+	</svg>
+}
+
 const GameNavLink = () => {
 	return  <svg className={styles.nav_bar_icons} viewBox="0 0 70 70">
 		<mask id="mask0_157_1200" style={{ maskType: "alpha" }} width="60" height="60" x="5" y="5" maskUnits="userSpaceOnUse">
@@ -69,10 +80,10 @@ const Navlink = (props: any) => {
 /* ---------- NAVIGATION BAR -----------*/
 
 const DefaultNavBar = () => {
-	return <Navbar >
-		{/* <Navlink href="/contact"><ContactNavLink /></Navlink> */}
+	return <Navbar className={styles.nav_bar}>
 		<Navlink href="/home"><GameNavLink /></Navlink>
 		<Navlink href="/tchat"><ChatNavLink /></Navlink>
+		<Navlink href="/Rank"><RankNavLink /></Navlink>
 		<Navlink href="/profil"><ProfileNavLink /></Navlink>
 		<Navlink href="/settings"><SettingsNavLink /></Navlink>
 	</Navbar>

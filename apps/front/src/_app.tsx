@@ -19,6 +19,7 @@ import Settings from "./pages/Settings";
 import Import from "./pages/Invite"
 import Invite from "./pages/Invite";
 import View from "./pages/View";
+import Rank from "./pages/Rank";
 
 const PrivateRoute = ({children}: {children: JSX.Element}) => {
 	const { session } = useAppContext();
@@ -37,6 +38,9 @@ const _App = () => {
 				<Route path="/" element={<Login />} />
 				<Route path="/profil" element={<PrivateRoute>
 					<Profil />
+				</PrivateRoute>} />
+				<Route path="/rank" element={<PrivateRoute>
+					<Rank />
 				</PrivateRoute>} />
 				<Route path="/home" element={<PrivateRoute>
 					<Home />

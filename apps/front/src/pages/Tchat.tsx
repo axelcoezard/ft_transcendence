@@ -9,6 +9,7 @@ import BinIcon from '../components/SVGs/BinIcon';
 import PlusIcon from '../components/SVGs/PlusIcon';
 import { useAppContext } from '../contexts/AppContext';
 import { useParams } from 'react-router-dom';
+import DropdownMenu from '../components/DropdownMenu';
 
 const Tchat = () => {
 	const {session, socket} = useAppContext();
@@ -54,6 +55,7 @@ const Tchat = () => {
 					<p className={styles.text}>New chat</p>
 				</div>
 				<BinIcon width="1.5vw" height="1.5vw" />
+				<DropdownMenu />
 			</div>
 			<ul className={styles.indexing_list}>
 				{ channels.map((channel: any, index: number) => <Conversations
