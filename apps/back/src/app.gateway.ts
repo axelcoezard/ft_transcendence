@@ -1,6 +1,6 @@
 import { Logger, Inject } from '@nestjs/common';
 import { SubscribeMessage, WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
-import { RoomInternalState } from 'colyseus';
+//import { RoomInternalState } from 'colyseus';
 import { Socket, Server } from 'socket.io';
 import ChannelBuilder from './modules/channel/channel.builder';
 import GameBuilder from './modules/game/game.builder';

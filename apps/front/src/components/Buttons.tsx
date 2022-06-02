@@ -38,7 +38,7 @@ const LoginButton = () => {
 
 		e.preventDefault()
 
-		let request = await fetch('http://c2r2p3.42nice.fr:3030/auth/authorize', {
+		let request = await fetch('http://127.0.0.1:3030/auth/authorize', {
 			method: 'POST',
 			headers: {
 					'Content-Type': 'application/json',
