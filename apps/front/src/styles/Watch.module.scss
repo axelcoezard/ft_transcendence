@@ -4,7 +4,7 @@
 
 /* ----------- VIEW ELEMENTS -----------*/
 
-.view {
+.watch {
 	width: 480px;
 	height: auto;
 
@@ -23,7 +23,7 @@
 
 /* ----------- VIEW CONTENT -----------*/
 
-.view_header {
+.watch_header {
 	flex: 0 0 100px;
 	width: 100%;
 
@@ -46,11 +46,19 @@
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
 	}
+
+	p {
+		color: #fff;
+		font-family: Helvetica, Arial, sans-serif;
+		font-size: 1.25vw;
+		font-weight: bolder;
+		margin: 0.52vw;
+	}
 }
 
 /* ------------ VIEW TABLE ------------*/
 
-.view_table {
+.watch_table {
 	flex: 1;
 	width: 100%;
 
@@ -66,7 +74,7 @@
 	}
 }
 
-.view_table_item {
+.watch_table_item {
 	flex: 0 0 60px;
 	width: 95%;
 	height: 60px;
@@ -81,8 +89,8 @@
 	background: $color_jet;
 }
 
-.view_table_item_left,
-.view_table_item_right {
+.watch_table_item_left,
+.watch_table_item_right {
 	flex: 0 0 50%;
 	width: 50%;
 	height: 100%;
@@ -94,11 +102,11 @@
 	align-items: center;
 }
 
-.view_table_item_left {
+.watch_table_item_left {
 	justify-content: left;
 }
 
-.view_table_item_left div { //avatar
+.watch_table_item_left div { //avatar
 	flex: 0 0 40px;
 	width: 40px;
 	height: 40px;
@@ -108,7 +116,7 @@
 	background-color: $color_jet;
 }
 
-.view_table_item_left strong {
+.watch_table_item_left strong {
 	flex: 0 0 auto;
 	width: auto;
 	height: auto;
@@ -118,11 +126,11 @@
 	color: white;
 }
 
-.view_table_item_right {
+.watch_table_item_right {
 	justify-content: right;
 }
 
-.view_table_item_right button {
+.watch_table_item_right button {
 	cursor: pointer;
 
 	background-color: white;
@@ -150,23 +158,4 @@
 
 /* ----------- TEXT ELEMENTS -----------*/
 
-
-.view_h1 {
-	color: white;
-    font-family: Helvetica, Arial, sans-serif;
-    font-style: bold;
-    font-size: 3.33vw;
-    text-transform: uppercase;
-
-    z-index: 1;
-    max-height: 78px;
-}
-
-.view_text {
-    color: #A9A9A9;
-    font-family: Helvetica, Arial, sans-serif;
-    font-size: 1.25vw;
-	font-weight: bolder;
-    margin: 0.52vw;
-}
 

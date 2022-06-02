@@ -11,7 +11,7 @@ const Wrapper = ({children}: {children: any}) => {
 			<NavLink href="/profil"><ProfileNavLink /></NavLink>
 			<NavLink href="/settings"><SettingsNavLink /></NavLink>
 		</Navigation>
-		<Scenery.DefaultScenery />
+		<Scenery/>
 		{children}
 	</main>
 }

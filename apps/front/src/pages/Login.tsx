@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSearchParams, useNavigate } from "react-router-dom"
 import Buttons from '../components/Buttons'
-import Illustration from '../components/assets/Scenery'
-import { useAppContext } from '../contexts/AppContext'
+import { LoginBackScenery, LoginFrontScenery } from '../components/assets/Scenery'
 import WelcomeToPong from '../components/assets/SVGs/WelcomeToPong'
 
 import styles from '../styles/Login.module.scss'
@@ -47,7 +46,7 @@ const Login = (props: any) => {
 	}, [session])
 
 	return <main className={styles.login}>
-		<Illustration.LoginBackScenery />
+		<LoginBackScenery />
 		{loading
 			? <Loading title="Connexion" subtitle="Veuillez patienter..."/>
 			: <>
@@ -73,7 +72,7 @@ const Login = (props: any) => {
 				</section>
 			</>
 		}
-		<Illustration.LoginFrontScenery />
+		<LoginFrontScenery />
 	</main>;
 }
 

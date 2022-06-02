@@ -6,17 +6,18 @@ import Planets from "./Planets";
 import FrameWaves from "./Frame.waves";
 import Rockets from "./Rocket";
 import styles from '../../styles/components/Scenery.module.scss'
+import { Parallax } from 'react-parallax';
 
-function 	DefaultScenery() {
-  return <div className={styles.scenery}>
+const DefaultScenery = () => {
+	return <div className={styles.scenery}>
 		<Asteroides />
 		<Confetties />
 		<Planets />
 		<ShootingStars />
-  	</div>
+	</div>
 }
 
-function 	LoginBackScenery() {
+const LoginBackScenery = () =>{
 	return <div className={styles.scenery}>
 		<BackgroundWaves />
 		<Asteroides />
@@ -26,17 +27,17 @@ function 	LoginBackScenery() {
   	</div>
 }
 
-function	LoginFrontScenery() {
+const LoginFrontScenery = () => {
 	return <div className={styles.scenery}>
 			<Rockets.CloudRocket />
 			<FrameWaves />
   	</div>
 }
 
-const ExportSceneries = {
-	DefaultScenery,
+export {
 	LoginBackScenery,
 	LoginFrontScenery
 };
 
-export default ExportSceneries;
+export default DefaultScenery;
+

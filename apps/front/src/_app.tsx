@@ -13,7 +13,7 @@ import Play from "./pages/Play";
 import Matching from "./pages/Matching"
 import Settings from "./pages/Settings";
 import Invite from "./pages/Invite";
-import View from "./pages/View";
+import Watch from "./pages/Watch";
 import Rank from "./pages/Rank";
 
 const PrivateRoute = ({children}: {children: JSX.Element}) => {
@@ -52,8 +52,8 @@ const _App = () => {
 				<Route path="/play/invite" element={<PrivateRoute>
 					<Invite />
 				</PrivateRoute>} />
-				<Route path="/play/view" element={<PrivateRoute>
-					<View />
+				<Route path="/play/watch" element={<PrivateRoute>
+					<Watch />
 				</PrivateRoute>} />
 				<Route path="/play/:id" element={<PrivateRoute>
 					<Play />
