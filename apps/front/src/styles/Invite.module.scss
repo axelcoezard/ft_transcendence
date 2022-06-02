@@ -2,7 +2,7 @@
 
 @use 'Colors' as *;
 
-/* -------- INVITE VIEW ELEMENTS ------ */
+/* -----------  VIEW ELEMENTS --------- */
 
 .invite {
 	background-color: rgba(33, 33, 33, 0.8);
@@ -23,7 +23,7 @@
 	justify-content: space-around;
 }
 
-/* -------- INVITE VIEW CONTENT ------- */
+/* ----------- INVITE CONTENT --------- */
 
 .invite_content {
 	width: 80%;
@@ -74,15 +74,21 @@
 	transform: translate(0%, -5%);
 }
 
-.invite_h1 {
-	color: white;
-    font-family: Helvetica, Arial, sans-serif;
-    font-style: bold;
-    font-size: 3.33vw;
-    text-transform: uppercase;
+/* ----------- TEXT ELEMENTS ---------- */
 
-    z-index: 1;
-    max-height: 78px;
+.invite_h1 {
+	font-size: 3em;
+	text-transform: uppercase;
+
+	background: linear-gradient(
+		135deg,
+		$color_mauve 20.83%,
+		$color_uranian 49.94%,
+		$color_mint 80.3%
+	);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 }
 
 .invite_text {
