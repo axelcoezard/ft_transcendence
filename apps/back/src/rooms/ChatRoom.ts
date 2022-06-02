@@ -19,11 +19,9 @@ export default class ChatRoom extends Room {
 	public onCreate() {
 		this.onMessage("msg", async (player: Player, data: any) => {
 			this.cacheMessage(data, player)
-
 			this.users.forEach((p: Player) => {
 				p.socket.emit("chat.msg", this.msgs);
 			});
-
 			this.addMessage(data, player);
 		})
 	}

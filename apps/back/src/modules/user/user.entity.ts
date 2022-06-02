@@ -44,7 +44,7 @@ export default class User {
 		type: 'varchar',
 		default: '',
 	})
-	"2FA_secret": boolean;
+	"2FA_secret": string;
 
 	@Column({
 		type: 'int',

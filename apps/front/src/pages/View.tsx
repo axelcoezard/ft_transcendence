@@ -28,12 +28,15 @@ const ViewGame = (props: any) => {
 const View = () => {
 	const [games, setGames] = useState<any[]>([]);
 
-	useEffect(() => {
-		let it = setInterval(() => {
-			fetch("http://c2r2p3.42nice.fr:3030/games/started")
+	const updateGames = () => {
+		fetch("http://c2r2p3.42nice.fr:3030/games/started")
 			.then(res => res.json().then(data => setGames(data)))
 			.catch(err => console.log(err))
-		}, 1000 * 60)
+	}
+
+	useEffect(() => {
+		updateGames()
+		let it = setInterval(updateGames, 1000 * 5)
 		return () => clearInterval(it)
 	}, [])
 

@@ -4,12 +4,8 @@ import AvatarService from './avatar.service';
 import Avatar from './avatar.entity';
 
 @Controller('avatars')
-export default class AvatarController {
+export default class AvatarController
+{
 	@Inject(AvatarService)
 	private readonly service: AvatarService;
-
-	@Get("/")
-	async getAll(): Promise<Avatar[]> {
-		return await this.service.getAll();
-	}
 }
