@@ -1,10 +1,10 @@
 import Player from "src/rooms/Player";
 import Channel from "../channel/channel.entity";
-import { PongGame } from "./game.entity";
+import Game from "./game.entity";
 
 export default class GameBuilder {
 
-	private game: PongGame;
+	private game: Game;
 
 	public static GAME_WAITING: string = "waiting";
 	public static GAME_STARTED: string = "started";
@@ -12,7 +12,7 @@ export default class GameBuilder {
 
 	constructor()
 	{
-		this.game = new PongGame();
+		this.game = new Game();
 		this.game.status = GameBuilder.GAME_WAITING;
 		this.game.slug = Math
 			.random()
@@ -52,7 +52,7 @@ export default class GameBuilder {
 		return this;
 	}
 
-	public build() : PongGame
+	public build() : Game
 	{
 		return this.game;
 	}

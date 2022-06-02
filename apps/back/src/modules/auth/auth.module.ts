@@ -1,11 +1,11 @@
 import { Module, Controller, Get, Injectable, Param, Inject, UseInterceptors, Body, Post } from '@nestjs/common';
 import 'dotenv/config'
 import fetch from 'node-fetch';
-import { User } from '../user/user.entity';
+import User from '../user/user.entity';
 import UserModule from '../user/user.module';
-import { UserService } from '../user/user.service';
-import { Avatar } from '../avatar/avatar.entity';
-import { AvatarService } from '../avatar/avatar.service';
+import UserService from '../user/user.service';
+import Avatar from '../avatar/avatar.entity';
+import AvatarService from '../avatar/avatar.service';
 import AvatarModule from '../avatar/avatar.module';
 
 @Injectable()

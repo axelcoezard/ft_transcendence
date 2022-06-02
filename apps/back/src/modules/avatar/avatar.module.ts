@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AvatarController } from './avatar.controller';
-import { Avatar } from './avatar.entity';
-import { AvatarService } from './avatar.service';
+import AvatarController from './avatar.controller';
+import Avatar from './avatar.entity';
+import AvatarService from './avatar.service';
 
 @Module({
 	providers: [AvatarService],

@@ -1,9 +1,11 @@
-import { UserService } from './user.service';
 import { Get, Inject, Controller, Param, ParseIntPipe, Res, StreamableFile, Header } from '@nestjs/common';
 import { getManager } from 'typeorm';
 
+import UserService from './user.service';
+
 @Controller('users')
-export class UserController {
+export default class UserController {
+
 	@Inject(UserService)
 	private readonly service: UserService;
 
@@ -42,7 +44,7 @@ export class UserController {
 				g.user2_id,
 				g.user2_score,
 				g.updated_at
-			FROM "pong_game" as g
+			FROM "game" as g
 				INNER JOIN "user" as u ON u.id = g.user1_id OR u.id = g.user2_id
 			WHERE u.id = $1
 				AND g.status = $2

@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm"
 
-@Entity("pong_game")
-export class PongGame extends BaseEntity {
+@Entity("game")
+export default class Game extends BaseEntity {
 
 	@PrimaryGeneratedColumn()
 	id: number;

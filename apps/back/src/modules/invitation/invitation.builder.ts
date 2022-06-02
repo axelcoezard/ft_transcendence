@@ -1,6 +1,5 @@
 import Player from "src/rooms/Player";
-import Channel from "../channel/channel.entity";
-import { PongGame } from "../game/game.entity";
+import Game from "../game/game.entity";
 import Invitation from "./invitation.entity";
 
 export default class InvitationBuilder {
@@ -21,7 +20,7 @@ export default class InvitationBuilder {
 		return this;
 	}
 
-	public setGame(game: PongGame): InvitationBuilder
+	public setGame(game: Game): InvitationBuilder
 	{
 		this.invitation.game_id = game.id;
 		return this;

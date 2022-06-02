@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { Avatar } from './avatar.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+
+import Avatar from './avatar.entity';
+
 @Injectable()
-export class AvatarService {
+export default class AvatarService {
 	constructor(
 		@InjectRepository(Avatar)
 		public avatarRepository: Repository<Avatar>,

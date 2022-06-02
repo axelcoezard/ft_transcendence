@@ -1,9 +1,9 @@
 import { Inject, Injectable } from "@nestjs/common";
-import { AvatarService } from "./modules/avatar/avatar.service";
+import AvatarService from "./modules/avatar/avatar.service";
 import ChannelService from "./modules/channel/channel.service";
 import MessageService from "./modules/message/message.service";
-import { PongGameService } from "./modules/game/game.service";
-import { UserService } from "./modules/user/user.service";
+import GameService from "./modules/game/game.service";
+import UserService from "./modules/user/user.service";
 import InvitationService from "./modules/invitation/invitation.service";
 
 @Injectable()
@@ -18,8 +18,8 @@ export class AppService
 	@Inject(ChannelService)
 	public readonly channels: ChannelService;
 
-	@Inject(PongGameService)
-	public readonly games: PongGameService;
+	@Inject(GameService)
+	public readonly games: GameService;
 
 	@Inject(AvatarService)
 	public readonly avatars: AvatarService;
