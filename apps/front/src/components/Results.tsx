@@ -1,13 +1,11 @@
 import styles from "../styles/Components.module.scss"
 import Confetties from 'react-confetti'
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const ResultsButtonAgain = (props: any) => {
 	const { url } = props;
 
 	return <div className={styles.results_buttons}>
-
 		<Link className={styles.results_button} to={"/home"}>
 			<h1 className={styles.results_text}>EXIT</h1>
 		</Link>

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import styles from '../../styles/Scenery.module.scss'
+import styles from '../../styles/components/Scenery.module.scss'
 
 function Asteroide01() {
 	return <svg className={styles.asteroide01}>

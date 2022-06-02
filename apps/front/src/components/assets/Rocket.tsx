@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import styles from '../../styles/Scenery.module.scss'
+import styles from '../../styles/components/Scenery.module.scss'
 
 function FilterTrailRocket() {
 	return <defs className={styles.trail_rocket}>
@@ -67,7 +67,7 @@ function FilterTrailRocket() {
 }
 
 function LinearGradientTrailRocket() {
-	return <defs className={styles.trail_rocket}  viewBox="0 0 530 109">	
+	return <defs className={styles.trail_rocket}  viewBox="0 0 530 109">
 		<linearGradient id="linear_gradient_trail_rocket01" x1="273.743" x2="390.506" y1="54.5" y2="54.5" gradientUnits="userSpaceOnUse">
 			<stop offset="0.306" stopColor="#fff" stopOpacity="0"> </stop>
 			<stop offset="1" stopColor="#fff"> </stop>

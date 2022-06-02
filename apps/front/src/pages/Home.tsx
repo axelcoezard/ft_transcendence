@@ -1,28 +1,45 @@
-import { useAppContext } from '../contexts/AppContext'
 import styles from '../styles/Home.module.scss'
-import HomeSelection from "../components/HomeSelection"
-import Avatar from '../components/Avatar'
 import useSession from '../hooks/useSession'
+import { Link } from 'react-router-dom';
+
+const HomeSelector = (props: any) => {
+	const {title, subtitle, icon, path} = props;
+
+	return <li className={styles.home_selector}>
+		<div className={styles.home_selector_icon}>
+			<img src={`/svgs/home_${icon}_icon.svg`} alt={title}/>
+		</div>
+		<div className={styles.home_selector_rest}>
+			<div className={styles.home_selector_title}>
+				<h2>{title}</h2>
+				<p >{subtitle}</p>
+			</div>
+			<div className={styles.home_selector_link}>
+				<Link to={path}>GO</Link>
+			</div>
+		</div>
+	</li>
+}
 
 const Home = () => {
 	const session = useSession("session")
 
+	const items = [
+		{title:"RANKED", subtitle:"Jouer contre un joueur de votre niveau", icon:"ranked", path:"/play/wait"},
+		{title:"DUEL", subtitle:"Inviter un ami à jouer", icon:"duel", path:"/play/invite"},
+		{title:"WATCH", subtitle:"Regarder une partie en cours", icon:"watch", path:"/play/watch"},
+	]
+
 	return <main className={styles.home}>
-		<section className={styles.header}>
-			<div className={styles.header_container}>
-				<h1 className={styles.h1}>TRANSCENDENCE</h1>
-				<h3 className={styles.h3}>Pong to the extreme!</h3>
+		<div className={styles.home_header}>
+			<div className={styles.home_header_container}>
+				<h1>TRANSCENDENCE</h1>
+				<p>Pong to the extreme!</p>
 			</div>
-			<div className={styles.header_avatar}>
-				<Avatar user={session.get("id")} width="3.9vw" height="3.9vw"/>
-				<p className={styles.text}> {session.get("username")}</p>
-			</div>
-		</section>
-		<section className={styles.game}>
-			<HomeSelection.HomeSelectionRandom url="/play/wait"/>
-			<HomeSelection.HomeSelectionInvite url="/play/invite" />
-			<HomeSelection.HomeSelectionView url="/play/view" />
-		</section>
+		</div>
+		<ul className={styles.home_selectors}>
+			{items.map((item, index) => <HomeSelector key={index} {...item} />)}
+		</ul>
 	</main>
 }
 

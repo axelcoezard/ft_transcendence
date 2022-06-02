@@ -1,4 +1,4 @@
-import styles from '../../styles/Scenery.module.scss'
+import styles from '../../styles/components/Scenery.module.scss'
 
 function TopFrameWave() {
 	return     <svg className={styles.top_frame_wave} viewBox="0 0 752 486">

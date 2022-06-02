@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import styles from '../../styles/Scenery.module.scss'
+import styles from '../../styles/components/Scenery.module.scss'
 
 function BackgroundWave01(props: any) {
 	return <svg className={styles.background_wave01}>

@@ -22,3 +22,20 @@ $color_pinkish: #FFB3B3;
 
 $color_cornflower: #243B6D;
 $color_violet: #492D6A;
+
+@mixin text-color($size) {
+	font-family: Helvetica, Arial, sans-serif;
+	font-style: bold;
+	font-size: $size;
+	text-transform: uppercase;
+
+	background: linear-gradient(
+		90deg,
+		$color_mauve 20.83%,
+		$color_uranian 49.94%,
+		$color_mint 80.3%
+	);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}

@@ -1,16 +1,18 @@
 /* ----------- COLOR PALETTE -----------*/
 
-@use '_colors' as *;
+@use '../_colors' as *;
 
 /* --------- SCENERY ELEMENTS ----------*/
 
 .scenery {
-	width: 100vw;
-	height: 100vh;
-
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
+	bottom: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 0;
 	background-color: rgba($color_bg, 0.30);
 }
 
