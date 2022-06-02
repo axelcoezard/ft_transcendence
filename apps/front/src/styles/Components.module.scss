@@ -1,50 +1,5 @@
-/* ----------- COLOR PALETTE -----------*/
 
 @use '_colors' as *;
-
-/* ----------- NAVIGATION BAR ----------*/
-
-.nav_bar {
-    background-color: rgba(33, 33, 33, 0.8);
-	z-index: 1000;
-
-	height: 100%;
-	width: 5%;
-
-	position: absolute;
-	top: 50%;
-	left: 0%;
-	transform: translate(0%, -50%);
-
-	display: flex;
-	text-align: center;
-	flex-direction: column;
-	@media screen and (max-width: 768px) {
-		flex-direction: row;
-		width: 100%;
-		height: 10%;
-		height: 94px;
-		top: 93%;
-    }
-	justify-content: center;
-}
-
-.nav_bar_icons {
-	width: 3.65vw;
-	height: 3.65vw;
-	fill: none;
-	margin: 3.125vw 0vw;
-
-	@media screen and (max-width: 768px) {
-		width: 19.65vw;
-		height: 24.65vw;
-    }
-}
-
-.nav_bar_icons:hover {
-	border-radius: 1.3vw;
-	background-color: $color_jet;
-}
 
 /* ------------ RANKED AWARDS ----------*/
 

@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom';
 
-import styles from '../styles/Components.module.scss'
+import styles from '../styles/components/Navigation.module.scss'
 
 /* ---------- NAVIGATION SVGS ----------*/
 
@@ -65,28 +65,25 @@ const SettingsNavLink = () => {
 	</svg>
 }
 
-/* -------- NAVIGATION ELEMENTS --------*/
+export { GameNavLink, ChatNavLink, SettingsNavLink, RankNavLink, ProfileNavLink }
 
-const Navbar = (props: any) => {
-	return <nav className={styles.nav_bar}>
-		<ul className={styles.middle}>{props.children}</ul>
-	</nav>
-}
-
-const Navlink = (props: any) => {
-	return <Link to={props.href}>{props.children}</Link>
+/* ---------- NAVIGATION LINK  -----------*/
+const NavLink = (props: any) => {
+	return <Link
+		className={styles.navigation_link}
+		to={props.href}>
+			{props.children}
+	</Link>
 }
 
 /* ---------- NAVIGATION BAR -----------*/
 
-const DefaultNavBar = () => {
-	return <Navbar className={styles.nav_bar}>
-		<Navlink href="/home"><GameNavLink /></Navlink>
-		<Navlink href="/tchat"><ChatNavLink /></Navlink>
-		<Navlink href="/Rank"><RankNavLink /></Navlink>
-		<Navlink href="/profil"><ProfileNavLink /></Navlink>
-		<Navlink href="/settings"><SettingsNavLink /></Navlink>
-	</Navbar>
+const Navigation = (props: any) => {
+	return <nav className={styles.navigation}>
+		<ul className={styles.navigation_middle}>
+			{props.children}
+		</ul>
+	</nav>
 }
 
-export default DefaultNavBar;
+export { Navigation, NavLink }
