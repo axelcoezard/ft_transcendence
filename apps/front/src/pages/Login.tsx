@@ -23,7 +23,7 @@ const Login = (props: any) => {
 		if (code && !session.has("access_token"))
 		{
 			setLoading(true)
-			const request = fetch(`http://127.0.0.1:3030/auth/token/${code}`, {
+			const request = fetch(`http://c2r2p3.42nice.fr:3030/auth/token/${code}`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',

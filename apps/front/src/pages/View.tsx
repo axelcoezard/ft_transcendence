@@ -30,7 +30,7 @@ const View = () => {
 
 	useEffect(() => {
 		let it = setInterval(() => {
-			fetch("http://127.0.0.1:3030/games/started")
+			fetch("http://c2r2p3.42nice.fr:3030/games/started")
 			.then(res => res.json().then(data => setGames(data)))
 			.catch(err => console.log(err))
 		}, 1000 * 60)
