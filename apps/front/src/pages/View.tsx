@@ -1,14 +1,16 @@
 import styles from "../styles/View.module.scss"
 import { useEffect, useState } from 'react'
 import { useAppContext } from '../contexts/AppContext';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Avatar from "../components/Avatar";
 
 const ViewGame = (props: any) => {
 	const {value} = props;
+	const navigate = useNavigate()
 
 	const handleClick = (e: any) => {
 		e.preventDefault();
+		navigate(`/play/${value.slug}`)
 	}
 
 	return <li className={styles.view_table_item}>
@@ -27,18 +29,9 @@ const View = () => {
 	const [games, setGames] = useState<any[]>([]);
 
 	useEffect(() => {
-		setGames([
-			{
-				user1_id: 14,
-				user2_id: 16,
-				slug: 'sedznxgszg'
-			},
-			{
-				user1_id: 18,
-				user2_id: 14,
-				slug: 'sedznxgszg'
-			}
-		])
+			fetch("http://c2r2p3.42nice.fr:3030/games/started")
+			.then(res => res.json().then(data => setGames(data)))
+			.catch(err => console.log(err))
 	}, [])
 
 	return <main className={styles.view}>
