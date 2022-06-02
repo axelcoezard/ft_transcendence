@@ -1,26 +1,20 @@
-import {
-	BrowserRouter,
-	Routes,
-	Route,
-	useNavigate,
-} from "react-router-dom";
+import { BrowserRouter,	Routes,	Route, useNavigate } from "react-router-dom";
+import { AppProvider } from "./contexts/AppContext";
+import useSession from "./hooks/useSession";
 
-import { AppProvider, useAppContext } from "./contexts/AppContext";
+import "./styles/_globals.scss";
+
+import Wrapper from "./components/Wrapper";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
-
-import "./styles/globals.scss";
 import Profil from "./pages/Profil";
 import Tchat from "./pages/Tchat";
 import Play from "./pages/Play";
 import Matching from "./pages/Matching"
-import Wrapper from "./components/Wrapper";
 import Settings from "./pages/Settings";
-import Import from "./pages/Invite"
 import Invite from "./pages/Invite";
 import View from "./pages/View";
 import Rank from "./pages/Rank";
-import useSession from "./hooks/useSession";
 
 const PrivateRoute = ({children}: {children: JSX.Element}) => {
 	const session = useSession("session");

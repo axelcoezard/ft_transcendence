@@ -1,6 +1,6 @@
 /* ----------- COLOR PALETTE -----------*/
 
-@use 'Colors' as *;
+@use '_colors' as *;
 
 /* ----------- PLAY ELEMENTS -----------*/
 
@@ -64,7 +64,7 @@
 .pong_dashboard_score {
 	height: 100%;
 	width: 40%;
-	
+
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;

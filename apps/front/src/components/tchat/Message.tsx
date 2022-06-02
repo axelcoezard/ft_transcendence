@@ -1,4 +1,4 @@
-import styles from "../../styles/Message.module.scss";
+import styles from "../../styles/components/Message.module.scss";
 import { useAppContext } from '../../contexts/AppContext'
 import Avatar from "../Avatar";
 import useSession from "../../hooks/useSession";

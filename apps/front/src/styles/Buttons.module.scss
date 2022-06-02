@@ -1,6 +1,6 @@
 /* ----------- COLOR PALETTE -----------*/
 
-@use 'Colors' as *;
+@use '_colors' as *;
 
 /* ------------ BUTTON LOGIN -----------*/
 
@@ -10,7 +10,7 @@
 	padding: 1.3vw;
 	border: none;
 	outline: none;
-	
+
 	cursor: pointer;
 	order: 1;
 	z-index: 1000;
@@ -18,7 +18,7 @@
 	display: flex;
 	justify-content: center;
 	flex-direction: row;
-	
+
 	font-family: Helvetica, Arial, sans-serif;
 	font-size: 24px;
 	font-weight: lighter;
@@ -48,7 +48,7 @@
 	cursor: pointer;
 
 	background-color: white;
-	width: 5.2vw; 
+	width: 5.2vw;
 	height: 3.13vw;
 
 	margin: 0.52vw 0.52vw;
@@ -78,7 +78,7 @@
 }
 
 .play_button_icon {
-	width: 0; 
+	width: 0;
 	height: 0;
 
 	position: absolute;

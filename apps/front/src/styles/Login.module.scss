@@ -1,6 +1,6 @@
 /* ----------- COLOR PALETTE -----------*/
 
-@use 'Colors' as *;
+@use '_colors' as *;
 
 /* ---------- LOGIN ELEMENTS -----------*/
 
@@ -55,7 +55,7 @@
 	font-style: bold;
 	font-size: 64px;
 	text-transform: uppercase;
-	
+
 	background: linear-gradient(90deg, $color_mauve 20.83%, $color_uranian 49.94%, $color_mint 80.3%);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
@@ -73,7 +73,7 @@
 	font-family: Helvetica, Arial, sans-serif;
 	font-weight: lighter;
 	font-size: 24px;
-	
+
 	z-index: 1;
 }
 
@@ -81,11 +81,11 @@
 
 .content {
 	background: rgba(33, 33, 33, 0.8);
-	
+
 	width: 45%;
 	height: 95%;
 	border-radius: 1.3vw;
-	
+
 	z-index: 500;
 	top: 2.5%;
 	right: 2.5%;
@@ -116,7 +116,7 @@
 	position: relative;
 	right: -20%;
 	top: 0%;
-	
+
 	display: flex;
 	justify-self: center;
 	flex-direction: row;
@@ -136,7 +136,7 @@
 	color: white;
 
 	font-family: Helvetica, Arial, sans-serif;
-	font-size: 40px; 
+	font-size: 40px;
 	text-transform: uppercase;
 }
 
@@ -144,6 +144,6 @@
 	color: white;
 
 	font-family: Helvetica, Arial, sans-serif;
-	font-size: 24px; 
+	font-size: 24px;
 	margin: 4px;
 }

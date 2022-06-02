@@ -1,6 +1,6 @@
 /* ----------- COLOR PALETTE -----------*/
 
-@use 'Colors' as *;
+@use '_colors' as *;
 
 /* ----------- NAVIGATION BAR ----------*/
 
@@ -84,93 +84,6 @@
 	text-align: right;
 	font-weight: lighter;
 }
-
-/* ----------- HISTORY SLIDE ---------- */
-
-.history {
-	border-radius: 1.73vw;
-    width: 80%;
-
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	text-align: center;
-}
-
-.history.content {
-	width: 100%;
-	height: 100%;
-}
-
-
-.history_matches {
-	background-color: $color_jet;
-	border-radius: 1.73vw;
-
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	text-align: center;
-}
-
-.history_match {
-	text-align: center;
-	padding: 0.7vw;
-
-	position: relative;
-}
-
-.history_player {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.history_match_players {
-    width: 100%;
-	display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.history_match_winner {
-	width: 50%;
-
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-
-	display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
-
-.history_h2 {
-    font-family: Helvetica, Arial, sans-serif;
-    font-style: bold;
-    font-size: 1.875vw;
-    text-transform: uppercase;
-
-    color: white;
-
-    z-index: 1;
-    max-height: 5.4vw;
-	margin: 0.7vw;
-}
-
-.history_text {
-    color: white;
-    font-family: Helvetica, Arial, sans-serif;
-    font-size: 1.05vw;
-    margin: 0.52vw;
-}
-
-/* ---------- TCHAT MESSAGES ---------- */
-
 
 /* ----------- DROPDOWN MENU ---------- */
 
@@ -304,7 +217,7 @@
 
 .results {
 	background-color: rgba(33, 33, 33, 0.8);
-	
+
 	width: 100%;
 	height: 100%;
 	border-radius: 1.4vw;
@@ -347,7 +260,7 @@
     margin: 0.52vw;
 
 	text-decoration: none;
-	
+
 }
 
 .results_buttons {

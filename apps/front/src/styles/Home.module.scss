@@ -1,6 +1,6 @@
 /* ----------- COLOR PALETTE -----------*/
 
-@use 'Colors' as *;
+@use '_colors' as *;
 
 /* ----------- HOME ELEMENTS -----------*/
 
@@ -95,11 +95,11 @@
     font-style: bold;
     font-size: 3.33vw;
     text-transform: uppercase;
-    
+
     background: linear-gradient(90deg, $color_mauve 20.83%, $color_uranian 49.94%, $color_mint 80.3%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-  
+
     z-index: 1;
     max-height: 78px;
 }
@@ -110,13 +110,13 @@
     font-family: Helvetica, Arial, sans-serif;
     font-weight: lighter;
     font-size: 1.25vw;
-    
+
     z-index: 1;
 }
 
 .text {
     color: white;
     font-family: Helvetica, Arial, sans-serif;
-    font-size: 1.25vw; 
+    font-size: 1.25vw;
     margin: 0.52vw;
 }
