@@ -2,6 +2,7 @@ import GameBuilder from "src/modules/game/game.builder";
 import Player from "./Player";
 import Room from "./Room";
 
+export const POINT_TO_WIN: number = 6;
 export const PONG_HEIGHT: number = 400;
 export const PONG_WIDTH: number = 600;
 export const BALL_DIAMETER = 20;
@@ -118,7 +119,7 @@ export default class GameRoom extends Room {
 				this.getGamePlayersStatus()
 			))
 
-		if (this.leftPlayer.score >= 10 || this.rightPlayer.score >= 10)
+		if (this.leftPlayer.score >= POINT_TO_WIN || this.rightPlayer.score >= POINT_TO_WIN)
 			this.stop();
 
 		if (this.ball_pos.x <= 0 || this.ball_pos.x >= PONG_WIDTH - BALL_DIAMETER)
@@ -133,7 +134,7 @@ export default class GameRoom extends Room {
 			y: this.ball_pos.y
 		}))
 
-		if (this.state !== 0)
+		if (this.state == 1)
 			setTimeout(() => this.update(updates + 1), 1000 / 50)
 	}
 
@@ -161,7 +162,7 @@ export default class GameRoom extends Room {
 	}
 
 	private stop() {
-		this.state = 0;
+		this.state = 2;
 
 		let winner = null;
 		let loser = null;

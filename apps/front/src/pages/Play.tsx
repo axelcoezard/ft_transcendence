@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useEffect } from 'react'
+import { useParams } from 'react-router-dom';
 import { useAppContext } from "../contexts/AppContext";
 import useBall from "../hooks/useBall";
 import useCanvas from "../hooks/useCanvas";
@@ -7,7 +8,6 @@ import usePaddle, { PADDLE_HEIGHT, PADDLE_WIDTH } from "../hooks/usePaddle";
 
 import styles from '../styles/Play.module.scss'
 import Avatars from "../components/Avatars";
-import { useParams } from 'react-router-dom';
 import useSession from "../hooks/useSession";
 import Avatar from "../components/Avatar";
 import Results from "../components/Results";
@@ -15,13 +15,20 @@ import Results from "../components/Results";
 export const PONG_HEIGHT: number = 400;
 export const PONG_WIDTH: number = 600;
 
+const usePlayerDuo = () => {
+	const defaults: any = {id: 0, username: "", score: 0}
+	const [player1, setPlayer1] = useState<any>(defaults)
+	const [player2, setPlayer2] = useState<any>(defaults)
+	return [player1, player2, setPlayer1, setPlayer2]
+}
+
 const Play = () => {
 	const {socket} = useAppContext();
 	const session = useSession("session");
-	const [started, setStarted] = useState<boolean>(false)
+	const [status, setStatus] = useState<string>("waiting")
 	const [position, setPosition] = useState<string>("spectator")
-	const [player1, setPlayer1] = useState<any>({id: 0, username: "", score: 0})
-	const [player2, setPlayer2] = useState<any>({id: 0, username: "", score: 0})
+	const [player1, player2, setPlayer1, setPlayer2] = usePlayerDuo()
+	const [winner, loser, setWinner, setLoser] = usePlayerDuo()
 
 	const {id} = useParams()
 
@@ -40,9 +47,14 @@ const Play = () => {
 		{
 			socket.emit("join", "game", id, data)
 			socket.on("game.start", (data: any) => {
-				setStarted(true)
+				setStatus("started")
 				setPlayer1(data.player1)
 				setPlayer2(data.player2)
+			})
+			socket.on("game.stop", (data: any) => {
+				setStatus("ended")
+				setWinner(data.winner)
+				setLoser(data.loser)
 			})
 			socket.on("game.join", ({position: p}: {position: string}) => {
 				setPosition(p)
@@ -126,7 +138,11 @@ const Play = () => {
 					height={PONG_HEIGHT}
 					onMouseMove={handleMove}
 				/>
-				<Results victory="true" url="/play/view" /> { /* url="/play/invite" url="/play/view" */}
+
+				{status == "ended" ? <Results
+					victory={winner.id === session.get("id")}
+					url="/home"
+				/> : null}
 			</div>
 		</section>
 	</main>;
