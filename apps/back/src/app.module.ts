@@ -9,6 +9,7 @@ import AppService from './app.service';
 import ChannelModule from './modules/channel/channel.module';
 import PongGameModule from './modules/game/game.module';
 import AvatarModule from './modules/avatar/avatar.module';
+import InvitationModule from './modules/invitation/invitation.module';
 
 @Controller()
 class AppController
@@ -25,6 +26,7 @@ class AppController
 		ChannelModule,
 		PongGameModule,
 		AvatarModule,
+		InvitationModule,
 		TypeOrmModule.forRoot({
 			type: 'postgres',
 			host: 'postgres',

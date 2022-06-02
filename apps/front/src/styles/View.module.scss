@@ -139,12 +139,6 @@
 	&:active {
 		background-color: $color_jet;
 		box-shadow: 0 5px black;
-		transform: translateY(4px);
-
-		position: absolute;
-		bottom: 0%;
-		left: 50%;
-		transform: translate(-50%, 0%);
 	}
 }
 

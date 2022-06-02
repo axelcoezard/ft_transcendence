@@ -4,6 +4,7 @@ import ChannelService from "./modules/channel/channel.service";
 import MessageService from "./modules/message/message.service";
 import { PongGameService } from "./modules/game/game.service";
 import { UserService } from "./modules/user/user.service";
+import InvitationService from "./modules/invitation/invitation.service";
 
 @Injectable()
 export class AppService
@@ -22,6 +23,9 @@ export class AppService
 
 	@Inject(AvatarService)
 	public readonly avatars: AvatarService;
+
+	@Inject(InvitationService)
+	public readonly invitations: InvitationService;
 }
 
 export default AppService
