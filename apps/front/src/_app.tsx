@@ -15,22 +15,51 @@ import Settings from "./pages/Settings";
 import Invite from "./pages/Invite";
 import Watch from "./pages/Watch";
 import Ranking from "./pages/Ranking";
+import { useEffect } from "react";
+
+const PublicRoute = ({children}: {children: JSX.Element}) => {
+	const session = useSession("session");
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (session.has("access_token"))
+			navigate("/home");
+	}, [])
+
+	return <>{children}</>;
+}
 
 const PrivateRoute = ({children}: {children: JSX.Element}) => {
 	const session = useSession("session");
 	const navigate = useNavigate();
 
-	if (!session.has("access_token"))
-		return <>{navigate("/")}</>
+	useEffect(() => {
+		if (!session.has("access_token"))
+			navigate("/");
+	}, [])
 
 	return <Wrapper>{children}</Wrapper>;
+}
+
+const NotFoundRoute = () => {
+	const session = useSession("session");
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (session.has("access_token"))	navigate("/home");
+		else								navigate("/");
+	}, [])
+
+	return <></>;
 }
 
 const _App = () => {
 	return <AppProvider>
 		<BrowserRouter>
 			<Routes>
-				<Route path="/" element={<Login />} />
+				<Route path="/" element={<PublicRoute>
+					<Login />
+				</PublicRoute>} />
 				<Route path="/profil" element={<PrivateRoute>
 					<Profil />
 				</PrivateRoute>} />
@@ -58,10 +87,10 @@ const _App = () => {
 				<Route path="/play/:id" element={<PrivateRoute>
 					<Play />
 				</PrivateRoute>} />
-
 				<Route path="/settings" element={<PrivateRoute>
 					<Settings />
 				</PrivateRoute>} />
+				<Route path="*" element={<NotFoundRoute />} />
 			</Routes>
 		</BrowserRouter>
 	</AppProvider>
