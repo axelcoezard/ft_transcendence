@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Inject, Body, Post, Header, StreamableFile, Res, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Param, Inject, Body, Post, Header, StreamableFile, Res, ParseIntPipe, Delete } from '@nestjs/common';
 import User from '../user/user.entity';
 import Avatar from '../avatar/avatar.entity';
 import AuthService from './auth.service';
@@ -102,6 +102,19 @@ export default class AuthController {
 		let res = await this.service.users.userRepository.query(
 			`UPDATE "user" SET "2FA_status" = $1 WHERE "2FA_secret" = $2;`,
 			[true, body.secret]
+		)
+		return JSON.stringify({ status: true });
+	}
+
+	@Delete("/twofactor")
+	async disable2FA(
+		@Body() body: any,
+	): Promise<string> {
+		if (!body.secret)
+			return JSON.stringify({ status: false });
+		let res = await this.service.users.userRepository.query(
+			`UPDATE "user" SET "2FA_status" = $1 WHERE "2FA_secret" = $2;`,
+			[false, body.secret]
 		)
 		return JSON.stringify({ status: true });
 	}

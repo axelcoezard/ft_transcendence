@@ -20,8 +20,21 @@ const TwoFactorFeature = () => {
 
 	const handleActivation = async (status: boolean) => {
 		if (status)
-			session.set("2FA_status", true);
+			return session.set("2FA_status", true);
 		setError("Code invalide")
+		setTimeout(() => setError(null), 2000);
+	}
+
+	const handleDesactivation = async () => {
+		let res = await fetch("http://c2r2p3.42nice.fr:3030/auth/twofactor", {
+			method: "DELETE",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ secret: session.get("2FA_secret") })
+		});
+		let data = await res.json();
+		if (data.status)
+			return session.set("2FA_status", false);
+		setError("Erreur inattendue");
 		setTimeout(() => setError(null), 2000);
 	}
 
@@ -32,7 +45,7 @@ const TwoFactorFeature = () => {
 			then={handleActivation}
 			placeholder="Code secret"
 		/> : <button
-			onClick={() => session.set("2FA_status", false)}
+			onClick={handleDesactivation}
 			className={styles.settings_feature_desactivate}>
 			Desactiver
 		</button>}
