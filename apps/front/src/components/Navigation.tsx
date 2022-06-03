@@ -89,6 +89,7 @@ const NavLogout = (props: any) => {
 	}
 
 	return <button onClick={handleLogout} className={styles.navigation_link}>
+		<span>{props.alt}</span>
 		<img
 			src="/svgs/nav_logout_icon.svg"
 			className={styles.nav_bar_icons}
