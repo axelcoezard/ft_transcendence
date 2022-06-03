@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Buffer } from "buffer";
 
-const useLocalStorage = <__TYPE> (key: string, defaultValue: __TYPE) => {
+const useLocalStorage = <__TYPE> (key: string, defaultValue: __TYPE): [any, any] => {
 	const hook = useState<__TYPE>(() => {
 		let base64: string = localStorage.getItem(key) || "";
 		let ascii: string;

@@ -83,7 +83,7 @@ export default class AuthController {
 		return new StreamableFile(buffer);
 	}
 
-	@Get("/twofactor/:secret/:code")
+	/*@Get("/twofactor/:secret/:code")
 	async verifyCode(
 		@Param("secret") secret: string,
 		@Param("code", ParseIntPipe) code: number
@@ -91,5 +91,18 @@ export default class AuthController {
 		return JSON.stringify({
 			status: validateCode(code, secret)
 		});
+	}*/
+
+	@Post("/twofactor")
+	async enable2FA(
+		@Body() body: any,
+	): Promise<string> {
+		if (!body.secret || !body.code || !validateCode(parseInt(body.code), body.secret))
+			return JSON.stringify({ status: false });
+		let res = await this.service.users.userRepository.query(
+			`UPDATE "user" SET "2FA_status" = $1 WHERE "2FA_secret" = $2;`,
+			[true, body.secret]
+		)
+		return JSON.stringify({ status: true });
 	}
 }

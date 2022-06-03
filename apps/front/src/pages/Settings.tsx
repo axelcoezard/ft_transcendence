@@ -18,9 +18,9 @@ const TwoFactorFeature = () => {
 	const session = useSession("session");
 	const [error, setError] = useState<string | null>();
 
-	const handleActivation = (status: boolean) => {
+	const handleActivation = async (status: boolean) => {
 		if (status)
-			return session.set("2FA_status", true);
+			session.set("2FA_status", true);
 		setError("Code invalide")
 		setTimeout(() => setError(null), 2000);
 	}

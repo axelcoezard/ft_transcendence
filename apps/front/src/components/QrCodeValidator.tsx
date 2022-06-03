@@ -20,9 +20,14 @@ const QrCodeValidator = ({then, placeholder}: {
 
 	const handleSubmit = async (e: any) => {
 		e.preventDefault();
-		let req = "http://c2r2p3.42nice.fr:3030/auth/twofactor/";
-		req +=`${session.get("2FA_secret")}/${code}`;
-		let res = await fetch(req);
+		let res = await fetch("http://c2r2p3.42nice.fr:3030/auth/twofactor", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				secret: session.get("2FA_secret"),
+				code: code
+			})
+		});
 		let data = await res.json();
 		then(data.status);
 	}
