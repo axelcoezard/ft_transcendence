@@ -2,58 +2,47 @@
 
 @use '_colors' as *;
 
-/* ----------- PLAY ELEMENTS -----------*/
-
 .play {
-	width: 40%;
-	height: 90%;
-	border-radius: 1.7vw;
-
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
-
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: flex-start;
-	z-index: 1000;
-}
-
-/* ------------ HOME CONTENT ---------- */
-
-.play_pong {
 	background-color: rgba(33, 33, 33, 0.8);
 
-	height: 100%;
-	width: 100%;
-	border-radius: 1.7vw;
-	padding: 1.7vw;
+	height: auto;
+	width: 590px;
+	border-radius: 20px;
+	padding: 20px;
 
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: center;
-	gap: 2.6vw;
+
+	z-index: 900;
+
+	@media screen and (max-width: 768px) {
+		width: calc(100% - 40px);
+    }
 }
 
-.pong_header {
-	// background-color: bisque;
-
+.play_header {
 	width: 100%;
-	height: 10%;
-	padding: 3vw;
+	height: 150px;
 
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+
+	h1 { @include text-color(3rem); }
+	p { font-size: 1.5rem; }
+
+	@media screen and (max-width: 768px) {
+		h1 { font-size: 2.15rem; }
+		p { font-size: 1.2rem; }
+    }
 }
 
-.pong_dashboard {
-	width: 85%;
-	height: 10%;
+.play_scoreboard {
+	width: 75%;
+	padding: 20px 0;
 
 	display: flex;
 	flex-direction: row;
@@ -61,7 +50,7 @@
 	align-items: center;
 }
 
-.pong_dashboard_score {
+.play_scoreboard_score {
 	height: 100%;
 	width: 40%;
 
@@ -71,24 +60,20 @@
 	align-items: center;
 }
 
-.pong_dashboard_user {
+.play_scoreboard_left,
+.play_scoreboard_right {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 }
 
-.pong_dashboard_opponant {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
+.play_pong {
+	width: 100%;
+	aspect-ratio: 600 / 400;
 
-.pong {
-	border-radius: 1.3vw;
-	border: 0.26vw solid;
-	padding: 0.5vw;
+	border-radius: 15px;
+	border: 3px solid;
 
 	background-color: white;
 	fill-opacity: 0.5;
@@ -98,49 +83,10 @@
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
+	overflow: hidden;
 }
 
-/* ----------- TEXT ELEMENTS -----------*/
-
-.h1 {
-    font-family: Helvetica, Arial, sans-serif;
-    font-style: bold;
-    font-size: 3.33vw;
-    text-transform: uppercase;
-
-    background: linear-gradient(135deg, $color_mauve 20.83%, $color_uranian 49.94%, $color_mint 80.3%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-
-    z-index: 1;
-    max-height: 5.42vw;
-}
-
-.h2 {
-    font-family: Helvetica, Arial, sans-serif;
-    font-style: bold;
-    font-size: 1.875vw;
-    text-transform: uppercase;
-	text-align: center;
-    color: white;
-
-    z-index: 1;
-    max-height: 5.4vw;
-}
-
-.h3 {
-    color: white;
-
-    font-family: Helvetica, Arial, sans-serif;
-    font-weight: lighter;
-    font-size: 1.25vw;
-
-    z-index: 1;
-}
-
-.text {
-    color: white;
-    font-family: Helvetica, Arial, sans-serif;
-    font-size: 1vw;
-    margin: 0.52vw;
+.play_canvas {
+	width: 100% !important;
+	height: 100% !important;
 }

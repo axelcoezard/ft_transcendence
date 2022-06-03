@@ -3,8 +3,8 @@ import Player from "./Player";
 import Room from "./Room";
 
 export const POINT_TO_WIN: number = 6;
-export const PONG_HEIGHT: number = 400;
 export const PONG_WIDTH: number = 600;
+export const PONG_HEIGHT: number = 400;
 export const BALL_DIAMETER = 20;
 export const BALL_SPEED = 5;
 export const PADDLE_HEIGHT = 100;
@@ -42,13 +42,11 @@ export default class GameRoom extends Room {
 
 	public onCreate() {
 		this.onMessage("paddleMove", (player: Player, data: any) => {
-			if(data.id === this.leftPlayer.id)
-				this.leftPaddle = new Vector(data.x, data.y);
-			else if(data.id === this.rightPlayer.id)
-				this.rightPaddle = new Vector(data.x, data.y);
+			let vec = new Vector(data.x * PONG_WIDTH, data.y * PONG_HEIGHT);
+			if(data.id === this.leftPlayer.id)			this.leftPaddle = vec;
+			else if(data.id === this.rightPlayer.id)	this.rightPaddle = vec;
 			this.users.forEach(p => {
-				if (p.id !== data.id)
-					p.emit("game.updatePaddle", data)
+				if (p.id !== data.id) p.emit("game.updatePaddle", data)
 			})
 		})
 	}
@@ -130,8 +128,8 @@ export default class GameRoom extends Room {
 
 		this.users.forEach(player => player.emit("game.updateBall", {
 			id: this.id,
-			x: this.ball_pos.x,
-			y: this.ball_pos.y
+			x: this.ball_pos.x / PONG_WIDTH,
+			y: this.ball_pos.y / PONG_HEIGHT,
 		}))
 
 		if (this.state == 1)

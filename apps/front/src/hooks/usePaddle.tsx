@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PONG_HEIGHT } from "../pages/Play";
+import { PONG_HEIGHT } from "./useCanvas";
 import useVector from "./useVector";
 
 export const PADDLE_HEIGHT = 100;

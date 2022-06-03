@@ -3,16 +3,13 @@ import { useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import { useAppContext } from "../contexts/AppContext";
 import useBall from "../hooks/useBall";
-import useCanvas from "../hooks/useCanvas";
+import useCanvas, { PONG_HEIGHT, PONG_WIDTH } from "../hooks/useCanvas";
 import usePaddle, { PADDLE_HEIGHT, PADDLE_WIDTH } from "../hooks/usePaddle";
 
 import styles from '../styles/Play.module.scss'
 import useSession from "../hooks/useSession";
 import Avatar from "../components/Avatar";
 import Results from "../components/Results";
-
-export const PONG_HEIGHT: number = 400;
-export const PONG_WIDTH: number = 600;
 
 const usePlayerDuo = () => {
 	const defaults: any = {id: 0, username: "", score: 0}
@@ -79,20 +76,21 @@ const Play = () => {
 		}
 	}, [socket.ready, id])
 
-
-
-	const render = (context: CanvasRenderingContext2D, _: any) => {
+	const render = (context: CanvasRenderingContext2D, scale: any) => {
+		let scaleX = scale.x / PONG_WIDTH;
+		let scaleY = scale.y / PONG_HEIGHT;
 		context.fillStyle = "#ffffff";
-		context.fillRect(left.x, left.y, PADDLE_WIDTH, PADDLE_HEIGHT)
+		context.fillRect(left.x * scaleX, left.y * scaleY, PADDLE_WIDTH, PADDLE_HEIGHT)
 		context.fillStyle = "#ffffff";
-		context.fillRect(right.x, right.y, PADDLE_WIDTH, PADDLE_HEIGHT)
+		context.fillRect(right.x * scaleX, right.y *scaleY, PADDLE_WIDTH, PADDLE_HEIGHT)
 		context.fillStyle = "#BB86FC";
 		context.beginPath()
-		context.arc(ball.x, ball.y, ball.diameter / 2, 0, 2 * Math.PI);
+		context.arc(ball.x * scale.x, ball.y * scale.y, ball.diameter / 2, 0, 2 * Math.PI);
 		context.fill();
 	}
 
-	const canvasRef = useCanvas((framecount: number) => {}, render);
+	const canvasRef = useCanvas(() => {}, render);
+
 	const handleMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
 		if (position === "spectator")
 			return;
@@ -104,46 +102,40 @@ const Play = () => {
 			id: session.get("id"),
 			username: session.get("username"),
 			position,
-			x: player.x,
-			y: player.y
+			x: player.x / PONG_WIDTH,
+			y: y / PONG_HEIGHT
 		})
 	}
 
 	return <main className={styles.play}>
-		<section className={styles.play_pong}>
-			<div className={styles.pong_header}>
-				<h1 className={styles.h1}>TRANSCENDENCE</h1>
-				<h3 className={styles.h3}>Pong to the extreme!</h3>
+		<div className={styles.play_header}>
+			<h1>TRANSCENDENCE</h1>
+			<p>Pong to the extreme!</p>
+		</div>
+		<div className={styles.play_scoreboard}>
+			<div className={styles.play_scoreboard_left}>
+				<Avatar user={player1.id} width="60px" height="60px"/>
+				<p>{player1.username}</p>
 			</div>
-			<div className={styles.pong_dashboard}>
-				<div className={styles.pong_dashboard_user}>
-					<Avatar user={player1.id} width="3.125vw" height="3.125vw"/>
-					<p className={styles.text}>{player1.username}</p>
-				</div>
-				<div className={styles.pong_dashboard_score}>
-					<p className={styles.h1}>{player1.score}</p>
-					<h2 className={styles.h2}>VS</h2>
-					<p className={styles.h1}>{player2.score}</p>
-				</div>
-				<div className={styles.pong_dashboard_opponant}>
-					<Avatar user={player2.id} width="3.125vw" height="3.125vw"/>
-					<p className={styles.text}>{player2.username}</p>
-				</div>
+			<div className={styles.play_scoreboard_score}>
+				<p>{player1.score}</p><h2>VS</h2><p>{player2.score}</p>
 			</div>
-			<div className={styles.pong}>
-				<canvas
-					ref={canvasRef}
-					width={PONG_WIDTH}
-					height={PONG_HEIGHT}
-					onMouseMove={handleMove}
-				/>
-
-				{status == "ended" ? <Results
-					victory={winner.id === session.get("id")}
-					url="/home"
-				/> : null}
+			<div className={styles.play_scoreboard_right}>
+				<Avatar user={player2.id} width="60px" height="60px"/>
+				<p>{player2.username}</p>
 			</div>
-		</section>
+		</div>
+		<div className={styles.play_pong}>
+			<canvas
+				className={styles.play_canvas}
+				ref={canvasRef}
+				onMouseMove={handleMove}
+			/>
+			{status == "ended" ? <Results
+				victory={winner.id === session.get("id")}
+				url="/home"
+			/> : null}
+		</div>
 	</main>;
 };
 
