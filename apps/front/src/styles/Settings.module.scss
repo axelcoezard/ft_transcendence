@@ -1,2 +1,192 @@
 @use '_colors' as *;
 
+$max-width: 950px;
+$settings-margin: 20px;
+$header-height: 250px;
+$icon-size: 200px;
+
+.settings {
+	display: block;
+    width: calc(100% - 140px - $settings-margin * 2);
+    height: calc(100% - $settings-margin * 2 - 70px);
+	max-width: $max-width;
+
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+    z-index: 900;
+
+	display: flex;
+	flex-direction: column;
+
+	@media screen and (max-width: 768px) {
+		transform: translate(-50%, 0);
+		top: $settings-margin;
+		width: calc(100% - 30px);
+    }
+}
+
+.settings_header {
+	flex: 0 0 $header-height;
+	height: $header-height;
+	padding-bottom: $settings-margin;
+
+	@media screen and (max-width: 768px) {
+		flex: 0 0 $header-height / 2;
+		height: $header-height / 2;
+	}
+}
+
+.settings_header_container {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: rgba(33, 33, 33, 0.8);
+	border-radius: 20px;
+
+	h1 { @include text-color(3rem); }
+	@media screen and (max-width: 768px) {
+		h1 { @include text-color(2rem); }
+	}
+}
+
+.settings_features {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+
+	width: 100%;
+
+	@media screen and (max-width: 968px) {
+		flex-direction: column;
+	}
+}
+
+.settings_feature {
+	$width: ($max-width - 20px) / 3;
+	flex: 0 0 $width;
+	position: relative;
+	aspect-ratio: 1 / 1.5;
+	background-color: rgba(33, 33, 33, 0.8);
+	border-radius: 20px;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+
+	@media screen and (max-width: 1180px) {
+		flex: 0 0 $max-width / 2;
+		aspect-ratio: 1 / 1;
+	}
+
+	@media screen and (max-width: 768px) {
+		width: 100%;
+		margin: 0 0 $settings-margin 0;
+	}
+}
+
+.settings_feature_title {
+	flex: 0 0 30%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+
+	padding: 0 $settings-margin;
+
+	h2 {
+		@include text-color(2rem);
+		margin-bottom: 10px;
+		font-size: 1.5rem;
+	}
+
+	p {
+		padding: 0 $settings-margin;
+	}
+}
+
+.settings_feature_body {
+	flex: 0 0 70%;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.settings_feature_body form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.settings_feature_body form input {
+	width: 150px;
+	height: 40px;
+	padding: 0 16px;
+	margin: 10px 0;
+
+	color: white;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+	text-align: center;
+	letter-spacing: 10px;
+	text-indent: 10px;
+	border: $color_eerie;
+	border-radius: 10px;
+	outline: none;
+	background-color: $color_jet;
+
+	&::placeholder { letter-spacing: 0; text-indent: 0; }
+}
+
+@mixin settings_button($color, $text) {
+	cursor: pointer;
+
+	background-color: $color;
+	height: 40px;
+	line-height: 40px;
+	padding: 0 36px;
+	border-radius: 30px;
+	border: none;
+	outline: none;
+	color: $text;
+	text-decoration: none;
+	font-weight: bold;
+
+	transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+
+	&:hover {
+		background-color: $text;
+		color: $color;
+	}
+
+	&:active {
+		background-color: $color_jet;
+		box-shadow: 0 5px black;
+	}
+}
+
+.settings_feature_error {
+	color: rgb(255, 183, 0);
+	font-size: 1rem;
+	margin-top: 10px;
+}
+
+.settings_feature_desactivate {
+	@include settings_button(red, #fff);
+	margin-top: 15px;
+}
+
+.settings_feature_body form button {
+	@include settings_button($color_aero, #fff);
+}

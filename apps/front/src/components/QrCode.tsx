@@ -11,6 +11,7 @@ const QrCode = (props: any) => {
 		backgroundImage: `url(${qrCode})`,
 		backgroundSize: "cover",
 		backgroundPosition: "center",
+		borderRadius: "12px"
 	}} />
 }
 
