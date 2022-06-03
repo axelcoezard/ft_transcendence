@@ -5,7 +5,8 @@ export declare type SessionType = {
 	set: (key: string, value: any) => void,
 	setAll: (entries: any) => void,
 	has: (key: string) => boolean,
-	get: (key: string) => string
+	get: (key: string) => string,
+	clear: () => void
 }
 
 const useSession = (name: string, defaults={}): SessionType => {
@@ -29,7 +30,18 @@ const useSession = (name: string, defaults={}): SessionType => {
 		return storage[key as keyof typeof storage] || "";
 	}
 
-	return {value: storage, set: setEntry, setAll: setAllEntries, has: hasEntry, get: getEntry};
+	const clear = () => {
+		setStorage({});
+	}
+
+	return {
+		value: storage,
+		set: setEntry,
+		setAll: setAllEntries,
+		has: hasEntry,
+		get: getEntry,
+		clear: clear
+	};
 }
 
 export default useSession;

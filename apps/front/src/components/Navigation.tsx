@@ -1,4 +1,5 @@
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
+import useSession from '../hooks/useSession';
 
 import styles from '../styles/components/Navigation.module.scss'
 
@@ -72,8 +73,27 @@ const NavLink = (props: any) => {
 	return <Link
 		className={styles.navigation_link}
 		to={props.href}>
+			<span>{props.alt}</span>
 			{props.children}
 	</Link>
+}
+
+const NavLogout = (props: any) => {
+	const session = useSession("session")
+	const navigate = useNavigate()
+
+	const handleLogout = (e: any) => {
+		e.preventDefault();
+		session.clear()
+		setTimeout(() => navigate("/"), 500)
+	}
+
+	return <button onClick={handleLogout} className={styles.navigation_link}>
+		<img
+			src="/svgs/nav_logout_icon.svg"
+			className={styles.nav_bar_icons}
+		/>
+	</button>
 }
 
 /* ---------- NAVIGATION BAR -----------*/
@@ -86,4 +106,4 @@ const Navigation = (props: any) => {
 	</nav>
 }
 
-export { Navigation, NavLink }
+export { Navigation, NavLink, NavLogout }

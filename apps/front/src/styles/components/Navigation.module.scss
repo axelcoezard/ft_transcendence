@@ -50,18 +50,53 @@
 	}
 }
 
-.nav_bar_icons {
+.navigation_link {
+	position: relative;
+	cursor: pointer;
 	width: 50px;
 	height: 50px;
-	fill: none;
 
-	@media screen and (max-width: 768px) {
-		width: 50px;
-		height: 50px;
-    }
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	outline: none;
+	border: none;
+	background: transparent;
+	border-radius: 10px;
+
+	span { display: none; }
 }
 
-.nav_bar_icons:hover {
-	border-radius: 10px;
-	background-color: $color_jet;
+.navigation_link:hover {
+	span {
+		position: absolute;
+		display: block;
+
+		left: 65px;
+
+		padding: 8px 32px;
+		color: #fff;
+		text-decoration: none;
+		background: rgba($color_jet, 0.7);
+		border-radius: 10px;
+
+		@media screen and (max-width: 768px) {
+			left: unset;
+			bottom: 65px;
+		}
+	}
+	background: $color_jet;
+}
+
+.nav_bar_icons { fill: none; }
+
+svg.nav_bar_icons {
+	width: 50px;
+	height: 50px;
+}
+
+img.nav_bar_icons {
+	width: 23px;
+	height: 23px;
 }

@@ -41,7 +41,7 @@ const Watch = () => {
 
 	return <main className={styles.watch}>
 		<div className={styles.watch_header}>
-			<h1>VIEW</h1>
+			<h1>WATCH</h1>
 			<p>Trouver une partie à regarder en toute discretion</p>
 		</div>
 		<ul className={styles.watch_table}>

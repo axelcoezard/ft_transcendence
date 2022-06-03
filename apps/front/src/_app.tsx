@@ -14,7 +14,7 @@ import Matching from "./pages/Matching"
 import Settings from "./pages/Settings";
 import Invite from "./pages/Invite";
 import Watch from "./pages/Watch";
-import Rank from "./pages/Rank";
+import Ranking from "./pages/Ranking";
 
 const PrivateRoute = ({children}: {children: JSX.Element}) => {
 	const session = useSession("session");
@@ -35,7 +35,7 @@ const _App = () => {
 					<Profil />
 				</PrivateRoute>} />
 				<Route path="/rank" element={<PrivateRoute>
-					<Rank />
+					<Ranking />
 				</PrivateRoute>} />
 				<Route path="/home" element={<PrivateRoute>
 					<Home />
