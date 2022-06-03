@@ -28,4 +28,18 @@ export default class UserService {
 		})
 		return await this.userRepository.save(newUser);
 	}
+
+	async getElo(id: number): Promise<User> {
+		return await this.userRepository.query(
+			`SELECT "ELO_score" FROM "user" WHERE id = $1;`,
+			[id]
+		);
+	}
+
+	async updateElo(id: number, elo: number): Promise<User> {
+		return await this.userRepository.query(
+			`UPDATE "user" SET "ELO_score" = $1 WHERE id = $2;`,
+			[elo, id]
+		);
+	}
 }

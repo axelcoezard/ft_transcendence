@@ -1,28 +1,26 @@
-import { useEffect, useRef, useState } from "react";
+import { RefObject, useEffect, useRef, useState } from "react";
 
-export declare type CanvasDrawFunction = (
-	context: CanvasRenderingContext2D,
-	scale: { x: number, y: number }
-) => void;
+export declare type CanvasDrawFunction = (context: CanvasRenderingContext2D) => void;
 
 export declare type CanvasProcessFunction = () => void;
 
 export const PONG_WIDTH: number = 600;
 export const PONG_HEIGHT: number = 400;
 
-const useCanvas = (update: CanvasProcessFunction, draw: CanvasDrawFunction) => {
-	const [scale, setScale] = useState({ x: 600, y: 400 });
+const useCanvas = (update: CanvasProcessFunction, draw: CanvasDrawFunction)
+	: [
+		RefObject<HTMLCanvasElement>,
+		{ x: number, y: number }
+] => {
+	const [scale, setScale] = useState({ x: PONG_WIDTH, y: PONG_HEIGHT });
 	const canvasRef = useRef<HTMLCanvasElement>(null);
-
-	const calculateScaleX = () => (!canvasRef.current ? 0 : canvasRef.current.clientWidth);
-	const calculateScaleY = () => (!canvasRef.current ? 0 : canvasRef.current.clientHeight);
 
 	const resized = () => {
 		const canvas = canvasRef.current;
 		if (!canvas) return;
 		canvas.width = canvas.clientWidth;
 		canvas.height = canvas.clientHeight;
-		setScale({ x: calculateScaleX(), y: calculateScaleY() });
+		setScale({ x: canvas.clientWidth, y: canvas.clientHeight });
 	};
 
 	useEffect(() => {
@@ -47,7 +45,7 @@ const useCanvas = (update: CanvasProcessFunction, draw: CanvasDrawFunction) => {
 				update();
 				context.fillStyle = gradient;
 				context.fillRect(0, 0, scale.x, scale.y);
-				draw(context, scale);
+				draw(context);
 			}
 			animationFrameId = window.requestAnimationFrame(render)
 		})();
@@ -63,7 +61,7 @@ const useCanvas = (update: CanvasProcessFunction, draw: CanvasDrawFunction) => {
 		return () => currentCanvas?.removeEventListener("resize", resized);
 	})
 
-	return canvasRef
+	return [canvasRef, scale]
 }
 
 export default useCanvas;

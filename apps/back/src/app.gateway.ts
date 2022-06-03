@@ -48,17 +48,6 @@ export class AppGateway
 				this.logger.log(`Added ${room.slug} to avalaible chats`)
 			})
 		});
-
-		this.service.games.getAll().then((games: any) => {
-			games.forEach((game: any) => {
-				let room = new GameRoom(game.id, game.slug);
-				room.setService(this.service);
-				room.setGateway(this);
-				room.state = game.state;
-				this.games.set(room.slug, room);
-				this.logger.log(`Added ${room.slug} to avalaible games`)
-			})
-		});
 	}
 
 	@SubscribeMessage('connect_message')

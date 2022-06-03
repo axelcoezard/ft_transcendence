@@ -51,13 +51,17 @@ const Play = () => {
 				setStatus("ended")
 				setWinner(data.winner)
 				setLoser(data.loser)
+
+				if (data.winner.id === session.get("id"))
+					session.set("ELO_score", data.winner.elo)
+				else session.set("ELO_score", data.loser.elo)
 			})
 			socket.on("game.join", ({position: p}: {position: string}) => {
 				setPosition(p)
 			})
 			socket.on("game.updateBall", (data: any) => {
-				ball.setY(data.y)
-				ball.setX(data.x)
+				ball.setY(data.y * scale.y)
+				ball.setX(data.x * scale.x)
 			})
 			socket.on("game.updateScore", (data: any) => {
 				setPlayer1(data.player1)
@@ -66,8 +70,11 @@ const Play = () => {
 			socket.on("game.updatePaddle", (data: any) => {
 				if (data.id === session.get("id"))	return;
 				if (data.position === position)		return;
-				if (data.position === "left")		left.setY(data.y)
-				if (data.position === "right")		right.setY(data.y)
+
+				const X = data.x * scale.x;
+				const Y = data.y * scale.y;
+				if (data.position === "left")	{left.setX(X); left.setY(Y);}
+				if (data.position === "right")	{right.setX(X); right.setY(Y);}
 			})
 		}
 		return () => {
@@ -76,34 +83,41 @@ const Play = () => {
 		}
 	}, [socket.ready, id])
 
-	const render = (context: CanvasRenderingContext2D, scale: any) => {
+	const render = (context: CanvasRenderingContext2D) => {
 		let scaleX = scale.x / PONG_WIDTH;
 		let scaleY = scale.y / PONG_HEIGHT;
+		let scaleMoy = (scaleX + scaleY) / 2;
 		context.fillStyle = "#ffffff";
-		context.fillRect(left.x * scaleX, left.y * scaleY, PADDLE_WIDTH, PADDLE_HEIGHT)
+		context.fillRect(left.x, left.y, PADDLE_WIDTH * scaleX, PADDLE_HEIGHT * scaleY);
 		context.fillStyle = "#ffffff";
-		context.fillRect(right.x * scaleX, right.y *scaleY, PADDLE_WIDTH, PADDLE_HEIGHT)
+		context.fillRect(right.x, right.y, PADDLE_WIDTH * scaleX, PADDLE_HEIGHT * scaleY)
 		context.fillStyle = "#BB86FC";
 		context.beginPath()
-		context.arc(ball.x * scale.x, ball.y * scale.y, ball.diameter / 2, 0, 2 * Math.PI);
+		context.arc(ball.x, ball.y, ball.diameter * scaleMoy / 2, 0, 2 * Math.PI);
 		context.fill();
 	}
 
-	const canvasRef = useCanvas(() => {}, render);
+	const [canvasRef, scale] = useCanvas(() => {}, render);
 
-	const handleMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
+	useEffect(() => {
+		left.setX(20 * scale.x / PONG_WIDTH)
+		right.setX(scale.x - (PADDLE_WIDTH + 20) * scale.x / PONG_WIDTH)
+	}, [scale.x])
+
+	const handleMove = (e: any
+	) => {
 		if (position === "spectator")
 			return;
 		const canvas = e.currentTarget || e.target;
-		const y = e.clientY - canvas.getBoundingClientRect().y - 50;
+		const y = e.clientY - canvas.getBoundingClientRect().y;
 		let player = position === "left" ? left : right;
 		player.setY(y)
 		socket.emit("paddleMove", "game", id, {
 			id: session.get("id"),
 			username: session.get("username"),
 			position,
-			x: player.x / PONG_WIDTH,
-			y: y / PONG_HEIGHT
+			x: player.x / scale.x,
+			y: player.y / scale.y
 		})
 	}
 
@@ -130,6 +144,7 @@ const Play = () => {
 				className={styles.play_canvas}
 				ref={canvasRef}
 				onMouseMove={handleMove}
+				onTouchStart={handleMove}
 			/>
 			{status == "ended" ? <Results
 				victory={winner.id === session.get("id")}

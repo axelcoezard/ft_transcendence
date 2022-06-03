@@ -82,17 +82,17 @@ export default class GameRoom extends Room {
 
 	private async update(updates: number) {
 		if ((this.ball_d.x === -1 && this.ball_pos.x <= 0)
-			||(this.ball_d.x === 1 && this.ball_pos.x >= PONG_WIDTH - BALL_DIAMETER))
+			||(this.ball_d.x === 1 && this.ball_pos.x >= PONG_WIDTH - BALL_DIAMETER / 2))
 			this.ball_d.x = -this.ball_d.x;
 
 		if ((this.ball_d.y === -1 && this.ball_pos.y <= 0)
-			|| (this.ball_d.y === 1 && this.ball_pos.y >= PONG_HEIGHT - BALL_DIAMETER))
+			|| (this.ball_d.y === 1 && this.ball_pos.y >= PONG_HEIGHT - BALL_DIAMETER / 2))
 			this.ball_d.y = -this.ball_d.y;
 
 		let collision = false;
 		if (this.ball_d.x === -1
 			&& this.ball_pos.x <= this.leftPaddle.x + PADDLE_WIDTH
-			&& this.ball_pos.y + BALL_DIAMETER > this.leftPaddle.y
+			&& this.ball_pos.y + BALL_DIAMETER >= this.leftPaddle.y
 			&& this.ball_pos.y <= this.leftPaddle.y + PADDLE_HEIGHT)
 			collision = true;
 		if (this.ball_d.x === 1
@@ -159,7 +159,7 @@ export default class GameRoom extends Room {
 		}, 1000);
 	}
 
-	private stop() {
+	private async stop() {
 		this.state = 2;
 
 		let winner = null;
@@ -169,10 +169,12 @@ export default class GameRoom extends Room {
 		else
 			winner = this.rightPlayer, loser = this.leftPlayer;
 
+		let elos = await Player.updateElo(winner, 1, loser, -1, this.service);
+		winner.elo = elos[0];
+		loser.elo = elos[1];
+
 		this.users.forEach(player => player.emit("game.stop", {
-			id: this.id,
-			winner: winner.toObject(),
-			loser: loser.toObject()
+			id: this.id, winner: winner.toObject(), loser: loser.toObject()
 		}))
 
 		this.service.games.update(
@@ -183,7 +185,8 @@ export default class GameRoom extends Room {
 			.setScores(this.leftPlayer.score, this.rightPlayer.score)
 			.setStatus(GameBuilder.GAME_ENDED)
 		)
-
+		this.service.users.updateElo(winner.id, elos[0]);
+		this.service.users.updateElo(loser.id, elos[1]);
 		console.log(`${this.id} stopped`)
 	}
 

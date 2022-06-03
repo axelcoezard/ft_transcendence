@@ -8,8 +8,8 @@ const Loading = (props: any) => {
 	return <div className={styles.loading}>
 		<div className={styles.loading_container}>
 			<LoadingSpin
-				width="0.78125vw"
-				size="7.8125vw"
+				width="8px"
+				size="100px"
 				primaryColor="#BB86FC"
 				secondaryColor="#ffffff"
 				numberOfRotationsInAnimation={2}

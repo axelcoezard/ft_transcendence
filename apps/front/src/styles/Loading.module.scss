@@ -5,12 +5,10 @@
 /* --------- LOADING ELEMENTS -------- */
 
 .loading {
-	background-color:  rgba(33, 33, 33, 0.8);
-    width: 30%;
-    height: 30%;
-	border-radius: 1.3vw;
-	z-index: 1000;
+    width: 400px;
+    height: 300px;
 	position: absolute;
+	z-index: 900;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
@@ -18,7 +16,10 @@
     display: flex;
     justify-content: space-evenly;
     flex-direction: column;
+
     text-align: center;
+	border-radius: 20px;
+	background-color:  rgba(33, 33, 33, 0.8);
 }
 
 .loading_container {
@@ -37,20 +38,12 @@
 }
 
 .loading_h2 {
-    font-family: Helvetica, Arial, sans-serif;
-    font-style: bold;
-    font-size: 1.875vw;
-    text-transform: uppercase;
-
-    color: white;
-
-    z-index: 1;
-    max-height: 5.4vw;
+	@include text-color(2rem);
 }
 
 .loading_text {
     color: white;
     font-family: Helvetica, Arial, sans-serif;
-    font-size: 1.05vw;
-    margin: 0.52vw;
+    font-size: 1rem;
+	padding: 0 30px;
 }

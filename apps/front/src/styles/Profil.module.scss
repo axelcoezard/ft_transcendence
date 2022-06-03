@@ -91,14 +91,15 @@
 }
 
 .profil_history {
-	$history-minheight: 120px;
+	$history-height: (80px + 20px) * 3;
 
-	min-height: $history-minheight;
+	height: $history-height;
 	width: 100%;
 
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	overflow-y: auto;
 
 	&:last-child { margin-bottom: 0; }
 	margin-bottom: 20px;
@@ -110,12 +111,12 @@
 }
 
 .profil_match {
-	$match-minheight: 80px;
+	$match-height: 80px;
 	$match-margin: 20px;
 
-	flex: 0 0 $match-minheight;
+	flex: 0 0 $match-height;
 	width: calc(100% - $match-margin * 2);
-	height: $match-minheight;
+	height: $match-height;
 	margin-bottom: $match-margin;
 
 	display: flex;
@@ -124,7 +125,7 @@
 	flex-direction: row;
 
 	background: rgba($color_jet, 0.7);
-	border-radius: $match-minheight / 8;
+	border-radius: $match-height / 8;
 }
 
 .profil_match_left,

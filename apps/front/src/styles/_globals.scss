@@ -18,9 +18,7 @@ body {
 	font-family: sans-serif;
 	background: #000;
 	overflow: hidden;
-	@media screen and (max-width: 768px) {
-		overflow-y: auto;
-    }
+	overflow-y: auto;
 }
 
 img, svg {
