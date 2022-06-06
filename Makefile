@@ -6,7 +6,7 @@
 #    By: acoezard <acoezard@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/11 15:19:09 by acoezard          #+#    #+#              #
-#    Updated: 2022/06/06 23:14:05 by acoezard         ###   ########.fr        #
+#    Updated: 2022/06/06 23:14:45 by acoezard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ start:
 						--remove-orphans
 
 stop:
-	@docker-compose	dowm
+	@docker-compose	down
 
 clean:
 	@rm -rf			apps/*/node_modules
