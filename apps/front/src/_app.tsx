@@ -8,7 +8,7 @@ import Wrapper from "./components/Wrapper";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Profil from "./pages/Profil";
-import Tchat from "./pages/Tchat";
+import Chat from "./pages/Chat";
 import Play from "./pages/Play";
 import Matching from "./pages/Matching"
 import Settings from "./pages/Settings";
@@ -75,14 +75,14 @@ const _App = () => {
 				<Route path="/play/:id" element={<PrivateRoute>
 					<Play />
 				</PrivateRoute>} />
-				<Route path="/tchat" element={<PrivateRoute>
-					<Tchat />
+				<Route path="/chat" element={<PrivateRoute>
+					<Chat />
+				</PrivateRoute>} />
+				<Route path="/chat/:slug" element={<PrivateRoute>
+					<Chat />
 				</PrivateRoute>} />
 				<Route path="/rank" element={<PrivateRoute>
 					<Ranking />
-				</PrivateRoute>} />
-				<Route path="/tchat/:slug" element={<PrivateRoute>
-					<Tchat />
 				</PrivateRoute>} />
 				<Route path="/profil" element={<PrivateRoute>
 					<Profil />

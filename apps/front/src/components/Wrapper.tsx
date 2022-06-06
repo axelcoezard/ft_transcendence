@@ -5,12 +5,12 @@ import { ChatNavLink, GameNavLink, Navigation, NavLink, NavLogout, ProfileNavLin
 const Wrapper = ({children}: {children: any}) => {
 	return <main className={styles.wrapper}>
 		<Navigation>
-			<NavLink href="/home" alt="Home"><GameNavLink /></NavLink>
-			<NavLink href="/tchat" alt="Tchat"><ChatNavLink /></NavLink>
-			<NavLink href="/rank" alt="Ranking"><RankNavLink /></NavLink>
+			<NavLink href="/home" alt="Jouer"><GameNavLink /></NavLink>
+			<NavLink href="/chat" alt="Chat"><ChatNavLink /></NavLink>
+			<NavLink href="/rank" alt="Classement"><RankNavLink /></NavLink>
 			<NavLink href="/profil" alt="Profil"><ProfileNavLink /></NavLink>
-			<NavLink href="/settings" alt="Settings"><SettingsNavLink /></NavLink>
-			<NavLogout href="/logout" alt="Logout"></NavLogout>
+			<NavLink href="/settings" alt="Parametres"><SettingsNavLink /></NavLink>
+			<NavLogout href="/logout" alt="Deconnexion"></NavLogout>
 		</Navigation>
 		<Scenery/>
 		{children}

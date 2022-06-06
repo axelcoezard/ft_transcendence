@@ -21,6 +21,7 @@ export default class ChatRoom extends Room {
 			this.cacheMessage(data, player)
 			this.users.forEach((p: Player) => {
 				p.socket.emit("chat.msg", this.msgs);
+				console.log("emit back")
 			});
 			this.addMessage(data, player);
 		})

@@ -30,3 +30,29 @@ $color_violet: #492D6A;
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 }
+
+
+@mixin generate-button {
+	height: 40px;
+	padding: 0 16px;
+	border-radius: 30px;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	background-color: white;
+
+	color: $color_aero;
+	text-decoration: none;
+	font-weight: bold;
+	line-height: 40px;
+
+	&:hover {
+		background-color: $color_aero;
+		color: #fff;
+	}
+
+	&:active {
+		background-color: $color_jet;
+		box-shadow: 0 5px black;
+	}
+}

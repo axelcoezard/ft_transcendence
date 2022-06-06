@@ -29,3 +29,21 @@ img, svg {
 	width: 100%;
 	height: 100%;
 }
+
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #ffffff;
+	cursor: pointer;
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #efefef;
+}
