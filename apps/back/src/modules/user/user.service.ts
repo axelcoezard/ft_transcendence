@@ -15,6 +15,10 @@ export default class UserService {
 		return await this.userRepository.find();
 	}
 
+	async getUser(id: number): Promise<User> {
+		return await this.userRepository.findOne({id});
+	}
+
 	async addUser(user: User): Promise<User> {
 		const newUser = this.userRepository.create(user);
 		await this.userRepository.save(newUser);

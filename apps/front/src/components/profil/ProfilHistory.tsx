@@ -34,12 +34,14 @@ const ProfilMatch = ({match}: {match: any}) => {
 	</div>
 }
 
-const ProfilHistory = () => {
-	const session = useSession("session");
+const ProfilHistory = (props: any) => {
+	const {user} = props;
 	const [history, setHistory] = useState([]);
 
 	useEffect(() => {
-		fetch(`http://c2r2p3.42nice.fr:3030/users/${session.get("id")}/games`)
+		if (!user.id)
+			return;
+		fetch(`http://c2r2p3.42nice.fr:3030/users/${user.id}/games`)
 		.then(res => res.json().then(data => {
 			setHistory(data);
 		})).catch(err => console.log(err))

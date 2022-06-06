@@ -9,6 +9,23 @@ export default class UserController {
 	@Inject(UserService)
 	private readonly service: UserService;
 
+	@Get('/:id')
+	async getUser(
+		@Param('id', ParseIntPipe) id: number
+	): Promise<any> {
+		let response  = await this.service.getUser(id);
+		return response ? {
+			id: response.id,
+			username: response.username,
+			email: response.email,
+			avatar_id: response.avatar_id,
+			ELO_score: response.ELO_score,
+			rank: response.rank,
+			created_at: response.created_at,
+			updated_at: response.updated_at
+		} : {};
+	}
+
 	@Get('/:id/avatar')
 	@Header('Content-Type', 'image/jpeg')
 	async updateUser(

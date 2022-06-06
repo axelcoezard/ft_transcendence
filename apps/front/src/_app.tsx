@@ -60,20 +60,8 @@ const _App = () => {
 				<Route path="/" element={<PublicRoute>
 					<Login />
 				</PublicRoute>} />
-				<Route path="/profil" element={<PrivateRoute>
-					<Profil />
-				</PrivateRoute>} />
-				<Route path="/rank" element={<PrivateRoute>
-					<Ranking />
-				</PrivateRoute>} />
 				<Route path="/home" element={<PrivateRoute>
 					<Home />
-				</PrivateRoute>} />
-				<Route path="/tchat" element={<PrivateRoute>
-					<Tchat />
-				</PrivateRoute>} />
-				<Route path="/tchat/:slug" element={<PrivateRoute>
-					<Tchat />
 				</PrivateRoute>} />
 				<Route path="/play/wait" element={<PrivateRoute>
 					<Matching />
@@ -86,6 +74,21 @@ const _App = () => {
 				</PrivateRoute>} />
 				<Route path="/play/:id" element={<PrivateRoute>
 					<Play />
+				</PrivateRoute>} />
+				<Route path="/tchat" element={<PrivateRoute>
+					<Tchat />
+				</PrivateRoute>} />
+				<Route path="/rank" element={<PrivateRoute>
+					<Ranking />
+				</PrivateRoute>} />
+				<Route path="/tchat/:slug" element={<PrivateRoute>
+					<Tchat />
+				</PrivateRoute>} />
+				<Route path="/profil" element={<PrivateRoute>
+					<Profil />
+				</PrivateRoute>} />
+				<Route path="/profil/:id" element={<PrivateRoute>
+					<Profil />
 				</PrivateRoute>} />
 				<Route path="/settings" element={<PrivateRoute>
 					<Settings />
