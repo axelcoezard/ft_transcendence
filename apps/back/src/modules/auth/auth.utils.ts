@@ -32,7 +32,7 @@ const getBase64FromBuffer = async (buffer: Buffer): Promise<string> => {
 	const resizedBuffer = await sharp(buffer).resize(
 		128, 128,
 		{fit: 'cover', withoutEnlargement: true}
-	).jpeg({ quality: 80 }).toBuffer();
+	).jpeg({ quality: 50 }).toBuffer();
 	console.log(`=> Converting to base64...`);
 	return resizedBuffer.toString('base64');
 }

@@ -49,43 +49,15 @@ const Tchat = () => {
 		setValue("")
 	}
 
-	return <main className={styles.tchat}>
-		<section className={styles.tchat_indexing}>
-			<div className={styles.indexing_header}>
-				<div className={styles.indexing_header_new}>
-					<PlusIcon width="1.5vw" height="1.5vw" />
-					<p className={styles.text}>New chat</p>
-				</div>
-				<BinIcon width="1.5vw" height="1.5vw" />
-				<DropdownMenu />
-			</div>
-			<ul className={styles.indexing_list}>
-				{ channels.map((channel: any, index: number) => <Conversations
-					key={index}
-					to={`/tchat/${channel.slug}`}
-					channel={channel.slug}
-				/>)}
-			</ul>
-		</section>
+	return <section className={styles.tchat}>
 
-		<section className={styles.tchat_conversation}>
-			<div className={styles.conversation_header}>
-				<h1 className={styles.h1}>{slug}</h1>
-			</div>
-			<ul className={styles.conversation_messages}>
-				{messages.map((message: any, index: number) => <Message
-					key={index}
-					type={message.type}
-					origin={{
-						id: message.sender_id,
-						username: message.sender_username
-					}}
-					value={message}
-				/>)}
-			</ul>
-			<form className={styles.conversation_send}>
-				<WriteIcon width="1.5vw" height="1.5vw" />
-				<input
+	</section>
+}
+
+export default Tchat;
+
+/*
+<input
 					className={styles.conversation_send_input}
 					type="text"
 					value={value}
@@ -98,9 +70,14 @@ const Tchat = () => {
 					onSubmit={handleSubmit}>
 					<SendIcon width="1.5vw" height="1.5vw" />
 				</button>
-			</form>
-		</section>
-	</main>
-}
 
-export default Tchat;
+				{messages.map((message: any, index: number) => <Message
+					key={index}
+					type={message.type}
+					origin={{
+						id: message.sender_id,
+						username: message.sender_username
+					}}
+					value={message}
+				/>)}
+*/
