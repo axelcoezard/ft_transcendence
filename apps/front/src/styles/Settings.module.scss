@@ -2,7 +2,7 @@
 
 $max-width: 950px;
 $settings-margin: 20px;
-$header-height: 250px;
+$header-height: 125px;
 $icon-size: 200px;
 
 .settings {
@@ -33,8 +33,8 @@ $icon-size: 200px;
 	padding-bottom: $settings-margin;
 
 	@media screen and (max-width: 768px) {
-		flex: 0 0 $header-height / 2;
-		height: $header-height / 2;
+		flex: 0 0 $header-height;
+		height: $header-height;
 	}
 }
 
