@@ -20,10 +20,8 @@ const Profil = () => {
 
 	useEffect(() => {
 		if (!id) return fetchSession()
-		console.log("fetchUser")
 		fetchUser()
 	}, [id])
-	useEffect(() => console.log("changed user"), [user]);
 
 	return <main className={styles.profil}>
 		<ProfilHeader user={user} />
