@@ -3,12 +3,10 @@ import useSession from "../hooks/useSession";
 import styles from "../styles/Avatar.module.scss";
 
 const Avatar = (props: any) => {
-	const {user, width, height} = props;
-	const avatar = `http://c2r2p3.42nice.fr:3030/users/${user}/avatar`;
-
-	return <Link to={`/profil/${user}`}>
-		<div style={{
-		backgroundImage: `url(${avatar})`,
+	const {user, width, height, disabled} = props;
+	const url = `http://c2r2p3.42nice.fr:3030/users/${user}/avatar`;
+	const avatar = <div style={{
+		backgroundImage: `url(${url})`,
 		backgroundSize: "cover",
 		backgroundPosition: "center",
 		backgroundRepeat: "no-repeat",
@@ -17,7 +15,9 @@ const Avatar = (props: any) => {
 		width: width,
 		height: height,
 	}} />
-	</Link>
+
+	if (disabled)	return avatar;
+	else return		<Link to={`/profil/${user}`}>{avatar}</Link>
 }
 
 export default Avatar;

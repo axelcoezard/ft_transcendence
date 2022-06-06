@@ -10,7 +10,7 @@ const Conversations = (props: any) => {
 
 	return <Link className={styles.conversations} to={to}>
 		<div className={styles.conversations_sub_infography}>
-			<Avatar width="3vw" height="3vw"/>
+			<Avatar width="3vw" height="3vw" disabled={true}/>
 			<div className={styles.conversations_infography}>
 				<p className={styles.conversations_header}>{channel}</p> {/* BACK: Actual name */}
 			</div>

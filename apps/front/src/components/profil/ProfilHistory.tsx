@@ -38,14 +38,17 @@ const ProfilHistory = (props: any) => {
 	const {user} = props;
 	const [history, setHistory] = useState([]);
 
+	const fechHistory = async () => {
+		if (!user.id) return;
+		let res = await fetch(`http://c2r2p3.42nice.fr:3030/users/${user.id}/games`)
+		let data = await res.json();
+
+		setHistory(data);
+	}
+
 	useEffect(() => {
-		if (!user.id)
-			return;
-		fetch(`http://c2r2p3.42nice.fr:3030/users/${user.id}/games`)
-		.then(res => res.json().then(data => {
-			setHistory(data);
-		})).catch(err => console.log(err))
-	}, [])
+		fechHistory();
+	}, [user])
 
 	return <div className={styles.profil_history}>
 		{history.length > 0 ? history.map((match: any, index: number) => {
