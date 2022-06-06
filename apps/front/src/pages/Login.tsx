@@ -1,15 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams, useNavigate } from "react-router-dom"
-import Buttons from '../components/Buttons'
-import { LoginBackScenery, LoginFrontScenery } from '../components/assets/Scenery'
-import WelcomeToPong from '../components/assets/SVGs/WelcomeToPong'
-
+import DefaultScenery from '../components/assets/Scenery'
 import styles from '../styles/Login.module.scss'
 import Loading from '../components/Loading'
 import useSession from '../hooks/useSession'
-
-
-/* ------------- LOGIN PAGE ------------*/
+import LoginButton from '../components/LoginButton'
 
 const Login = (props: any) => {
 	const session = useSession("session");
@@ -45,34 +40,17 @@ const Login = (props: any) => {
 			document.location.href = `http://${hostname}:${port}/home`;
 	}, [session])
 
-	return <main className={styles.login}>
-		<LoginBackScenery />
+	return <main>
+		<DefaultScenery />
 		{loading
-			? <Loading title="Connexion" subtitle="Veuillez patienter..."/>
-			: <>
-				<section className={styles.header}>
-					<div className={styles.header_container}>
-						<h1 className={styles.header_h1}>TRANSCENDENCE</h1>
-						<h3 className={styles.header_h3}>Pong to the extrem!</h3>
-					</div>
-				</section>
-				<section className={styles.content}>
-					<div className={styles.welcome}>
-						<h2 className={styles.welcome_h2}>Welcome</h2>
-						<div className={styles.welcome_to}>
-							<p className={styles.welcome_text}>to</p>
-							<div className={styles.welcome_pong}>
-								<h2 className={styles.welcome_h2}>P</h2>
-								<WelcomeToPong />
-								<h2 className={styles.welcome_h2}>NG</h2>
-							</div>
-						</div>
-					</div>
-					<Buttons.LoginButton />
-				</section>
-			</>
-		}
-		<LoginFrontScenery />
+		? <Loading title="Connexion" subtitle="Veuillez patienter..."/>
+		: <section className={styles.login}>
+			<div className={styles.login_container}>
+				<h1>TRANSCENDENCE</h1>
+				<p>Pong to the extreme!</p>
+				<LoginButton />
+			</div>
+		</section>}
 	</main>;
 }
 

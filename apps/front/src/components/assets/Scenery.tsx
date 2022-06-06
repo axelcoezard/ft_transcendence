@@ -17,27 +17,5 @@ const DefaultScenery = () => {
 	</div>
 }
 
-const LoginBackScenery = () =>{
-	return <div className={styles.scenery}>
-		<BackgroundWaves />
-		<Asteroides />
-		<Confetties />
-		<Planets />
-		<ShootingStars />
-  	</div>
-}
-
-const LoginFrontScenery = () => {
-	return <div className={styles.scenery}>
-			<Rockets.CloudRocket />
-			<FrameWaves />
-  	</div>
-}
-
-export {
-	LoginBackScenery,
-	LoginFrontScenery
-};
-
 export default DefaultScenery;
 

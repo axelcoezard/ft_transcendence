@@ -12,7 +12,6 @@
 	right: 0;
 	width: 100%;
 	height: 100%;
-	z-index: 0;
 	background-color: rgba($color_bg, 0.30);
 }
 
@@ -560,38 +559,6 @@
 	z-index: 1;
 	top: 1%;
 	right: 40%;
-}
-
-// FRAME WAVES
-
-.top_frame_wave {
-	aspect-ratio: 539.64 / 348.62;
-	height: 40%;
-
-	position: absolute;
-	z-index: 750;
-	top: 0;
-	right: 0;
-}
-
-.bottom_frame_wave {
-	aspect-ratio: 539.64 / 348.62;
-	height: 40%;
-
-	position: absolute;
-	z-index: 750;
-	bottom: -10px;
-	left: 0;
-	@media screen and (max-width: 768px) {
-	max-height: 27%;
-    }
-}
-
-.frame_waves {
-	width: 100%;
-	height: 100%;
-
-	position: relative;
 }
 
 // ROCKET

@@ -3,147 +3,70 @@
 @use '_colors' as *;
 
 /* ---------- LOGIN ELEMENTS -----------*/
-
 .login {
-	width: 100%;
-	height: 100%;
-
 	position: absolute;
-	top: 0%;
-	left: 0%;
+	width: 550px;
+	top: 50%; left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 40px 0;
 
-	display: flex;
-	flex-direction: row;
-	justify-content: space-evenly;
-	--webkit-flex-wrap: wrap;
-}
-
-/* --- HEADER: TITLE / CATCH-PHRASE ----*/
-
-.header {
-	width: 50%;
-	height: 100%;
-
-	position: relative;
-	top: 0%;
-	left: 0%;
-	-webkit-flex-wrap: wrap;
-	flex-wrap: wrap;
-	@media screen and (max-width: 768px) {
-		width: 100%;
-		height: 30%;
-    }
-}
-
-.header_container {
-	position: absolute;
-	top: 50%;
-	left: 50%;
+	border-radius: 20px;
+	background: $color_widget;
 
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	@media screen and (max-width: 768px) {
+		width: 450px;
+	}
+}
+
+.login_container {
 	text-align: center;
 
-	transform: translate(-50%, -50%);
+	h1 { @include text-color(3rem); }
 	@media screen and (max-width: 768px) {
-		top: 120%;
-    }
+		h1 { @include text-color(2.5rem); }
+	}
+
+	p { color: #fff; }
 }
 
-.header_h1 {
-	font-family: Helvetica, Arial, sans-serif;
-	font-style: bold;
-	font-size: 64px;
-	text-transform: uppercase;
+.login_button {
+	height: 40px;
+	padding: 0 36px;
+	margin-top: 40px;
+	border-radius: 30px;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	background-color: white;
 
-	background: linear-gradient(90deg, $color_mauve 20.83%, $color_uranian 49.94%, $color_mint 80.3%);
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
+	span {
+		display: inline-block;
+		color: $color_aero;
+		text-decoration: none;
+		font-weight: bold;
+		line-height: 40px;
+		margin-right: 5px;
+	}
 
-	z-index: 1;
-	max-height: 78px;
-	@media screen and (max-width: 768px) {
-	font-size: 40px;
-    }
-}
+	img {
+		display: inline-block;
+		height: 30px;
+		width: 30px;
+		vertical-align: middle;
+	}
 
-.header_h3 {
-	color: white;
+	&:hover {
+		background-color: $color_aero;
+		span {color: #fff;}
+	}
 
-	font-family: Helvetica, Arial, sans-serif;
-	font-weight: lighter;
-	font-size: 24px;
-
-	z-index: 1;
-}
-
-/* ----------- PAGE CONTENT ------------*/
-
-.content {
-	background: rgba(33, 33, 33, 0.8);
-
-	width: 45%;
-	height: 95%;
-	border-radius: 1.3vw;
-
-	z-index: 500;
-	top: 2.5%;
-	right: 2.5%;
-
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	@media screen and (max-width: 768px) {
-		width: 100%;
-		height: 30%;
-    }
-}
-
-/* ---------- WELCOME ELEMENT ----------*/
-
-.welcome {
-	margin: 50px;
-
-	display: flex;
-	justify-content: center;
-	flex-direction: column;
-	z-index: 1000;
-	order: 0;
-}
-
-.welcome_to {
-	position: relative;
-	right: -20%;
-	top: 0%;
-
-	display: flex;
-	justify-self: center;
-	flex-direction: row;
-}
-
-.welcome_pong {
-	width: 100%;
-	height: 100%;
-
-	display: flex;
-	justify-self: center;
-	flex-direction: row;
-	align-items: center;
-}
-
-.welcome_h2 {
-	color: white;
-
-	font-family: Helvetica, Arial, sans-serif;
-	font-size: 40px;
-	text-transform: uppercase;
-}
-
-.welcome_text {
-	color: white;
-
-	font-family: Helvetica, Arial, sans-serif;
-	font-size: 24px;
-	margin: 4px;
+	&:active {
+		background-color: $color_jet;
+		box-shadow: 0 5px black;
+	}
 }
