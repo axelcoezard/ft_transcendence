@@ -1,6 +1,7 @@
-import {Injectable } from '@nestjs/common';
+import {Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import AvatarService from '../avatar/avatar.service';
 
 import User from './user.entity';
 
@@ -10,6 +11,9 @@ export default class UserService {
 		@InjectRepository(User)
 		public userRepository: Repository<User>,
 	) {}
+
+	@Inject(AvatarService)
+	public readonly avatars: AvatarService;
 
 	async getUsers(): Promise<User[]> {
 		return await this.userRepository.find();
@@ -58,6 +62,13 @@ export default class UserService {
 		return await this.userRepository.query(
 			`UPDATE "user" SET "ELO_score" = $1 WHERE id = $2;`,
 			[elo, id]
+		);
+	}
+
+	async updateAvatar(id: number, avatar_id: string): Promise<User> {
+		return await this.userRepository.query(
+			`UPDATE "user" SET "avatar_id" = $1 WHERE id = $2;`,
+			[avatar_id, id]
 		);
 	}
 }

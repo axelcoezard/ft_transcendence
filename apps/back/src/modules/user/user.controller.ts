@@ -1,5 +1,9 @@
-import { Get, Inject, Controller, Param, ParseIntPipe, Res, StreamableFile, Header, Post, Body, Patch } from '@nestjs/common';
+import { Get, Inject, Controller, Param, ParseIntPipe, Res, StreamableFile, Header, Post, Body, Patch, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { getManager } from 'typeorm';
+import { getBase64FromBuffer } from '../auth/auth.utils';
+import Avatar from '../avatar/avatar.entity';
+import AvatarService from '../avatar/avatar.service';
 
 import UserService from './user.service';
 
@@ -51,6 +55,25 @@ export default class UserController {
 		return new StreamableFile(file);
 	}
 
+	@Post('/:id/avatar')
+	@UseInterceptors(FileInterceptor('file'))
+	async updateAvatar(
+		@Param('id', ParseIntPipe) id: number,
+		@UploadedFile() file: any
+	): Promise<any> {
+		if (!file)
+			return { error: "No file was uploaded" };
+		let res;
+		let avatar = new Avatar()
+		avatar.image = await getBase64FromBuffer(file.buffer);
+		res = await this.service.avatars.addAvatar(avatar);
+		if (!res)
+			return { error: "Error while uploading the file" };
+		res = await this.service.updateAvatar(id, res.id);
+		return res;
+	}
+
+
 	@Get('/:id/games')
 	async showUserGames(
 		@Param('id', ParseIntPipe) id: number
@@ -77,8 +100,7 @@ export default class UserController {
 		@Param('id', ParseIntPipe) id: number,
 		@Body() body: any
 	): Promise<any> {
-		let res = await this.service.updateUsername(id, body.username)
-		return res ;
+		return await this.service.updateUsername(id, body.username)
 	}
 }
 

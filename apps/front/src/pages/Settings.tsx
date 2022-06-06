@@ -5,6 +5,7 @@ import useSession from '../hooks/useSession';
 import { useState } from 'react';
 import TwoFactorFeature from '../components/settings/TwoFactorFeature';
 import UsernameFeature from '../components/settings/UsernameFeature';
+import AvatarFeature from '../components/settings/AvatarFeature';
 
 const SettingsFeature = (title: string, subtitle: string, children: JSX.Element) => {
 	return <li className={styles.settings_feature}>
@@ -28,6 +29,7 @@ const Settings = () => {
 		<ul className={styles.settings_features}>
 			<TwoFactorFeature />
 			<UsernameFeature />
+			<AvatarFeature />
 		</ul>
 	</main>
 }

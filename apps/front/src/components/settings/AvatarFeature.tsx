@@ -4,39 +4,46 @@ import QrCodeValidator from "../QrCodeValidator";
 import useSession from '../../hooks/useSession';
 import { useState } from 'react';
 import { SettingsFeature } from '../../pages/Settings';
+import Avatar from '../Avatar';
 
-const UsernameFeature = () => {
+const AvatarFeature = () => {
 	const session = useSession("session");
 	const [status, setStatus] = useState<string | null>();
-	const [username, setUsername] = useState<string | null>();
+	const [avatar, setAvatar] = useState<File>();
+
+	const handleChange = async (e: any) => setAvatar(e.target.files[0])
 
 	const handleSubmit = async (e: any) => {
 		e.preventDefault()
 
+		if (!avatar)
+			return setStatus("No file selected")
+
+		const formData = new FormData();
+		formData.append("file", avatar, avatar.name);
 		let res = await fetch(
-			`http://c2r2p3.42nice.fr:3030/users/${session.get("id")}/username`,
+			`http://c2r2p3.42nice.fr:3030/users/${session.get("id")}/avatar`,
 			{
 				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ username })
+				body: formData
 			}
 		).then(res => res.json())
 
 		if (res.error)
 			return setStatus(res.error)
-		setStatus(`Votre pseudo est maintenant: ${username}`)
-		session.set("username", username)
-		setUsername(null)
+		setStatus("Avatar change")
+		session.set("avatar_id", res.id)
 	}
 
-	return SettingsFeature("Changer mon pseudo", "et pourquoi pas?", <form>
+	return SettingsFeature("Changer mon avatar", "ohlala cherie", <form>
+		<Avatar user={session.get("id")} width="120px" height="120px" />
 		<p className={styles.settings_feature_error}>{status}</p>
 		<input
-			type="text"
-			placeholder="Elon musk"
-			value={username || ""}
-			className={styles.settings_feature_input}
-			onChange={(e) => setUsername(e.target.value || e.currentTarget.value)}
+			type="file"
+			accept="image/*"
+			multiple={false}
+			className={styles.settings_feature_input_file}
+			onChange={handleChange}
 		/>
 		 <button
 			onClick={handleSubmit}
@@ -46,4 +53,4 @@ const UsernameFeature = () => {
 	</form>)
 }
 
-export default UsernameFeature;
+export default AvatarFeature;
