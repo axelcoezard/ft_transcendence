@@ -29,7 +29,7 @@ const TwoFactorFeature = () => {
 		setTimeout(() => setError(null), 2000);
 	}
 
-	return SettingsFeature("2Factor Auth", "Toujours + de securite", <>
+	return SettingsFeature("Activer 2FA", "Toujours + de securite", <>
 		<QrCode size="150px" />
 		{error && <strong className={styles.settings_feature_error}>{error}</strong>}
 		{!session.get("2FA_status") ? <QrCodeValidator
