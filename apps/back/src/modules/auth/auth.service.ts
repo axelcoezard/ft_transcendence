@@ -18,10 +18,17 @@ export default class AuthService
 	getSecret(): string { return process.env.API_SECRET; }
 	getRedirectURI(): string { return process.env.API_REDIRECT_URI; }
 
-	async getUser(username: string): Promise<User>
+	async getUserBy42Username(username: string): Promise<User>
 	{
 		return await this.users.userRepository.findOne({
-			where: {username}
+			where: {"42_username": username}
+		})
+	}
+
+	async getUserByUsername(username: string): Promise<User>
+	{
+		return await this.users.userRepository.findOne({
+			where: {"username": username}
 		})
 	}
 

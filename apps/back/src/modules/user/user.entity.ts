@@ -7,12 +7,20 @@ export default class User {
     id: number;
 
     @Column({
-		type: 'varchar'
+		type: 'varchar',
+		unique: true,
 	})
     username: string;
 
 	@Column({
-		type: 'varchar'
+		type: 'varchar',
+		unique: true,
+	})
+	"42_username": string;
+
+	@Column({
+		type: 'varchar',
+		unique: true,
 	})
 	email: string;
 

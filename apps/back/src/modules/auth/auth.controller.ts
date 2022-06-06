@@ -32,7 +32,7 @@ export default class AuthController {
 			code, body.redirect_uri
 		);
 		let infos = await getUserInformations(api.access_token);
-		let user = await this.service.getUser(infos.login);
+		let user = await this.service.getUserBy42Username(infos.login);
 		if (!user)
 		{
 			let avatar = new Avatar();
@@ -41,6 +41,7 @@ export default class AuthController {
 
 			let req: User = new User();
 			req.username = infos.login;
+			req["42_username"] = infos.login;
 			req.email = infos.email;
 			req.avatar_id = avatar.id;
 			req["2FA_secret"] = generateSecret(api.access_token);
@@ -50,6 +51,7 @@ export default class AuthController {
 		return JSON.stringify({
 			id: user.id,
 			username: user.username,
+			"42_username": user["42_username"],
 			ELO_score: user.ELO_score,
 			"2FA_secret": user["2FA_secret"],
 			"2FA_status": user["2FA_status"],

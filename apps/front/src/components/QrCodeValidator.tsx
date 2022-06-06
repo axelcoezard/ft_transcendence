@@ -1,5 +1,6 @@
 import { useState } from "react";
 import useSession from "../hooks/useSession";
+import styles from "../styles/Settings.module.scss";
 
 const QrCodeValidator = ({then, placeholder}: {
 	then: (status: boolean) => void,
@@ -34,6 +35,7 @@ const QrCodeValidator = ({then, placeholder}: {
 
 	return <form onSubmit={handleSubmit}>
 		<input
+			className={styles.settings_feature_input_code}
 			type="text"
 			value={code || ""}
 			placeholder={placeholder}

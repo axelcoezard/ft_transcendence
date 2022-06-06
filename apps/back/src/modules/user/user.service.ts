@@ -33,6 +33,20 @@ export default class UserService {
 		return await this.userRepository.save(newUser);
 	}
 
+	async updateUsername(id: number, username: string): Promise<any> {
+		if (!username)
+			return {error: "Veuillez entrer un pseudo"}
+		if (username.length < 5)
+			return {error: "Le pseudo doit contenir au moins 5 caractères"}
+		if (!/^[a-zA-Z]+$/.test(username))
+			return {error: "Le pseudo ne peut contenir que des lettres"}
+
+		return await this.userRepository.query(
+			`UPDATE "user" SET "username" = $1 WHERE id = $2;`,
+			[username, id]
+		);
+	}
+
 	async getElo(id: number): Promise<User> {
 		return await this.userRepository.query(
 			`SELECT "ELO_score" FROM "user" WHERE id = $1;`,

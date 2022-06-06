@@ -129,24 +129,33 @@ $icon-size: 200px;
 	align-items: center;
 }
 
-.settings_feature_body form input {
+@mixin settings_input($letter-spacing: auto, $text-indent: 0) {
 	width: 150px;
 	height: 40px;
 	padding: 0 16px;
 	margin: 10px 0;
 
+	letter-spacing: $letter-spacing;
+	text-indent: $text-indent;
 	color: white;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 1rem;
 	text-align: center;
-	letter-spacing: 10px;
-	text-indent: 10px;
+
 	border: $color_eerie;
 	border-radius: 10px;
 	outline: none;
 	background-color: $color_jet;
 
 	&::placeholder { letter-spacing: 0; text-indent: 0; }
+}
+
+.settings_feature_input {
+	@include settings_input;
+}
+
+.settings_feature_input_code {
+	@include settings_input(10px, 10px);
 }
 
 @mixin settings_button($color, $text) {
@@ -180,13 +189,15 @@ $icon-size: 200px;
 	color: rgb(255, 183, 0);
 	font-size: 1rem;
 	margin-top: 10px;
+	padding: 0 20px;
+	text-align: center;
 }
 
 .settings_feature_desactivate {
 	@include settings_button(red, #fff);
 	margin-top: 15px;
 }
-
+.settings_feature_activate,
 .settings_feature_body form button {
 	@include settings_button($color_aero, #fff);
 }

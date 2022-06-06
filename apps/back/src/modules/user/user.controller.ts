@@ -1,4 +1,4 @@
-import { Get, Inject, Controller, Param, ParseIntPipe, Res, StreamableFile, Header } from '@nestjs/common';
+import { Get, Inject, Controller, Param, ParseIntPipe, Res, StreamableFile, Header, Post, Body, Patch } from '@nestjs/common';
 import { getManager } from 'typeorm';
 
 import UserService from './user.service';
@@ -10,13 +10,14 @@ export default class UserController {
 	private readonly service: UserService;
 
 	@Get('/:id')
-	async getUser(
+	async showUser(
 		@Param('id', ParseIntPipe) id: number
 	): Promise<any> {
 		let response  = await this.service.getUser(id);
 		return response ? {
 			id: response.id,
 			username: response.username,
+			"42_username": response["42_username"],
 			email: response.email,
 			avatar_id: response.avatar_id,
 			ELO_score: response.ELO_score,
@@ -28,7 +29,7 @@ export default class UserController {
 
 	@Get('/:id/avatar')
 	@Header('Content-Type', 'image/jpeg')
-	async updateUser(
+	async showAvatar(
 		@Param('id', ParseIntPipe) id: number,
 		@Res() res: any
 	): Promise<StreamableFile> {
@@ -51,7 +52,7 @@ export default class UserController {
 	}
 
 	@Get('/:id/games')
-	async getUserGames(
+	async showUserGames(
 		@Param('id', ParseIntPipe) id: number
 	): Promise<any> {
 		const response = await getManager().query(
@@ -69,6 +70,15 @@ export default class UserController {
 			[id, "ended"]
 		);
 		return response;
+	}
+
+	@Post('/:id/username')
+	async updateUsername(
+		@Param('id', ParseIntPipe) id: number,
+		@Body() body: any
+	): Promise<any> {
+		let res = await this.service.updateUsername(id, body.username)
+		return res ;
 	}
 }
 
