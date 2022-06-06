@@ -44,7 +44,7 @@ $icon-size: 200px;
 	justify-content: center;
 	align-items: center;
 
-	background-color: rgba(33, 33, 33, 0.8);
+	background-color: $color_widget;
 	border-radius: 20px;
 
 	h1 { @include text-color(3rem); }
@@ -82,7 +82,7 @@ $icon-size: 200px;
 	position: relative;
 	width: calc(calc(100% - $home-margin * 2) / 3);
 	height: 100%;
-	background-color: rgba(33, 33, 33, 0.8);
+	background-color: $color_widget;
 	border-radius: 20px;
 
 	display: flex;

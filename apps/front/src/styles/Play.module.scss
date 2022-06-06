@@ -3,7 +3,7 @@
 @use '_colors' as *;
 
 .play {
-	background-color: rgba(33, 33, 33, 0.8);
+	background-color: $color_widget;
 
 	height: auto;
 	width: 590px;

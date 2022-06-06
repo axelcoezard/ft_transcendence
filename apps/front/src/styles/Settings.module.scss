@@ -45,7 +45,7 @@ $icon-size: 200px;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	background-color: rgba(33, 33, 33, 0.8);
+	background-color: $color_widget;
 	border-radius: 20px;
 
 	h1 { @include text-color(3rem); }
@@ -76,7 +76,7 @@ $icon-size: 200px;
 	flex-shrink: 1;
 	max-width: 33%;
 	position: relative;
-	background-color: rgba(33, 33, 33, 0.8);
+	background-color:  $color_widget;
 	border-radius: 20px;
 	padding: $settings-margin * 1.5 0;
 

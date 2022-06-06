@@ -9,7 +9,7 @@
 	height: auto;
 
 	border-radius: 20px;
-	background-color: rgba(33, 33, 33, 0.8);
+	background-color: $color_widget;
 
 	z-index: 1000;
 	position: absolute;
@@ -33,7 +33,7 @@
 	padding: 20px 0;
 
 	h1 {
-		font-size: 3em;
+		font-size: 3rem;
 		text-transform: uppercase;
 
 		background: linear-gradient(
@@ -50,9 +50,9 @@
 	p {
 		color: #fff;
 		font-family: Helvetica, Arial, sans-serif;
-		font-size: 1.25vw;
-		font-weight: bolder;
-		margin: 0.52vw;
+		font-size: 1rem;
+		font-weight: bold;
+		margin: 0 20px;
 	}
 }
 

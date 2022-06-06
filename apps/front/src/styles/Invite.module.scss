@@ -2,13 +2,13 @@
 
 @use '_colors' as *;
 
-/* -----------  VIEW ELEMENTS --------- */
-
 .invite {
-	background-color: rgba(33, 33, 33, 0.8);
-    width: 35%;
-    height: 30%;
-	border-radius: 1.3vw;
+	width: 480px;
+	height: auto;
+
+	border-radius: 20px;
+	padding: 20px;
+	background-color: $color_widget;
 
 	z-index: 1000;
 	position: absolute;
@@ -18,84 +18,91 @@
 
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	text-align: center;
-	justify-content: space-around;
 }
 
-/* ----------- INVITE CONTENT --------- */
+/* ----------- VIEW CONTENT -----------*/
 
-.invite_content {
-	width: 80%;
-	height: 20%;
+.invite_header {
+	flex: 0 0 100px;
+	width: 100%;
+
+	text-align: center;
+	line-height: 50px;
+
+	h1 {
+		font-size: 3rem;
+		text-transform: uppercase;
+
+		background: linear-gradient(
+			135deg,
+			$color_mauve 20.83%,
+			$color_uranian 49.94%,
+			$color_mint 80.3%
+		);
+		background-clip: text;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+
+	p {
+		color: #fff;
+		font-family: Helvetica, Arial, sans-serif;
+		font-size: 1rem;
+		font-weight: bold;
+	}
+}
+
+.invite_form {
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+
+	padding-bottom: 20px;
 }
 
 .invite_input {
-	background-color: $color_jet;
-	border-radius: 0.35vw;
-	border: $color_eerie;
-	outline: none;
-	width: 100%;
-	height: 100%;
+	display: block;
+	width: 300px;
+	height: 40px;
+	padding: 0 16px;
+	margin: 10px 0;
 
 	color: white;
     font-family: Helvetica, Arial, sans-serif;
-    font-size: 1.25vw;
-	padding: 1.5vw;
-	text-align: left;
+    font-size: 1rem;
+	text-align: center;
+
+	border: $color_eerie;
+	border-radius: 10px;
+	outline: none;
+	background-color: $color_jet;
+
+	&::placeholder { letter-spacing: 0; text-indent: 0; }
 }
 
 .invite_button {
 	cursor: pointer;
 
 	background-color: white;
-	width: 5.2vw;
-	height: 3.13vw;
-
-	margin: 0.52vw 0.52vw;
-	border-radius: 1.3vw;
+	height: 40px;
+	line-height: 40px;
+	padding: 0 36px;
+	border-radius: 30px;
 	border: none;
 	outline: none;
-}
+	color: $color_aero;
+	font-weight: bold;
 
-.invite_button:hover {
-	background-color: $color_jet;
-}
+	transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
 
-.invite_button:active {
-	background-color: $color_jet;
-	box-shadow: 0 5px black;
-	transform: translateY(4px);
+	&:hover {
+		background-color: $color_aero;
+		color: #fff;
+	}
 
-	top: 5%;
-	transform: translate(0%, -5%);
-}
-
-/* ----------- TEXT ELEMENTS ---------- */
-
-.invite_h1 {
-	font-size: 3em;
-	text-transform: uppercase;
-
-	background: linear-gradient(
-		135deg,
-		$color_mauve 20.83%,
-		$color_uranian 49.94%,
-		$color_mint 80.3%
-	);
-	background-clip: text;
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-}
-
-.invite_text {
-    color: #A9A9A9;
-    font-family: Helvetica, Arial, sans-serif;
-    font-size: 1.25vw;
-	font-weight: bolder;
-    margin: 0.52vw;
+	&:active {
+		background-color: $color_jet;
+		box-shadow: 0 5px black;
+	}
 }
