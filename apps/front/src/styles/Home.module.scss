@@ -47,7 +47,7 @@ $icon-size: 200px;
 	background-color: $color_widget;
 	border-radius: 20px;
 
-	h1 { @include text-color(3rem); }
+	h1 { @include text-color(3.5rem); }
 
 	p {
 		margin-top: 8px;
@@ -159,9 +159,8 @@ $icon-size: 200px;
 	padding: 0 $home-margin;
 
 	h2 {
-		@include text-color(2rem);
+		@include text-color(3rem);
 		margin-bottom: 10px;
-		font-size: 1.5rem;
 	}
 
 	p {
@@ -173,6 +172,8 @@ $icon-size: 200px;
 		width: 100%;
 		height: 50%;
 		padding: 0;
+
+		h2 { font-size: 1.5rem; }
 	}
 }
 

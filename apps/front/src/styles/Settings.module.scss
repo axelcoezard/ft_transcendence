@@ -110,9 +110,8 @@ $icon-size: 200px;
 	}
 
 	h2 {
-		@include text-color(2rem);
+		@include text-color(1.7rem);
 		margin-bottom: 10px;
-		font-size: 1.7rem;
 	}
 
 	p {
