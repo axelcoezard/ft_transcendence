@@ -71,18 +71,14 @@ const Chat = () => {
 			id: session.get("id"),
 			username: session.get("username")
 		})
-		socket.on("chat.channel", (res: any) => setChannels(res))
 		socket.on("chat.msg", (res: any) => addMessage(res))
 	}
 
 	useEffect(() => {
+		setupChannels();
 		if (socket.ready)
 			setupSocket();
 	}, [socket.ready, slug])
-
-	useEffect(() => {
-		console.log("received", messages)
-	}, [messages])
 
 	return <section className={styles.chat}>
 		<div className={styles.chat_header}>

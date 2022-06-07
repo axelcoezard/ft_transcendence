@@ -4,11 +4,10 @@ import {
 	Param,
 	ParseIntPipe
   } from '@nestjs/common';
+import	{ createHash } from 'crypto'
 import ChannelService from './channel.service';
 import Channel from './channel.entity';
 import { getManager } from 'typeorm';
-import UserInChannel from './user_in_channel.entity';
-import UserService from '../user/user.service';
 import ChannelBuilder from './channel.builder';
 
 @Controller('channels')
@@ -61,7 +60,10 @@ export default class ChannelController {
 		let builder = ChannelBuilder.new()
 			.setName(data.name)
 			.setCreator(data.creator_id);
-		if (data.password) builder.setPassword(data.password);
+		if (data.password)
+			builder.setPassword(createHash('sha256')
+				.update(data.password)
+				.digest('hex'));
 
 		let channel = await this.service.create(builder);
 		if (!channel || !channel.id)

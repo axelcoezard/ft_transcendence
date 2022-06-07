@@ -8,11 +8,9 @@ import Avatar from '../../components/Avatar';
 const ChatChannel = (props: any) => {
 	const { channel } = props;
 
-	return <li className={styles.chat_channel}>
-		<Link to={`/chat/${channel.slug}`}>
-			{channel.name}
-		</Link>
-	</li>
+	return <Link to={`/chat/${channel.slug}`} className={styles.chat_index_channel}>
+		{channel.name}
+	</Link>
 }
 
 export default ChatChannel

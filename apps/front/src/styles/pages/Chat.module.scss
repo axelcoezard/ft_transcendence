@@ -70,12 +70,36 @@ $form-height: 70px;
 	flex: 0 0 $index-width;
 	height: calc(100% - $header-height);
 
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+
 	@media screen and (max-width: 768px) {
 		flex: 0 0 100%;
 		height: $header-height;
+		overflow-x: auto;
 	}
 
 	background: rgba(50, 50, 50, 0.4);
+}
+
+.chat_index_channel {
+	flex: 0 0 40px;
+	height: 40px;
+	line-height: 40px;
+
+	margin: 10px 10px 0 10px;
+	padding: 0 16px;
+
+	border-radius: 20px;
+	color: #ffffff;
+	text-decoration: none;
+
+	background: rgba(50, 50, 50, 0.7);
+	&:hover {
+		background: rgba(50, 50, 50, 1);
+	}
+
 }
 
 .chat_content {
