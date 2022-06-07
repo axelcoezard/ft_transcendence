@@ -159,6 +159,13 @@ $form-height: 70px;
 	background: rgba(50, 50, 50, 0.7);
 }
 
+.chat_form form {
+	width: 100%;
+
+	display: flex;
+	flex-direction: row;
+}
+
 .chat_form input {
 	flex: 1 0 auto;
 	height: 40px;
