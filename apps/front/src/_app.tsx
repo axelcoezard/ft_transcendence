@@ -15,6 +15,7 @@ import Settings from "./pages/Settings";
 import Invite from "./pages/Invite";
 import Watch from "./pages/Watch";
 import Ranking from "./pages/Ranking";
+import Authentification from "./pages/Authentification";
 import { useEffect } from "react";
 
 const PublicRoute = ({children}: {children: JSX.Element}) => {
@@ -59,6 +60,9 @@ const _App = () => {
 			<Routes>
 				<Route path="/" element={<PublicRoute>
 					<Login />
+				</PublicRoute>} />
+				<Route path="/authentification" element={<PublicRoute>
+					<Authentification />
 				</PublicRoute>} />
 				<Route path="/home" element={<PrivateRoute>
 					<Home />
