@@ -6,7 +6,7 @@ import Planets from "./Planets";
 import FrameWaves from "./Frame.waves";
 import Rockets from "./Rocket";
 import styles from '../../styles/components/Scenery.module.scss'
-import { Parallax } from 'react-parallax';
+// import { Parallax } from 'react-parallax';
 
 const DefaultScenery = () => {
 	return <div className={styles.scenery}>

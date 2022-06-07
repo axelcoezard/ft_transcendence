@@ -85,4 +85,15 @@ export default class UserService {
 		);
 		return res;
 	}
+
+	async getRanking(): Promise<any> {
+		return await this.userRepository.query(
+			`SELECT
+				"id",
+				"username",
+				"ELO_score"
+			FROM "user"
+			ORDER BY "ELO_score" DESC;`,
+		[]);
+	}
 }

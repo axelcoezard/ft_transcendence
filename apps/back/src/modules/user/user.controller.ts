@@ -13,6 +13,11 @@ export default class UserController {
 	@Inject(UserService)
 	private readonly service: UserService;
 
+	@Get('/ranking')
+	async showRanking(): Promise<any> {
+		return await this.service.getRanking();
+	}
+
 	@Get('/:id')
 	async showUser(
 		@Param('id', ParseIntPipe) id: number
@@ -79,7 +84,6 @@ export default class UserController {
 		res = await this.service.updateAvatar(id, res.id);
 		return res;
 	}
-
 
 	@Get('/:id/games')
 	async showUserGames(

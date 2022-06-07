@@ -7,7 +7,7 @@ const Wrapper = ({children}: {children: any}) => {
 		<Navigation>
 			<NavLink href="/home" alt="Jouer"><GameNavLink /></NavLink>
 			<NavLink href="/chat" alt="Chat"><ChatNavLink /></NavLink>
-			<NavLink href="/rank" alt="Classement"><RankNavLink /></NavLink>
+			<NavLink href="/ranking" alt="Classement"><RankNavLink /></NavLink>
 			<NavLink href="/profil" alt="Profil"><ProfileNavLink /></NavLink>
 			<NavLink href="/settings" alt="Parametres"><SettingsNavLink /></NavLink>
 			<NavLogout href="/logout" alt="Deconnexion"></NavLogout>

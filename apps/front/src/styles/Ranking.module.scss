@@ -1,0 +1,157 @@
+/* ----------- COLOR PALETTE -----------*/
+
+@use '_colors' as *;
+
+/* ----------- RANK ELEMENTS -----------*/
+
+.ranked {
+	width: 520px;
+	height: auto;
+
+	border-radius: 20px;
+	padding: 20px;
+	background-color: $color_widget;
+
+	z-index: 1000;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 20px;
+
+	@media screen and (max-width: 768px) {
+		width: calc(100% - 30px);
+    }
+}
+
+.ranked_header {
+	$descriptioh-height: 120px;
+
+	flex: 0 0 100%;
+	height: $descriptioh-height;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	margin-top: 20px;
+	margin-bottom: 40px;
+
+	h1 {
+		font-size: 2rem;
+		text-transform: uppercase;
+
+		background: linear-gradient(
+			135deg,
+			$color_mauve 20.83%,
+			$color_uranian 49.94%,
+			$color_mint 80.3%
+		);
+		background-clip: text;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+}
+
+/* ------------ RANK PODIUM ----------- */
+
+.ranked_podium {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: end;
+	gap: 10px;
+
+}
+
+.ranked_podium_flex {
+	width: 100%;
+	height: 210px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 10px;
+}
+
+@mixin ranked_podium_base($height: 120px) {
+	flex: 0 0 $height;
+	width: 100%;
+	height: $height;
+	border-radius: 5px 5px 0px 0px;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	font-size: 2rem;
+	color: white;
+}
+
+.ranked_podium1 {
+	@include ranked_podium_base(120px);
+	background-color: #BB86FC;
+}
+
+.ranked_podium2 {
+	@include ranked_podium_base(80px);
+	background-color: #60B5E7;
+}
+
+.ranked_podium3 {
+	@include ranked_podium_base(40px);
+	background-color: #48DAC3;
+}
+
+/* ------------- RANK LIST ------------ */
+
+.ranked_list {
+	width: 100%;
+	height: calc(4 * (70px + 10px));
+	overflow-x: hidden;
+	overflow-y: scroll;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+
+	position: relative;
+	left: 50%;
+	transform: translate(-50%, 0%);
+	overflow-y: scroll;
+	gap: 10px;
+}
+
+.ranked_list_item {
+	width: 95%;
+	border-radius: 50px;
+	padding: 10px 40px;
+
+	background-color: $color_eerie;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.ranked_list_item_info {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+/* ----------- TEXT ELEMENTS ---------- */
+
+p {
+	text-align: center;
+	font-size: 1rem;
+}

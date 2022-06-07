@@ -17,6 +17,7 @@ import Invite from "./pages/Invite";
 import Watch from "./pages/Watch";
 import Ranking from "./pages/Ranking";
 import ChatCreate from "./pages/ChatCreate";
+import Authentification from "./pages/Authentification";
 
 const PublicRoute = ({children}: {children: JSX.Element}) => {
 	const session = useSession("session");
@@ -61,6 +62,9 @@ const _App = () => {
 				<Route path="/" element={<PublicRoute>
 					<Login />
 				</PublicRoute>} />
+				<Route path="/authentification" element={<PublicRoute>
+					<Authentification />
+				</PublicRoute>} />
 				<Route path="/home" element={<PrivateRoute>
 					<Home />
 				</PrivateRoute>} />
@@ -85,7 +89,7 @@ const _App = () => {
 				<Route path="/chat/:slug" element={<PrivateRoute>
 					<Chat />
 				</PrivateRoute>} />
-				<Route path="/rank" element={<PrivateRoute>
+				<Route path="/ranking" element={<PrivateRoute>
 					<Ranking />
 				</PrivateRoute>} />
 				<Route path="/profil" element={<PrivateRoute>
