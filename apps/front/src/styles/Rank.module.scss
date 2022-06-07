@@ -3,3 +3,154 @@
 @use '_colors' as *;
 
 /* ----------- RANK ELEMENTS -----------*/
+
+.ranked {
+	width: 520px;
+	height: auto;
+
+	border-radius: 20px;
+	padding: 20px;
+	background-color: $color_widget;
+
+	z-index: 1000;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 20px;
+
+	@media screen and (max-width: 768px) {
+		width: calc(100% - 30px);
+    }
+}
+
+.ranked_header {
+	$descriptioh-height: 120px;
+
+	flex: 0 0 100%;
+	height: $descriptioh-height;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	h1 {
+		font-size: 2rem;
+		text-transform: uppercase;
+
+		background: linear-gradient(
+			135deg,
+			$color_mauve 20.83%,
+			$color_uranian 49.94%,
+			$color_mint 80.3%
+		);
+		background-clip: text;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+}
+
+/* ------------ RANK PODIUM ----------- */
+
+.ranked_podium {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: end;
+	gap: 10px;
+}
+
+.ranked_podium_flex {
+	height: 210px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 10px;
+}
+
+@mixin ranked_podium_base {
+	width: 120px;
+	border-radius: 5px 5px 0px 0px;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	
+	font-size: 2rem;
+	color: white;
+}
+
+.ranked_podium1 {
+	@include ranked_podium_base;
+	
+	height: 150px;
+	background-color: #BB86FC;	
+}
+
+.ranked_podium2 {
+	@include ranked_podium_base;
+
+	height: 120px;
+	background-color: #60B5E7;
+}
+
+.ranked_podium3 {
+	@include ranked_podium_base;
+
+	height: 90px;
+	background-color: #48DAC3;
+}
+
+/* ------------- RANK LIST ------------ */
+
+.ranked_list {
+	width: 460px;
+	height: auto;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+
+	position: relative;
+	left: 50%;
+	transform: translate(-50%, 0%);
+	overflow-y: scroll;
+	gap: 20px;
+}
+
+.ranked_list_item {
+	width: 95%;
+	height: 60px;
+	border-radius: 50px;
+	padding: 40px;
+	
+	background-color: $color_eerie;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 50px;
+}
+
+.ranked_list_item_info {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: left;
+	gap: 2px;
+}
+
+/* ----------- TEXT ELEMENTS ---------- */
+
+p {
+	text-align: center;
+	font-size: 1rem;
+}

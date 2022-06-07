@@ -81,7 +81,7 @@ const _App = () => {
 				<Route path="/chat/:slug" element={<PrivateRoute>
 					<Chat />
 				</PrivateRoute>} />
-				<Route path="/rank" element={<PrivateRoute>
+				<Route path="/ranking" element={<PrivateRoute>
 					<Ranking />
 				</PrivateRoute>} />
 				<Route path="/profil" element={<PrivateRoute>
