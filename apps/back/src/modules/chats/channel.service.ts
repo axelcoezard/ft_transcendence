@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { getManager, Repository } from 'typeorm';
 import Channel from './channel.entity';
 import ChannelBuilder from './channel.builder';
 
@@ -25,6 +25,22 @@ export default class ChannelService {
 		return await this.channelRepository.findOne({
 			where: {slug}
 		})
+	}
+
+	async addUsers(id: number, users: any[]): Promise<any> {
+		if (users.length === 0)
+			return { error: "No users provided" };
+		let req = `INSERT INTO "user_in_channel" (user_id, channel_id) VALUES`;
+		let req_i = -2;
+		let req_values = users.map((u: any) => {
+			req_i += 2;
+			return `(\$${req_i + 1}, \$${req_i + 2})`
+		});
+		req += req_values.join(', ') + ";";
+		let values = users.reduce((prev: any, user: any) => {
+			return [...prev, user.id, id];
+		}, [])
+		return await getManager().query(req, values);
 	}
 
 	async create(channel: ChannelBuilder): Promise<Channel> {

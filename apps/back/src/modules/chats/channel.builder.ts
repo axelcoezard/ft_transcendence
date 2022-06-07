@@ -20,6 +20,12 @@ export default class ChannelBuilder {
 		return this;
 	}
 
+	public setName(name: string) : ChannelBuilder
+	{
+		this.channel.name = name;
+		return this;
+	}
+
 	public setSlug(slug: string)
 	{
 		this.channel.slug = slug;

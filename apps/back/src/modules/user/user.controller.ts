@@ -31,6 +31,13 @@ export default class UserController {
 		} : {};
 	}
 
+	@Get("/search/:username")
+	async searchUser(
+		@Param('username') username: string
+	): Promise<any> {
+		return await this.service.searchUser(username);
+	}
+
 	@Get('/:id/avatar')
 	@Header('Content-Type', 'image/jpeg')
 	async showAvatar(

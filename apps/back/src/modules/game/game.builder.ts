@@ -1,5 +1,5 @@
 import Player from "src/rooms/Player";
-import Channel from "../channel/channel.entity";
+import Channel from "../chats/channel.entity";
 import Game from "./game.entity";
 
 export default class GameBuilder {

@@ -1,6 +1,6 @@
 import { Inject, Injectable } from "@nestjs/common";
 import AvatarService from "./modules/avatar/avatar.service";
-import ChannelService from "./modules/channel/channel.service";
+import ChannelService from "./modules/chats/channel.service";
 import MessageService from "./modules/message/message.service";
 import GameService from "./modules/game/game.service";
 import UserService from "./modules/user/user.service";

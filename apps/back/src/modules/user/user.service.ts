@@ -42,6 +42,8 @@ export default class UserService {
 			return {error: "Veuillez entrer un pseudo"}
 		if (username.length < 5)
 			return {error: "Le pseudo doit contenir au moins 5 caractères"}
+		if (username.length > 10)
+			return {error: "Le pseudo doit contenir au maximum 10 caractères"}
 		if (!/^[a-zA-Z]+$/.test(username))
 			return {error: "Le pseudo ne peut contenir que des lettres"}
 
@@ -70,5 +72,17 @@ export default class UserService {
 			`UPDATE "user" SET "avatar_id" = $1 WHERE id = $2;`,
 			[avatar_id, id]
 		);
+	}
+
+	async searchUser(username: string): Promise<any> {
+		let res = await this.userRepository.query(
+			`SELECT
+				"id",
+				"username"
+			FROM "user"
+			WHERE "username" LIKE $1;`,
+			[`%${username}%`]
+		);
+		return res;
 	}
 }

@@ -1,6 +1,7 @@
 import { BrowserRouter,	Routes,	Route, useNavigate } from "react-router-dom";
 import { AppProvider } from "./contexts/AppContext";
 import useSession from "./hooks/useSession";
+import { useEffect } from "react";
 
 import "./styles/_globals.scss";
 
@@ -15,7 +16,7 @@ import Settings from "./pages/Settings";
 import Invite from "./pages/Invite";
 import Watch from "./pages/Watch";
 import Ranking from "./pages/Ranking";
-import { useEffect } from "react";
+import ChatCreate from "./pages/ChatCreate";
 
 const PublicRoute = ({children}: {children: JSX.Element}) => {
 	const session = useSession("session");
@@ -77,6 +78,9 @@ const _App = () => {
 				</PrivateRoute>} />
 				<Route path="/chat" element={<PrivateRoute>
 					<Chat />
+				</PrivateRoute>} />
+				<Route path="/chat/create" element={<PrivateRoute>
+					<ChatCreate />
 				</PrivateRoute>} />
 				<Route path="/chat/:slug" element={<PrivateRoute>
 					<Chat />

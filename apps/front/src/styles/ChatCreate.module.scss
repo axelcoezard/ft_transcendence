@@ -1,0 +1,145 @@
+
+@use '_colors' as *;
+
+.chat_create {
+	width: 480px;
+	height: auto;
+
+	border-radius: 20px;
+	padding: 20px;
+	background-color: $color_widget;
+
+	z-index: 1000;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	@media screen and (max-width: 768px) {
+		width: calc(100% - 30px);
+    }
+}
+
+.chat_create_search {
+	ul li {
+		color: #fff;
+
+	}
+}
+
+.chat_create_header {
+	flex: 0 0 100px;
+	width: 100%;
+
+	text-align: center;
+
+	h1 {
+		font-size: 2.5rem;
+		text-transform: uppercase;
+		padding: 20px;
+
+		background: linear-gradient(
+			135deg,
+			$color_mauve 20.83%,
+			$color_uranian 49.94%,
+			$color_mint 80.3%
+		);
+		background-clip: text;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+
+	p {
+		color: #fff;
+		font-family: Helvetica, Arial, sans-serif;
+		font-size: 1rem;
+		font-weight: bold;
+	}
+
+	@media screen and (max-width: 768px) {
+		p { font-size: .9rem;}
+    }
+}
+
+.chat_create_form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 300px;
+
+	padding-bottom: 20px;
+}
+
+.chat_create_form label {
+	display: block;
+	width: 300px;
+	margin-bottom: 10px;
+}
+
+.chat_create_form input {
+	display: block;
+	width: 300px;
+	height: 40px;
+	padding: 0 16px;
+	margin-bottom: 20px;
+
+	color: white;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+	text-align: left;
+
+	border: $color_eerie;
+	border-radius: 10px;
+	outline: none;
+	background-color: $color_jet;
+
+	&::placeholder { letter-spacing: 0; text-indent: 0; }
+}
+
+.chat_create_button {
+	@include generate-button(32px);
+}
+
+.chat_create_search {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+ul.chat_create_search_list {
+	width: 100%;
+
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+
+	li {
+		height: 25px;
+		padding: 0 8px;
+		margin: 0 4px 4px 0;
+		border-radius: 10px;
+		line-height: 25px;
+		color: $color_eerie;
+		background: #ebebeb;
+		list-style: none;
+
+		span { padding-right: 10px;}
+		button {
+			border: none;
+			outline: none;
+			background: none;
+			cursor: pointer;
+		}
+	}
+}
+
+.chat_create_error {
+	color: rgb(255, 183, 0);
+	margin-bottom: 20px;
+}

@@ -1,7 +1,7 @@
 import { Logger, Inject } from '@nestjs/common';
 import { SubscribeMessage, WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
 import { Socket, Server } from 'socket.io';
-import ChannelBuilder from './modules/channel/channel.builder';
+import ChannelBuilder from './modules/chats/channel.builder';
 import GameBuilder from './modules/game/game.builder';
 import ChatRoom from './rooms/ChatRoom';
 import GameRoom from './rooms/GameRoom';
@@ -85,19 +85,6 @@ export class AppGateway
 		return game;
 	}
 
-	public async createChatRoom(room_id: string, player: Player): Promise<ChatRoom> {
-		let room = new ChatRoom(0, room_id);
-		room.setService(this.service);
-		room.setGateway(this);
-		room.id = (await this.service.channels.create(
-			ChannelBuilder.new()
-			.setCreator(player.id)
-			.setSlug(room.slug)
-		)).id
-		this.chats.set(room_id, room);
-		return room;
-	}
-
 	@SubscribeMessage('message')
 	public async onMessage(client: Socket, msg: any) {
 		let player = this.users.get(msg.value.username);
@@ -132,12 +119,7 @@ export class AppGateway
 		if (type === "game")
 			return this.games.get(id);
 		if (type === "chat")
-		{
-			let chat = this.chats.get(id)
-			if (!chat && id)
-				return this.createChatRoom(id, player);
-			return chat;
-		}
+			return this.chats.get(id);
 		return null;
 	}
 }

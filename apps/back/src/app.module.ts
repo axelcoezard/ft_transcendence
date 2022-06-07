@@ -6,7 +6,7 @@ import AuthModule from './modules/auth/auth.module';
 import UserModule from './modules/user/user.module';
 import MessageModule from './modules/message/message.module';
 import AppService from './app.service';
-import ChannelModule from './modules/channel/channel.module';
+import ChannelModule from './modules/chats/channel.module';
 import PongGameModule from './modules/game/game.module';
 import AvatarModule from './modules/avatar/avatar.module';
 import InvitationModule from './modules/invitation/invitation.module';

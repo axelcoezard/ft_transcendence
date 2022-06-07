@@ -1,7 +1,7 @@
 import { Component, ContextType, useEffect, useLayoutEffect, useState } from 'react'
 import styles from '../styles/Chat.module.scss'
 import AppContext, { AppContextType, useAppContext } from '../contexts/AppContext';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import useSession from '../hooks/useSession';
 import Avatar from '../components/Avatar';
 
@@ -111,7 +111,7 @@ const Chat = () => {
 	return <section className={styles.chat}>
 		<div className={styles.chat_header}>
 			<div className={styles.chat_header_left}>
-				<button>Nouvelle discussion</button>
+				<Link to="/chat/create">Nouvelle discussion</Link>
 			</div>
 			<div className={styles.chat_header_right}>
 				<button>Options</button>

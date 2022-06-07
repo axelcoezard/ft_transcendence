@@ -1,32 +1,19 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from "typeorm"
 
-@Entity("channel")
-export default class Channel extends BaseEntity {
+@Entity("user_in_channel")
+export default class UserInChannel extends BaseEntity {
 	@PrimaryGeneratedColumn()
 	id: number;
 
 	@Column({
 		type: 'int'
 	})
-	creator_id: number;
+	user_id: number;
 
 	@Column({
-		type: 'varchar',
-		unique: true
+		type: 'int'
 	})
-	slug: string;
-
-	@Column({
-		type: 'varchar',
-		nullable: true
-	})
-	password: string;
-
-	@Column({
-		type: "varchar",
-		default: "public"
-	})
-	status: string;
+	channel_id: number;
 
 	@CreateDateColumn()
 	created_at: Date;

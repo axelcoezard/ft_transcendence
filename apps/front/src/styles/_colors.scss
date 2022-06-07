@@ -32,9 +32,9 @@ $color_violet: #492D6A;
 }
 
 
-@mixin generate-button {
+@mixin generate-button($padding: 16px) {
 	height: 40px;
-	padding: 0 16px;
+	padding: 0 $padding;
 	border-radius: 30px;
 	border: none;
 	outline: none;
@@ -43,6 +43,7 @@ $color_violet: #492D6A;
 
 	color: $color_aero;
 	text-decoration: none;
+	font-size: .9rem;
 	font-weight: bold;
 	line-height: 40px;
 

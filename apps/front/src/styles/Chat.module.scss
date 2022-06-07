@@ -59,6 +59,8 @@ $form-height: 70px;
 	flex-direction: row-reverse;
 }
 
+.chat_header_left a,
+.chat_header_right a,
 .chat_header_left button,
 .chat_header_right button {
 	@include generate-button;
