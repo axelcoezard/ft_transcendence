@@ -21,7 +21,7 @@ const AppContext = createContext<any>({
 	}
 });
 
-type AppContextType = {
+export type AppContextType = {
 	socket: {
 		on: (name: string, callback: any) => { },
 		emit: (name: string, room_type: string, room_id: string | undefined, value: any) => { },

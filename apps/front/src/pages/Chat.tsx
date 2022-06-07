@@ -1,13 +1,17 @@
-import { useEffect, useState } from 'react'
+import { Component, ContextType, useEffect, useLayoutEffect, useState } from 'react'
 import styles from '../styles/Chat.module.scss'
-import { useAppContext } from '../contexts/AppContext';
+import AppContext, { AppContextType, useAppContext } from '../contexts/AppContext';
 import { useParams } from 'react-router-dom';
 import useSession from '../hooks/useSession';
 import Avatar from '../components/Avatar';
 
 const ChatMessage = (props: any) => {
 	const session = useSession("session");
-	const { sender_username, sender_id, value, updated_at} = props;
+	const {
+		username: sender_username,
+		id: sender_id,
+		value, updated_at
+	} = props;
 
 	const getTime = (created_at: string) => {
 		const date = new Date(created_at);
@@ -56,48 +60,58 @@ const ChatForm = (props: any) => {
 			username: session.get("username"),
 			channel_slug: slug,
 			type: "text",
-			value: value
+			value: value,
+			updated_at: new Date().toISOString()
 		})
 		console.log("emited")
 		setValue("")
 	}
 
-	return <> <input
+	return <form onSubmit={handleSubmit}>
+		<input
 			type="text"
 			value={value}
 			placeholder="Message"
 			onChange={(e: any) => { setValue(e.target.value)}}
 		/>
-		<button onClick={handleSubmit} onSubmit={handleSubmit}>Envoyer</button>
-	</>
+		<button onClick={handleSubmit}>Envoyer</button>
+	</form>
 }
 
 const Chat = () => {
 	const {socket} = useAppContext();
 	const session = useSession("session");
-	const [messages, setMessages] = useState<any[]>([]);
-	const [channels, setChannels] = useState<any[]>([]);
+	let [messages, setMessages] = useState<any[]>([]);
+	let [channels, setChannels] = useState<any[]>([]);
 	let {slug} = useParams();
+
+	const addMessage = (message: any) => {
+		messages.unshift(message);
+		setMessages(messages)
+	}
+
+	const setupSocket = () => {
+		socket.emit("join", "chat", slug, {
+			id: session.get("id"),
+			username: session.get("username")
+		})
+		socket.on("chat.channel", (res: any) => setChannels(res))
+		socket.on("chat.msg", (res: any) => addMessage(res))
+	}
 
 	useEffect(() => {
 		if (socket.ready)
-		{
-			socket.emit("join", "chat", slug, {
-				id: session.get("id"),
-				username: session.get("username")
-			})
-			socket.on("chat.channel", (res: any) => setChannels(res))
-			socket.on("chat.msg", (res: any) => {
-				setMessages(res)
-				console.log(res)
-			})
-		}
+			setupSocket();
 	}, [socket.ready, slug])
+
+	useEffect(() => {
+		console.log("received", messages)
+	}, [messages])
 
 	return <section className={styles.chat}>
 		<div className={styles.chat_header}>
 			<div className={styles.chat_header_left}>
-				<button>Discuter</button>
+				<button>Nouvelle discussion</button>
 			</div>
 			<div className={styles.chat_header_right}>
 				<button>Options</button>
@@ -108,15 +122,15 @@ const Chat = () => {
 			<ul className={styles.chat_messages}>
 				{messages.map((message: any, index: number) => {
 					let props = { key: index, ...message};
-					if (message.type === "chat")
+					if (message.type === "text")
 						return <ChatMessage {...props}/>
 					return <InviteMessage {...props}/>
 				})}
 			</ul>
-			<form className={styles.chat_form}>
+			<div className={styles.chat_form}>
 				<ChatInviteButton />
 				<ChatForm slug={slug}/>
-			</form>
+			</div>
 		</div>
 	</section>
 }

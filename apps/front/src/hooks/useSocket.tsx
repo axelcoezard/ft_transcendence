@@ -4,7 +4,7 @@ import { useAppContext } from "../contexts/AppContext";
 import useSession from "./useSession";
 
 const useSocket = (url: string): any => {
-	const socket: any = useRef<Socket>()
+	const [socket, setSocket] = useState<Socket>()
 	const [ready, setReady] = useState<boolean>(false);
 	const session = useSession("session");
 
@@ -15,8 +15,7 @@ const useSocket = (url: string): any => {
 			setReady(true)
 			_socket.emit("connect_message", session.value);
 		})
-
-		socket.current = _socket
+		setSocket(_socket)
 		return () => {
 			_socket.disconnect()
 			setReady(false)
@@ -25,13 +24,13 @@ const useSocket = (url: string): any => {
 	}, [url])
 
 	const on = (name: string, callback: any) => {
-		if (socket.current)
-			return socket.current.on(name, callback)
+		if (socket)
+			return socket.on(name, callback)
 	}
 
 	const emit = (name: string, room_type: string, room_id: string, data: any = {}) => {
-		if (socket.current)
-			return socket.current.emit("message", {
+		if (socket)
+			return socket.emit("message", {
 				room: room_type,
 				room_id,
 				type: name,
@@ -39,12 +38,10 @@ const useSocket = (url: string): any => {
 			})
 	}
 
-
 	return {
+		current: socket,
 		on, emit,
-		ready,
-		current: socket.current,
-		id: socket.current ? socket.current.id : null
+		ready
 	}
 }
 

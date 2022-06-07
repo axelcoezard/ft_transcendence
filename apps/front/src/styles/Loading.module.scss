@@ -20,6 +20,10 @@
     text-align: center;
 	border-radius: 20px;
 	background-color: $color_widget;
+
+	@media screen and (max-width: 768px) {
+		width: calc(100% - 30px);
+    }
 }
 
 .loading_container {

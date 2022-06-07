@@ -18,9 +18,9 @@ export default class ChatRoom extends Room {
 
 	public onCreate() {
 		this.onMessage("msg", async (player: Player, data: any) => {
-			this.cacheMessage(data, player)
+			//this.cacheMessage(data, player)
 			this.users.forEach((p: Player) => {
-				p.socket.emit("chat.msg", this.msgs);
+				p.socket.emit("chat.msg", data);
 				console.log("emit back")
 			});
 			this.addMessage(data, player);
@@ -29,7 +29,7 @@ export default class ChatRoom extends Room {
 
 	public async onJoin(player: Player) {
 		this.users.push(player);
-		player.socket.emit("chat.msg", this.msgs);
+		//player.socket.emit("chat.msg", this.msgs);
 		player.socket.emit("chat.channel", await this.service.channels.getAll())
 		console.log(`${player.username} joined ${this.slug} chat`);
 	}

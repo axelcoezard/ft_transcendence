@@ -19,8 +19,8 @@
 	align-items: center;
 
 	@media screen and (max-width: 768px) {
-		width: 450px;
-	}
+		width: calc(100% - 30px);
+    }
 }
 
 .login_container {
@@ -28,7 +28,7 @@
 
 	h1 { @include text-color(3rem); }
 	@media screen and (max-width: 768px) {
-		h1 { @include text-color(2.5rem); }
+		h1 { @include text-color(2rem); }
 	}
 
 	p { color: #fff; }
