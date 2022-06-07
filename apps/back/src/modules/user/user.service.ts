@@ -96,4 +96,14 @@ export default class UserService {
 			ORDER BY "ELO_score" DESC;`,
 		[]);
 	}
+
+	async getUserChannels(id: number): Promise<any> {
+		return await this.userRepository.query(
+			`SELECT
+				c.*
+			FROM "channel" as c
+				INNER JOIN "user_in_channel" as uic ON c.id = uic.channel_id
+			WHERE uic.user_id = $1`,
+		[id])
+	}
 }

@@ -1,4 +1,4 @@
-import styles from "../styles/Loading.module.scss"
+import styles from "../styles/components/Loading.module.scss"
 import LoadingSpin from "react-loading-spin";
 import React, { useState } from "react";
 

@@ -1,6 +1,4 @@
-import styles from '../../styles/Settings.module.scss'
-import QrCode from "../QrCode";
-import QrCodeValidator from "../QrCodeValidator";
+import styles from '../../styles/pages/Settings.module.scss'
 import useSession from '../../hooks/useSession';
 import { useState } from 'react';
 import { SettingsFeature } from '../../pages/Settings';

@@ -1,4 +1,4 @@
-import styles from "../styles/Watch.module.scss"
+import styles from "../styles/pages/Watch.module.scss"
 import { useEffect, useState } from 'react'
 import { useNavigate  } from 'react-router-dom';
 import Avatar from "../components/Avatar";

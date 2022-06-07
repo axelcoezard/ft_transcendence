@@ -1,7 +1,6 @@
-import { useEffect, useLayoutEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useLayoutEffect, useState } from "react";
 import useSession from "../../hooks/useSession";
-import styles from "../../styles/ChatCreate.module.scss";
+import styles from "../../styles/pages/ChatCreate.module.scss";
 
 const ChatSearchForm = (props: any) => {
 	const session = useSession("session");

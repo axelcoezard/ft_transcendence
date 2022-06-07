@@ -113,5 +113,12 @@ export default class UserController {
 	): Promise<any> {
 		return await this.service.updateUsername(id, body.username)
 	}
+
+	@Get('/:id/channels')
+	async showUserChannels(
+		@Param('id', ParseIntPipe) id: number
+	): Promise<any> {
+		return await this.service.getUserChannels(id);
+	}
 }
 

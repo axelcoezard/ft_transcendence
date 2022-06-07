@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ChatInfoForm from "../components/chat/ChatInfoForm";
 import ChatSearchForm from "../components/chat/ChatSearchForm";
 import ChatSecurityForm from "../components/chat/ChatSecurityForm";
 import useSession from "../hooks/useSession";
-import styles from "../styles/ChatCreate.module.scss";
+import styles from "../styles/pages/ChatCreate.module.scss";
 import Loading from "../components/Loading";
-import { setegid } from "process";
 
 const ChatCreate = () => {
 	const session = useSession("session");

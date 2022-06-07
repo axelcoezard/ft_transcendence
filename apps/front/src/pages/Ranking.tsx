@@ -1,5 +1,4 @@
-
-import styles from "../styles/Ranking.module.scss"
+import styles from "../styles/pages/Ranking.module.scss"
 import Avatar from "../components/Avatar";
 import { useEffect, useState } from 'react';
 

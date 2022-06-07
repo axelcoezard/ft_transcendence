@@ -1,4 +1,4 @@
-import styles from "../styles/Components.module.scss"
+import styles from "../styles/components/Components.module.scss"
 import Confetties from 'react-confetti'
 import { Link } from 'react-router-dom';
 

@@ -1,4 +1,4 @@
-import styles from '../../styles/Settings.module.scss'
+import styles from '../../styles/pages/Settings.module.scss'
 import QrCode from "../QrCode";
 import QrCodeValidator from "../QrCodeValidator";
 import useSession from '../../hooks/useSession';

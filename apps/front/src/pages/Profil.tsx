@@ -1,4 +1,4 @@
-import styles from '../styles/Profil.module.scss'
+import styles from '../styles/pages/Profil.module.scss'
 import ProfilHeader from '../components/profil/ProfilHeader';
 import ProfilHistory from '../components/profil/ProfilHistory';
 import { useParams } from 'react-router-dom';

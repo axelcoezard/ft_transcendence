@@ -1,6 +1,6 @@
 import { useState } from "react";
 import useSession from "../hooks/useSession";
-import styles from "../styles/Settings.module.scss";
+import styles from "../styles/pages/Settings.module.scss";
 
 const QrCodeValidator = ({then, placeholder}: {
 	then: (status: boolean) => void,

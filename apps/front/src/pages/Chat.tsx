@@ -1,41 +1,11 @@
 import { Component, ContextType, useEffect, useLayoutEffect, useState } from 'react'
-import styles from '../styles/Chat.module.scss'
+import styles from '../styles/pages/Chat.module.scss'
 import AppContext, { AppContextType, useAppContext } from '../contexts/AppContext';
 import { Link, useParams } from 'react-router-dom';
 import useSession from '../hooks/useSession';
 import Avatar from '../components/Avatar';
-
-const ChatMessage = (props: any) => {
-	const session = useSession("session");
-	const {
-		username: sender_username,
-		id: sender_id,
-		value, updated_at
-	} = props;
-
-	const getTime = (created_at: string) => {
-		const date = new Date(created_at);
-		const day = date.toLocaleDateString("fr-FR", { weekday: 'long' });
-		const hours = date.getHours();
-		const minutes = date.getMinutes().toString().padStart(2, "0");
-		return `${day} ${hours}:${minutes}`;
-	}
-
-	const isSender = sender_id === session.get("id")
-
-	return <li className={isSender ? styles.chat_message_right : styles.chat_message_left}>
-		<div className={styles.chat_message_avatar}>
-			<Avatar user={sender_id} height={40} width={40} />
-		</div>
-		<div className={styles.chat_message_body}>
-			{isSender
-				? <><small>{getTime(updated_at)}</small><b>{sender_username}</b></>
-				: <><b>{sender_username}</b><small>{getTime(updated_at)}</small></>
-			}
-			<p>{value}</p>
-		</div>
-	</li>
-}
+import ChatMessage from '../components/chat/ChatMessage';
+import ChatChannel from '../components/chat/ChatChannel';
 
 const InviteMessage = (props: any) => {
 	return <></>
@@ -90,6 +60,12 @@ const Chat = () => {
 		setMessages(messages)
 	}
 
+	const setupChannels = async () => {
+		const res = await fetch(`http://localhost:3030/users/${session.get("id")}/channels`);
+		const data = await res.json();
+		setChannels(data);
+	}
+
 	const setupSocket = () => {
 		socket.emit("join", "chat", slug, {
 			id: session.get("id"),
@@ -117,7 +93,11 @@ const Chat = () => {
 				<button>Options</button>
 			</div>
 		</div>
-		<div className={styles.chat_index}></div>
+		<ul className={styles.chat_index}>
+			{channels.map((channel: any, i: number) => {
+				return <ChatChannel key={i} channel={channel} />
+			})}
+		</ul>
 		<div className={styles.chat_content}>
 			<ul className={styles.chat_messages}>
 				{messages.map((message: any, index: number) => {

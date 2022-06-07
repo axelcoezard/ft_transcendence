@@ -1,4 +1,4 @@
-import styles from '../styles/Components.module.scss'
+import styles from '../styles/components/Components.module.scss'
 
 /* ------------ HIGH RANKED ----------- */
 

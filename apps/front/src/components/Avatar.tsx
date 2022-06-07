@@ -1,6 +1,4 @@
 import { Link } from "react-router-dom";
-import useSession from "../hooks/useSession";
-import styles from "../styles/Avatar.module.scss";
 
 const Avatar = (props: any) => {
 	const {user, width, height, disabled} = props;

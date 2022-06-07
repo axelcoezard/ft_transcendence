@@ -1,4 +1,4 @@
-import styles from '../../styles/Profil.module.scss'
+import styles from '../../styles/pages/Profil.module.scss'
 import Ranked from '../Ranked'
 import Avatar from '../Avatar';
 import { useEffect, useState } from 'react';

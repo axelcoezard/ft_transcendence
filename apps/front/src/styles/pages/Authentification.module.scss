@@ -1,6 +1,6 @@
 /* ----------- COLOR PALETTE -----------*/
 
-@use '_colors' as *;
+@use '../_colors' as *;
 
 /* ----------- RANK ELEMENTS -----------*/
 
@@ -29,7 +29,7 @@
 }
 
 .authentification_header {
-	
+
 	font-size: 2rem;
 	text-transform: uppercase;
 	text-align: center;

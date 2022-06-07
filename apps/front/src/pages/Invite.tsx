@@ -1,4 +1,4 @@
-import styles from "../styles/Invite.module.scss"
+import styles from "../styles/pages/Invite.module.scss"
 import { useState } from 'react'
 
 const Invite = () => {
