@@ -99,7 +99,6 @@ $form-height: 70px;
 	&:hover {
 		background: rgba(50, 50, 50, 1);
 	}
-
 }
 
 .chat_content {
@@ -158,6 +157,7 @@ $form-height: 70px;
 	max-width: calc(100% - 40px);
 	min-height: 40px;
 	padding: 0;
+	text-align: left;
 
 	b { padding: 0 10px 0 5px; }
 	b, small { line-height: 25px; }
@@ -169,7 +169,10 @@ $form-height: 70px;
 }
 
 .chat_message_right .chat_message_body {
-	p { border-radius: 15px 0 15px 15px 15px; }
+	p {
+		border-radius: 15px 0 15px 15px 15px;
+		text-align: right;
+	}
 }
 
 .chat_form {

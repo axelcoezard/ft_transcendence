@@ -34,6 +34,10 @@ const useSocket = (url: string): any => {
 				room: room_type,
 				room_id,
 				type: name,
+				sender: {
+					id: session.get("id"),
+					username: session.get("username")
+				},
 				value: data
 			})
 	}

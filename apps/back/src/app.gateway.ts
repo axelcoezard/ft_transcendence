@@ -87,10 +87,8 @@ export class AppGateway
 
 	@SubscribeMessage('message')
 	public async onMessage(client: Socket, msg: any) {
-		let player = this.users.get(msg.value.username);
+		let player = this.users.get(msg.sender.username);
 		let room = await this.getRoom(msg.room, msg.room_id, player);
-		if (msg.room === 'chat')
-			player.socket.emit("chat.channel", await this.service.channels.getAll())
 		if (room)
 			room.callMessage(msg.type, player, msg.value);
 	}

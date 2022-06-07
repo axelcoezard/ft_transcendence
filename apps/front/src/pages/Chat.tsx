@@ -26,14 +26,13 @@ const ChatForm = (props: any) => {
 		if (value.length < 1 || value.length > 255 || value.match(/^\s+$/))
 			return;
 		socket.emit("msg", "chat", slug, {
-			id: session.get("id"),
-			username: session.get("username"),
+			sender_id: session.get("id"),
+			sender_username: session.get("username"),
 			channel_slug: slug,
 			type: "text",
 			value: value,
 			updated_at: new Date().toISOString()
 		})
-		console.log("emited")
 		setValue("")
 	}
 
@@ -51,14 +50,9 @@ const ChatForm = (props: any) => {
 const Chat = () => {
 	const {socket} = useAppContext();
 	const session = useSession("session");
-	let [messages, setMessages] = useState<any[]>([]);
 	let [channels, setChannels] = useState<any[]>([]);
+	let [messages, setMessages] = useState<any[]>([]);
 	let {slug} = useParams();
-
-	const addMessage = (message: any) => {
-		messages.unshift(message);
-		setMessages(messages)
-	}
 
 	const setupChannels = async () => {
 		const res = await fetch(`http://localhost:3030/users/${session.get("id")}/channels`);
@@ -66,18 +60,23 @@ const Chat = () => {
 		setChannels(data);
 	}
 
+	const setupMessages = async () => {
+		if (!slug) return;
+		const res = await fetch(`http://localhost:3030/channels/${slug}`);
+		const data = await res.json();
+		setMessages(data);
+	}
+
 	const setupSocket = () => {
-		socket.emit("join", "chat", slug, {
-			id: session.get("id"),
-			username: session.get("username")
-		})
-		socket.on("chat.msg", (res: any) => addMessage(res))
+		socket.emit("join", "chat", slug, {})
+		socket.on("chat.msg", (res: any) => setupMessages())
 	}
 
 	useEffect(() => {
-		setupChannels();
 		if (socket.ready)
 			setupSocket();
+		setupChannels();
+		setupMessages();
 	}, [socket.ready, slug])
 
 	return <section className={styles.chat}>
@@ -90,13 +89,13 @@ const Chat = () => {
 			</div>
 		</div>
 		<ul className={styles.chat_index}>
-			{channels.map((channel: any, i: number) => {
+			{channels && channels.map((channel: any, i: number) => {
 				return <ChatChannel key={i} channel={channel} />
 			})}
 		</ul>
 		<div className={styles.chat_content}>
 			<ul className={styles.chat_messages}>
-				{messages.map((message: any, index: number) => {
+				{messages && messages.map((message: any, index: number) => {
 					let props = { key: index, ...message};
 					if (message.type === "text")
 						return <ChatMessage {...props}/>

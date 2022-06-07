@@ -5,8 +5,8 @@ import Avatar from '../../components/Avatar';
 const ChatMessage = (props: any) => {
 	const session = useSession("session");
 	const {
-		username: sender_username,
-		id: sender_id,
+		sender_username,
+		sender_id,
 		value, updated_at
 	} = props;
 
