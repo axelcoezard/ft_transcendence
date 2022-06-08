@@ -2,6 +2,7 @@ import styles from "../styles/pages/Watch.module.scss"
 import { useEffect, useState } from 'react'
 import { useNavigate  } from 'react-router-dom';
 import Avatar from "../components/Avatar";
+import useSession from "../hooks/useSession";
 
 const GameToWatch = (props: any) => {
 	const {value} = props;
@@ -26,11 +27,18 @@ const GameToWatch = (props: any) => {
 
 const Watch = () => {
 	const [games, setGames] = useState<any[]>([]);
+	const session = useSession("session");
 
 	const updateGames = () => {
-		fetch("http://c2r2p3.42nice.fr:3030/games/started")
-			.then(res => res.json().then(data => setGames(data)))
-			.catch(err => console.log(err))
+		fetch("http://c2r2p3.42nice.fr:3030/games/started", {
+			method: "GET",
+			headers: {
+				'Authorization': `Bearer ${session.get("request_token")}`,
+				'Content-Type': 'application/json'
+			}
+		})
+		.then(res => res.json().then(data => setGames(data)))
+		.catch(err => console.log(err))
 	}
 
 	useEffect(() => {

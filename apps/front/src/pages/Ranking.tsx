@@ -1,6 +1,7 @@
 import styles from "../styles/pages/Ranking.module.scss"
 import Avatar from "../components/Avatar";
 import { useEffect, useState } from 'react';
+import useSession from "../hooks/useSession";
 
 const RankingListItem = (props: any) => {
 	const { user } = props;
@@ -17,9 +18,16 @@ const RankingListItem = (props: any) => {
 
 const Ranking = () => {
 	const [users, setUsers] = useState<any[]>([]);
+	const session = useSession("session");
 
 	const fetchRanking = async () => {
-		let res = await fetch("http://c2r2p3.42nice.fr:3030/users/ranking")
+		let res = await fetch("http://c2r2p3.42nice.fr:3030/users/ranking", {
+			method: "GET",
+			headers: {
+				'Authorization': `Bearer ${session.get("request_token")}`,
+				'Content-Type': 'application/json'
+			}
+		})
 		if (!res) return;
 		let data = await res.json()
 		setUsers(data)

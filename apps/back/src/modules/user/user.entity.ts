@@ -43,6 +43,12 @@ export default class User {
 	status: string;
 
 	@Column({
+		type: 'varchar',
+		nullable: true
+	})
+	"42_token": string;
+
+	@Column({
 		type: 'boolean',
 		default: false
 	})

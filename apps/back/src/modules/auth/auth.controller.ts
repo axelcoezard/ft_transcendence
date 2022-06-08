@@ -1,9 +1,10 @@
-import { Controller, Get, Param, Inject, Body, Post, Header, StreamableFile, Res, ParseIntPipe, Delete } from '@nestjs/common';
+import { Controller, Get, Param, Inject, Body, Post, Header, StreamableFile, Res, ParseIntPipe, Delete, UseGuards } from '@nestjs/common';
 import User from '../user/user.entity';
 import Avatar from '../avatar/avatar.entity';
 import AuthService from './auth.service';
 import { getBase64FromURI, getUserAccessToken, getUserInformations } from './auth.utils';
 import { generateQrCode, generateSecret, validateCode } from './auth.twofactor';
+import { JwtAuthGuard } from './jwt.authguard';
 
 @Controller('auth')
 export default class AuthController {
@@ -22,6 +23,7 @@ export default class AuthController {
 		return JSON.stringify({url: url.toString()});
 	}
 
+	//@UseGuards(AuthGuard('local'))
 	@Post("/token/:code")
 	async login(
 		@Param("code") code: string,
@@ -47,7 +49,6 @@ export default class AuthController {
 			req["2FA_secret"] = generateSecret(api.access_token);
 			user = await this.service.addUser(req);
 		}
-
 		return JSON.stringify({
 			id: user.id,
 			username: user.username,
@@ -56,7 +57,8 @@ export default class AuthController {
 			"2FA_secret": user["2FA_secret"],
 			"2FA_status": user["2FA_status"],
 			access_token: api.access_token,
-			refresh_token: api.refresh_token
+			refresh_token: api.refresh_token,
+			request_token: await this.service.generateJWT(user.username, user.id)
 		});
 	}
 
@@ -85,16 +87,7 @@ export default class AuthController {
 		return new StreamableFile(buffer);
 	}
 
-	/*@Get("/twofactor/:secret/:code")
-	async verifyCode(
-		@Param("secret") secret: string,
-		@Param("code", ParseIntPipe) code: number
-	): Promise<string> {
-		return JSON.stringify({
-			status: validateCode(code, secret)
-		});
-	}*/
-
+	@UseGuards(JwtAuthGuard)
 	@Post("/twofactor")
 	async enable2FA(
 		@Body() body: any,
@@ -108,6 +101,7 @@ export default class AuthController {
 		return JSON.stringify({ status: true });
 	}
 
+	@UseGuards(JwtAuthGuard)
 	@Delete("/twofactor")
 	async disable2FA(
 		@Body() body: any,

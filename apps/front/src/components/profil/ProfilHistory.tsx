@@ -37,10 +37,16 @@ const ProfilMatch = ({match}: {match: any}) => {
 const ProfilHistory = (props: any) => {
 	const {user} = props;
 	const [history, setHistory] = useState([]);
+	const session = useSession("session");
 
 	const fechHistory = async () => {
 		if (!user.id) return;
-		let res = await fetch(`http://c2r2p3.42nice.fr:3030/users/${user.id}/games`)
+		let res = await fetch(`http://c2r2p3.42nice.fr:3030/users/${user.id}/games`, {
+			method: "GET",
+			headers: {
+				'Authorization': `Bearer ${session.get("request_token")}`
+			},
+		})
 		let data = await res.json();
 
 		setHistory(data);

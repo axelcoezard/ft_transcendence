@@ -1,4 +1,4 @@
-import {  Body, Get, Inject, Post } from '@nestjs/common';
+import {  Body, Get, Inject, Post, UseGuards } from '@nestjs/common';
 import {
 	Controller,
 	Param,
@@ -9,17 +9,14 @@ import ChannelService from './channel.service';
 import Channel from './channel.entity';
 import { getManager } from 'typeorm';
 import ChannelBuilder from './channel.builder';
+import { JwtAuthGuard } from '../auth/jwt.authguard';
 
 @Controller('channels')
 export default class ChannelController {
 	@Inject(ChannelService)
 	private readonly service: ChannelService;
 
-	@Get("/")
-	async getAllChannels(): Promise<Channel[]> {
-		return await this.service.getAll();
-	}
-
+	@UseGuards(JwtAuthGuard)
 	@Get("/:slug")
 	async getAllFromChannel(
 		@Param('slug') slug: string
@@ -44,6 +41,7 @@ export default class ChannelController {
 		)
 	}
 
+	@UseGuards(JwtAuthGuard)
 	@Post("/create")
 	async createChannel(
 		@Body() data: any
@@ -75,6 +73,7 @@ export default class ChannelController {
 		return channel;
 	}
 
+	@UseGuards(JwtAuthGuard)
 	@Get("/:id/users")
 	async getAllUsersFromChannel(
 		@Param('id', ParseIntPipe) id: number
@@ -91,6 +90,7 @@ export default class ChannelController {
 		);
 	};
 
+	@UseGuards(JwtAuthGuard)
 	@Post("/:id/users")
 	async addUsersToChannel(
 		@Param('id', ParseIntPipe) id: number,

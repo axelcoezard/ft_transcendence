@@ -15,7 +15,10 @@ const UsernameFeature = () => {
 			`http://c2r2p3.42nice.fr:3030/users/${session.get("id")}/username`,
 			{
 				method: "POST",
-				headers: { "Content-Type": "application/json" },
+				headers: {
+					'Authorization': `Bearer ${session.get("request_token")}`,
+					"Content-Type": "application/json"
+				},
 				body: JSON.stringify({ username })
 			}
 		).then(res => res.json())

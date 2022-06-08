@@ -23,6 +23,9 @@ const AvatarFeature = () => {
 			`http://c2r2p3.42nice.fr:3030/users/${session.get("id")}/avatar`,
 			{
 				method: "POST",
+				headers: {
+					'Authorization': `Bearer ${session.get("request_token")}`
+				},
 				body: formData
 			}
 		).then(res => res.json())

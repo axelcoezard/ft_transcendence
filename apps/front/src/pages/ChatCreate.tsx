@@ -22,7 +22,8 @@ const ChatCreate = () => {
 		let res = await fetch("http://c2r2p3.42nice.fr:3030/channels/create", {
 			method: "POST",
 			headers: {
-				"Content-Type": "application/json"
+				'Authorization': `Bearer ${session.get("request_token")}`,
+				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({ name, users, password, creator_id: session.get("id")})
 		})

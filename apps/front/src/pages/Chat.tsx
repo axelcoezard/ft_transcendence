@@ -33,6 +33,7 @@ const ChatForm = (props: any) => {
 			value: value,
 			updated_at: new Date().toISOString()
 		})
+		console.log("send message")
 		setValue("")
 	}
 
@@ -55,29 +56,38 @@ const Chat = () => {
 	let {slug} = useParams();
 
 	const setupChannels = async () => {
-		const res = await fetch(`http://localhost:3030/users/${session.get("id")}/channels`);
+		const res = await fetch(`http://c2r2p3.42nice.fr:3030/users/${session.get("id")}/channels`, {
+			method: "GET",
+			headers: {
+				'Authorization': `Bearer ${session.get("request_token")}`,
+				"Content-Type": "application/json"
+			},
+		});
 		const data = await res.json();
 		setChannels(data);
 	}
 
 	const setupMessages = async () => {
 		if (!slug) return;
-		const res = await fetch(`http://localhost:3030/channels/${slug}`);
+		const res = await fetch(`http://c2r2p3.42nice.fr:3030/channels/${slug}`, {
+			method: "GET",
+			headers: {
+				'Authorization': `Bearer ${session.get("request_token")}`
+			},
+		});
 		const data = await res.json();
 		setMessages(data);
 	}
 
-	const setupSocket = () => {
-		socket.emit("join", "chat", slug, {})
-		socket.on("chat.msg", (res: any) => setupMessages())
-	}
-
 	useEffect(() => {
 		if (socket.ready)
-			setupSocket();
+		{
+			socket.emit("join", "chat", slug, {})
+			socket.on("chat.msg", (res: any) => setupMessages())
+		}
 		setupChannels();
 		setupMessages();
-	}, [socket.ready, slug])
+	}, [socket.ready, slug]);
 
 	return <section className={styles.chat}>
 		<div className={styles.chat_header}>

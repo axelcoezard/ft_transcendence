@@ -10,12 +10,6 @@ export default class AvatarController
 	@Inject(AvatarService)
 	private readonly service: AvatarService;
 
-	@Get()
-	async getAll(): Promise<Avatar[]>
-	{
-		return await this.service.getAll();
-	}
-
 	@Get('/:id')
 	@Header('Content-Type', 'image/jpeg')
 	async showAvatar(

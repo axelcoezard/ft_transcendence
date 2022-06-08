@@ -4,6 +4,7 @@ import User from '../user/user.entity';
 import UserService from '../user/user.service';
 import Avatar from '../avatar/avatar.entity';
 import AvatarService from '../avatar/avatar.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export default class AuthService
@@ -14,9 +15,17 @@ export default class AuthService
 	@Inject(AvatarService)
 	public readonly avatars: AvatarService;
 
+	@Inject(JwtService)
+	public readonly jwt: JwtService;
+
 	getUniqueID(): string { return process.env.API_UID; }
 	getSecret(): string { return process.env.API_SECRET; }
-	getRedirectURI(): string { return process.env.API_REDIRECT_URI; }
+
+	async generateJWT(username: string, id: number): Promise<string>
+	{
+		const payload = { username, sub: id };
+		return this.jwt.sign(payload)
+	}
 
 	async getUserBy42Username(username: string): Promise<User>
 	{

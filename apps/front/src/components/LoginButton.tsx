@@ -1,18 +1,21 @@
 import * as React from "react";
+import useSession from "../hooks/useSession";
 
 import styles from '../styles/pages/Login.module.scss'
 
 const LoginButton = () => {
+	const session = useSession("session");
+
 	const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
 		const {hostname, port} = document.location
 
 		e.preventDefault()
 
 		let request = await fetch('http://c2r2p3.42nice.fr:3030/auth/authorize', {
-			method: 'POST',
+			method: "POST",
 			headers: {
-					'Content-Type': 'application/json',
-					'cors': 'true'
+				'Authorization': `Bearer ${session.get("request_token")}`,
+				"Content-Type": "application/json"
 			},
 			body: JSON.stringify({redirect_uri: `http://${hostname}:${port}`})
 		});

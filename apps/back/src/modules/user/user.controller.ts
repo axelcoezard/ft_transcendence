@@ -1,7 +1,8 @@
-import { Get, Inject, Controller, Param, ParseIntPipe, Res, StreamableFile, Header, Post, Body, Patch, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { Get, Inject, Controller, Param, ParseIntPipe, Res, StreamableFile, Header, Post, Body, Patch, UseInterceptors, UploadedFile, UseGuards } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { getManager } from 'typeorm';
 import { getBase64FromBuffer } from '../auth/auth.utils';
+import { JwtAuthGuard } from '../auth/jwt.authguard';
 import Avatar from '../avatar/avatar.entity';
 import AvatarService from '../avatar/avatar.service';
 
@@ -18,6 +19,7 @@ export default class UserController {
 		return await this.service.getRanking();
 	}
 
+	@UseGuards(JwtAuthGuard)
 	@Get('/:id')
 	async showUser(
 		@Param('id', ParseIntPipe) id: number
@@ -36,6 +38,7 @@ export default class UserController {
 		} : {};
 	}
 
+	@UseGuards(JwtAuthGuard)
 	@Get("/search/:username")
 	async searchUser(
 		@Param('username') username: string
@@ -67,6 +70,7 @@ export default class UserController {
 		return new StreamableFile(file);
 	}
 
+	@UseGuards(JwtAuthGuard)
 	@Post('/:id/avatar')
 	@UseInterceptors(FileInterceptor('file'))
 	async updateAvatar(
@@ -85,6 +89,7 @@ export default class UserController {
 		return res;
 	}
 
+	@UseGuards(JwtAuthGuard)
 	@Get('/:id/games')
 	async showUserGames(
 		@Param('id', ParseIntPipe) id: number
@@ -106,6 +111,7 @@ export default class UserController {
 		return response;
 	}
 
+	@UseGuards(JwtAuthGuard)
 	@Post('/:id/username')
 	async updateUsername(
 		@Param('id', ParseIntPipe) id: number,
@@ -114,6 +120,7 @@ export default class UserController {
 		return await this.service.updateUsername(id, body.username)
 	}
 
+	@UseGuards(JwtAuthGuard)
 	@Get('/:id/channels')
 	async showUserChannels(
 		@Param('id', ParseIntPipe) id: number
