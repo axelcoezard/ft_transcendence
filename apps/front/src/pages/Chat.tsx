@@ -1,20 +1,43 @@
-import { Component, ContextType, useEffect, useLayoutEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from '../styles/pages/Chat.module.scss'
-import AppContext, { AppContextType, useAppContext } from '../contexts/AppContext';
+import { useAppContext } from '../contexts/AppContext';
 import { Link, useParams } from 'react-router-dom';
 import useSession from '../hooks/useSession';
 import Avatar from '../components/Avatar';
 import ChatMessage from '../components/chat/ChatMessage';
 import ChatChannel from '../components/chat/ChatChannel';
 
-const GLOBAL_MAX_PING: number = 0;
-
 const InviteMessage = (props: any) => {
-	return <></>
-}
+	const session = useSession("session");
+	const {
+		sender_username,
+		sender_id,
+		value, updated_at
+	} = props;
+	let [slug, game_slug] = value.split(".");
 
-const ChatInviteButton = (props: any) => {
-	return <button>+</button>
+	const getTime = (created_at: string) => {
+		const date = new Date(created_at);
+		const day = date.toLocaleDateString("fr-FR", { weekday: 'long' });
+		const hours = date.getHours();
+		const minutes = date.getMinutes().toString().padStart(2, "0");
+		return `${day} ${hours}:${minutes}`;
+	}
+
+	const isSender = sender_id === session.get("id")
+
+	return <li className={isSender ? styles.chat_message_right : styles.chat_message_left}>
+		<div className={styles.chat_message_avatar}>
+			<Avatar user={sender_id} height={40} width={40} />
+		</div>
+		<div className={styles.chat_message_body}>
+			{isSender
+				? <><small>{getTime(updated_at)}</small><b>{sender_username}</b></>
+				: <><b>{sender_username}</b><small>{getTime(updated_at)}</small></>
+			}
+			<p><Link to={`/play/${game_slug}`}>Rejoindre</Link></p>
+		</div>
+	</li>
 }
 
 const Chat = () => {
@@ -25,47 +48,62 @@ const Chat = () => {
 	let [value, setValue] = useState<string>("");
 	let {slug} = useParams();
 
-	const handleSubmit = (e: any) => {
-		e.preventDefault();
-		if (value.length < 1 || value.length > 255 || value.match(/^\s+$/))
-			return;
+	const sendMessage = (type: string, value: string) => {
 		socket.emit("msg", "chat", slug, {
 			sender_id: session.get("id"),
 			sender_username: session.get("username"),
 			channel_slug: slug,
-			type: "text",
+			type: type,
 			value: value,
 			updated_at: new Date().toISOString()
 		})
+	}
+
+	const handleSubmit = (e: any) => {
+		e.preventDefault();
+		if (value.length < 1 || value.length > 255 || value.match(/^\s+$/))
+			return;
+		sendMessage("text", value);
 		setValue("")
 	}
 
+	const handleInvitation = async (e: any) => {
+		e.preventDefault();
+		let res = await fetch("http://c2r2p3.42nice.fr:3030/invitations/create", {
+			method: "POST",
+			headers: {
+				"Authorization": `Bearer ${session.get("request_token")}`,
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({ creator_id: session.get("id") })
+		})
+		let data = await res.json();
+		if (data.error) return;
+		sendMessage("invite", `${data.invitation.slug}.${data.game.slug}`);
+	}
+
 	const setupChannels = async () => {
-		//setTimeout(async () => {
-			const res = await fetch(`http://c2r2p3.42nice.fr:3030/users/${session.get("id")}/channels`, {
-				method: "GET",
-				headers: {
-					'Authorization': `Bearer ${session.get("request_token")}`,
-					"Content-Type": "application/json"
-				},
-			});
-			const data = await res.json();
-			setChannels(data);
-		//}, GLOBAL_MAX_PING)
+		const res = await fetch(`http://c2r2p3.42nice.fr:3030/users/${session.get("id")}/channels`, {
+			method: "GET",
+			headers: {
+				'Authorization': `Bearer ${session.get("request_token")}`,
+				"Content-Type": "application/json"
+			},
+		});
+		const data = await res.json();
+		setChannels(data);
 	}
 
 	const setupMessages = async (chan_slug: string | undefined) => {
 		if (!chan_slug || !slug || chan_slug != slug) return;
-		//setTimeout(async () => {
-			const res = await fetch(`http://c2r2p3.42nice.fr:3030/channels/${chan_slug}`, {
-				method: "GET",
-				headers: {
-					'Authorization': `Bearer ${session.get("request_token")}`
-				},
-			});
-			const data = await res.json();
-			setMessages(data);
-		//}, GLOBAL_MAX_PING)
+		const res = await fetch(`http://c2r2p3.42nice.fr:3030/channels/${chan_slug}`, {
+			method: "GET",
+			headers: {
+				'Authorization': `Bearer ${session.get("request_token")}`
+			},
+		});
+		const data = await res.json();
+		setMessages(data);
 	}
 
 	useEffect(() => {
@@ -104,7 +142,7 @@ const Chat = () => {
 				})}
 			</ul>
 			<div className={styles.chat_form}>
-				<ChatInviteButton />
+				<button onClick={handleInvitation}>+</button>
 				<form onSubmit={handleSubmit}>
 					<input
 						type="text"

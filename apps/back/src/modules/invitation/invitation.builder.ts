@@ -14,15 +14,17 @@ export default class InvitationBuilder {
 			.substring(2,16);
 	}
 
-	public setCreator(player: Player): InvitationBuilder
+
+	public setCreator(id: number): InvitationBuilder
 	{
-		this.invitation.creator_id = player.id;
+		this.invitation.creator_id = id;
 		return this;
 	}
 
 	public setGame(game: Game): InvitationBuilder
 	{
 		this.invitation.game_id = game.id;
+		this.invitation.game_slug = game.slug;
 		return this;
 	}
 

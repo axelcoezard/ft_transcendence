@@ -18,6 +18,11 @@ export default class Invitation extends BaseEntity {
 	game_id: number;
 
 	@Column({
+		type: 'varchar'
+	})
+	game_slug: string;
+
+	@Column({
 		type: 'int',
 	})
 	creator_id: number;

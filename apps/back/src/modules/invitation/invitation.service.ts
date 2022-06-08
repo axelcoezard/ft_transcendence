@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import Invitation from './invitation.entity';
 import InvitationBuilder from './invitation.builder';
+import GameService from '../game/game.service';
 
 @Injectable()
 export default class InvitationService {
@@ -10,6 +11,9 @@ export default class InvitationService {
 		@InjectRepository(Invitation)
 		public repository: Repository<Invitation>,
 	) {}
+
+	@Inject(GameService)
+	public readonly games: GameService;
 
 	async getAll(): Promise<Invitation[]>
 	{

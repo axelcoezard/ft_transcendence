@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import Game from './game.entity';
 import GameBuilder from './game.builder';
+import InvitationService from '../invitation/invitation.service';
 
 @Injectable()
 export default class GameService {

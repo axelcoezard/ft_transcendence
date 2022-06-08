@@ -26,6 +26,18 @@ export default class GameBuilder {
 		return this;
 	}
 
+	public setPlayer1(id: number): GameBuilder
+	{
+		this.game.user1_id = id;
+		return this;
+	}
+
+	public setPlayer2(id: number): GameBuilder
+	{
+		this.game.user2_id = id;
+		return this;
+	}
+
 	public setPlayers(user1: Player, user2: Player) : GameBuilder
 	{
 		this.game.user1_id = user1.id;
