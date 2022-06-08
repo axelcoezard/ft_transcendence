@@ -172,7 +172,7 @@ export default class GameRoom extends Room {
 		else
 			winner = this.rightPlayer, loser = this.leftPlayer;
 
-		let elos = await Player.updateElo(winner, 1, loser, -1, this.service);
+		let elos = await Player.updateElo(winner, loser, this.service);
 		winner.elo = elos[0];
 		loser.elo = elos[1];
 

@@ -26,6 +26,7 @@ const Play = () => {
 	const [position, setPosition] = useState<string>("spectator")
 	const [player1, player2, setPlayer1, setPlayer2] = usePlayerDuo()
 	const [winner, loser, setWinner, setLoser] = usePlayerDuo()
+	const [scale, setScale] = useState<any>({ x: PONG_WIDTH, y: PONG_HEIGHT })
 
 	const {id} = useParams()
 
@@ -107,7 +108,7 @@ const Play = () => {
 		}
 	}, [socket.ready, id])
 
-	const render = (context: CanvasRenderingContext2D) => {
+	const render = (context: CanvasRenderingContext2D, scale: any) => {
 		let scaleX = scale.x / PONG_WIDTH;
 		let scaleY = scale.y / PONG_HEIGHT;
 		let scaleMoy = (scaleX + scaleY) / 2;
@@ -121,12 +122,14 @@ const Play = () => {
 		context.fill();
 	}
 
-	const [canvasRef, scale] = useCanvas(() => {}, render);
+	const update = (scale: any) => {
+		let ratio = scale.x / PONG_WIDTH;
+		let margin = 20 * ratio;
+		left.setX(margin)
+		right.setX(scale.x - margin - PADDLE_WIDTH * ratio)
+	}
 
-	useEffect(() => {
-		left.setX(20 * scale.x / PONG_WIDTH)
-		right.setX(scale.x - (PADDLE_WIDTH + 20) * scale.x / PONG_WIDTH)
-	}, [scale.x])
+	const [canvasRef] = useCanvas(update, render);
 
 	const handleMove = (e: any
 	) => {

@@ -1,17 +1,19 @@
 import { RefObject, useEffect, useRef, useState } from "react";
 
-export declare type CanvasDrawFunction = (context: CanvasRenderingContext2D) => void;
+export declare type CanvasDrawFunction = (
+	context: CanvasRenderingContext2D,
+	scale: { x: number, y: number }
+) => void;
 
-export declare type CanvasProcessFunction = () => void;
+export declare type CanvasProcessFunction = (
+	scale: { x: number, y: number }
+) => void;
 
 export const PONG_WIDTH: number = 600;
 export const PONG_HEIGHT: number = 400;
 
 const useCanvas = (update: CanvasProcessFunction, draw: CanvasDrawFunction)
-	: [
-		RefObject<HTMLCanvasElement>,
-		{ x: number, y: number }
-] => {
+	: [RefObject<HTMLCanvasElement>,{ x: number, y: number } ] => {
 	const [scale, setScale] = useState({ x: PONG_WIDTH, y: PONG_HEIGHT });
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -42,10 +44,10 @@ const useCanvas = (update: CanvasProcessFunction, draw: CanvasDrawFunction)
 				gradient.addColorStop(0.4, "#60B5E7");
 				gradient.addColorStop(1, "#BB86FC");
 
-				update();
+				update(scale);
 				context.fillStyle = gradient;
 				context.fillRect(0, 0, scale.x, scale.y);
-				draw(context);
+				draw(context, scale);
 			}
 			animationFrameId = window.requestAnimationFrame(render)
 		})();

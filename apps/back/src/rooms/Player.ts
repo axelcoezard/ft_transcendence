@@ -66,7 +66,7 @@ export default class Player {
 		return [pA, pB]
 	}
 
-	public static async updateElo(A: Player, wA: number, B: Player, wB: number, service: AppService)
+	public static async updateElo(A: Player, B: Player, service: AppService)
 		: Promise<[number, number]>
 	{
 		let ELO_A = (await service.users.getElo(A.id))[0].ELO_score;
@@ -78,6 +78,6 @@ export default class Player {
 			if (elo >= 2400 ) K = 16;
 			return Math.round(elo + K * (w - p))
 		}
-		return [newElo(ELO_A, wA, pA), newElo(ELO_B, wB, pB)];
+		return [newElo(ELO_A, 1, pA), newElo(ELO_B, 0, pB)];
 	}
 }
