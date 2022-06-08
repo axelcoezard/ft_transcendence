@@ -15,11 +15,13 @@ const ChatInviteButton = (props: any) => {
 	return <button>+</button>
 }
 
-const ChatForm = (props: any) => {
-	const { socket } = useAppContext();
+const Chat = () => {
+	const {socket} = useAppContext();
 	const session = useSession("session");
-	const { slug } = props;
-	const [value, setValue] = useState("");
+	let [channels, setChannels] = useState<any[]>([]);
+	let [messages, setMessages] = useState<any[]>([]);
+	let [value, setValue] = useState<string>("");
+	let {slug} = useParams();
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
@@ -33,27 +35,8 @@ const ChatForm = (props: any) => {
 			value: value,
 			updated_at: new Date().toISOString()
 		})
-		console.log("send message")
 		setValue("")
 	}
-
-	return <form onSubmit={handleSubmit}>
-		<input
-			type="text"
-			value={value}
-			placeholder="Message"
-			onChange={(e: any) => { setValue(e.target.value)}}
-		/>
-		<button onClick={handleSubmit}>Envoyer</button>
-	</form>
-}
-
-const Chat = () => {
-	const {socket} = useAppContext();
-	const session = useSession("session");
-	let [channels, setChannels] = useState<any[]>([]);
-	let [messages, setMessages] = useState<any[]>([]);
-	let {slug} = useParams();
 
 	const setupChannels = async () => {
 		const res = await fetch(`http://c2r2p3.42nice.fr:3030/users/${session.get("id")}/channels`, {
@@ -67,9 +50,9 @@ const Chat = () => {
 		setChannels(data);
 	}
 
-	const setupMessages = async () => {
-		if (!slug) return;
-		const res = await fetch(`http://c2r2p3.42nice.fr:3030/channels/${slug}`, {
+	const setupMessages = async (chan_slug: string | undefined) => {
+		if (!chan_slug || !slug || chan_slug != slug) return;
+		const res = await fetch(`http://c2r2p3.42nice.fr:3030/channels/${chan_slug}`, {
 			method: "GET",
 			headers: {
 				'Authorization': `Bearer ${session.get("request_token")}`
@@ -83,10 +66,12 @@ const Chat = () => {
 		if (socket.ready)
 		{
 			socket.emit("join", "chat", slug, {})
-			socket.on("chat.msg", (res: any) => setupMessages())
+			socket.on("chat.msg", (res: any) => setupMessages(res.channel_slug));
+			socket.on("chat.join", (res: any) => setupChannels());
+			setupChannels();
+			setupMessages(slug);
 		}
-		setupChannels();
-		setupMessages();
+		return () => { socket.emit("leave", "chat", slug, {}) }
 	}, [socket.ready, slug]);
 
 	return <section className={styles.chat}>
@@ -114,7 +99,15 @@ const Chat = () => {
 			</ul>
 			<div className={styles.chat_form}>
 				<ChatInviteButton />
-				<ChatForm slug={slug}/>
+				<form onSubmit={handleSubmit}>
+					<input
+						type="text"
+						value={value}
+						placeholder="Message"
+						onChange={(e: any) => { setValue(e.target.value)}}
+					/>
+					<button onClick={handleSubmit}>Envoyer</button>
+				</form>
 			</div>
 		</div>
 	</section>

@@ -157,7 +157,6 @@ $form-height: 70px;
 	max-width: calc(100% - 40px);
 	min-height: 40px;
 	padding: 0;
-	text-align: left;
 
 	b { padding: 0 10px 0 5px; }
 	b, small { line-height: 25px; }
@@ -165,12 +164,19 @@ $form-height: 70px;
 		padding: 10px;
 		background: rgba(50, 50, 50, 0.7);
 		border-radius: 0 15px 15px 15px;
+		text-align: left;
 	}
 }
 
 .chat_message_right .chat_message_body {
 	p {
-		border-radius: 15px 0 15px 15px 15px;
+		text-align: left;
+		border-radius: 15px 15px 0 15px;
+	}
+}
+.chat_message_right .chat_message_body {
+	p {
+		border-radius: 15px 0 15px 15px;
 		text-align: right;
 	}
 }
