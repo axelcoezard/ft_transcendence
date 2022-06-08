@@ -2,6 +2,7 @@ import styles from '../styles/pages/Settings.module.scss'
 import TwoFactorFeature from '../components/settings/TwoFactorFeature';
 import UsernameFeature from '../components/settings/UsernameFeature';
 import AvatarFeature from '../components/settings/AvatarFeature';
+import ColorFeature from '../components/settings/ColorFeature';
 
 const SettingsFeature = (title: string, subtitle: string, children: JSX.Element) => {
 	return <li className={styles.settings_feature}>
@@ -26,6 +27,8 @@ const Settings = () => {
 			<TwoFactorFeature />
 			<UsernameFeature />
 			<AvatarFeature />
+			<ColorFeature title="Couleur du paddle" type="paddle" />
+			<ColorFeature title="Couleur de la ball" type="ball" />
 		</ul>
 	</main>
 }

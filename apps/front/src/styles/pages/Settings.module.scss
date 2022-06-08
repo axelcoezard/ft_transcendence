@@ -171,6 +171,28 @@ $icon-size: 200px;
 	padding: 20px 0;
 }
 
+.settings_feature_input_color{
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	width: 70%;
+	height: 60px;
+	border: none;
+
+	margin-bottom: 20px;
+	background: transparent;
+	cursor: pointer;
+
+	&::-webkit-color-swatch {
+		border-radius: 15px;
+	}
+
+
+	&::-moz-color-swatch {
+		border-radius: 15px;
+	}
+}
+
 @mixin settings_button($color, $text) {
 	cursor: pointer;
 

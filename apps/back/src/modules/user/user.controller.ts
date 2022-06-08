@@ -121,6 +121,28 @@ export default class UserController {
 	}
 
 	@UseGuards(JwtAuthGuard)
+	@Post('/:id/color/paddle')
+	async updatePaddleColor(
+		@Param('id', ParseIntPipe) id: number,
+		@Body() body: any
+	): Promise<any> {
+		if (!body.color)
+			return { error: "No color was provided" };
+		return await this.service.updatePaddleColor(id, body.color);
+	}
+
+	@UseGuards(JwtAuthGuard)
+	@Post('/:id/color/ball')
+	async updateBallColor(
+		@Param('id', ParseIntPipe) id: number,
+		@Body() body: any
+	): Promise<any> {
+		if (!body.color)
+			return { error: "No color was provided" };
+		return await this.service.updateBallColor(id, body.color);
+	}
+
+	@UseGuards(JwtAuthGuard)
 	@Get('/:id/channels')
 	async showUserChannels(
 		@Param('id', ParseIntPipe) id: number

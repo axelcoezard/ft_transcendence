@@ -58,7 +58,9 @@ export default class AuthController {
 			"2FA_status": user["2FA_status"],
 			access_token: api.access_token,
 			refresh_token: api.refresh_token,
-			request_token: await this.service.generateJWT(user.username, user.id)
+			request_token: await this.service.generateJWT(user.username, user.id),
+			color_paddle: user.color_paddle,
+			color_ball: user.color_ball
 		});
 	}
 

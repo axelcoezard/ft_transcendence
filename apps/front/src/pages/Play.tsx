@@ -110,11 +110,11 @@ const Play = () => {
 		let scaleX = scale.x / PONG_WIDTH;
 		let scaleY = scale.y / PONG_HEIGHT;
 		let scaleMoy = (scaleX + scaleY) / 2;
-		context.fillStyle = "#ffffff";
+		context.fillStyle = session.get("color_paddle");
 		context.fillRect(left.x, left.y, PADDLE_WIDTH * scaleX, PADDLE_HEIGHT * scaleY);
-		context.fillStyle = "#ffffff";
+		context.fillStyle = session.get("color_paddle");
 		context.fillRect(right.x, right.y, PADDLE_WIDTH * scaleX, PADDLE_HEIGHT * scaleY)
-		context.fillStyle = "#BB86FC";
+		context.fillStyle = session.get("color_ball");
 		context.beginPath()
 		context.arc(ball.x, ball.y, ball.diameter * scaleMoy / 2, 0, 2 * Math.PI);
 		context.fill();

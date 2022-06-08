@@ -38,6 +38,20 @@ export default class User {
 
 	@Column({
 		type: 'varchar',
+		default: '#ffffff',
+		nullable: false
+	})
+	color_paddle: string;
+
+	@Column({
+		type: 'varchar',
+		default: '#BB86FC',
+		nullable: false
+	})
+	color_ball: string;
+
+	@Column({
+		type: 'varchar',
 		default: 'offline',
 	})
 	status: string;

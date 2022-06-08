@@ -74,6 +74,20 @@ export default class UserService {
 		);
 	}
 
+	async updatePaddleColor(id: number, paddle_color: string): Promise<any> {
+		return await this.userRepository.query(
+			`UPDATE "user" SET "color_paddle" = $1 WHERE id = $2;`,
+			[paddle_color, id]
+		);
+	}
+
+	async updateBallColor(id: number, ball_color: string): Promise<any> {
+		return await this.userRepository.query(
+			`UPDATE "user" SET "color_ball" = $1 WHERE id = $2;`,
+			[ball_color, id]
+		);
+	}
+
 	async searchUser(username: string): Promise<any> {
 		let res = await this.userRepository.query(
 			`SELECT
