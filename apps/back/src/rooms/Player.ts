@@ -12,6 +12,7 @@ export default class Player {
 	public position: string;
 	public score: number;
 	public elo: number;
+	public color: string;
 
 	public rooms: Array<string>;
 
@@ -36,7 +37,8 @@ export default class Player {
 		return {
 			id: this.id,
 			username: this.username,
-			elo: this.elo
+			elo: this.elo,
+			color: this.color
 		}
 	}
 

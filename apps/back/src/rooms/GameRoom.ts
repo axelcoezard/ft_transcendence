@@ -59,6 +59,7 @@ export default class GameRoom extends Room {
 			this.rightPlayerJoined = true, position = "right";
 		player.position = position;
 		player.score = 0;
+		player.color = data.color;
 		player.emit("game.join", {position})
 
 		this.users.push(player);
@@ -158,7 +159,7 @@ export default class GameRoom extends Room {
 			))
 			this.update(0);
 			console.log(`${this.id} started`)
-		}, 1000);
+		}, 500);
 	}
 
 	private async stop() {

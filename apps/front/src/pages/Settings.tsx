@@ -24,11 +24,10 @@ const Settings = () => {
 			</div>
 		</div>
 		<ul className={styles.settings_features}>
-			<TwoFactorFeature />
 			<UsernameFeature />
 			<AvatarFeature />
-			<ColorFeature title="Couleur du paddle" type="paddle" />
-			<ColorFeature title="Couleur de la ball" type="ball" />
+			<ColorFeature title="Couleur de mon paddle" type="paddle" />
+			<TwoFactorFeature />
 		</ul>
 	</main>
 }

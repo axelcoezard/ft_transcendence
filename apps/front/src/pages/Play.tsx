@@ -51,7 +51,8 @@ const Play = () => {
 		let data = {
 			id: session.get("id"),
 			username: session.get("username"),
-			elo: session.get("ELO_score")
+			elo: session.get("ELO_score"),
+			color: session.get("color_paddle")
 		};
 
 		if (socket.ready)
@@ -110,11 +111,11 @@ const Play = () => {
 		let scaleX = scale.x / PONG_WIDTH;
 		let scaleY = scale.y / PONG_HEIGHT;
 		let scaleMoy = (scaleX + scaleY) / 2;
-		context.fillStyle = session.get("color_paddle");
+		context.fillStyle = player1.color || "white";
 		context.fillRect(left.x, left.y, PADDLE_WIDTH * scaleX, PADDLE_HEIGHT * scaleY);
-		context.fillStyle = session.get("color_paddle");
+		context.fillStyle = player2.color || "white";
 		context.fillRect(right.x, right.y, PADDLE_WIDTH * scaleX, PADDLE_HEIGHT * scaleY)
-		context.fillStyle = session.get("color_ball");
+		context.fillStyle = "#ffffff";
 		context.beginPath()
 		context.arc(ball.x, ball.y, ball.diameter * scaleMoy / 2, 0, 2 * Math.PI);
 		context.fill();
