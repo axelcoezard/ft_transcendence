@@ -10,6 +10,7 @@ import styles from '../styles/pages/Play.module.scss'
 import useSession from "../hooks/useSession";
 import Avatar from "../components/Avatar";
 import Results from "../components/Results";
+import useAudio from "../hooks/useAudio";
 
 const usePlayerDuo = () => {
 	const defaults: any = {id: 0, username: "", score: 0}
@@ -31,6 +32,20 @@ const Play = () => {
 	const left = usePaddle(20, 50)
 	const right = usePaddle(PONG_WIDTH - PADDLE_WIDTH - 20, 50)
 	const ball = useBall();
+
+	const service = useAudio("/sounds/service.wav");
+	const tadam = useAudio("/sounds/tadam.wav");
+	const pong = [
+		useAudio("/sounds/Pong_1.wav"),
+		useAudio("/sounds/Pong_2.wav"),
+		useAudio("/sounds/Pong_3.wav"),
+		useAudio("/sounds/Pong_4.wav"),
+		useAudio("/sounds/Pong_5.wav"),
+		useAudio("/sounds/Pong_6.wav"),
+		useAudio("/sounds/Pong_7.wav"),
+		useAudio("/sounds/Pong_8.wav"),
+		useAudio("/sounds/Pong_9.wav")
+	]
 
 	useEffect(() => {
 		let data = {
@@ -55,9 +70,17 @@ const Play = () => {
 				if (data.winner.id === session.get("id"))
 					session.set("ELO_score", data.winner.elo)
 				else session.set("ELO_score", data.loser.elo)
+
+				tadam.play()
 			})
 			socket.on("game.join", ({position: p}: {position: string}) => {
 				setPosition(p)
+			})
+			socket.on("game.sound", (data: any) => {
+				if (data.sound === "service") service.play()
+				if (data.sound === "pong")
+					pong[Math.floor(Math.random() * pong.length)].play()
+				if (data.sound === "tadam") tadam.play()
 			})
 			socket.on("game.updateBall", (data: any) => {
 				ball.setY(data.y * scale.y)

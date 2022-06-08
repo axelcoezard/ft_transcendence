@@ -78,6 +78,7 @@ export default class GameRoom extends Room {
 			Math.round(Math.random()) * 2 - 1
 		);
 		this.ball_speed = BALL_SPEED;
+		this.users.forEach(player => player.emit("game.sound", {sound: "service"}))
 	}
 
 	private async update(updates: number) {
@@ -105,6 +106,7 @@ export default class GameRoom extends Room {
 		{
 			this.ball_speed *= 1.1;
 			this.ball_d.x = -this.ball_d.x;
+			this.users.forEach(player => player.emit("game.sound", {sound: "pong"}))
 		}
 
 		let point = false;

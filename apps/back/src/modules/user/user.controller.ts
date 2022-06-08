@@ -127,5 +127,29 @@ export default class UserController {
 	): Promise<any> {
 		return await this.service.getUserChannels(id);
 	}
+
+	@UseGuards(JwtAuthGuard)
+	@Get('/:id/friends')
+	async showUserFriends(
+		@Param('id', ParseIntPipe) id: number
+	): Promise<any> {
+		//return await this.service.getUserFriends(id);
+	}
+
+	@UseGuards(JwtAuthGuard)
+	@Get('/:id/friends/requests')
+	async showUserFriendsRequests(
+		@Param('id', ParseIntPipe) id: number
+	): Promise<any> {
+		//return await this.service.getUserFriendsRequests(id);
+	}
+
+	@UseGuards(JwtAuthGuard)
+	@Get('/:id/stats')
+	async showUserStats(
+		@Param('id', ParseIntPipe) id: number
+	): Promise<any> {
+		return await this.service.getUserStats(id);
+	}
 }
 

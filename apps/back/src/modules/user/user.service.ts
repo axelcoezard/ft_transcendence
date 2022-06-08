@@ -112,4 +112,28 @@ export default class UserService {
 			WHERE uic.user_id = $1`,
 		[id])
 	}
+
+	async getUserStats(id: number): Promise<any>
+	{
+		let nb_games = parseInt((await this.userRepository.query(
+			`SELECT COUNT(*) as "nb_games" FROM(SELECT id FROM game WHERE user1_id = $1 OR user2_id = $1) as g;`,
+			[id]
+		))[0].nb_games);
+
+		let nb_wins = parseInt((await this.userRepository.query(
+			`SELECT
+				COUNT(*) as "nb_wins"
+			FROM
+				((SELECT id FROM game as g1 WHERE g1.user1_id = $1 AND g1.user1_score > g1.user2_score)
+				UNION
+				(SELECT id FROM game as g2 WHERE g2.user2_id = $1 AND g2.user2_score > g2.user1_score)) as wins;`,
+			[id]
+		))[0].nb_wins);
+
+		return {
+			nb_games,
+			nb_wins,
+			nb_loses: nb_games - nb_wins
+		}
+	}
 }
