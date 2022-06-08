@@ -7,6 +7,8 @@ import Avatar from '../components/Avatar';
 import ChatMessage from '../components/chat/ChatMessage';
 import ChatChannel from '../components/chat/ChatChannel';
 
+const GLOBAL_MAX_PING: number = 0;
+
 const InviteMessage = (props: any) => {
 	return <></>
 }
@@ -39,27 +41,31 @@ const Chat = () => {
 	}
 
 	const setupChannels = async () => {
-		const res = await fetch(`http://c2r2p3.42nice.fr:3030/users/${session.get("id")}/channels`, {
-			method: "GET",
-			headers: {
-				'Authorization': `Bearer ${session.get("request_token")}`,
-				"Content-Type": "application/json"
-			},
-		});
-		const data = await res.json();
-		setChannels(data);
+		//setTimeout(async () => {
+			const res = await fetch(`http://c2r2p3.42nice.fr:3030/users/${session.get("id")}/channels`, {
+				method: "GET",
+				headers: {
+					'Authorization': `Bearer ${session.get("request_token")}`,
+					"Content-Type": "application/json"
+				},
+			});
+			const data = await res.json();
+			setChannels(data);
+		//}, GLOBAL_MAX_PING)
 	}
 
 	const setupMessages = async (chan_slug: string | undefined) => {
 		if (!chan_slug || !slug || chan_slug != slug) return;
-		const res = await fetch(`http://c2r2p3.42nice.fr:3030/channels/${chan_slug}`, {
-			method: "GET",
-			headers: {
-				'Authorization': `Bearer ${session.get("request_token")}`
-			},
-		});
-		const data = await res.json();
-		setMessages(data);
+		//setTimeout(async () => {
+			const res = await fetch(`http://c2r2p3.42nice.fr:3030/channels/${chan_slug}`, {
+				method: "GET",
+				headers: {
+					'Authorization': `Bearer ${session.get("request_token")}`
+				},
+			});
+			const data = await res.json();
+			setMessages(data);
+		//}, GLOBAL_MAX_PING)
 	}
 
 	useEffect(() => {

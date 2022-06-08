@@ -12,10 +12,10 @@ export default class ChatRoom extends Room {
 
 	public onCreate() {
 		this.onMessage("msg", async (player: Player, data: any) => {
+			this.addMessage(data, player);
 			this.users.forEach((p: Player) => {
 				p.socket.emit("chat.msg", data);
 			});
-			this.addMessage(data, player);
 		})
 	}
 
