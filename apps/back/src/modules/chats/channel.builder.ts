@@ -26,6 +26,12 @@ export default class ChannelBuilder {
 		return this;
 	}
 
+	public setStatus(status: string) : ChannelBuilder
+	{
+		this.channel.status = status;
+		return this;
+	}
+
 	public setSlug(slug: string)
 	{
 		this.channel.slug = slug;

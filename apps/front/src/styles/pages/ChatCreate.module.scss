@@ -143,3 +143,125 @@ ul.chat_create_search_list {
 	color: rgb(255, 183, 0);
 	margin-bottom: 20px;
 }
+
+////////////
+
+$switch-color: $color_aero;
+
+.chat_create_switch_form {
+	width: 100%;
+}
+
+.chat_create_switch{
+	position: relative;
+	display: block;
+	vertical-align: top;
+	width: 100px;
+	max-width: 100px;
+	height: 30px;
+	padding: 3px;
+	margin: 0 10px 10px 0;
+	background: transparent;
+	border-radius: 10px;
+	cursor: pointer;
+	box-sizing:content-box;
+}
+
+.chat_create_switch input {
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	width: 100px;
+	box-sizing:content-box;
+}
+
+.chat_create_switch_label {
+	position: relative;
+	display: block;
+	height: inherit;
+	font-size: 10px;
+	text-transform: uppercase;
+	background: #323232;
+	border-radius: inherit;
+	box-sizing:content-box;
+}
+
+.chat_create_switch_label:before, .chat_create_switch_label:after {
+	position: absolute;
+	top: 50%;
+	margin-top: -.5em;
+	line-height: 1;
+	-webkit-transition: inherit;
+	-moz-transition: inherit;
+	-o-transition: inherit;
+	transition: inherit;
+	box-sizing:content-box;
+	font-size: 1rem;
+	text-transform: capitalize;
+}
+
+.chat_create_switch_label:before {
+	content: attr(data-off);
+	right: 11px;
+	color: #fff;
+}
+
+.chat_create_switch_label:after {
+	content: attr(data-on);
+	left: 11px;
+	color: #FFFFFF;
+	//text-shadow: 0 1px rgba(0, 0, 0, 0.2);
+	opacity: 0;
+}
+
+.chat_create_switch input:checked ~ .chat_create_switch_label {
+	background: $switch-color;
+	//box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15), inset 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+.chat_create_switch input:checked ~ .chat_create_switch_label:before {
+	opacity: 0;
+}
+
+.chat_create_switch input:checked ~ .chat_create_switch_label:after {
+	opacity: 1;
+}
+
+.chat_create_switch_handle {
+	position: absolute;
+	top: 4px;
+	left: 4px;
+	width: 28px;
+	height: 28px;
+	background: linear-gradient(to bottom, #FFFFFF 40%, #f0f0f0);
+	//background-image: -webkit-linear-gradient(top, #FFFFFF 40%, #f0f0f0);
+	border-radius: 10px;
+	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+.chat_create_switch_handle:before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -6px 0 0 -6px;
+	width: 12px;
+	height: 12px;
+	background: linear-gradient(to bottom, #eeeeee, #FFFFFF);
+	background-image: -webkit-linear-gradient(top, #eeeeee, #FFFFFF);
+	border-radius: 6px;
+	box-shadow: inset 0 1px rgba(0, 0, 0, 0.02);
+}
+
+.chat_create_switch input:checked ~ .chat_create_switch_handle {
+	left: 74px;
+	box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+.chat_create_switch_label, .chat_create_switch_handle {
+	transition: All 0.3s ease;
+	-webkit-transition: All 0.3s ease;
+	-moz-transition: All 0.3s ease;
+	-o-transition: All 0.3s ease;
+}

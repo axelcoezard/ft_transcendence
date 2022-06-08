@@ -6,6 +6,7 @@ import ChatSecurityForm from "../components/chat/ChatSecurityForm";
 import useSession from "../hooks/useSession";
 import styles from "../styles/pages/ChatCreate.module.scss";
 import Loading from "../components/Loading";
+import ChatVisibilityForm from "../components/chat/ChatVisibilityForm";
 
 const ChatCreate = () => {
 	const session = useSession("session");
@@ -15,6 +16,7 @@ const ChatCreate = () => {
 	const [name, setName] = useState<string | null>(null);
 	const [users, setUsers] = useState<any[]>([]);
 	const [password, setPassword] = useState<string | null>(null);
+	const [status, setStatus] = useState<boolean>(false);
 
 	const handleClick = async (e: any) => {
 		e.preventDefault();
@@ -25,7 +27,7 @@ const ChatCreate = () => {
 				'Authorization': `Bearer ${session.get("request_token")}`,
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({ name, users, password, creator_id: session.get("id")})
+			body: JSON.stringify({ name, users, password, creator_id: session.get("id"), status: status ? "public" : "private" })
 		})
 		setTimeout(async () => {
 			let data = await res.json()
@@ -51,6 +53,8 @@ const ChatCreate = () => {
 				<ChatInfoForm setName={setName} name={name}/>
 				<label>Participants</label>
 				<ChatSearchForm setUsers={setUsers} users={users} />
+				<label>Visibilite</label>
+				<ChatVisibilityForm setStatus={setStatus} status={status}/>
 				<label>Securite <small>(Option)</small></label>
 				<ChatSecurityForm setPassword={setPassword} password={password} />
 				<button

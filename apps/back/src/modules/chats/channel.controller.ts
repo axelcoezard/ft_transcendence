@@ -50,13 +50,17 @@ export default class ChannelController {
 		if (!data.name)		return { error: "No name provided" };
 		if (!data.users)	return { error: "No users provided" };
 		if (!data.creator_id) return { error: "No creator provided" };
+		if (!data.status)	return { error: "No visibility provided" };
 		if (data.name.length == 0)	return { error: "Veuillez entrer un nom de tchat" };
 		if (data.name.length > 16) return { error: "Le nom de tchat est trop long" };
 		if (!/^[a-zA-Z\s]+$/.test(data.name)) return { error: "Le nom de tchat doit contenir que des lettres et espaces." };
 		if (data.users.length < 2) return { error: "Veuillez ajouter au moins 2 utilisateurs" };
+		if (data.status !== "public" && data.status !== "private")
+			return { error: "Veuillez entrer une visibilite valide" };
 
 		let builder = ChannelBuilder.new()
 			.setName(data.name)
+			.setStatus(data.status)
 			.setCreator(data.creator_id);
 		if (data.password)
 			builder.setPassword(createHash('sha256')
