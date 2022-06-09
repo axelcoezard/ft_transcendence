@@ -31,6 +31,18 @@ export default class ChannelService {
 		})
 	}
 
+	async getUsersFromChannel(slug: string): Promise<any[]> {
+		return await getManager().query(
+			`SELECT
+				u.*
+			FROM "user" as u
+				INNER JOIN "user_in_channel" as uc ON uc.user_id = u.id
+				INNER JOIN "channel" as c ON c.id = uc.channel_id
+			WHERE c.slug = $1;`,
+			[slug]
+		)
+	}
+
 	async deleteBySlug(slug: string, id: number): Promise<any> {
 		let rank = await this.userService.getRankFromChannelByUserId(slug, id);
 		if (!rank)				return { error: "No user found in channel" };
@@ -51,10 +63,18 @@ export default class ChannelService {
 		let values = users.reduce((prev: any, user: any) => {
 			return [...prev, user.id, id, user.rank];
 		}, [])
-		console.log(req)
 		return await getManager().query(req, values);
 	}
 
+	async removeUser(id: number, users: any[]): Promise<any> {
+		if (users.length === 0)
+			return { error: "No users provided" };
+
+		let parts = users.map((u: any, i: number) => `\$${i + 1}`).join(", ");
+		let ids = users.reduce((prev: any, user: any) => [...prev, user.id], [])
+		let req = `DELETE FROM "user_in_channel" WHERE user_id IN (${parts}) AND channel_id = $${users.length + 1};`;
+		return await getManager().query(req, [...ids, id]);
+	}
 	async create(channel: ChannelBuilder): Promise<Channel> {
 		const newChannel = this.channelRepository.create(channel.build());
 		await this.channelRepository.save(newChannel);

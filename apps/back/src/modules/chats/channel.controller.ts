@@ -97,6 +97,54 @@ export default class ChannelController {
 	}
 
 	@UseGuards(JwtAuthGuard)
+	@Post("/:slug/update")
+	async updateChannel(
+		@Param('slug') slug: string,
+		@Body() data: any
+	){
+		if (!data)			return { error: "No data provided" };
+		if (!data.name)		return { error: "No name provided" };
+		if (!data.users)	return { error: "No users provided" };
+		if (!data.status)	return { error: "No visibility provided" };
+		if (data.name.length == 0)	return { error: "Veuillez entrer un nom de tchat" };
+		if (data.name.length > 16) return { error: "Le nom de tchat est trop long" };
+		if (!/^[a-zA-Z\s]+$/.test(data.name)) return { error: "Le nom de tchat doit contenir que des lettres et espaces." };
+		if (data.users.length < 1) return { error: "Veuillez garder au moins 1 utilisateurs" };
+		if (data.status !== "public" && data.status !== "private")
+			return { error: "Veuillez entrer une visibilite valide" };
+		let password = createHash('sha256').update(data.password).digest('hex')
+		let channel = await getManager().query(
+			`UPDATE "channel"
+			SET name = $1,
+				status = $2,
+				password = $3,
+				updated_at = NOW()
+			WHERE slug = $4 RETURNING *;`,
+			[data.name, data.status, password, slug]
+		);
+		if (!channel || !channel.length)
+			return { error: "Error creating channel" };
+		let channel_id = channel[0][0].id;
+		let currentUsers = await this.service.getUsersFromChannel(slug);
+		let usersNew = data.users.filter(user => !currentUsers.find(u => u.id == user.id))
+		let usersDrop = currentUsers.filter(user => !data.users.find(u => u.id == user.id))
+		console.log(currentUsers, usersNew, usersDrop)
+		if (usersNew.length > 0)
+		{
+			let res = await this.service.addUsers(channel_id, usersNew);
+			if (!res)
+				return { error: "Error adding users to channel" };
+		}
+		if (usersDrop.length > 0)
+		{
+			let res = await this.service.removeUser(channel_id, usersDrop);
+			if (!res)
+				return { error: "Error removing users from channel" };
+		}
+		return channel;
+	}
+
+	@UseGuards(JwtAuthGuard)
 	@Get("/:slug/users")
 	async getAllUsersFromChannel(
 		@Param('slug') slug: string

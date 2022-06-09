@@ -108,9 +108,22 @@ const Chat = () => {
 			return session.get("id") === p.id && p.status === value
 		})
 	}
-
 	const isBanned = () => isStatus("banned")
 	const isMuted = () => isStatus("mute")
+
+	const isRank = (rank: string) => {
+		return status.find((p: any) => {
+			return session.get("id") === p.id && p.rank === rank
+		})
+	}
+
+	const isAdmin = () => {
+		return status.find((p: any) => {
+			return session.get("id") === p.id && (
+				p.rank === "owner" || p.rank === "admin"
+			)
+		})
+	}
 
 	useEffect(() => {
 		if (socket.ready)
@@ -133,7 +146,7 @@ const Chat = () => {
 			</div>
 			<div className={styles.chat_header_right}>{slug && <>
 				<ChatLeaveButton slug={slug} />
-				<ChatEditButton slug={slug} />
+				{isAdmin() && <ChatEditButton slug={slug}/>}
 			</>}</div>
 		</div>
 		<ul className={styles.chat_index}>
@@ -160,6 +173,7 @@ const Chat = () => {
 					// Affiche les messages au bon format: text ou invite
 					if (message.type === "text")
 						return <ChatMessage {...props}/>
+					if (isBanned()) return null
 					return <ChatInviteMessage {...props}/>
 				})}
 			</ul>

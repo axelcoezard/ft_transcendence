@@ -22,21 +22,50 @@ const ChatEdit = () => {
 
 	const handleClick = async (e: any) => {
 		e.preventDefault();
+		setLoading(true);
+		let res = await fetch(`http://c2r2p3.42nice.fr:3030/channels/${slug}/update`, {
+			method: "POST",
+			headers: {
+				'Authorization': `Bearer ${session.get("request_token")}`,
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ name, users, password, status: status ? "public" : "private" })
+		})
+		setTimeout(async () => {
+			let data = await res.json()
+			setLoading(false);
+			if (data.error)
+				return setError(data.error);
+			setUsers(users.filter((u: any) => u.username === session.get("username")));
+			setName(null);
+			setPassword(null);
+			navigate(`/chat/${slug}`)
+		}, 1250);
 	}
 
 	const fetchInformations = async (slug: string) => {
-		let res = await fetch(`http://c2r2p3.42nice.fr:3030/channels/${slug}`, {
+		let res, data;
+		res = await fetch(`http://c2r2p3.42nice.fr:3030/channels/${slug}`, {
 			method: "GET",
 			headers: {
 				'Authorization': `Bearer ${session.get("request_token")}`,
 				'Content-Type': 'application/json'
 			}
 		})
-		let data = await res.json()
-		console.log(data)
+		data = await res.json()
 		if (data.error) return;
 		setName(data.name);
 		setStatus(data.status === "public");
+		res = await fetch(`http://c2r2p3.42nice.fr:3030/channels/${slug}/users`, {
+			method: "GET",
+			headers: {
+				'Authorization': `Bearer ${session.get("request_token")}`,
+				'Content-Type': 'application/json'
+			}
+		})
+		data = await res.json()
+		if (data.error) return;
+		setUsers(data);
 	}
 
 	useEffect(() => {
