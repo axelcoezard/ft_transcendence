@@ -103,17 +103,14 @@ const Chat = () => {
 		setMessages(data);
 	}
 
-	const isBanned = () => {
-		return status.find((status: any) => {
-			return session.get("id") === status.id && status.status === "banned"
+	const isStatus = (value: string) => {
+		return status.find((p: any) => {
+			return session.get("id") === p.id && p.status === value
 		})
 	}
 
-	const isMuted = () => {
-		return status.find((status: any) => {
-			return session.get("id") === status.id && status.status === "mute"
-		})
-	}
+	const isBanned = () => isStatus("banned")
+	const isMuted = () => isStatus("mute")
 
 	useEffect(() => {
 		if (socket.ready)
