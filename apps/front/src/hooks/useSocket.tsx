@@ -9,6 +9,7 @@ const useSocket = (url: string): any => {
 	const session = useSession("session");
 
 	useEffect(() => {
+		if (!session.get("access_token")) return;
 		let _socket = io(url, { forceNew: true })
 		_socket.on("connect", () => {
 			console.log("Socket connected")

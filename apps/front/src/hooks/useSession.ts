@@ -5,7 +5,7 @@ export declare type SessionType = {
 	set: (key: string, value: any) => void,
 	setAll: (entries: any) => void,
 	has: (key: string) => boolean,
-	get: (key: string) => string,
+	get: (key: string) => string | null,
 	clear: () => void
 }
 
@@ -26,8 +26,8 @@ const useSession = (name: string, defaults={}): SessionType => {
 		return Object.keys(storage).indexOf(key) > -1;
 	}
 
-	const getEntry = (key: string): string => {
-		return storage[key as keyof typeof storage] || "";
+	const getEntry = (key: string): string | null => {
+		return storage[key as keyof typeof storage] || null;
 	}
 
 	const clear = () => {

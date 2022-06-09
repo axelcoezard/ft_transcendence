@@ -208,4 +208,11 @@ export default class UserService {
 			nb_loses: nb_games - nb_wins
 		}
 	}
+
+	async setStatus(id: number, status: string): Promise<any> {
+		return await this.userRepository.query(
+			`UPDATE "user" SET "status" = $1 WHERE id = $2;`,
+			[status, id]
+		);
+	}
 }

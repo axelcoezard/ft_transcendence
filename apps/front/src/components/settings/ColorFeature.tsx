@@ -9,7 +9,7 @@ const ColorFeature = (props: any) => {
 	const session = useSession("session");
 	const [status, setStatus] = useState<string | null>();
 	const [color, setColor] = useState<string>(() => {
-		return session.get(`color_${type}`);
+		return session.get(`color_${type}`) || "#ffffff";
 	});
 
 	const handleChange = async (e: any) => {

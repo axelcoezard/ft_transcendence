@@ -64,7 +64,7 @@ export class AppGateway
 		else this.users.set(msg.username, new Player(
 			client, parseInt(msg.id), msg.username, msg.ELO_score
 		))
-
+		this.service.users.setStatus(msg.id, 'online');
 		this.logger.log(`Client connected: ${msg.username}`);
 	}
 	public handleConnection(client: Socket, ...args: any[]) {}
@@ -106,6 +106,7 @@ export class AppGateway
 					else throw new Error("Invalid room");
 					room.onLeave(value)
 				});
+				this.service.users.setStatus(value.id, 'offline');
 				this.users.delete(key);
 			}
 		})
