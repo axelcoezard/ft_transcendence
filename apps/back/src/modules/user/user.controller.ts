@@ -14,6 +14,7 @@ export default class UserController {
 	@Inject(UserService)
 	private readonly service: UserService;
 
+	@UseGuards(JwtAuthGuard)
 	@Get('/ranking')
 	async showRanking(): Promise<any> {
 		return await this.service.getRanking();

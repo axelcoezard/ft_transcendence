@@ -112,7 +112,7 @@ export default class ChannelController {
 		if (data.users.length < 1) return { error: "Veuillez garder au moins 1 utilisateurs" };
 		if (data.status !== "public" && data.status !== "private")
 			return { error: "Veuillez entrer une visibilite valide" };
-		let password = createHash('sha256').update(data.password).digest('hex')
+		let password = data.password ? createHash('sha256').update(data.password).digest('hex') : null;
 		let channel = await getManager().query(
 			`UPDATE "channel"
 			SET name = $1,
