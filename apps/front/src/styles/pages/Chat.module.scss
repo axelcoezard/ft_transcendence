@@ -161,6 +161,7 @@ $form-height: 70px;
 	b { padding: 0 10px 0 5px; }
 	b, small { line-height: 25px; }
 	p {
+		min-height: 40px;
 		padding: 10px;
 		background: rgba(50, 50, 50, 0.7);
 		border-radius: 0 15px 15px 15px;
@@ -168,18 +169,57 @@ $form-height: 70px;
 	}
 }
 
-.chat_message_right .chat_message_body {
+.chat_message_left .chat_message_body {
+	text-align: left;
 	p {
 		text-align: left;
 		border-radius: 15px 15px 0 15px;
 	}
 }
 .chat_message_right .chat_message_body {
+	text-align: right;
 	p {
+		text-align: left;
 		border-radius: 15px 0 15px 15px;
-		text-align: right;
 	}
 }
+
+.chat_message_invite {
+	width: 300px;
+	height: 80px;
+	padding: 10px;
+
+	text-align: left;
+	background: rgba(50, 50, 50, 0.9);
+
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: center;
+	justify-content: center;
+
+	a {
+		@include generate-button;
+	}
+}
+
+.chat_message_invite_left {
+	flex: 0 0 60%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	strong {
+		@include text-color(1rem);
+		text-transform: initial;
+	}
+}
+.chat_message_invite_right {
+	flex: 0 0 40%;
+}
+
+.chat_message_left .chat_message_invite { border-radius: 0 15px 15px 15px; }
+.chat_message_right .chat_message_invite { border-radius: 15px 0 15px 15px; }
 
 .chat_form {
 	flex: 0 0 $form-height;

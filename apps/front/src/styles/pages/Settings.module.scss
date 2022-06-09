@@ -75,10 +75,12 @@ $icon-size: 200px;
 .settings_feature {
 	flex-shrink: 1;
 	max-width: 33%;
+	height: 420px;;
 	position: relative;
 	background-color:  $color_widget;
 	border-radius: 20px;
 	padding: $settings-margin * 1.5 0;
+	margin-bottom: 20px;
 
 	display: flex;
 	flex-direction: column;
@@ -89,6 +91,7 @@ $icon-size: 200px;
 	@media screen and (max-width: 768px) {
 		width: 100%;
 		max-width: 100%;
+		height: auto;
 		flex: 0 0 auto;
 		flex-wrap: wrap;
 		margin: 0 0 $settings-margin 0;

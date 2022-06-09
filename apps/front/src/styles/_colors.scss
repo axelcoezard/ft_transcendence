@@ -33,6 +33,7 @@ $color_violet: #492D6A;
 
 
 @mixin generate-button($padding: 16px) {
+	display: inline-block;
 	height: 40px;
 	padding: 0 $padding;
 	border-radius: 30px;

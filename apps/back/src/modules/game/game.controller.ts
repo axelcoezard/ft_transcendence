@@ -22,12 +22,12 @@ export default class GameController {
 	}
 
 	@UseGuards(JwtAuthGuard)
-	@Get('/:id/status')
+	@Get('/:slug/status')
 	async getStatus(
-		@Param('id') id: number
+		@Param('slug') slug: string
 	): Promise<Game> {
-		const req = `SELECT status FROM "game" as g WHERE g.id = $1;`
-		return await this.service.repository.query(req, [id])
+		const req = `SELECT status FROM "game" as g WHERE g.slug = $1;`
+		return (await this.service.repository.query(req, [slug]))[0]
 	}
 
 	/*@UseGuards(JwtAuthGuard)

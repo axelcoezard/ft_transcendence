@@ -3,42 +3,9 @@ import styles from '../styles/pages/Chat.module.scss'
 import { useAppContext } from '../contexts/AppContext';
 import { Link, useParams } from 'react-router-dom';
 import useSession from '../hooks/useSession';
-import Avatar from '../components/Avatar';
 import ChatMessage from '../components/chat/ChatMessage';
 import ChatChannel from '../components/chat/ChatChannel';
-
-const InviteMessage = (props: any) => {
-	const session = useSession("session");
-	const {
-		sender_username,
-		sender_id,
-		value, updated_at
-	} = props;
-	let [slug, game_slug] = value.split(".");
-
-	const getTime = (created_at: string) => {
-		const date = new Date(created_at);
-		const day = date.toLocaleDateString("fr-FR", { weekday: 'long' });
-		const hours = date.getHours();
-		const minutes = date.getMinutes().toString().padStart(2, "0");
-		return `${day} ${hours}:${minutes}`;
-	}
-
-	const isSender = sender_id === session.get("id")
-
-	return <li className={isSender ? styles.chat_message_right : styles.chat_message_left}>
-		<div className={styles.chat_message_avatar}>
-			<Avatar user={sender_id} height={40} width={40} />
-		</div>
-		<div className={styles.chat_message_body}>
-			{isSender
-				? <><small>{getTime(updated_at)}</small><b>{sender_username}</b></>
-				: <><b>{sender_username}</b><small>{getTime(updated_at)}</small></>
-			}
-			<p><Link to={`/play/${game_slug}`}>Rejoindre</Link></p>
-		</div>
-	</li>
-}
+import ChatInviteMessage from '../components/chat/ChatInviteMessage';
 
 const Chat = () => {
 	const {socket} = useAppContext();
@@ -138,7 +105,7 @@ const Chat = () => {
 					let props = { key: index, ...message};
 					if (message.type === "text")
 						return <ChatMessage {...props}/>
-					return <InviteMessage {...props}/>
+					return <ChatInviteMessage {...props}/>
 				})}
 			</ul>
 			<div className={styles.chat_form}>
