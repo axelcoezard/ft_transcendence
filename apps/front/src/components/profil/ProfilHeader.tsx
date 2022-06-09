@@ -3,6 +3,8 @@ import Ranked from '../Ranked'
 import Avatar from '../Avatar';
 import useSession from '../../hooks/useSession';
 import { useEffect, useState } from 'react';
+import ProfilFriendButton from './ProfilFriendButton';
+import ProfilBlockedButton from './ProfilBlockButton';
 
 const ProfilHeader = (props: any) => {
 	const {user} = props;
@@ -22,8 +24,8 @@ const ProfilHeader = (props: any) => {
 	}
 
 	useEffect(() => {
-		if (user.id)
-			fetchStats();
+		if (!user.id) return;
+		fetchStats();
 	}, [user.id])
 
 	return <div className={styles.profil_header}>
@@ -36,6 +38,10 @@ const ProfilHeader = (props: any) => {
 				<strong>{user.ELO_score}</strong> ELO
 			</div> : null}
 		</div>
+		{user && user.id !== session.get("id") ? <nav className={styles.profil_header_actions}>
+			<ProfilFriendButton user={user} />
+			<ProfilBlockedButton user={user} />
+		</nav> : null}
 		<ul className={styles.profil_header_stats}>
 			<li>
 				<strong>{stats.nb_games || 0}</strong>
@@ -50,6 +56,7 @@ const ProfilHeader = (props: any) => {
 				<span>Defaites</span>
 			</li>
 		</ul>
+
 	</div>
 }
 

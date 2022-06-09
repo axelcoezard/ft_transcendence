@@ -17,6 +17,13 @@ export default class GameService {
 		return await this.repository.find();
 	}
 
+	async getBySlug(slug: string): Promise<Game>
+	{
+		return await this.repository.findOne({
+			where: {slug}
+		});
+	}
+
 	async create(builder: GameBuilder): Promise<Game>
 	{
 		const res = this.repository.create(builder.build());

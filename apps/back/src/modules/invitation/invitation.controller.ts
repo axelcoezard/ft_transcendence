@@ -20,9 +20,12 @@ export default class InvitationController {
 	): Promise<any> {
 		if (!body.creator_id)
 			return { error: "creator_id is required" };
+		//if (!body.opponent_id)
+		//	return { error: "opponent_id is required" };
 		// Generation d'une partie a moitié vide
 		let game = GameBuilder.new()
-			.setPlayer1(body.creator_id);
+			.setPlayer1(body.creator_id)
+		//	.setPlayer2(body.opponent_id);
 		let resGame = await this.service.games.create(game);
 		if (!resGame) return { error: "Game not created" };
 		// Generation d'une invitation avec le slug de la partie

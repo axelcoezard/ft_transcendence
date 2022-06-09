@@ -1,4 +1,4 @@
-import { Get, Inject, Controller, Param, ParseIntPipe, Res, StreamableFile, Header, Post, Body, Patch, UseInterceptors, UploadedFile, UseGuards } from '@nestjs/common';
+import { Get, Inject, Controller, Param, ParseIntPipe, Res, StreamableFile, Header, Post, Body, Patch, UseInterceptors, UploadedFile, UseGuards, Delete } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { getManager } from 'typeorm';
 import { getBase64FromBuffer } from '../auth/auth.utils';
@@ -155,15 +155,51 @@ export default class UserController {
 	async showUserFriends(
 		@Param('id', ParseIntPipe) id: number
 	): Promise<any> {
-		//return await this.service.getUserFriends(id);
+		return await this.service.getFriends(id);
 	}
 
 	@UseGuards(JwtAuthGuard)
-	@Get('/:id/friends/requests')
-	async showUserFriendsRequests(
+	@Post('/:id/friends')
+	async addFriend(
+		@Param('id', ParseIntPipe) id: number,
+		@Body() body: any
+	): Promise<any> {
+		return await this.service.addFriend(id, body.friend_id);
+	}
+
+	@UseGuards(JwtAuthGuard)
+	@Delete('/:id/friends')
+	async removeFriend(
+		@Param('id', ParseIntPipe) id: number,
+		@Body() body: any
+	): Promise<any> {
+		return await this.service.removeFriend(id, body.friend_id);
+	}
+
+	@UseGuards(JwtAuthGuard)
+	@Get('/:id/blockeds')
+	async showUserBlocked(
 		@Param('id', ParseIntPipe) id: number
 	): Promise<any> {
-		//return await this.service.getUserFriendsRequests(id);
+		return await this.service.getBlockeds(id);
+	}
+
+	@UseGuards(JwtAuthGuard)
+	@Post('/:id/blockeds')
+	async addBlocked(
+		@Param('id', ParseIntPipe) id: number,
+		@Body() body: any
+	): Promise<any> {
+		return await this.service.addBlocked(id, body.blocked_id);
+	}
+
+	@UseGuards(JwtAuthGuard)
+	@Delete('/:id/blockeds')
+	async removeBlocked(
+		@Param('id', ParseIntPipe) id: number,
+		@Body() body: any
+	): Promise<any> {
+		return await this.service.removeBlocked(id, body.blocked_id);
 	}
 
 	@UseGuards(JwtAuthGuard)

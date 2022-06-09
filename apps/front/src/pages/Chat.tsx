@@ -42,7 +42,9 @@ const Chat = () => {
 				"Authorization": `Bearer ${session.get("request_token")}`,
 				"Content-Type": "application/json"
 			},
-			body: JSON.stringify({ creator_id: session.get("id") })
+			body: JSON.stringify({
+				creator_id: session.get("id")
+			})
 		})
 		let data = await res.json();
 		if (data.error) return;

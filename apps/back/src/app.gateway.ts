@@ -87,6 +87,7 @@ export class AppGateway
 
 	@SubscribeMessage('message')
 	public async onMessage(client: Socket, msg: any) {
+		console.log(msg)
 		let player = this.users.get(msg.sender.username);
 		let room = await this.getRoom(msg.room, msg.room_id);
 		if (room)
@@ -111,11 +112,42 @@ export class AppGateway
 		})
 	}
 
+	private hasPlayer(id: number)
+	{
+		return this.users
+			&& Array.from(this.users.values()).filter((p: Player) => p.id === id).length > 0;
+	}
+
+	private async getPlayer(id: number) : Promise<Player>
+	{
+		let res = await this.service.users.getUser(id);
+		if (this.hasPlayer(id))
+			return Array.from(this.users.values()).filter((p: Player) => p.id === id)[0];
+		let player = new Player(null, res.id, res.username, res.ELO_score);
+		this.users.set(res.username, player);
+		return player;
+	}
+
+	private async getGame(id: string)
+	{
+		if (this.games.has(id)) return this.games.get(id);
+		let game = await this.service.games.getBySlug(id);
+		if (game) {
+			let room = new GameRoom(game.id, game.slug);
+			room.setService(this.service);
+			room.setGateway(this);
+			if (game.user1_id) room.leftPlayer = await this.getPlayer(game.user1_id);
+			if (game.user2_id) room.rightPlayer = await this.getPlayer(game.user2_id);
+			this.games.set(room.slug, room);
+			return room;
+		}
+		return null
+	}
+
 	private async getChannel(id: string)
 	{
 		if (this.chats.has(id)) return this.chats.get(id);
 		let channel = await this.service.channels.getBySlug(id);
-		console.log(channel);
 		if (channel) {
 			let room = new ChatRoom(channel.id, channel.slug);
 			room.setService(this.service);
@@ -130,7 +162,7 @@ export class AppGateway
 		if (type === "lobby")
 			return this.lobby;
 		if (type === "game")
-			return this.games.get(id);
+			return this.getGame(id);
 		if (type === "chat")
 			return this.getChannel(id);
 		return null;

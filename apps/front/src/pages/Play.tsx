@@ -13,9 +13,8 @@ import Results from "../components/Results";
 import useAudio from "../hooks/useAudio";
 
 const usePlayerDuo = () => {
-	const defaults: any = {id: 0, username: "", score: 0}
-	const [player1, setPlayer1] = useState<any>(defaults)
-	const [player2, setPlayer2] = useState<any>(defaults)
+	const [player1, setPlayer1] = useState<any>({})
+	const [player2, setPlayer2] = useState<any>({})
 	return [player1, player2, setPlayer1, setPlayer2]
 }
 
@@ -49,6 +48,8 @@ const Play = () => {
 	]
 
 	useEffect(() => {
+		(new AudioContext()).resume()
+
 		let data = {
 			id: session.get("id"),
 			username: session.get("username"),

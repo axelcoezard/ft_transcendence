@@ -1,8 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn, OneToMany, JoinTable } from "typeorm"
-import User from "../user/user.entity"
 
-@Entity("friend")
-export default class Friend extends BaseEntity {
+@Entity("blocked")
+export default class Blocked extends BaseEntity {
 	@PrimaryGeneratedColumn()
     id: number;
 
@@ -10,7 +9,7 @@ export default class Friend extends BaseEntity {
 	user_id: number;
 
 	@Column()
-	friend_id: number;
+	blocked_id: number;
 
 	@CreateDateColumn()
 	created_at: Date;

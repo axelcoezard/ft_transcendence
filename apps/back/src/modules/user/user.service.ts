@@ -127,6 +127,64 @@ export default class UserService {
 		[id])
 	}
 
+	async getFriends(id: number): Promise<any> {
+		return await this.userRepository.query(
+			`SELECT
+				u.id,
+				u.username
+			FROM friend as f
+				INNER JOIN "user" as u ON f.friend_id = u.id
+			WHERE f.user_id = $1`,
+		[id])
+	}
+
+	async addFriend(id: number, friend_id: number | undefined): Promise<any> {
+		if (!friend_id)
+			return {error: "Veuillez choisir un utilisateur comme ami"}
+		if (id === friend_id)
+			return {error: "Vous ne pouvez pas vous ajouter vous-même comme ami"}
+		return await this.userRepository.query(
+			`INSERT INTO "friend" ("user_id", "friend_id") VALUES ($1, $2);`,
+		[id, friend_id])
+	}
+
+	async removeFriend(id: number, friend_id: number | undefined): Promise<any> {
+		if (!friend_id)
+			return {error: "Veuillez choisir un utilisateur comme ami"}
+		return await this.userRepository.query(
+			`DELETE FROM "friend" WHERE "user_id" = $1 AND "friend_id" = $2;`,
+		[id, friend_id])
+	}
+
+	async getBlockeds(id: number): Promise<any> {
+		return await this.userRepository.query(
+			`SELECT
+				u.id,
+				u.username
+			FROM blocked as b
+				INNER JOIN "user" as u ON b.blocked_id = u.id
+			WHERE b.user_id = $1`,
+		[id])
+	}
+
+	async addBlocked(id: number, blocked_id: number | undefined): Promise<any> {
+		if (!blocked_id)
+			return {error: "Veuillez choisir un utilisateur a bloquer"}
+		if (id === blocked_id)
+			return {error: "Vous ne pouvez pas vous bloquer vous-même"}
+		return await this.userRepository.query(
+			`INSERT INTO "blocked" ("user_id", "blocked_id") VALUES ($1, $2);`,
+		[id, blocked_id])
+	}
+
+	async removeBlocked(id: number, blocked_id: number | undefined): Promise<any> {
+		if (!blocked_id)
+			return {error: "Veuillez choisir un utilisateur a debloquer"}
+		return await this.userRepository.query(
+			`DELETE FROM "blocked" WHERE "user_id" = $1 AND "blocked_id" = $2;`,
+		[id, blocked_id])
+	}
+
 	async getUserStats(id: number): Promise<any>
 	{
 		let nb_games = parseInt((await this.userRepository.query(

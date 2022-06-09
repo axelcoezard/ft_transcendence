@@ -53,10 +53,22 @@ export default class GameRoom extends Room {
 
 	public onJoin(player: Player, data: any) {
 		let position = "spectator";
-		if (this.leftPlayer.id == player.id)
+		if (this.leftPlayer && this.leftPlayer.id == player.id)
 			this.leftPlayerJoined = true, position = "left";
-		else if (this.rightPlayer.id == player.id)
+		else if (this.rightPlayer && this.rightPlayer.id == player.id)
 			this.rightPlayerJoined = true, position = "right";
+		if (!this.leftPlayer && this.leftPlayerJoined)
+		{
+			this.leftPlayer = player;
+			this.leftPlayerJoined = true;
+			position = "left";
+		}
+		if (!this.rightPlayer && this.rightPlayerJoined)
+		{
+			this.rightPlayer = player;
+			this.rightPlayerJoined = true;
+			position = "right";
+		}
 		player.position = position;
 		player.score = 0;
 		player.color = data.color;
@@ -194,15 +206,15 @@ export default class GameRoom extends Room {
 	}
 
 	public onLeave(player: Player) {
-		if (player.id === this.leftPlayer.id)
+		if (this.leftPlayer && player.id === this.leftPlayer.id)
 			this.leftPlayerJoined = false;
-		else if (player.id === this.rightPlayer.id)
+		else if (this.rightPlayer && player.id === this.rightPlayer.id)
 			this.rightPlayerJoined = false;
 
 		console.log(`player ${player.username} leaved ${this.id}`)
 		this.users = this.users.filter((e: Player) => e.id !== player.id);
 
-		if (!this.leftPlayerJoined || !this.rightPlayerJoined)
+		if (this.state == 1 && (!this.leftPlayerJoined || !this.rightPlayerJoined))
 			this.stop();
 	}
 

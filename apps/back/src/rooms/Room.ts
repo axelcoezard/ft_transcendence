@@ -41,7 +41,8 @@ export default abstract class Room {
 		}
 		if (type == "leave")
 		{
-			player.rooms = player.rooms.filter((room: string) => room != this.slug);
+			if (player.rooms)
+				player.rooms = player.rooms.filter((room: string) => room != this.slug);
 			return this.onLeave(player)
 		}
 		if (this.messages.has(type))
