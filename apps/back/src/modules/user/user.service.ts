@@ -23,6 +23,22 @@ export default class UserService {
 		return await this.userRepository.findOne({id});
 	}
 
+	async getUserFiltered(id: number): Promise<any> {
+		let response = await this.getUser(id);
+		return response ? {
+			id: response.id,
+			username: response.username,
+			"42_username": response["42_username"],
+			email: response.email,
+			avatar_id: response.avatar_id,
+			ELO_score: response.ELO_score,
+			status: response.status,
+			rank: response.rank,
+			created_at: response.created_at,
+			updated_at: response.updated_at
+		} : {}
+	}
+
 	async addUser(user: User): Promise<User> {
 		const newUser = this.userRepository.create(user);
 		await this.userRepository.save(newUser);
@@ -136,6 +152,15 @@ export default class UserService {
 				INNER JOIN "user" as u ON f.friend_id = u.id
 			WHERE f.user_id = $1`,
 		[id])
+	}
+
+	async isFriendWith(id: number, friend_id: number): Promise<any> {
+		return await this.userRepository.query(
+			`SELECT
+				*
+			FROM friend as f
+			WHERE f.user_id = $1 AND f.friend_id = $2`,
+		[id, friend_id])
 	}
 
 	async addFriend(id: number, friend_id: number | undefined): Promise<any> {

@@ -24,18 +24,22 @@ export default class UserController {
 	async showUser(
 		@Param('id', ParseIntPipe) id: number
 	): Promise<any> {
-		let response  = await this.service.getUser(id);
-		return response ? {
-			id: response.id,
-			username: response.username,
-			"42_username": response["42_username"],
-			email: response.email,
-			avatar_id: response.avatar_id,
-			ELO_score: response.ELO_score,
-			rank: response.rank,
-			created_at: response.created_at,
-			updated_at: response.updated_at
-		} : {};
+		return await this.service.getUser(id);
+	}
+
+	@UseGuards(JwtAuthGuard)
+	@Get('/:friend_id/if/:id')
+	async showUserIfFriend(
+		@Param('friend_id', ParseIntPipe) friend_id: number,
+		@Param('id', ParseIntPipe) id: number
+	): Promise<any> {
+		let resF = await this.service.isFriendWith(id, friend_id);
+		if (resF.length >= 1)
+			return {
+				isFriend: true,
+				value: await this.service.getUserFiltered(friend_id)
+			};
+		return { isFriend: false }
 	}
 
 	@UseGuards(JwtAuthGuard)

@@ -174,7 +174,7 @@ const Play = () => {
 				onMouseMove={handleMove}
 				onTouchStart={handleMove}
 			/>
-			{status == "ended" ? <Results
+			{status === "ended" ? <Results
 				victory={winner.id === session.get("id")}
 				url="/home"
 			/> : null}

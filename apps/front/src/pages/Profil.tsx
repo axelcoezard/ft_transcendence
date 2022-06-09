@@ -23,8 +23,8 @@ const Profil = () => {
 				'Content-Type': 'application/json'
 			}
 		});
-		if (!res.ok) return false;
 		let data = await res.json();
+		if (data.error) return;
 		setUser(data)
 	}
 

@@ -136,11 +136,9 @@
 /* ----------- PONG RESULTS ----------- */
 
 .results {
-	background-color: rgba(33, 33, 33, 0.8);
 
 	width: 100%;
 	height: 100%;
-	border-radius: 1.4vw;
 	z-index: 1000;
 
 	position: absolute;
@@ -151,36 +149,20 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	background-color: rgba(33, 33, 33, 0.8);
 }
 
 .results_confetties {
 	width: 100%;
 	height: 100%;
+	z-index: 500;
 }
 
 .results_h1 {
-    font-family: Helvetica, Arial, sans-serif;
-    font-style: bold;
-    font-size: 3.33vw;
-    text-transform: uppercase;
+	@include text-color(4rem);
 
-    background: linear-gradient(90deg, $color_mauve 20.83%, $color_uranian 49.94%, $color_mint 80.3%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-
-    z-index: 1;
-    max-height: 78px;
-}
-
-.results_text {
-    color: #A9A9A9;
-    font-family: Helvetica, Arial, sans-serif;
-    font-size: 1vw;
-	font-weight: bolder;
-    margin: 0.52vw;
-
-	text-decoration: none;
-
+    z-index: 900;
+	padding-bottom: 20px;
 }
 
 .results_buttons {
@@ -191,29 +173,5 @@
 }
 
 .results_button {
-	cursor: pointer;
-
-	background-color: white;
-
-	margin: 0.52vw 0.52vw;
-	border-radius: 1.3vw;
-	border: none;
-	outline: none;
-
-	text-decoration: none;
-}
-
-.results_button:hover {
-	background-color: $color_jet;
-	text-decoration: none;
-}
-
-.results_button:active {
-	text-decoration: none;
-	background-color: $color_jet;
-	box-shadow: 0 5px black;
-	transform: translateY(4px);
-
-	top: 5%;
-	transform: translate(0%, -5%);
+	@include generate-button();
 }

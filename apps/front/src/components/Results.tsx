@@ -6,9 +6,7 @@ const ResultsButtonAgain = (props: any) => {
 	const { url } = props;
 
 	return <div className={styles.results_buttons}>
-		<Link className={styles.results_button} to={"/home"}>
-			<h1 className={styles.results_text}>EXIT</h1>
-		</Link>
+		<Link className={styles.results_button} to={"/home"}>Retourner à l'accueil</Link>
 	</div>
 }
 
