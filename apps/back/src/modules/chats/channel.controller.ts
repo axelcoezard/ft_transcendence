@@ -128,7 +128,6 @@ export default class ChannelController {
 		let currentUsers = await this.service.getUsersFromChannel(slug);
 		let usersNew = data.users.filter(user => !currentUsers.find(u => u.id == user.id))
 		let usersDrop = currentUsers.filter(user => !data.users.find(u => u.id == user.id))
-		console.log(currentUsers, usersNew, usersDrop)
 		if (usersNew.length > 0)
 		{
 			let res = await this.service.addUsers(channel_id, usersNew);
@@ -239,6 +238,23 @@ export default class ChannelController {
 		if (!data || !data.users)
 			return { error: "No users provided" };
 		return await this.service.addUsers(id, data.users);
+	}
+
+	@UseGuards(JwtAuthGuard)
+	@Post("/:slug/join")
+	async joinChannel(
+		@Param('slug') slug: string,
+		@Body() data: any
+	){
+		if (!data)			return { error: "No data provided" };
+		if (!data.user_id)	return { error: "No user id provided" };
+		if (!data.password)	return { error: "No password provided" };
+
+		let digest = createHash('sha256').update(data.password).digest('hex');
+		let channel = await this.service.getBySlug(slug);
+		if (!channel)		return { error: "Channel not found" };
+		if (channel.password !== digest)	return { error: "Invalid password" };
+		return channel;
 	}
 
 	@UseGuards(JwtAuthGuard)
