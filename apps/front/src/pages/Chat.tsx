@@ -14,8 +14,8 @@ const Chat = () => {
 	const session = useSession("session");
 	let [channels, setChannels] = useState<any[]>([]);
 	let [messages, setMessages] = useState<any[]>([]);
-	let [bloqued, setbloqued] = useState<any[]>([]);
-	let [status, setstatus] =  useState<any[]>([]);
+	let [bloqued, setBloqued] = useState<any[]>([]);
+	let [status, setStatus] =  useState<any[]>([]);
 	let [value, setValue] = useState<string>("");
 	let {slug} = useParams();
 
@@ -64,7 +64,7 @@ const Chat = () => {
 			},
 		});
 		const data = await res.json();
-		setbloqued(data);
+		setBloqued(data);
 	}
 
 	const setupStatus = async () => {
@@ -76,7 +76,7 @@ const Chat = () => {
 			},
 		});
 		const data = await res.json();
-		setstatus(data);
+		setStatus(data);
 	}
 
 	const setupChannels = async () => {
@@ -136,7 +136,12 @@ const Chat = () => {
 			setupBloqued();
 			setupStatus();
 		}
-		return () => { socket.emit("leave", "chat", slug, {}) }
+		return () => {
+			setMessages([]);
+			setBloqued([]);
+			setStatus([]);
+			socket.emit("leave", "chat", slug, {})
+		}
 	}, [socket.ready, slug]);
 
 	return <section className={styles.chat}>

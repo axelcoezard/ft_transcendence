@@ -7,7 +7,7 @@ import {
 import	{ createHash } from 'crypto'
 import ChannelService from './channel.service';
 import Channel from './channel.entity';
-import { getManager } from 'typeorm';
+import { getManager, getMongoManager } from 'typeorm';
 import ChannelBuilder from './channel.builder';
 import { JwtAuthGuard } from '../auth/jwt.authguard';
 
@@ -240,5 +240,25 @@ export default class ChannelController {
 			return { error: "No users provided" };
 		return await this.service.addUsers(id, data.users);
 	}
+
+	@UseGuards(JwtAuthGuard)
+	@Delete("/:slug/leave")
+	async leaveChannel(
+		@Param('slug') slug: string,
+		@Body() data: any
+	){
+		if (!slug)		return { error: "No channel slug provided" };
+		if (!data)		return { error: "No data provided" };
+		if (!data.id)	return { error: "No user id provided" };
+
+		let res = await getManager().query(
+			`DELETE FROM "user_in_channel"
+			WHERE user_id = $1 AND channel_id = (SELECT id FROM "channel" WHERE slug = $2);`,
+			[data.id, slug]
+		)
+		if (!res) return { error: "Error leaving channel" };
+		return res;
+	}
+
 }
 

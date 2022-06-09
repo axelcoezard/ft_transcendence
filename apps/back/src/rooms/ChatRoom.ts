@@ -1,3 +1,4 @@
+import { callbackify } from "util";
 import MessageBuilder from "../modules/message/message.builder";
 import Player from "./Player";
 import Room from "./Room";
@@ -12,9 +13,10 @@ export default class ChatRoom extends Room {
 
 	public onCreate() {
 		this.onMessage("msg", async (player: Player, data: any) => {
-			this.addMessage(data, player);
-			this.users.forEach((p: Player) => {
-				p.socket.emit("chat.msg", data);
+			this.addMessage(data, player, () => {
+				this.users.forEach((p: Player) => {
+					p.socket.emit("chat.msg", data);
+				});
 			});
 		})
 	}
@@ -29,13 +31,13 @@ export default class ChatRoom extends Room {
 		console.log(`${player.username} leaved ${this.slug} chat`);
 	}
 
-	public async addMessage(data: any, player: Player) {
+	public async addMessage(data: any, player: Player, callback: Function) {
 		this.service.messages.addMessage(MessageBuilder
 			.new(data.value)
 			.setChannel(this.id)
 			.setSender(data.sender_id)
 			.setType(data.type)
-		)
+		).then((msg: any) => callback())
 	}
 }
 
