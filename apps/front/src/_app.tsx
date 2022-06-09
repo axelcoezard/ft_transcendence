@@ -17,14 +17,15 @@ import Invite from "./pages/Invite";
 import Watch from "./pages/Watch";
 import Ranking from "./pages/Ranking";
 import ChatCreate from "./pages/ChatCreate";
-import Authentification from "./pages/Authentification";
+import TwoFactorAuth from "./pages/2FA";
 
 const PublicRoute = ({children}: {children: JSX.Element}) => {
 	const session = useSession("session");
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (session.has("access_token"))
+		let challenge = !session.get("2FA_status") || session.get("2FA_challenge");
+		if (challenge && session.has("access_token"))
 			navigate("/home");
 	}, [])
 
@@ -36,8 +37,13 @@ const PrivateRoute = ({children}: {children: JSX.Element}) => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (!session.has("access_token"))
-			navigate("/");
+		if (session.has("access_token"))
+		{
+			let challenge = !session.get("2FA_status") || session.get("2FA_challenge");
+			if (!challenge)	navigate("/2FA");
+			else			navigate("/home");
+		}
+		else navigate("/");
 	}, [])
 
 	return <Wrapper>{children}</Wrapper>;
@@ -62,8 +68,8 @@ const _App = () => {
 				<Route path="/" element={<PublicRoute>
 					<Login />
 				</PublicRoute>} />
-				<Route path="/authentification" element={<PublicRoute>
-					<Authentification />
+				<Route path="/2fa" element={<PublicRoute>
+					<TwoFactorAuth />
 				</PublicRoute>} />
 				<Route path="/home" element={<PrivateRoute>
 					<Home />

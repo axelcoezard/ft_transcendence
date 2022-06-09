@@ -1,0 +1,52 @@
+/* ----------- COLOR PALETTE -----------*/
+
+@use '../_colors' as *;
+
+/* ----------- RANK ELEMENTS -----------*/
+
+.authentification {
+	width: 520px;
+	height: auto;
+
+	border-radius: 20px;
+	padding: 20px;
+	background-color: $color_widget;
+
+	z-index: 1000;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 20px;
+
+	@media screen and (max-width: 768px) {
+		width: calc(100% - 30px);
+    }
+}
+
+.authentification h1 {
+	@include text-color(2rem);
+}
+
+.authentification p {
+	color: #fff;
+}
+
+.authentification form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.authentification form input {
+	width: 200px;
+}
+
+.authentification form button {
+	@include generate-button();
+	display: block;
+}

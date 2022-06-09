@@ -10,7 +10,6 @@ const Login = (props: any) => {
 	const session = useSession("session");
 	const [params] = useSearchParams();
 	const [loading, setLoading] = useState(false)
-	const navigate = useNavigate()
 
 	useEffect(() => {
 		const code = params.get("code")
@@ -36,8 +35,12 @@ const Login = (props: any) => {
 
 	useEffect(() => {
 		const {hostname, port} = document.location
-		if (session.has("access_token"))
+		const challenge = !session.get("2FA_status") || session.get("2FA_challenge");
+		const connected = session.has("access_token")
+		if (connected && challenge)
 			document.location.href = `http://${hostname}:${port}/home`;
+		if (connected && !challenge)
+			document.location.href = `http://${hostname}:${port}/2fa`;
 	}, [session])
 
 	return <main>

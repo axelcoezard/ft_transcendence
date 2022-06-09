@@ -23,7 +23,6 @@ export default class AuthController {
 		return JSON.stringify({url: url.toString()});
 	}
 
-	//@UseGuards(AuthGuard('local'))
 	@Post("/token/:code")
 	async login(
 		@Param("code") code: string,
@@ -56,6 +55,7 @@ export default class AuthController {
 			ELO_score: user.ELO_score,
 			"2FA_secret": user["2FA_secret"],
 			"2FA_status": user["2FA_status"],
+			"2FA_challenge": false,
 			access_token: api.access_token,
 			refresh_token: api.refresh_token,
 			request_token: await this.service.generateJWT(user.username, user.id),
@@ -64,6 +64,7 @@ export default class AuthController {
 		});
 	}
 
+	@UseGuards(JwtAuthGuard)
 	@Post("/token/:token/refresh")
 	async refresh(
 		@Param("token") token: string
@@ -87,6 +88,16 @@ export default class AuthController {
 		res.writeHead(200, {'Content-Type': 'image/png'});
 		res.end(buffer)
 		return new StreamableFile(buffer);
+	}
+
+	@UseGuards(JwtAuthGuard)
+	@Get("/twofactor")
+	async validate2FA(
+		@Body() body: any,
+	): Promise<string> {
+		if (!body.secret || !body.code || !validateCode(parseInt(body.code), body.secret))
+			return JSON.stringify({ status: false });
+		return JSON.stringify({ status: true });
 	}
 
 	@UseGuards(JwtAuthGuard)
