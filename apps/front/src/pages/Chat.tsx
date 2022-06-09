@@ -63,7 +63,7 @@ const Chat = () => {
 		</div>
 		<ul className={styles.chat_index}>
 			{channels && channels.map((channel: any, i: number) => {
-				return <ChatChannel key={i} channel={channel} />
+				return <ChatChannel key={i} channel={channel} slug={slug} />
 			})}
 		</ul>
 		<ChatConversation

@@ -109,6 +109,7 @@ const ChatConversation = (props: any) => {
 			setMessages([]);
 			setStatus([]);
 			setInfos({})
+			setConnected(false)
 			socket.emit("leave", "chat", slug, {})
 		}
 	}, [socket.ready, slug]);
@@ -117,6 +118,7 @@ const ChatConversation = (props: any) => {
 	return <>{(!connected && infos && infos.password) ? (
 		<ChatPassword
 			slug={slug}
+			name={infos.name}
 			setConnected={setConnected}
 		/>
 	) : (<div className={styles.chat_content}>

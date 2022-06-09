@@ -72,10 +72,12 @@ export default class ChannelController {
 		if (!data.status)	return { error: "No visibility provided" };
 		if (data.name.length == 0)	return { error: "Veuillez entrer un nom de tchat" };
 		if (data.name.length > 16) return { error: "Le nom de tchat est trop long" };
-		if (!/^[a-zA-Z\s]+$/.test(data.name)) return { error: "Le nom de tchat doit contenir que des lettres et espaces." };
-		if (data.users.length < 2) return { error: "Veuillez ajouter au moins 2 utilisateurs" };
+		if (!/^[a-zA-Z\s]+$/.test(data.name))
+			return { error: "Le nom de tchat doit contenir que des lettres et espaces." };
 		if (data.status !== "public" && data.status !== "private")
 			return { error: "Veuillez entrer une visibilite valide" };
+		if (data.status === 'private' && data.users.length < 2)
+			return { error: "Veuillez ajouter au moins 2 utilisateurs" };
 
 		let builder = ChannelBuilder.new()
 			.setName(data.name)
@@ -109,9 +111,9 @@ export default class ChannelController {
 		if (data.name.length == 0)	return { error: "Veuillez entrer un nom de tchat" };
 		if (data.name.length > 16) return { error: "Le nom de tchat est trop long" };
 		if (!/^[a-zA-Z\s]+$/.test(data.name)) return { error: "Le nom de tchat doit contenir que des lettres et espaces." };
-		if (data.users.length < 1) return { error: "Veuillez garder au moins 1 utilisateurs" };
 		if (data.status !== "public" && data.status !== "private")
 			return { error: "Veuillez entrer une visibilite valide" };
+		if (data.status === 'private' && data.users.length < 1) return { error: "Veuillez garder au moins 1 utilisateurs" };
 		let password = data.password ? createHash('sha256').update(data.password).digest('hex') : null;
 		let channel = await getManager().query(
 			`UPDATE "channel"

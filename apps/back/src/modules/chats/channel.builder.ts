@@ -41,7 +41,6 @@ export default class ChannelBuilder {
 	public setPassword(pass: string) : ChannelBuilder
 	{
 		this.channel.password = pass;
-		this.channel.status = "private";
 		return this;
 	}
 

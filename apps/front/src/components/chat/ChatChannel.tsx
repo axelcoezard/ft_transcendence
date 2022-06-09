@@ -6,9 +6,15 @@ import useSession from '../../hooks/useSession';
 import Avatar from '../../components/Avatar';
 
 const ChatChannel = (props: any) => {
-	const { channel } = props;
+	const { channel, slug } = props;
 
-	return <Link to={`/chat/${channel.slug}`} className={styles.chat_index_channel}>
+	return <Link
+		to={`/chat/${channel.slug}`}
+		className={
+			slug === channel.slug
+			? styles.chat_index_channel_current
+			: styles.chat_index_channel
+		}>
 		{channel.name}
 	</Link>
 }

@@ -5,7 +5,7 @@ import DefaultScenery from "../assets/Scenery";
 import { useNavigate } from "react-router-dom";
 
 const ChatPassword  = (props: any) => {
-	const {slug, setConnected} = props;
+	const {slug, setConnected, name} = props;
 	const session = useSession("session");
 	const [password, setPassword] = useState<string | null>(null);
 	const [error, setError] = useState<string | null>();
@@ -38,7 +38,7 @@ const ChatPassword  = (props: any) => {
 	return <div className={styles.chat_password}>
 		<div className={styles.chat_password_container}>
 			<h1>Mot de passe</h1>
-			<p>Veuillez entrer le mot de passe du tchat.</p>
+			<p>Veuillez entrer le mot de passe de: <br/>{name}</p>
 			{error && <strong className={styles.chat_password_error}>{error}</strong>}
 			<form onSubmit={handleSubmit}>
 				<input

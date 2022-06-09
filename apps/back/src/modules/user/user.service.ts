@@ -139,17 +139,9 @@ export default class UserService {
 
 	async getUserChannels(id: number): Promise<any> {
 		return await this.userRepository.query(
-			`SELECT
-				c.id,
-				c.name,
-				c.slug,
-				c.creator_id,
-				c.status,
-				c.created_at,
-				c.updated_at
-			FROM "channel" as c
+			`SELECT c.* FROM "channel" as c
 				INNER JOIN "user_in_channel" as uic ON c.id = uic.channel_id
-			WHERE uic.user_id = $1`,
+			WHERE uic.user_id = $1 OR c.status = 'public';`,
 		[id])
 	}
 
