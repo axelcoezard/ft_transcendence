@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { getManager, Repository } from 'typeorm';
 import Channel from './channel.entity';
 import ChannelBuilder from './channel.builder';
+import UserService from '../user/user.service';
 
 @Injectable()
 export default class ChannelService {
@@ -10,6 +11,9 @@ export default class ChannelService {
 		@InjectRepository(Channel)
 		public channelRepository: Repository<Channel>
 	) {}
+
+	@Inject(UserService)
+	private readonly userService: UserService;
 
 	async getAll(): Promise<Channel[]> {
 		return await this.channelRepository.find();
@@ -25,6 +29,13 @@ export default class ChannelService {
 		return await this.channelRepository.findOne({
 			where: {slug}
 		})
+	}
+
+	async deleteBySlug(slug: string, id: number): Promise<any> {
+		let rank = await this.userService.getRankFromChannelByUserId(slug, id);
+		if (!rank)				return { error: "No user found in channel" };
+		if (rank !== 'owner')	return { error: "You are not the owner" };
+		return await this.channelRepository.delete({slug});
 	}
 
 	async addUsers(id: number, users: any[]): Promise<any> {

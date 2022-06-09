@@ -1,4 +1,4 @@
-import {  Body, Get, Inject, Post, UseGuards } from '@nestjs/common';
+import {  Body, Delete, Get, Inject, Post, UseGuards } from '@nestjs/common';
 import {
 	Controller,
 	Param,
@@ -17,7 +17,26 @@ export default class ChannelController {
 	private readonly service: ChannelService;
 
 	@UseGuards(JwtAuthGuard)
-	@Get("/:slug")
+	@Get('/:slug')
+	async getChannel(
+		@Param('slug') slug: string
+	){
+		return await this.service.getBySlug(slug);
+	}
+
+	@UseGuards(JwtAuthGuard)
+	@Delete('/:slug')
+	async deleteChannel(
+		@Param('slug') slug: string,
+		@Body() data: any
+	){
+		if (!data)			return { error: "No data provided" };
+		if (!data.id)		return { error: "No user id provided" };
+		return await this.service.deleteBySlug(slug, data.id);
+	}
+
+	@UseGuards(JwtAuthGuard)
+	@Get("/:slug/messages")
 	async getAllFromChannel(
 		@Param('slug') slug: string
 	){
@@ -78,9 +97,9 @@ export default class ChannelController {
 	}
 
 	@UseGuards(JwtAuthGuard)
-	@Get("/:id/users")
+	@Get("/:slug/users")
 	async getAllUsersFromChannel(
-		@Param('id', ParseIntPipe) id: number
+		@Param('slug') slug: string
 	){
 		return await getManager().query(
 			`SELECT
@@ -93,8 +112,8 @@ export default class ChannelController {
 			FROM "channel" as c
 				INNER JOIN "user_in_channel" as uic ON uic.channel_id = c.id
 				INNER JOIN "user" as u ON u.id = uic.user_id
-			WHERE c.id = $1;`,
-			[id]
+			WHERE c.slug = $1;`,
+			[slug]
 		);
 	};
 

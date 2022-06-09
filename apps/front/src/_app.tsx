@@ -18,6 +18,7 @@ import Watch from "./pages/Watch";
 import Ranking from "./pages/Ranking";
 import ChatCreate from "./pages/ChatCreate";
 import TwoFactorAuth from "./pages/2FA";
+import ChatEdit from "./pages/ChatEdit";
 
 const PublicRoute = ({children}: {children: JSX.Element}) => {
 	const session = useSession("session");
@@ -41,7 +42,6 @@ const PrivateRoute = ({children}: {children: JSX.Element}) => {
 		{
 			let challenge = !session.get("2FA_status") || session.get("2FA_challenge");
 			if (!challenge)	navigate("/2FA");
-			else			navigate("/home");
 		}
 		else navigate("/");
 	}, [])
@@ -94,6 +94,9 @@ const _App = () => {
 				</PrivateRoute>} />
 				<Route path="/chat/:slug" element={<PrivateRoute>
 					<Chat />
+				</PrivateRoute>} />
+				<Route path="/chat/:slug/edit" element={<PrivateRoute>
+					<ChatEdit />
 				</PrivateRoute>} />
 				<Route path="/ranking" element={<PrivateRoute>
 					<Ranking />

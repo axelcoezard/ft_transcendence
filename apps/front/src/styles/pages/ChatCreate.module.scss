@@ -265,3 +265,21 @@ $switch-color: $color_aero;
 	-moz-transition: All 0.3s ease;
 	-o-transition: All 0.3s ease;
 }
+
+
+.chat_create_buttons {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	gap: 10px;
+}
+
+.chat_delete_button {
+	@include generate-button;
+	background: red;
+	color: #fff;
+	&:hover {
+		background: white;
+		color: red;
+	}
+}

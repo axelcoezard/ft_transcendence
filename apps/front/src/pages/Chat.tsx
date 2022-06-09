@@ -6,6 +6,8 @@ import useSession from '../hooks/useSession';
 import ChatMessage from '../components/chat/ChatMessage';
 import ChatChannel from '../components/chat/ChatChannel';
 import ChatInviteMessage from '../components/chat/ChatInviteMessage';
+import ChatEditButton from '../components/chat/ChatEditButton';
+import ChatLeaveButton from '../components/chat/ChatLeaveButton';
 
 const Chat = () => {
 	const {socket} = useAppContext();
@@ -65,7 +67,7 @@ const Chat = () => {
 
 	const setupMessages = async (chan_slug: string | undefined) => {
 		if (!chan_slug || !slug || chan_slug != slug) return;
-		const res = await fetch(`http://c2r2p3.42nice.fr:3030/channels/${chan_slug}`, {
+		const res = await fetch(`http://c2r2p3.42nice.fr:3030/channels/${chan_slug}/messages`, {
 			method: "GET",
 			headers: {
 				'Authorization': `Bearer ${session.get("request_token")}`
@@ -92,9 +94,10 @@ const Chat = () => {
 			<div className={styles.chat_header_left}>
 				<Link to="/chat/create">Nouvelle discussion</Link>
 			</div>
-			<div className={styles.chat_header_right}>
-				<button>Options</button>
-			</div>
+			<div className={styles.chat_header_right}>{slug && <>
+				<ChatLeaveButton slug={slug} />
+				<ChatEditButton slug={slug} />
+			</>}</div>
 		</div>
 		<ul className={styles.chat_index}>
 			{channels && channels.map((channel: any, i: number) => {

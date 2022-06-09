@@ -125,6 +125,18 @@ export default class UserService {
 		[]);
 	}
 
+	async getRankFromChannelByUserId(channel_slug: string, id: number): Promise<any> {
+		if (!id)
+			return {error: "Veuillez vous connecter pour accéder à cette page"}
+		return await this.userRepository.query(
+			`SELECT
+				uic.rank as rank
+			FROM "user_in_channel" uic
+				INNER JOIN "channel" c ON uic.channel_id = c.id
+			WHERE c.slug = $1 AND uic.user_id = $2;`,
+		[channel_slug, id]);
+	}
+
 	async getUserChannels(id: number): Promise<any> {
 		return await this.userRepository.query(
 			`SELECT

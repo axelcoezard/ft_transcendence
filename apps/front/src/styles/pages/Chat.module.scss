@@ -56,7 +56,9 @@ $form-height: 70px;
 
 .chat_header_right {
 	flex: 0 0 calc(100% - $index-width);
-	flex-direction: row-reverse;
+	flex-direction: row;
+	justify-content: flex-end;
+	gap: 10px;
 }
 
 .chat_header_left a,
@@ -64,6 +66,10 @@ $form-height: 70px;
 .chat_header_left button,
 .chat_header_right button {
 	@include generate-button;
+}
+
+.chat_header_leave_button {
+	background: red;
 }
 
 .chat_index {
@@ -257,3 +263,4 @@ $form-height: 70px;
 .chat_form button {
 	@include generate-button;
 }
+
