@@ -56,7 +56,6 @@ const ProfilHeader = (props: any) => {
 				<span>Defaites</span>
 			</li>
 		</ul>
-
 	</div>
 }
 

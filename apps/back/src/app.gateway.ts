@@ -87,7 +87,6 @@ export class AppGateway
 
 	@SubscribeMessage('message')
 	public async onMessage(client: Socket, msg: any) {
-		console.log(msg)
 		let player = this.users.get(msg.sender.username);
 		let room = await this.getRoom(msg.room, msg.room_id);
 		if (room)

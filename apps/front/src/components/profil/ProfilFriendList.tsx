@@ -37,7 +37,7 @@ const ProfilFriendList = (props: any) => {
 	return <div className={styles.profil_history}>
 		{friends && friends.length > 0 ? friends.map((u: any, index: number) => {
 			return <ProfilFriend key={index} user={u} />
-		}) : <p>Aucun utilisateur bloqué.</p>}
+		}) : <p>Aucun ami ajouté.</p>}
 	</div>
 }
 

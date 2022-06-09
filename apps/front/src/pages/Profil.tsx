@@ -9,7 +9,7 @@ import ProfilFriendList from '../components/profil/ProfilFriendList';
 import ProfilMenu from '../components/profil/ProfilMenu';
 
 const Profil = () => {
-	const [onglet, setOnglet] = useState("friends");
+	const [onglet, setOnglet] = useState("history");
 	const session = useSession("session");
 	const [user, setUser] = useState<any>({});
 	const { id } = useParams();
@@ -29,6 +29,7 @@ const Profil = () => {
 	}
 
 	useEffect(() => {
+		setOnglet("history")
 		if (!id) return fetchSession()
 		fetchUser()
 	}, [id])
