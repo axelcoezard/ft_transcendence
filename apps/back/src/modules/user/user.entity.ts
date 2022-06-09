@@ -19,22 +19,10 @@ export default class User {
 	"42_username": string;
 
 	@Column({
-		type: 'varchar',
-		unique: true,
-	})
-	email: string;
-
-	@Column({
 		type: 'int',
 		default: 0
 	})
 	avatar_id: number;
-
-	@Column({
-		type: 'int',
-		default: 0
-	})
-	rank: number;
 
 	@Column({
 		type: 'varchar',

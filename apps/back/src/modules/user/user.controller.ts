@@ -155,6 +155,15 @@ export default class UserController {
 	}
 
 	@UseGuards(JwtAuthGuard)
+	@Get('/:id/channels/:channel_id/rank')
+	async showUserRankInChannels(
+		@Param('id', ParseIntPipe) id: number,
+		@Param('channel_id', ParseIntPipe) channel_id: number
+	): Promise<any> {
+		return await this.service.getUserRankInChannel(id, channel_id);
+	}
+
+	@UseGuards(JwtAuthGuard)
 	@Get('/:id/friends')
 	async showUserFriends(
 		@Param('id', ParseIntPipe) id: number

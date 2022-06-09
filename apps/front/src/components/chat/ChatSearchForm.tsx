@@ -9,8 +9,10 @@ const ChatSearchForm = (props: any) => {
 	const [query, setQuery] = useState<string>("");
 
 	useLayoutEffect(() => {
-		setUsers([session.value])
-		console.log(users)
+		setUsers([{
+			...session.value,
+			rank: "owner"
+		}])
 	}, [])
 
 	const handleSearch = async (e: any) => {
@@ -32,7 +34,7 @@ const ChatSearchForm = (props: any) => {
 		e.preventDefault();
 		let res = search.filter((user: any) => user.username === query)
 		if (res.length !== 1) return;
-		let user = res[0];
+		let user = {...res[0], rank: "member"};
 		let exists = users.filter((u: any) => u.username === user.username);
 		if (exists.length > 0) return;
 		setUsers([...users, user])

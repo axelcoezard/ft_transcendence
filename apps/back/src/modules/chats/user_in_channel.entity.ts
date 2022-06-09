@@ -15,6 +15,20 @@ export default class UserInChannel extends BaseEntity {
 	})
 	channel_id: number;
 
+	@Column({
+		type: 'varchar',
+		nullable: false,
+		default: 'member'
+	})
+	rank: string;
+
+	@Column({
+		type: "varchar",
+		nullable: true,
+		default: "active"
+	})
+	status: string;
+
 	@CreateDateColumn()
 	created_at: Date;
 

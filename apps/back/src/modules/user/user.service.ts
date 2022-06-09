@@ -29,11 +29,9 @@ export default class UserService {
 			id: response.id,
 			username: response.username,
 			"42_username": response["42_username"],
-			email: response.email,
 			avatar_id: response.avatar_id,
 			ELO_score: response.ELO_score,
 			status: response.status,
-			rank: response.rank,
 			created_at: response.created_at,
 			updated_at: response.updated_at
 		} : {}
@@ -141,6 +139,19 @@ export default class UserService {
 				INNER JOIN "user_in_channel" as uic ON c.id = uic.channel_id
 			WHERE uic.user_id = $1`,
 		[id])
+	}
+
+	async getUserRankInChannel(id: number, channel_id: number): Promise<any> {
+		if (!id)
+			return {error: "Veuillez vous connecter pour accéder à cette page"}
+		if (!channel_id)
+			return {error: "Veuillez sélectionner un salon pour accéder à cette page"}
+		return await this.userRepository.query(
+			`SELECT
+				uic.rank
+			FROM "user_in_channel" as uic
+			WHERE uic.user_id = $1 AND uic.channel_id = $2`,
+		[id, channel_id])
 	}
 
 	async getFriends(id: number): Promise<any> {

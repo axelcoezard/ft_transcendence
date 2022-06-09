@@ -85,7 +85,11 @@ export default class ChannelController {
 		return await getManager().query(
 			`SELECT
 				u.id,
-				u.username
+				u.username,
+				uic.rank as rank,
+				uic.status as status,
+				uic.created_at as created_at,
+				uic.updated_at as updated_at
 			FROM "channel" as c
 				INNER JOIN "user_in_channel" as uic ON uic.channel_id = c.id
 				INNER JOIN "user" as u ON u.id = uic.user_id
@@ -93,6 +97,71 @@ export default class ChannelController {
 			[id]
 		);
 	};
+
+	@UseGuards(JwtAuthGuard)
+	@Get("/:id/users/:user_id/rank")
+	async getUserRank(
+		@Param('id', ParseIntPipe) id: number,
+		@Param('user_id', ParseIntPipe) user_id: number
+	){
+		if (!id)
+			return { error: "No channel id provided" };
+		if (!user_id)
+			return { error: "No user id provided" };
+		return await getManager().query(
+			`SELECT
+				uic.rank
+			FROM "channel" as c
+				INNER JOIN "user_in_channel" as uic ON uic.channel_id = c.id
+			WHERE c.id = $1 AND uic.user_id = $2;`,
+			[id, user_id]
+		);
+	}
+
+	@UseGuards(JwtAuthGuard)
+	@Post("/:id/users/:user_id/rank")
+	async setUserRank(
+		@Param('id', ParseIntPipe) id: number,
+		@Param('user_id', ParseIntPipe) user_id: number,
+		@Body() data: any
+	){
+		if (!id)
+			return { error: "No channel id provided" };
+		if (!user_id)
+			return { error: "No user id provided" };
+		if (!data)
+			return { error: "No data provided" };
+		if (!data.rank)
+			return { error: "No rank provided" };
+		if (data.rank !== "owner" && data.rank !== "admin" && data.rank !== "member")
+			return { error: "Invalid rank" };
+		return await getManager().query(
+			`UPDATE "user_in_channel" as uic
+			SET uic.rank = $1
+			WHERE uic.channel_id = $2 AND uic.user_id = $3;`,
+			[data.rank, id, user_id]
+		);
+	}
+
+	@UseGuards(JwtAuthGuard)
+	@Post("/:id/users/:user_id/status")
+	async banUser(
+		@Param('id', ParseIntPipe) id: number,
+		@Param('user_id', ParseIntPipe) user_id: number,
+		@Body() data: any
+	){
+		if (!id)			return { error: "No channel id provided" };
+		if (!user_id)		return { error: "No user id provided" };
+		if (!data)			return { error: "No data provided" };
+		if (data.status !== "banned" && data.status !== "mute" && data.status !== "active")
+			return { error: "Invalid status" };
+		return await getManager().query(
+			`UPDATE "user_in_channel" as uic
+			SET uic.status = $3
+			WHERE uic.channel_id = $1 AND uic.user_id = $2;`,
+			[id, user_id, data.status]
+		);
+	}
 
 	@UseGuards(JwtAuthGuard)
 	@Post("/:id/users")

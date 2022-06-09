@@ -43,7 +43,6 @@ export default class AuthController {
 			let req: User = new User();
 			req.username = infos.login;
 			req["42_username"] = infos.login;
-			req.email = infos.email;
 			req.avatar_id = avatar.id;
 			req["2FA_secret"] = generateSecret(api.access_token);
 			user = await this.service.addUser(req);

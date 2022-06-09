@@ -30,16 +30,17 @@ export default class ChannelService {
 	async addUsers(id: number, users: any[]): Promise<any> {
 		if (users.length === 0)
 			return { error: "No users provided" };
-		let req = `INSERT INTO "user_in_channel" (user_id, channel_id) VALUES`;
-		let req_i = -2;
+		let req = `INSERT INTO "user_in_channel" (user_id, channel_id, rank) VALUES`;
+		let req_i = -3;
 		let req_values = users.map((u: any) => {
-			req_i += 2;
-			return `(\$${req_i + 1}, \$${req_i + 2})`
+			req_i += 3;
+			return `(\$${req_i + 1}, \$${req_i + 2}, \$${req_i + 3})`
 		});
 		req += req_values.join(', ') + ";";
 		let values = users.reduce((prev: any, user: any) => {
-			return [...prev, user.id, id];
+			return [...prev, user.id, id, user.rank];
 		}, [])
+		console.log(req)
 		return await getManager().query(req, values);
 	}
 
