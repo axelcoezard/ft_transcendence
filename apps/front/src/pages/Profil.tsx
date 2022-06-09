@@ -4,8 +4,12 @@ import ProfilHistory from '../components/profil/ProfilHistory';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import useSession from '../hooks/useSession';
+import ProfilBlockedList from '../components/profil/ProfilBlockedList';
+import ProfilFriendList from '../components/profil/ProfilFriendList';
+import ProfilMenu from '../components/profil/ProfilMenu';
 
 const Profil = () => {
+	const [onglet, setOnglet] = useState("friends");
 	const session = useSession("session");
 	const [user, setUser] = useState<any>({});
 	const { id } = useParams();
@@ -31,7 +35,10 @@ const Profil = () => {
 
 	return <main className={styles.profil}>
 		<ProfilHeader user={user} />
-		<ProfilHistory user={user} />
+		<ProfilMenu onglet={onglet} setOnglet={setOnglet} />
+		{onglet === "history" && <ProfilHistory user={user} />}
+		{onglet === "friends" && <ProfilFriendList user={user} />}
+		{onglet === "blockeds" && <ProfilBlockedList user={user} />}
 	</main>
 }
 
