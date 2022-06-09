@@ -76,7 +76,7 @@ const ChatEdit = () => {
 		? <Loading title="Edition du tchat" subtitle="Veuillez patienter..." />
 		: <section className={styles.chat_create}>
 			<div className={styles.chat_create_header}>
-				<h1>Editer la discussion</h1>
+				<h1>Editer</h1>
 			</div>
 			<div className={styles.chat_create_form}>
 				{error && <p className={styles.chat_create_error}>{error}</p>}

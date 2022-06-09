@@ -45,8 +45,8 @@ export default class ChannelService {
 
 	async deleteBySlug(slug: string, id: number): Promise<any> {
 		let rank = await this.userService.getRankFromChannelByUserId(slug, id);
-		if (!rank)				return { error: "No user found in channel" };
-		if (rank !== 'owner')	return { error: "You are not the owner" };
+		if (!rank || rank.length == 0)	return { error: "No user found in channel" };
+		if (rank[0].rank !== 'owner')			return { error: "You are not the owner" };
 		return await this.channelRepository.delete({slug});
 	}
 
