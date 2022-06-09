@@ -13,6 +13,7 @@ const Chat = () => {
 	let [channels, setChannels] = useState<any[]>([]);
 	let [messages, setMessages] = useState<any[]>([]);
 	let [bloqued, setbloqued] = useState<any[]>([]);
+	let [status, setstatus] =  useState<any[]>([]);
 	let [value, setValue] = useState<string>("");
 	let {slug} = useParams();
 
@@ -52,7 +53,7 @@ const Chat = () => {
 		sendMessage("invite", `${data.invitation.slug}.${data.game.slug}`);
 	}
 
-	const setupbloqued = async () => {
+	const setupBloqued = async () => {
 		const res = await fetch(`http://c2r2p3.42nice.fr:3030/users/${session.get("id")}/blockeds`, {
 			method: "GET",
 			headers: {
@@ -62,6 +63,20 @@ const Chat = () => {
 		});
 		const data = await res.json();
 		setbloqued(data);
+	}
+
+	const setupStatus = async () => {
+		const res = await fetch(`http://c2r2p3.42nice.fr:3030/channels/${slug}/users`, {
+			method: "GET",
+			headers: {
+				'Authorization': `Bearer ${session.get("request_token")}`,
+				"Content-Type": "application/json"
+			},
+		});
+		const data = await res.json();
+		console.log("me");
+		console.log(data);
+		setstatus(data);
 	}
 
 	const setupChannels = async () => {
@@ -78,7 +93,7 @@ const Chat = () => {
 
 	const setupMessages = async (chan_slug: string | undefined) => {
 		if (!chan_slug || !slug || chan_slug != slug) return;
-		const res = await fetch(`http://c2r2p3.42nice.fr:3030/channels/${chan_slug}`, {
+		const res = await fetch(`http://c2r2p3.42nice.fr:3030/channels/${chan_slug}/messages`, {
 			method: "GET",
 			headers: {
 				'Authorization': `Bearer ${session.get("request_token")}`
@@ -86,6 +101,18 @@ const Chat = () => {
 		});
 		const data = await res.json();
 		setMessages(data);
+	}
+
+	const isBanned = () => {
+		return status.find((status: any) =>{
+			return session.get("id") === status.id && status.status === "banned"
+		})
+	}
+
+	const isMuted = () => {
+		return status.find((status: any) =>{
+			return session.get("id") === status.id && status.status === "mute"
+		})
 	}
 
 	useEffect(() => {
@@ -96,7 +123,8 @@ const Chat = () => {
 			socket.on("chat.join", (res: any) => setupChannels());
 			setupChannels();
 			setupMessages(slug);
-			setupbloqued();
+			setupBloqued();
+			setupStatus();
 		}
 		return () => { socket.emit("leave", "chat", slug, {}) }
 	}, [socket.ready, slug]);
@@ -129,6 +157,11 @@ const Chat = () => {
 				})}
 			</ul>
 			<div className={styles.chat_form}>
+			{(isMuted() || isBanned()) ? (
+				<div className={styles.chat_muted}>
+					<p>Vous {isMuted() ? "etes muet dans" : "etes banni de" } ce chat</p>
+				</div>
+			) : <>
 				<button onClick={handleInvitation}>+</button>
 				<form onSubmit={handleSubmit}>
 					<input
@@ -139,7 +172,7 @@ const Chat = () => {
 					/>
 					<button onClick={handleSubmit}>Envoyer</button>
 				</form>
-			</div>
+			</>}</div>
 		</div>
 	</section>
 }
