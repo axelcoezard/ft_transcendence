@@ -12,6 +12,7 @@ const Chat = () => {
 	const session = useSession("session");
 	let [channels, setChannels] = useState<any[]>([]);
 	let [messages, setMessages] = useState<any[]>([]);
+	let [bloqued, setbloqued] = useState<any[]>([]);
 	let [value, setValue] = useState<string>("");
 	let {slug} = useParams();
 
@@ -51,6 +52,18 @@ const Chat = () => {
 		sendMessage("invite", `${data.invitation.slug}.${data.game.slug}`);
 	}
 
+	const setupbloqued = async () => {
+		const res = await fetch(`http://c2r2p3.42nice.fr:3030/users/${session.get("id")}/blockeds`, {
+			method: "GET",
+			headers: {
+				'Authorization': `Bearer ${session.get("request_token")}`,
+				"Content-Type": "application/json"
+			},
+		});
+		const data = await res.json();
+		setbloqued(data);
+	}
+
 	const setupChannels = async () => {
 		const res = await fetch(`http://c2r2p3.42nice.fr:3030/users/${session.get("id")}/channels`, {
 			method: "GET",
@@ -83,6 +96,7 @@ const Chat = () => {
 			socket.on("chat.join", (res: any) => setupChannels());
 			setupChannels();
 			setupMessages(slug);
+			setupbloqued();
 		}
 		return () => { socket.emit("leave", "chat", slug, {}) }
 	}, [socket.ready, slug]);
@@ -105,6 +119,10 @@ const Chat = () => {
 			<ul className={styles.chat_messages}>
 				{messages && messages.map((message: any, index: number) => {
 					let props = { key: index, ...message};
+
+					let isbloqued = bloqued.find((bloqued: any) => bloqued.id == message.sender_id);
+					if (isbloqued)
+						return null;
 					if (message.type === "text")
 						return <ChatMessage {...props}/>
 					return <ChatInviteMessage {...props}/>
