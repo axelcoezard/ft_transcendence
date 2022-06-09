@@ -74,8 +74,6 @@ const Chat = () => {
 			},
 		});
 		const data = await res.json();
-		console.log("me");
-		console.log(data);
 		setstatus(data);
 	}
 
@@ -104,13 +102,13 @@ const Chat = () => {
 	}
 
 	const isBanned = () => {
-		return status.find((status: any) =>{
+		return status.find((status: any) => {
 			return session.get("id") === status.id && status.status === "banned"
 		})
 	}
 
 	const isMuted = () => {
-		return status.find((status: any) =>{
+		return status.find((status: any) => {
 			return session.get("id") === status.id && status.status === "mute"
 		})
 	}
@@ -147,10 +145,20 @@ const Chat = () => {
 			<ul className={styles.chat_messages}>
 				{messages && messages.map((message: any, index: number) => {
 					let props = { key: index, ...message};
-
-					let isbloqued = bloqued.find((bloqued: any) => bloqued.id == message.sender_id);
-					if (isbloqued)
+					// Affiche pas les messages posterieurs à la date de ban si on est ban
+					let ban = isBanned()
+					if (ban)
+					{
+						let banDate = new Date(ban.updated_at);
+						let messageDate = new Date(message.created_at);
+						console.log(banDate, messageDate, banDate.getTime() - messageDate.getTime());
+						if (banDate.getTime() > messageDate.getTime())
+							return null;
+					}
+					// Affiche pas le message si on a bloque l'utilisateur 
+					if (bloqued.find((bloqued: any) => bloqued.id == message.sender_id))
 						return null;
+					// Affiche les messages au bon format: text ou invite
 					if (message.type === "text")
 						return <ChatMessage {...props}/>
 					return <ChatInviteMessage {...props}/>
