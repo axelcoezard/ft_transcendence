@@ -35,7 +35,9 @@ const Profil = () => {
 
 	return <main className={styles.profil}>
 		<ProfilHeader user={user} />
-		<ProfilMenu onglet={onglet} setOnglet={setOnglet} />
+		{user.id === session.get("id")
+			? <ProfilMenu onglet={onglet} setOnglet={setOnglet} />
+			: null}
 		{onglet === "history" && <ProfilHistory user={user} />}
 		{onglet === "friends" && <ProfilFriendList user={user} />}
 		{onglet === "blockeds" && <ProfilBlockedList user={user} />}
