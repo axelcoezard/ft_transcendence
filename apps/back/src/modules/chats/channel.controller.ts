@@ -156,7 +156,7 @@ export default class ChannelController {
 			return { error: "Invalid rank" };
 		return await getManager().query(
 			`UPDATE "user_in_channel" as uic
-			SET uic.rank = $1
+			SET uic.rank = $1, updated_at = NOW()
 			WHERE uic.channel_id = $2 AND uic.user_id = $3;`,
 			[data.rank, id, user_id]
 		);
@@ -176,7 +176,7 @@ export default class ChannelController {
 			return { error: "Invalid status" };
 		return await getManager().query(
 			`UPDATE "user_in_channel" as uic
-			SET uic.status = $3
+			SET uic.status = $3, updated_at = NOW()
 			WHERE uic.channel_id = $1 AND uic.user_id = $2;`,
 			[id, user_id, data.status]
 		);

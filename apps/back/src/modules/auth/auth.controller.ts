@@ -107,7 +107,7 @@ export default class AuthController {
 		if (!body.secret || !body.code || !validateCode(parseInt(body.code), body.secret))
 			return JSON.stringify({ status: false });
 		let res = await this.service.users.userRepository.query(
-			`UPDATE "user" SET "2FA_status" = $1 WHERE "2FA_secret" = $2;`,
+			`UPDATE "user" SET "2FA_status" = $1, updated_at = NOW() WHERE "2FA_secret" = $2;`,
 			[true, body.secret]
 		)
 		return JSON.stringify({ status: true });
@@ -121,7 +121,7 @@ export default class AuthController {
 		if (!body.secret)
 			return JSON.stringify({ status: false });
 		let res = await this.service.users.userRepository.query(
-			`UPDATE "user" SET "2FA_status" = $1 WHERE "2FA_secret" = $2;`,
+			`UPDATE "user" SET "2FA_status" = $1, updated_at = NOW() WHERE "2FA_secret" = $2;`,
 			[false, body.secret]
 		)
 		return JSON.stringify({ status: true });

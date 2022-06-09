@@ -154,11 +154,10 @@ const Chat = () => {
 					{
 						let banDate = new Date(ban.updated_at);
 						let messageDate = new Date(message.created_at);
-						console.log(banDate, messageDate, banDate.getTime() - messageDate.getTime());
-						if (banDate.getTime() > messageDate.getTime())
+						if (banDate.getTime() < messageDate.getTime())
 							return null;
 					}
-					// Affiche pas le message si on a bloque l'utilisateur 
+					// Affiche pas le message si on a bloque l'utilisateur
 					if (bloqued.find((bloqued: any) => bloqued.id == message.sender_id))
 						return null;
 					// Affiche les messages au bon format: text ou invite
@@ -170,7 +169,14 @@ const Chat = () => {
 			<div className={styles.chat_form}>
 			{(isMuted() || isBanned()) ? (
 				<div className={styles.chat_muted}>
-					<p>Vous {isMuted() ? "etes muet dans" : "etes banni de" } ce chat</p>
+					<strong>
+						{isMuted() ? "Vous etes muet." : "Vous etes banni de ce tchat."}
+					</strong>
+					<small>
+						{isMuted()
+						? "Vous ne pouvez plus envoyer de messages dans le chat."
+						: "Vous ne pouvez plus voir les nouveaux messages."}
+					</small>
 				</div>
 			) : <>
 				<button onClick={handleInvitation}>+</button>

@@ -62,7 +62,7 @@ export default class UserService {
 			return {error: "Le pseudo ne peut contenir que des lettres"}
 
 		return await this.userRepository.query(
-			`UPDATE "user" SET "username" = $1 WHERE id = $2;`,
+			`UPDATE "user" SET "username" = $1, updated_at = NOW() WHERE id = $2;`,
 			[username, id]
 		);
 	}
@@ -76,28 +76,28 @@ export default class UserService {
 
 	async updateElo(id: number, elo: number): Promise<User> {
 		return await this.userRepository.query(
-			`UPDATE "user" SET "ELO_score" = $1 WHERE id = $2;`,
+			`UPDATE "user" SET "ELO_score" = $1, updated_at = NOW() WHERE id = $2;`,
 			[elo, id]
 		);
 	}
 
 	async updateAvatar(id: number, avatar_id: string): Promise<User> {
 		return await this.userRepository.query(
-			`UPDATE "user" SET "avatar_id" = $1 WHERE id = $2;`,
+			`UPDATE "user" SET "avatar_id" = $1, updated_at = NOW() WHERE id = $2;`,
 			[avatar_id, id]
 		);
 	}
 
 	async updatePaddleColor(id: number, paddle_color: string): Promise<any> {
 		return await this.userRepository.query(
-			`UPDATE "user" SET "color_paddle" = $1 WHERE id = $2;`,
+			`UPDATE "user" SET "color_paddle" = $1, updated_at = NOW() WHERE id = $2;`,
 			[paddle_color, id]
 		);
 	}
 
 	async updateBallColor(id: number, ball_color: string): Promise<any> {
 		return await this.userRepository.query(
-			`UPDATE "user" SET "color_ball" = $1 WHERE id = $2;`,
+			`UPDATE "user" SET "color_ball" = $1, updated_at = NOW() WHERE id = $2;`,
 			[ball_color, id]
 		);
 	}
@@ -259,7 +259,7 @@ export default class UserService {
 
 	async setStatus(id: number, status: string): Promise<any> {
 		return await this.userRepository.query(
-			`UPDATE "user" SET "status" = $1 WHERE id = $2;`,
+			`UPDATE "user" SET "status" = $1, updated_at = NOW() WHERE id = $2;`,
 			[status, id]
 		);
 	}
