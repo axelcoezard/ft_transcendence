@@ -1,4 +1,5 @@
 import GameBuilder from "src/modules/game/game.builder";
+import Game from "src/modules/game/game.entity";
 import Player from "./Player";
 import Room from "./Room";
 
@@ -21,6 +22,8 @@ class Vector {
 }
 
 export default class GameRoom extends Room {
+	public state: string;
+
 	ball_pos: Vector;
 	ball_d: Vector;
 	ball_speed: number = BALL_SPEED;
@@ -38,6 +41,7 @@ export default class GameRoom extends Room {
 
 		this.leftPaddle = new Vector(20, 50);
 		this.rightPaddle = new Vector(PONG_WIDTH - PADDLE_WIDTH - 20, 50);
+		this.state = GameBuilder.GAME_WAITING;
 	}
 
 	public onCreate() {
@@ -57,13 +61,13 @@ export default class GameRoom extends Room {
 			this.leftPlayerJoined = true, position = "left";
 		else if (this.rightPlayer && this.rightPlayer.id == player.id)
 			this.rightPlayerJoined = true, position = "right";
-		if (!this.leftPlayer && this.leftPlayerJoined)
+		else if (!this.leftPlayer && !this.leftPlayerJoined)
 		{
 			this.leftPlayer = player;
 			this.leftPlayerJoined = true;
 			position = "left";
 		}
-		if (!this.rightPlayer && this.rightPlayerJoined)
+		else if (!this.rightPlayer && !this.rightPlayerJoined)
 		{
 			this.rightPlayer = player;
 			this.rightPlayerJoined = true;
@@ -77,7 +81,8 @@ export default class GameRoom extends Room {
 		this.users.push(player);
 		console.log(`player ${player.username} joined ${this.id} as ${player.position}`)
 
-		if (this.leftPlayerJoined && this.rightPlayerJoined)
+		if (this.state == GameBuilder.GAME_WAITING
+			&& this.leftPlayerJoined && this.rightPlayerJoined)
 			this.start();
 	}
 
@@ -147,14 +152,14 @@ export default class GameRoom extends Room {
 			y: this.ball_pos.y / PONG_HEIGHT,
 		}))
 
-		if (this.state == 1)
+		if (this.state == GameBuilder.GAME_STARTED)
 			setTimeout(() => this.update(updates + 1), 1000 / 50)
 	}
 
 	private start() {
-		if (this.state !== 0)
+		if (this.state !== GameBuilder.GAME_WAITING)
 			return;
-		this.state = 1;
+		this.state = GameBuilder.GAME_STARTED;
 		this.resetBall();
 
 		this.service.games.update(
@@ -175,7 +180,9 @@ export default class GameRoom extends Room {
 	}
 
 	private async stop() {
-		this.state = 2;
+		if (this.state !== GameBuilder.GAME_STARTED)
+			return;
+		this.state = GameBuilder.GAME_ENDED;
 
 		let winner = null;
 		let loser = null;
@@ -214,7 +221,8 @@ export default class GameRoom extends Room {
 		console.log(`player ${player.username} leaved ${this.id}`)
 		this.users = this.users.filter((e: Player) => e.id !== player.id);
 
-		if (this.state == 1 && (!this.leftPlayerJoined || !this.rightPlayerJoined))
+		if (this.state == GameBuilder.GAME_STARTED
+			&& (!this.leftPlayerJoined || !this.rightPlayerJoined))
 			this.stop();
 	}
 
@@ -228,10 +236,6 @@ export default class GameRoom extends Room {
 
 	private getPlayerInPositions(positions: string[]): Player[] {
 		return this.users.filter((p: Player) => p.position in positions);
-	}
-
-	private getPlayerCountInPositions(positions: string[]): number {
-		return this.getPlayerInPositions(positions).length;
 	}
 }
 

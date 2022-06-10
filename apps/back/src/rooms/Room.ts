@@ -6,7 +6,6 @@ import Player from "./Player";
 
 
 export default abstract class Room {
-	public state: number;
 	public id: number;
 	public slug: string;
 
@@ -20,7 +19,6 @@ export default abstract class Room {
 	{
 		this.id = id;
 		this.slug = slug;
-		this.state = 0;
 		this.users = new Array();
 		this.messages = new Map();
 
