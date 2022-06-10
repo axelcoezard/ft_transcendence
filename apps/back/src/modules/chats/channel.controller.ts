@@ -212,22 +212,23 @@ export default class ChannelController {
 	}
 
 	@UseGuards(JwtAuthGuard)
-	@Post("/:id/users/:user_id/status")
-	async banUser(
-		@Param('id', ParseIntPipe) id: number,
+	@Post("/:slug/users/:user_id/status")
+	async updateStatus(
+		@Param('slug') slug: string,
 		@Param('user_id', ParseIntPipe) user_id: number,
 		@Body() data: any
 	){
-		if (!id)			return { error: "No channel id provided" };
+		if (!slug)			return { error: "No channel slug provided" };
 		if (!user_id)		return { error: "No user id provided" };
 		if (!data)			return { error: "No data provided" };
 		if (data.status !== "banned" && data.status !== "mute" && data.status !== "active")
 			return { error: "Invalid status" };
+		console.log("query")
 		return await getManager().query(
-			`UPDATE "user_in_channel" as uic
-			SET uic.status = $3, updated_at = NOW()
-			WHERE uic.channel_id = $1 AND uic.user_id = $2;`,
-			[id, user_id, data.status]
+			`UPDATE "user_in_channel"
+			SET status = $3, updated_at = NOW()
+			WHERE channel_id = (SELECT id FROM "channel" WHERE slug = $1) AND user_id = $2;`,
+			[slug, user_id, data.status]
 		);
 	}
 

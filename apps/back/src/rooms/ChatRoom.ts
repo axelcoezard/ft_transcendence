@@ -5,7 +5,7 @@ import Room from "./Room";
 
 export default class ChatRoom extends Room {
 
-	msgs: any[] = [];
+	public status: string;
 
 	constructor(id: number, slug: string) {
 		super(id, slug);
@@ -23,6 +23,12 @@ export default class ChatRoom extends Room {
 
 	public async onJoin(player: Player) {
 		this.users.push(player);
+		if (this.status === "public"
+			&& !(await this.service.channels.hasUser(this.slug, player.id)))
+			this.service.channels.addUsers(this.id, [{
+				id: player.id,
+				rank: "member"
+			}])
 		console.log(`${player.username} joined ${this.slug} chat`);
 	}
 

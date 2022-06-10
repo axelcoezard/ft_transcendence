@@ -31,6 +31,11 @@ export default class ChannelService {
 		})
 	}
 
+	async hasUser(slug: string, id: number): Promise<boolean> {
+		let rank = await this.userService.getRankFromChannelByUserId(slug, id);
+		return rank && rank.length > 0;
+	}
+
 	async getUsersFromChannel(slug: string): Promise<any[]> {
 		return await getManager().query(
 			`SELECT
@@ -53,7 +58,7 @@ export default class ChannelService {
 	async addUsers(id: number, users: any[]): Promise<any> {
 		if (users.length === 0)
 			return { error: "No users provided" };
-		let req = `INSERT INTO "user_in_channel" (user_id, channel_id, rank) VALUES`;
+		let req = `INSERT INTO "user_in_channel" (user_id, channel_id, rank) VALUES `;
 		let req_i = -3;
 		let req_values = users.map((u: any) => {
 			req_i += 3;
@@ -75,6 +80,7 @@ export default class ChannelService {
 		let req = `DELETE FROM "user_in_channel" WHERE user_id IN (${parts}) AND channel_id = $${users.length + 1};`;
 		return await getManager().query(req, [...ids, id]);
 	}
+
 	async create(channel: ChannelBuilder): Promise<Channel> {
 		const newChannel = this.channelRepository.create(channel.build());
 		await this.channelRepository.save(newChannel);

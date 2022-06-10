@@ -44,6 +44,7 @@ export class AppGateway
 				let room = new ChatRoom(channel.id, channel.slug);
 				room.setService(this.service);
 				room.setGateway(this);
+				room.status = channel.status;
 				this.chats.set(room.slug, room);
 				this.logger.log(`Added ${room.slug} to avalaible chats`)
 			})
@@ -89,7 +90,7 @@ export class AppGateway
 	public async onMessage(client: Socket, msg: any) {
 		let player = this.users.get(msg.sender.username);
 		let room = await this.getRoom(msg.room, msg.room_id);
-		if (room)
+		if (player && room)
 			room.callMessage(msg.type, player, msg.value);
 	}
 
@@ -152,6 +153,7 @@ export class AppGateway
 			let room = new ChatRoom(channel.id, channel.slug);
 			room.setService(this.service);
 			room.setGateway(this);
+			room.status = channel.status;
 			this.chats.set(room.slug, room);
 			return room;
 		}
