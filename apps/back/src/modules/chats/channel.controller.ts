@@ -166,7 +166,7 @@ export default class ChannelController {
 		);
 	};
 
-	@UseGuards(JwtAuthGuard)
+	/*@UseGuards(JwtAuthGuard)
 	@Get("/:id/users/:user_id/rank")
 	async getUserRank(
 		@Param('id', ParseIntPipe) id: number,
@@ -184,17 +184,37 @@ export default class ChannelController {
 			WHERE c.id = $1 AND uic.user_id = $2;`,
 			[id, user_id]
 		);
+	}*/
+
+	@UseGuards(JwtAuthGuard)
+	@Get("/:slug/users/:user_id/rank")
+	async getUserRankBySlug(
+		@Param('slug') slug: string,
+		@Param('user_id', ParseIntPipe) user_id: number
+	){
+		if (!slug)
+			return { error: "No channel id provided" };
+		if (!user_id)
+			return { error: "No user id provided" };
+		return await getManager().query(
+			`SELECT
+				uic.rank
+			FROM "channel" as c
+				INNER JOIN "user_in_channel" as uic ON uic.channel_id = c.id
+			WHERE c.id = (SELECT id FROM "channel" WHERE slug = $1) AND uic.user_id = $2;`,
+			[slug, user_id]
+		);
 	}
 
 	@UseGuards(JwtAuthGuard)
-	@Post("/:id/users/:user_id/rank")
+	@Post("/:slug/users/:user_id/rank")
 	async setUserRank(
-		@Param('id', ParseIntPipe) id: number,
+		@Param('slug') slug: string,
 		@Param('user_id', ParseIntPipe) user_id: number,
 		@Body() data: any
 	){
-		if (!id)
-			return { error: "No channel id provided" };
+		if (!slug)
+			return { error: "No channel slug provided" };
 		if (!user_id)
 			return { error: "No user id provided" };
 		if (!data)
@@ -204,10 +224,10 @@ export default class ChannelController {
 		if (data.rank !== "owner" && data.rank !== "admin" && data.rank !== "member")
 			return { error: "Invalid rank" };
 		return await getManager().query(
-			`UPDATE "user_in_channel" as uic
-			SET uic.rank = $1, updated_at = NOW()
-			WHERE uic.channel_id = $2 AND uic.user_id = $3;`,
-			[data.rank, id, user_id]
+			`UPDATE "user_in_channel"
+			SET rank = $1, updated_at = NOW()
+			WHERE channel_id = (SELECT id FROM "channel" WHERE slug = $2) AND user_id = $3;`,
+			[data.rank, slug, user_id]
 		);
 	}
 
