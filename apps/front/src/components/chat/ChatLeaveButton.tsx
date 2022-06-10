@@ -3,7 +3,7 @@ import useSession from "../../hooks/useSession";
 import styles from "../../styles/pages/Chat.module.scss";
 
 const ChatLeaveButton = (props: any) => {
-	const {slug} = props;
+	const {slug, setupChannels} = props;
 	const session = useSession("session");
 	const navigate = useNavigate();
 
@@ -19,6 +19,7 @@ const ChatLeaveButton = (props: any) => {
 		})
 		let data = await res.json()
 		if (data.error) return alert(data.error);
+		setupChannels();
 		navigate(`/chat`)
 	}
 

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import styles from '../styles/pages/Chat.module.scss'
-import { useAppContext } from '../contexts/AppContext';
 import { Link, useParams } from 'react-router-dom';
 import useSession from '../hooks/useSession';
 import ChatChannel from '../components/chat/ChatChannel';
@@ -11,6 +10,7 @@ import ChatConversation from '../components/chat/ChatConversation';
 const Chat = () => {
 	const session = useSession("session");
 	let [status, setStatus] =  useState<any[]>([]);
+	let [infos, setInfos] = useState<any>();
 	let [channels, setChannels] = useState<any[]>([]);
 	let [bloqued, setBloqued] = useState<any[]>([]);
 	let {slug} = useParams();
@@ -40,7 +40,7 @@ const Chat = () => {
 	}
 
 	const isAdmin = () => {
-		return status.find((p: any) => {
+		return status && status.find((p: any) => {
 			return session.get("id") === p.id && (p.rank === "owner" || p.rank === "admin")
 		})
 	}
@@ -57,7 +57,10 @@ const Chat = () => {
 				<Link to="/chat/create">Nouvelle discussion</Link>
 			</div>
 			<div className={styles.chat_header_right}>{slug && <>
-				<ChatLeaveButton slug={slug} />
+				{infos && infos.status === "private" && <ChatLeaveButton
+					slug={slug}
+					setupChannels={setupChannels}
+				/>}
 				{isAdmin() && <ChatEditButton slug={slug}/>}
 			</>}</div>
 		</div>
@@ -70,6 +73,7 @@ const Chat = () => {
 			slug={slug}
 			bloqued={bloqued}
 			status={status} setStatus={setStatus}
+			infos={infos} setInfos={setInfos}
 		/>
 	</section>
 }

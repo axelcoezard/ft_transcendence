@@ -9,10 +9,13 @@ import ChatPassword from './ChatPassword';
 const ChatConversation = (props: any) => {
 	const {socket} = useAppContext();
 	const session = useSession("session");
-	const {slug, bloqued, status, setStatus} = props;
+	const {
+		slug, bloqued,
+		status, setStatus,
+		infos, setInfos
+	} = props;
 	let [messages, setMessages] = useState<any[]>([]);
 	let [connected, setConnected] = useState<boolean>(false);
-	let [infos, setInfos] = useState<any>();
 	let [value, setValue] = useState<string>("");
 
 	const sendMessage = (type: string, value: string) => {
@@ -89,14 +92,22 @@ const ChatConversation = (props: any) => {
 	}
 
 	const isStatus = (value: string) => {
-		return status.find((p: any) => {
+		return status && status.find((p: any) => {
 			return session.get("id") === p.id && p.status === value
 		})
 	}
 	const isBanned = () => isStatus("banned")
 	const isMuted = () => isStatus("mute")
 
+	const reset = () => {
+		setMessages([]);
+		setStatus([]);
+		setInfos({});
+		setConnected(false);
+	}
+
 	useEffect(() => {
+		reset();
 		if (socket.ready)
 		{
 			socket.emit("join", "chat", slug, {})
@@ -106,14 +117,10 @@ const ChatConversation = (props: any) => {
 			setupMessages(slug);
 		}
 		return () => {
-			setMessages([]);
-			setStatus([]);
-			setInfos({})
-			setConnected(false)
+			reset();
 			socket.emit("leave", "chat", slug, {})
 		}
 	}, [socket.ready, slug]);
-
 
 	return <>{(!connected && infos && infos.password) ? (
 		<ChatPassword
