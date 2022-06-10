@@ -38,4 +38,14 @@ export default class GameService {
 		})
 		return await this.repository.save(res);
 	}
+
+	async cleanUp(): Promise<void>
+	{
+		await this.repository.query(`
+			DELETE FROM "game"
+			WHERE status = 'waiting'
+				OR status = 'starting'
+				OR status = 'started';
+		`);
+	}
 }

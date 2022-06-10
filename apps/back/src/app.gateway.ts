@@ -39,6 +39,8 @@ export class AppGateway
 		this.games = new Map();
 		this.chats = new Map();
 
+		this.service.games.cleanUp();
+
 		this.service.channels.getAll().then((channels: any) => {
 			channels.forEach((channel: any) => {
 				let room = new ChatRoom(channel.id, channel.slug);

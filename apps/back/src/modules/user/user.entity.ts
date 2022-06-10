@@ -7,8 +7,7 @@ export default class User {
     id: number;
 
     @Column({
-		type: 'varchar',
-		unique: true,
+		type: 'varchar'
 	})
     username: string;
 
