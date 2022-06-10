@@ -1,5 +1,4 @@
 import GameBuilder from "src/modules/game/game.builder";
-import Game from "src/modules/game/game.entity";
 import Player from "./Player";
 import Room from "./Room";
 
@@ -83,7 +82,33 @@ export default class GameRoom extends Room {
 
 		if (this.state == GameBuilder.GAME_WAITING
 			&& this.leftPlayerJoined && this.rightPlayerJoined)
-			this.start();
+			this.starting();
+	}
+
+	private starting() {
+		if (this.state !== GameBuilder.GAME_WAITING)
+			return;
+		this.state = GameBuilder.GAME_STARTING;
+
+		this.service.games.update(
+			GameBuilder.new()
+			.setId(this.id)
+			.setSlug(this.slug)
+			.setPlayers(this.leftPlayer, this.rightPlayer)
+			.setStatus(GameBuilder.GAME_STARTING)
+		)
+
+		this.users.forEach(p => p.emit("game.starting", this.getGamePlayersStatus()))
+		let countdown = 3;
+		let interval = setInterval(() => {
+			this.users.forEach(p => p.emit("game.countdown", {countdown}))
+			console.log(`${this.id} starting in ${countdown}`)
+			countdown--;
+			if (countdown < 0) {
+				clearInterval(interval);
+				this.start();
+			}
+		}, 1000);
 	}
 
 	private resetBall() {
@@ -157,7 +182,7 @@ export default class GameRoom extends Room {
 	}
 
 	private start() {
-		if (this.state !== GameBuilder.GAME_WAITING)
+		if (this.state !== GameBuilder.GAME_STARTING)
 			return;
 		this.state = GameBuilder.GAME_STARTED;
 		this.resetBall();
@@ -170,13 +195,11 @@ export default class GameRoom extends Room {
 			.setStatus(GameBuilder.GAME_STARTED)
 		)
 
-		setTimeout(() => {
-			this.users.forEach(player => player.emit("game.start",
-				this.getGamePlayersStatus()
-			))
-			this.update(0);
-			console.log(`${this.id} started`)
-		}, 500);
+		this.users.forEach(player => player.emit("game.start",
+			this.getGamePlayersStatus()
+		))
+		this.update(0);
+		console.log(`${this.id} started`)
 	}
 
 	private async stop() {

@@ -3,14 +3,15 @@ import { useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import { useAppContext } from "../contexts/AppContext";
 import useBall from "../hooks/useBall";
+import useAudio from "../hooks/useAudio";
 import useCanvas, { PONG_HEIGHT, PONG_WIDTH } from "../hooks/useCanvas";
 import usePaddle, { PADDLE_HEIGHT, PADDLE_WIDTH } from "../hooks/usePaddle";
 
 import styles from '../styles/pages/Play.module.scss'
 import useSession from "../hooks/useSession";
 import Avatar from "../components/Avatar";
-import Results from "../components/Results";
-import useAudio from "../hooks/useAudio";
+import PlayCountdown from "../components/play/PlayCountdown";
+import PlayResult from "../components/play/PlayResult";
 
 const usePlayerDuo = () => {
 	const [player1, setPlayer1] = useState<any>({})
@@ -22,6 +23,7 @@ const Play = () => {
 	const {socket} = useAppContext();
 	const session = useSession("session");
 	const [status, setStatus] = useState<string>("waiting")
+	const [countdown, setCountdown] = useState(3);
 	const [position, setPosition] = useState<string>("spectator")
 	const [player1, player2, setPlayer1, setPlayer2] = usePlayerDuo()
 	const [winner, loser, setWinner, setLoser] = usePlayerDuo()
@@ -29,27 +31,20 @@ const Play = () => {
 
 	const {id} = useParams()
 
-	const left = usePaddle(20, 50)
-	const right = usePaddle(PONG_WIDTH - PADDLE_WIDTH - 20, 50)
+	const left = usePaddle(20, (PONG_HEIGHT - PADDLE_HEIGHT) / 2)
+	const right = usePaddle(PONG_WIDTH - PADDLE_WIDTH - 20, (PONG_HEIGHT - PADDLE_HEIGHT) / 2)
 	const ball = useBall();
 
-	const service = useAudio("/sounds/service.wav");
+	/*const service = useAudio("/sounds/service.wav");
 	const tadam = useAudio("/sounds/tadam.wav");
 	const pong = [
 		useAudio("/sounds/Pong_1.wav"),
 		useAudio("/sounds/Pong_2.wav"),
 		useAudio("/sounds/Pong_3.wav"),
 		useAudio("/sounds/Pong_4.wav"),
-		useAudio("/sounds/Pong_5.wav"),
-		useAudio("/sounds/Pong_6.wav"),
-		useAudio("/sounds/Pong_7.wav"),
-		useAudio("/sounds/Pong_8.wav"),
-		useAudio("/sounds/Pong_9.wav")
-	]
+	]*/
 
 	useEffect(() => {
-		(new AudioContext()).resume()
-
 		let data = {
 			id: session.get("id"),
 			username: session.get("username"),
@@ -60,10 +55,13 @@ const Play = () => {
 		if (socket.ready)
 		{
 			socket.emit("join", "game", id, data)
-			socket.on("game.start", (data: any) => {
-				setStatus("started")
+			socket.on("game.starting", (data: any) => {
 				setPlayer1(data.player1)
 				setPlayer2(data.player2)
+				setStatus("starting")
+			})
+			socket.on("game.start", (data: any) => {
+				setStatus("started")
 			})
 			socket.on("game.stop", (data: any) => {
 				setStatus("ended")
@@ -74,16 +72,19 @@ const Play = () => {
 					session.set("ELO_score", data.winner.elo)
 				else session.set("ELO_score", data.loser.elo)
 
-				tadam.play()
+				//tadam.play()
+			})
+			socket.on("game.countdown", ({countdown}: any) => {
+				setCountdown(countdown)
 			})
 			socket.on("game.join", ({position: p}: {position: string}) => {
 				setPosition(p)
 			})
 			socket.on("game.sound", (data: any) => {
-				if (data.sound === "service") service.play()
+				/*if (data.sound === "service") service.play()
 				if (data.sound === "pong")
 					pong[Math.floor(Math.random() * pong.length)].play()
-				if (data.sound === "tadam") tadam.play()
+				if (data.sound === "tadam") tadam.play()*/
 			})
 			socket.on("game.updateBall", (data: any) => {
 				ball.setY(data.y * scale.y)
@@ -154,7 +155,7 @@ const Play = () => {
 			<h1>TRANSCENDENCE</h1>
 			<p>Pong to the extreme!</p>
 		</div>
-		<div className={styles.play_scoreboard}>
+		{status !== "waiting" && <div className={styles.play_scoreboard}>
 			<div className={styles.play_scoreboard_left}>
 				<Avatar user={player1.id} width="60px" height="60px"/>
 				<p>{player1.username}</p>
@@ -166,7 +167,7 @@ const Play = () => {
 				<Avatar user={player2.id} width="60px" height="60px"/>
 				<p>{player2.username}</p>
 			</div>
-		</div>
+		</div>}
 		<div className={styles.play_pong}>
 			<canvas
 				className={styles.play_canvas}
@@ -174,10 +175,11 @@ const Play = () => {
 				onMouseMove={handleMove}
 				onTouchStart={handleMove}
 			/>
-			{status === "ended" ? <Results
+			{status == "starting" && <PlayCountdown countdown={countdown}/>}
+			{status === "ended" && <PlayResult
 				victory={winner.id === session.get("id")}
 				url="/home"
-			/> : null}
+			/>}
 		</div>
 	</main>;
 };

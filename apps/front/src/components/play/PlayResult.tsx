@@ -1,4 +1,4 @@
-import styles from "../styles/components/Components.module.scss"
+import styles from "../../styles/components/Components.module.scss"
 import Confetties from 'react-confetti'
 import { Link } from 'react-router-dom';
 
@@ -22,7 +22,7 @@ const ResultsMessage = (props: any) => {
 	</div>
 }
 
-const Results = (props: any) => {
+const PlayResult = (props: any) => {
 	const { victory, url } = props;
 
 	return <section className={styles.results}>
@@ -31,4 +31,4 @@ const Results = (props: any) => {
 	</section>
 }
 
-export default Results;
+export default PlayResult;

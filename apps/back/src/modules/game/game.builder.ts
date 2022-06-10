@@ -7,6 +7,7 @@ export default class GameBuilder {
 	private game: Game;
 
 	public static GAME_WAITING: string = "waiting";
+	public static GAME_STARTING: string = "starting";
 	public static GAME_STARTED: string = "started";
 	public static GAME_ENDED: string = "ended";
 
