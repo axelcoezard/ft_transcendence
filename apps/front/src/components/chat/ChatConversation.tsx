@@ -6,6 +6,8 @@ import ChatMessage from '../../components/chat/ChatMessage';
 import ChatInviteMessage from '../../components/chat/ChatInviteMessage';
 import ChatPassword from './ChatPassword';
 import { Navigate, useNavigate } from 'react-router-dom';
+import { IoMdSend } from 'react-icons/io';
+import { RiGamepadLine } from 'react-icons/ri';
 
 const ChatConversation = (props: any) => {
 	const {socket} = useAppContext();
@@ -170,7 +172,9 @@ const ChatConversation = (props: any) => {
 				</small>
 			</div>
 		) : <>
-			<button onClick={handleInvitation}>+</button>
+			<button className={styles.chat_form_invite_button} onClick={handleInvitation}>
+				<RiGamepadLine />
+			</button>
 			<form onSubmit={handleSubmit}>
 				<input
 					type="text"
@@ -178,7 +182,9 @@ const ChatConversation = (props: any) => {
 					placeholder="Message"
 					onChange={(e: any) => { setValue(e.target.value)}}
 				/>
-				<button onClick={handleSubmit}>Envoyer</button>
+				<button
+					className={styles.chat_form_message_button}
+					onClick={handleSubmit}><IoMdSend /></button>
 			</form>
 		</>}</div>
 	</div>)}</>

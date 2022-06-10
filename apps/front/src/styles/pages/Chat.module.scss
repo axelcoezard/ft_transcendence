@@ -46,19 +46,28 @@ $form-height: 70px;
 .chat_header_right {
 	align-items: center;
 	display: flex;
-	padding: 0 20px;
+
+	@media screen and (max-width: 768px) {
+		flex: 0 1 auto;
+		width: unset;
+	}
 }
 
 .chat_header_left {
-	flex: 0 0 $index-width;
+	flex: 1 0 auto;
 	flex-direction: row;
+
+}
+.chat_header_left {
+	padding: 0 0 0 20px;
 }
 
 .chat_header_right {
-	flex: 0 0 calc(100% - $index-width);
+	flex: 1 0 auto;
 	flex-direction: row;
 	justify-content: flex-end;
 	gap: 10px;
+	padding: 0 20px 0 0;
 }
 
 .chat_header_left a,
@@ -68,8 +77,42 @@ $form-height: 70px;
 	@include generate-button;
 }
 
-.chat_header_leave_button {
-	background: red;
+.chat_header_settings_button {
+	position: relative;
+	width: 50px;
+	svg {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		font-weight: bold;
+		font-size: 1.4rem;
+	}
+}
+
+.chat_form_invite_button {
+	position: relative;
+	width: 50px;
+	svg {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		font-weight: bold;
+		font-size: 1.7rem;
+	}
+}
+
+.chat_form_message_button {
+	position: relative;
+	width: 50px;
+	svg {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		font-size: 1.7rem;
+	}
 }
 
 .chat_index {
@@ -242,7 +285,6 @@ $form-height: 70px;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	justify-content: space-evenly;
 
 	background: rgba(50, 50, 50, 0.7);
 }
