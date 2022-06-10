@@ -87,6 +87,8 @@ export default class ChannelController {
 			builder.setPassword(createHash('sha256')
 				.update(data.password)
 				.digest('hex'));
+		if (data.receiver_id)
+			builder.setReceiver(data.receiver_id);
 
 		let channel = await this.service.create(builder);
 		if (!channel || !channel.id)
@@ -165,26 +167,6 @@ export default class ChannelController {
 			[slug]
 		);
 	};
-
-	/*@UseGuards(JwtAuthGuard)
-	@Get("/:id/users/:user_id/rank")
-	async getUserRank(
-		@Param('id', ParseIntPipe) id: number,
-		@Param('user_id', ParseIntPipe) user_id: number
-	){
-		if (!id)
-			return { error: "No channel id provided" };
-		if (!user_id)
-			return { error: "No user id provided" };
-		return await getManager().query(
-			`SELECT
-				uic.rank
-			FROM "channel" as c
-				INNER JOIN "user_in_channel" as uic ON uic.channel_id = c.id
-			WHERE c.id = $1 AND uic.user_id = $2;`,
-			[id, user_id]
-		);
-	}*/
 
 	@UseGuards(JwtAuthGuard)
 	@Get("/:slug/users/:user_id/rank")

@@ -11,6 +11,13 @@ export default class Channel extends BaseEntity {
 	creator_id: number;
 
 	@Column({
+		type: 'int',
+		nullable: true,
+		default: 0
+	})
+	receiver_id: number;
+
+	@Column({
 		type: 'varchar',
 		unique: true
 	})
@@ -18,7 +25,6 @@ export default class Channel extends BaseEntity {
 
 	@Column({
 		type: 'varchar',
-		unique: true,
 		nullable: true
 	})
 	name: string;

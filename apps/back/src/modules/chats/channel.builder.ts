@@ -20,6 +20,12 @@ export default class ChannelBuilder {
 		return this;
 	}
 
+	public setReceiver(user_id: number) : ChannelBuilder
+	{
+		this.channel.receiver_id = user_id;
+		return this;
+	}
+
 	public setName(name: string) : ChannelBuilder
 	{
 		this.channel.name = name;

@@ -77,9 +77,6 @@ const _App = () => {
 				<Route path="/play/wait" element={<PrivateRoute>
 					<Matching />
 				</PrivateRoute>} />
-				<Route path="/play/invite" element={<PrivateRoute>
-					<Invite />
-				</PrivateRoute>} />
 				<Route path="/play/watch" element={<PrivateRoute>
 					<Watch />
 				</PrivateRoute>} />
@@ -88,6 +85,9 @@ const _App = () => {
 				</PrivateRoute>} />
 				<Route path="/chat" element={<PrivateRoute>
 					<Chat />
+				</PrivateRoute>} />
+				<Route path="/chat/invite" element={<PrivateRoute>
+					<Invite />
 				</PrivateRoute>} />
 				<Route path="/chat/create" element={<PrivateRoute>
 					<ChatCreate />

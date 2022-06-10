@@ -26,8 +26,8 @@ const Home = () => {
 
 	const items = [
 		{title:"RANKED", subtitle:"Jouer contre un joueur de votre niveau", icon:"ranked", path:"/play/wait"},
-		{title:"DUEL", subtitle:"Inviter un ami à jouer", icon:"duel", path:"/play/invite"},
 		{title:"WATCH", subtitle:"Regarder une partie en cours", icon:"watch", path:"/play/watch"},
+		{title:"MESSAGE", subtitle:"Inviter un ami a discuter", icon:"duel", path:"/chat/invite"},
 	]
 
 	return <main className={styles.home}>
