@@ -32,6 +32,7 @@ $form-height: 70px;
 .chat_header {
 	flex: 0 0 100%;
 	height: $header-height;
+	max-height: $header-height;
 
 	display: flex;
 	flex-direction: row;
@@ -118,6 +119,7 @@ $form-height: 70px;
 .chat_index {
 	flex: 0 0 $index-width;
 	height: calc(100% - $header-height);
+	max-width: $index-width;
 
 	display: flex;
 	flex-direction: column;
@@ -125,6 +127,7 @@ $form-height: 70px;
 
 	@media screen and (max-width: 768px) {
 		flex: 0 0 100%;
+		max-width: unset;
 		height: $header-height;
 		overflow-x: auto;
 	}
@@ -160,6 +163,7 @@ $form-height: 70px;
 .chat_content {
 	flex: 0 0 calc(100% - $index-width);
 	height: calc(100% - $header-height);
+	max-width: calc(100% - $index-width);
 
 	display: flex;
 	flex-direction: column;
@@ -167,6 +171,7 @@ $form-height: 70px;
 
 	@media screen and (max-width: 768px) {
 		flex: 0 0 100%;
+		max-width: 100%;
 		height: calc(100% - $header-height * 2);
 	}
 }
@@ -195,10 +200,15 @@ $form-height: 70px;
 	margin: 10px 0;
 	padding: 0 20px;
 
+	@media screen and (max-width: 768px) {
+		padding: 0;
+	}
+
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
 	align-items: flex-start;
+
 }
 
 .chat_message_right { flex-direction: row-reverse; }
@@ -217,11 +227,16 @@ $form-height: 70px;
 	b { padding: 0 10px 0 5px; }
 	b, small { line-height: 25px; }
 	p {
+		max-width: 300px;
 		min-height: 40px;
 		padding: 10px;
 		background: rgba(50, 50, 50, 0.7);
 		border-radius: 0 15px 15px 15px;
 		text-align: left;
+	}
+
+	@media screen and (max-width: 768px) {
+		p { width: 250px; }
 	}
 }
 
@@ -257,6 +272,10 @@ $form-height: 70px;
 	a {
 		@include generate-button;
 	}
+
+	@media screen and (max-width: 860px) {
+		width: 250px;
+	}
 }
 
 .chat_message_invite_left {
@@ -269,6 +288,14 @@ $form-height: 70px;
 		@include text-color(1rem);
 		text-transform: initial;
 	}
+
+	@media screen and (max-width: 860px) {
+		strong {
+			font-size: .9rem;
+		}
+		align-items: flex-start;
+		padding-left: 10px;
+	}
 }
 .chat_message_invite_right {
 	flex: 0 0 40%;
@@ -280,11 +307,11 @@ $form-height: 70px;
 .chat_form {
 	flex: 0 0 $form-height;
 	width: 100%;
-	padding: 0 20px;
 
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	justify-content: center;
 
 	background: rgba(50, 50, 50, 0.7);
 }
@@ -294,13 +321,16 @@ $form-height: 70px;
 
 	display: flex;
 	flex-direction: row;
+	justify-content: center;
+
+	padding: 0 20px;
 }
 
 .chat_form input {
 	flex: 1 0 auto;
 	height: 40px;
 
-	padding: 15px;
+	padding: 0 15px;
 	margin: 0 20px;
 
 	outline: none;

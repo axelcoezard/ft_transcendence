@@ -172,10 +172,10 @@ const ChatConversation = (props: any) => {
 				</small>
 			</div>
 		) : <>
-			<button className={styles.chat_form_invite_button} onClick={handleInvitation}>
-				<RiGamepadLine />
-			</button>
 			<form onSubmit={handleSubmit}>
+				<button className={styles.chat_form_invite_button} onClick={handleInvitation}>
+					<RiGamepadLine />
+				</button>
 				<input
 					type="text"
 					value={value}
