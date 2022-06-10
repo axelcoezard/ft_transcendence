@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useAppContext } from "../../contexts/AppContext";
 import useSession from "../../hooks/useSession";
 import styles from "../../styles/pages/Chat.module.scss";
 import Avatar from "../Avatar";
@@ -71,6 +72,7 @@ const UserItem = (props: any) => {
 const RankButton = (props: any) => {
 	const {rank, setRank, user, slug} = props
 	const session = useSession("session");
+	const {socket} = useAppContext();
 
 	const handleClick = async (e:any, newRank: string) => {
 		e.preventDefault();
@@ -86,7 +88,10 @@ const RankButton = (props: any) => {
 		data = await res.json()
 		if (data.error) return;
 		setRank(newRank);
-		console.log(rank, newRank)
+		socket.emit(`chat.status`, "broadcast", "", {
+			channel_slug: slug,
+			user_id: user.id,
+		})
 	}
 
 	return <button
@@ -100,6 +105,7 @@ const RankButton = (props: any) => {
 
 const StatusButton = (props: any) => {
 	const {user, slug} = props;
+	const {socket} = useAppContext();
 	const session = useSession("session");
 	const [status, setStatus] = useState<string>(() => user.status);
 
@@ -117,6 +123,10 @@ const StatusButton = (props: any) => {
 		data = await res.json()
 		if (data.error) return;
 		setStatus(newStatus);
+		socket.emit(`chat.status`, "broadcast", "", {
+			channel_slug: slug,
+			user_id: user.id,
+		})
 	}
 
 	let final: Array<any> = []

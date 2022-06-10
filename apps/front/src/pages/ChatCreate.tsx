@@ -7,10 +7,12 @@ import useSession from "../hooks/useSession";
 import styles from "../styles/pages/ChatCreate.module.scss";
 import Loading from "../components/Loading";
 import ChatVisibilityForm from "../components/chat/ChatVisibilityForm";
+import { useAppContext } from "../contexts/AppContext";
 
 const ChatCreate = () => {
 	const session = useSession("session");
 	const navigate = useNavigate()
+	const {socket} = useAppContext()
 	const [error, setError] = useState<string | null>(null);
 	const [loading, setLoading] = useState<boolean>(false);
 	const [name, setName] = useState<string | null>(null);
@@ -37,6 +39,7 @@ const ChatCreate = () => {
 			setUsers(users.filter((u: any) => u.username === session.get("username")));
 			setName(null);
 			setPassword(null);
+			socket.emit("chat.create", "broadcast", "", {});
 			navigate(`/chat/${data.slug}`)
 		}, 1250);
 	}

@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react'
 import styles from '../styles/pages/Chat.module.scss'
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import useSession from '../hooks/useSession';
 import ChatChannel from '../components/chat/ChatChannel';
 import ChatEditButton from '../components/chat/ChatEditButton';
 import ChatLeaveButton from '../components/chat/ChatLeaveButton';
 import ChatConversation from '../components/chat/ChatConversation';
+import { useAppContext } from '../contexts/AppContext';
 
 const Chat = () => {
 	const session = useSession("session");
+	const {socket} = useAppContext();
+	const navigate = useNavigate();
 	let [status, setStatus] =  useState<any[]>([]);
 	let [infos, setInfos] = useState<any>();
 	let [channels, setChannels] = useState<any[]>([]);
@@ -49,6 +52,17 @@ const Chat = () => {
 		setupChannels();
 		setupBloqued();
 	}, []);
+
+	useEffect(() => {
+		if (socket.ready)
+		{
+			socket.on("chat.delete", (res: any) => {
+				setupChannels();
+				navigate("/chat")
+			});
+			socket.on("chat.create", (res: any) => setupChannels());
+		}
+	}, [socket.ready])
 
 	return <section className={styles.chat}>
 		{}

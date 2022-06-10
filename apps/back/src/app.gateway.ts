@@ -86,9 +86,19 @@ export class AppGateway
 		return game;
 	}
 
+	public async broadcast(type: string, data: any)
+	{
+		this.users.forEach((user: Player) => {
+			if (user.socket)
+				user.socket.emit(type, data);
+		})
+	}
+
 	@SubscribeMessage('message')
 	public async onMessage(client: Socket, msg: any) {
 		let player = this.users.get(msg.sender.username);
+		if (msg.room === "broadcast")
+			return this.broadcast(msg.type, msg.value)
 		let room = await this.getRoom(msg.room, msg.room_id);
 		if (player && room)
 			room.callMessage(msg.type, player, msg.value);

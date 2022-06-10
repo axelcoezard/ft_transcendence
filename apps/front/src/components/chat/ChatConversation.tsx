@@ -5,9 +5,11 @@ import useSession from '../../hooks/useSession';
 import ChatMessage from '../../components/chat/ChatMessage';
 import ChatInviteMessage from '../../components/chat/ChatInviteMessage';
 import ChatPassword from './ChatPassword';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const ChatConversation = (props: any) => {
 	const {socket} = useAppContext();
+	const navigate = useNavigate();
 	const session = useSession("session");
 	const {
 		slug, bloqued,
@@ -112,6 +114,10 @@ const ChatConversation = (props: any) => {
 		{
 			socket.emit("join", "chat", slug, {})
 			socket.on("chat.msg", (res: any) => setupMessages(res.channel_slug));
+			socket.on("chat.status", (res: any) => {
+				if (res.channel_slug === slug)
+					setupStatus(res.channel_slug);
+			});
 			setupInfos(slug);
 			setupStatus(slug);
 			setupMessages(slug);
