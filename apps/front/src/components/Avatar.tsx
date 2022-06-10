@@ -24,7 +24,7 @@ const Avatar = (props: any) => {
 		setOnline(false)
 		if (user) fetchStatus();
 		return () => setOnline(false);
-	}, [])
+	}, [user])
 
 	const url = `http://c2r2p3.42nice.fr:3030/users/${user}/avatar`;
 	const avatar = <div

@@ -79,6 +79,17 @@ export default class ChannelController {
 		if (data.status === 'private' && data.users.length < 2)
 			return { error: "Veuillez ajouter au moins 2 utilisateurs" };
 
+		if (data.receiver_id != 0)
+		{
+			let res = await this.service.channelRepository.findOne({
+				where: {
+					creator_id: data.creator_id,
+					receiver_id: data.receiver_id
+				}
+			})
+			if (res) return res;
+		}
+
 		let builder = ChannelBuilder.new()
 			.setName(data.name)
 			.setStatus(data.status)

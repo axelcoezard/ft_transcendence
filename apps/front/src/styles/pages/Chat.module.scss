@@ -311,7 +311,8 @@ $form-height: 70px;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-around;
+	padding: 0 20px;
 
 	background: rgba(50, 50, 50, 0.7);
 }
@@ -322,8 +323,6 @@ $form-height: 70px;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
-
-	padding: 0 20px;
 }
 
 .chat_form input {

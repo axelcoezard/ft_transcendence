@@ -121,42 +121,17 @@ export default class GameRoom extends Room {
 			Math.round(Math.random()) * 2 - 1
 		);
 		this.ball_speed = BALL_SPEED;
-		this.users.forEach(player => player.emit("game.sound", {sound: "service"}))
 	}
 
 	private async update(updates: number) {
-		if ((this.ball_d.x === -1 && this.ball_pos.x <= 0)
-			||(this.ball_d.x === 1 && this.ball_pos.x >= PONG_WIDTH - BALL_DIAMETER / 2))
-			this.ball_d.x = -this.ball_d.x;
-
-		if ((this.ball_d.y === -1 && this.ball_pos.y <= 0)
-			|| (this.ball_d.y === 1 && this.ball_pos.y >= PONG_HEIGHT - BALL_DIAMETER / 2))
-			this.ball_d.y = -this.ball_d.y;
-
-		let collision = false;
-		if (this.ball_d.x === -1
-			&& this.ball_pos.x <= this.leftPaddle.x + PADDLE_WIDTH
-			&& this.ball_pos.y + BALL_DIAMETER >= this.leftPaddle.y
-			&& this.ball_pos.y <= this.leftPaddle.y + PADDLE_HEIGHT)
-			collision = true;
-		if (this.ball_d.x === 1
-			&& this.ball_pos.x + BALL_DIAMETER >= this.rightPaddle.x
-			&& this.ball_pos.y + BALL_DIAMETER >= this.rightPaddle.y
-			&& this.ball_pos.y <= this.rightPaddle.y + PADDLE_HEIGHT)
-			collision = true;
-
-		if (collision)
-		{
-			this.ball_speed *= 1.1;
-			this.ball_d.x = -this.ball_d.x;
-			this.users.forEach(player => player.emit("game.sound", {sound: "pong"}))
-		}
+		let RADIUS = BALL_DIAMETER / 2;
 
 		let point = false;
-		if (this.ball_pos.x <= 0)
+		if (this.ball_d.x === -1 && this.ball_pos.x - RADIUS <= 0)
 			this.rightPlayer.score++, point = true;
-		else if (this.ball_pos.x >= PONG_WIDTH - BALL_DIAMETER)
+		else if (this.ball_d.x === 1 && this.ball_pos.x + RADIUS >= PONG_WIDTH)
 			this.leftPlayer.score++, point = true;
+
 		if (point)
 			this.users.forEach(player => player.emit("game.updateScore",
 				this.getGamePlayersStatus()
@@ -165,8 +140,36 @@ export default class GameRoom extends Room {
 		if (this.leftPlayer.score >= POINT_TO_WIN || this.rightPlayer.score >= POINT_TO_WIN)
 			this.stop();
 
-		if (this.ball_pos.x <= 0 || this.ball_pos.x >= PONG_WIDTH - BALL_DIAMETER)
+		if (this.ball_pos.x - RADIUS <= 0 || this.ball_pos.x + RADIUS >= PONG_WIDTH)
 			this.resetBall();
+
+		if ((this.ball_d.y === -1 && this.ball_pos.y - RADIUS <= 0)
+			|| (this.ball_d.y === 1 && this.ball_pos.y + RADIUS >= PONG_HEIGHT))
+			this.ball_d.y = -this.ball_d.y;
+
+		let calculateInter = (x: number, pos: Vector, dir: Vector) => {
+			let a = dir.y;
+			let b = dir.x * pos.y - dir.y * pos.x;
+			return (a * x + b) / dir.x;
+		}
+
+		if (this.ball_d.x === -1
+			&& this.ball_pos.x - RADIUS <= this.leftPaddle.x + PADDLE_WIDTH
+			&& this.ball_pos.y + RADIUS >= this.leftPaddle.y
+	 		&& this.ball_pos.y - RADIUS <= this.leftPaddle.y + PADDLE_HEIGHT)
+		{
+			this.ball_speed *= 1.1;
+			this.ball_d.x = -this.ball_d.x;
+		}
+
+		if (this.ball_d.x === 1
+			&& this.ball_pos.x + RADIUS >= this.rightPaddle.x
+			&& this.ball_pos.y + RADIUS >= this.rightPaddle.y
+			&& this.ball_pos.y - RADIUS <= this.rightPaddle.y + PADDLE_HEIGHT)
+		{
+			this.ball_speed *= 1.1;
+			this.ball_d.x = -this.ball_d.x;
+		}
 
 		this.ball_pos.x += this.ball_d.x * this.ball_speed;
 		this.ball_pos.y += this.ball_d.y * this.ball_speed;
