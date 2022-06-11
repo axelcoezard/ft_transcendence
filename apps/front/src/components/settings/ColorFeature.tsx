@@ -14,7 +14,6 @@ const ColorFeature = (props: any) => {
 
 	const handleChange = async (e: any) => {
 		setColor(e.target.value)
-		console.log(color)
 	};
 
 	const handleSubmit = async (e: any) => {
@@ -24,7 +23,7 @@ const ColorFeature = (props: any) => {
 			return setStatus("No color selected")
 
 		let res = await fetch(
-			`http://c2r2p3.42nice.fr:3030/users/${session.get("id")}/color/${type}`,
+			`http://c1r2p8.42nice.fr:3030/users/${session.get("id")}/color/${type}`,
 			{
 				method: "POST",
 				headers: {

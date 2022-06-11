@@ -7,9 +7,11 @@ import useSession from "../../hooks/useSession";
 import styles from "../../styles/pages/Chat.module.scss";
 import ChatVisibilityForm from "../../components/chat/ChatVisibilityForm";
 import ChatDeleteButton from "../../components/chat/ChatDeleteButton";
+import { useAppContext } from "../../contexts/AppContext";
 
 const ChatEditInfo = (props: any) => {
 	const session = useSession("session");
+	const {socket} = useAppContext();
 	const navigate = useNavigate()
 	const {setLoading, slug} = props;
 	const [error, setError] = useState<string | null>(null);
@@ -21,7 +23,7 @@ const ChatEditInfo = (props: any) => {
 	const handleClick = async (e: any) => {
 		e.preventDefault();
 		setLoading(true);
-		let res = await fetch(`http://c2r2p3.42nice.fr:3030/channels/${slug}/update`, {
+		let res = await fetch(`http://c1r2p8.42nice.fr:3030/channels/${slug}/update`, {
 			method: "POST",
 			headers: {
 				'Authorization': `Bearer ${session.get("request_token")}`,
@@ -37,13 +39,14 @@ const ChatEditInfo = (props: any) => {
 			setUsers(users.filter((u: any) => u.username === session.get("username")));
 			setName(null);
 			setPassword(null);
+			socket.emit("chat.create", "broadcast", "", {});
 			navigate(`/chat/${slug}`)
 		}, 1250);
 	}
 
 	const fetchInformations = async (slug: string) => {
 		let res, data;
-		res = await fetch(`http://c2r2p3.42nice.fr:3030/channels/${slug}`, {
+		res = await fetch(`http://c1r2p8.42nice.fr:3030/channels/${slug}`, {
 			method: "GET",
 			headers: {
 				'Authorization': `Bearer ${session.get("request_token")}`,
@@ -54,7 +57,7 @@ const ChatEditInfo = (props: any) => {
 		if (data.error) return;
 		setName(data.name);
 		setStatus(data.status === "public");
-		res = await fetch(`http://c2r2p3.42nice.fr:3030/channels/${slug}/users`, {
+		res = await fetch(`http://c1r2p8.42nice.fr:3030/channels/${slug}/users`, {
 			method: "GET",
 			headers: {
 				'Authorization': `Bearer ${session.get("request_token")}`,

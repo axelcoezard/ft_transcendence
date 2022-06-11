@@ -22,6 +22,7 @@ stop:
 clean:
 	@rm -rf			apps/*/node_modules
 	@rm -rf			apps/*/dist
+	@rm -rf			apps/*/build
 
 fclean: clean
 	@docker rm -f	back front nginx postgres

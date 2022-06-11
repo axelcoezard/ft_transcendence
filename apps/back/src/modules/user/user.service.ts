@@ -103,6 +103,10 @@ export default class UserService {
 	}
 
 	async searchUser(username: string): Promise<any> {
+		if (!username)
+			return {error: "Veuillez entrer un pseudo"}
+		if (!username.trim() || !/^[a-zA-Z\s]+$/.test(username))
+			return {error: "Le pseudo ne peut contenir que des lettres"}
 		let res = await this.userRepository.query(
 			`SELECT
 				"id",

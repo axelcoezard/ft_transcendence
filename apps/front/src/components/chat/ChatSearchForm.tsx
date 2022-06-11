@@ -18,7 +18,7 @@ const ChatSearchForm = (props: any) => {
 	const handleSearch = async (e: any) => {
 		const search = e.target.value;
 		setQuery(search);
-		const response = await fetch(`http://c2r2p3.42nice.fr:3030/users/search/${search}`, {
+		const response = await fetch(`http://c1r2p8.42nice.fr:3030/users/search/${search}`, {
 			method: "GET",
 			headers: {
 				'Authorization': `Bearer ${session.get("request_token")}`

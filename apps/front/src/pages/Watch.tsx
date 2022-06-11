@@ -30,7 +30,7 @@ const Watch = () => {
 	const session = useSession("session");
 
 	const updateGames = () => {
-		fetch("http://c2r2p3.42nice.fr:3030/games/started", {
+		fetch("http://c1r2p8.42nice.fr:3030/games/started", {
 			method: "GET",
 			headers: {
 				'Authorization': `Bearer ${session.get("request_token")}`,

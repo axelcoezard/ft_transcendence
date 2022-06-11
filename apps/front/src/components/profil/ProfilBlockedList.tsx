@@ -19,7 +19,7 @@ const ProfilBlockedList = (props: any) => {
 
 	const fechHistory = async () => {
 		if (!user.id) return;
-		let res = await fetch(`http://c2r2p3.42nice.fr:3030/users/${user.id}/blockeds`, {
+		let res = await fetch(`http://c1r2p8.42nice.fr:3030/users/${user.id}/blockeds`, {
 			method: "GET",
 			headers: {
 				'Authorization': `Bearer ${session.get("request_token")}`

@@ -8,7 +8,7 @@ const Avatar = (props: any) => {
 	const {user, width, height, disabled} = props;
 
 	const fetchStatus = async () => {
-		const res = await fetch(`http://c2r2p3.42nice.fr:3030/users/${user}/if/${session.get("id")}`, {
+		const res = await fetch(`http://c1r2p8.42nice.fr:3030/users/${user}/if/${session.get("id")}`, {
 			method: "GET",
 			headers: {
 				'Authorization': `Bearer ${session.get("request_token")}`,
@@ -26,7 +26,7 @@ const Avatar = (props: any) => {
 		return () => setOnline(false);
 	}, [user])
 
-	const url = `http://c2r2p3.42nice.fr:3030/users/${user}/avatar`;
+	const url = `http://c1r2p8.42nice.fr:3030/users/${user}/avatar`;
 	const avatar = <div
 		style={{
 		backgroundImage: `url(${url})`,

@@ -34,7 +34,7 @@ const ChatInviteMessage = (props: any) => {
 	}
 
 	const fetchStatus = async () => {
-		let res = await fetch(`http://c2r2p3.42nice.fr:3030/games/${game_slug}/status`, {
+		let res = await fetch(`http://c1r2p8.42nice.fr:3030/games/${game_slug}/status`, {
 			method: "GET",
 			headers: {
 				'Authorization': `Bearer ${session.get("request_token")}`,

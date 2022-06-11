@@ -12,7 +12,7 @@ const ChatDeleteButton = (props: any) => {
 
 	const handleClick = async (e: any) => {
 		e.preventDefault();
-		let res = await fetch(`http://c2r2p3.42nice.fr:3030/channels/${slug}`, {
+		let res = await fetch(`http://c1r2p8.42nice.fr:3030/channels/${slug}`, {
 			method: "DELETE",
 			headers: {
 				'Authorization': `Bearer ${session.get("request_token")}`,

@@ -12,7 +12,7 @@ const ProfilHeader = (props: any) => {
 	const session = useSession("session");
 
 	const fetchStats = async () => {
-		const response = await fetch(`http://c2r2p3.42nice.fr:3030/users/${user.id}/stats`,{
+		const response = await fetch(`http://c1r2p8.42nice.fr:3030/users/${user.id}/stats`,{
 			method: "GET",
 			headers: {
 				"Authorization": `Bearer ${session.get("request_token")}`,

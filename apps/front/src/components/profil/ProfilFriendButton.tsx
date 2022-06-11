@@ -10,7 +10,7 @@ const ProfilFriendButton = (props: any) => {
 	const session = useSession("session");
 
 	const fetchFriends = async () => {
-		let res = await fetch(`http://c2r2p3.42nice.fr:3030/users/${session.get("id")}/friends`, {
+		let res = await fetch(`http://c1r2p8.42nice.fr:3030/users/${session.get("id")}/friends`, {
 			method: "GET",
 			headers: {
 				'Authorization': `Bearer ${session.get("request_token")}`,
@@ -24,7 +24,7 @@ const ProfilFriendButton = (props: any) => {
 
 	const handleFriend = async (e: any, type: string) => {
 		e.preventDefault()
-		let res = await fetch(`http://c2r2p3.42nice.fr:3030/users/${session.get("id")}/friends`, {
+		let res = await fetch(`http://c1r2p8.42nice.fr:3030/users/${session.get("id")}/friends`, {
 			method: type,
 			headers: {
 				"Authorization": `Bearer ${session.get("request_token")}`,
@@ -33,7 +33,6 @@ const ProfilFriendButton = (props: any) => {
 			body: JSON.stringify({ friend_id: user.id })
 		});
 		let data = await res.json();
-		console.log(data)
 		if (data.error) return
 		fetchFriends();
 	}

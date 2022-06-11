@@ -20,7 +20,7 @@ const AvatarFeature = () => {
 		const formData = new FormData();
 		formData.append("file", avatar, avatar.name);
 		let res = await fetch(
-			`http://c2r2p3.42nice.fr:3030/users/${session.get("id")}/avatar`,
+			`http://c1r2p8.42nice.fr:3030/users/${session.get("id")}/avatar`,
 			{
 				method: "POST",
 				headers: {

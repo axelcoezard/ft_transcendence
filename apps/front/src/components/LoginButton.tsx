@@ -11,7 +11,7 @@ const LoginButton = () => {
 
 		e.preventDefault()
 
-		let request = await fetch('http://c2r2p3.42nice.fr:3030/auth/authorize', {
+		let request = await fetch('http://c1r2p8.42nice.fr:3030/auth/authorize', {
 			method: "POST",
 			headers: {
 				'Authorization': `Bearer ${session.get("request_token")}`,

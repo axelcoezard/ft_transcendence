@@ -22,7 +22,7 @@ const ChatPassword  = (props: any) => {
 		if (!password || password.length < 1 || password.match(/^\s+$/))
 			return handleError("Password is empty");
 
-		let res = await fetch(`http://c2r2p3.42nice.fr:3030/channels/${slug}/join`, {
+		let res = await fetch(`http://c1r2p8.42nice.fr:3030/channels/${slug}/join`, {
 			method: "POST",
 			headers: {
 				"Authorization": `Bearer ${session.get("request_token")}`,
