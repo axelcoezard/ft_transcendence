@@ -17,7 +17,7 @@ const getStatus = (status: string) => {
 
 const ChatInviteMessage = (props: any) => {
 	const session = useSession("session");
-	const [status, setStatus] = useState<string>("");
+	const [status, setStatus] = useState<string | null>(null);
 	const {
 		sender_username,
 		sender_id,
@@ -64,12 +64,12 @@ const ChatInviteMessage = (props: any) => {
 			<div className={styles.chat_message_invite}>
 				<div className={styles.chat_message_invite_left}>
 					<strong>Invitation à jouer</strong>
-					<small>Partie {getStatus(status)}</small>
+					<small>Partie {status ? getStatus(status) : "introuvable"}</small>
 				</div>
 				<div className={styles.chat_message_invite_right}>
-					<Link
+					{status && status !== 'ended' && <Link
 						to={`/play/${game_slug}`}
-					>Rejoindre</Link>
+					>Rejoindre</Link>}
 				</div>
 			</div>
 		</div>

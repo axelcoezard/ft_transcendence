@@ -25,9 +25,14 @@ export default class GameController {
 	@Get('/:slug/status')
 	async getStatus(
 		@Param('slug') slug: string
-	): Promise<Game> {
+	): Promise<any> {
+		if (!slug || slug.length === 0 || !slug.trim())
+			return { error: 'Invalid slug' };
 		const req = `SELECT status FROM "game" as g WHERE g.slug = $1;`
-		return (await this.service.repository.query(req, [slug]))[0]
+		const res = await this.service.repository.query(req, [slug])
+		if (!res || res.length === 0)
+			return { error: 'Game not found' };
+		return res[0];
 	}
 }
 
