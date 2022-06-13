@@ -38,7 +38,14 @@ const Login = (props: any) => {
 		const challenge = !session.get("2FA_status") || session.get("2FA_challenge");
 		const connected = session.has("access_token")
 		if (connected && challenge)
-			document.location.href = `http://${hostname}:${port}/home`;
+		{
+			let first = session.get("first_access") === "true";
+			setTimeout(() => {
+				session.set("first_access", "false")
+				if (first) 	document.location.href = `http://${hostname}:${port}/settings`;
+				else 		document.location.href = `http://${hostname}:${port}/home`;
+			}, 500)
+		}
 		if (connected && !challenge)
 			document.location.href = `http://${hostname}:${port}/2fa`;
 	}, [session])

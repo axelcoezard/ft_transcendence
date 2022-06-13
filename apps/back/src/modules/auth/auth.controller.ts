@@ -34,6 +34,7 @@ export default class AuthController {
 		);
 		let infos = await getUserInformations(api.access_token);
 		let user = await this.service.getUserBy42Username(infos.login);
+		let first = "false";
 		if (!user)
 		{
 			let avatar = new Avatar();
@@ -46,6 +47,7 @@ export default class AuthController {
 			req.avatar_id = avatar.id;
 			req["2FA_secret"] = generateSecret(api.access_token);
 			user = await this.service.addUser(req);
+			first = "true";
 		}
 		return JSON.stringify({
 			id: user.id,
@@ -55,6 +57,7 @@ export default class AuthController {
 			"2FA_secret": user["2FA_secret"],
 			"2FA_status": user["2FA_status"],
 			"2FA_challenge": false,
+			first_access: first,
 			access_token: api.access_token,
 			refresh_token: api.refresh_token,
 			request_token: await this.service.generateJWT(user.username, user.id),
