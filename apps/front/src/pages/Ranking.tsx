@@ -21,7 +21,7 @@ const Ranking = () => {
 	const session = useSession("session");
 
 	const fetchRanking = async () => {
-		let res = await fetch("http://c1r2p8.42nice.fr:3030/users/ranking", {
+		let res = await fetch("http://localhost:3030/users/ranking", {
 			method: "GET",
 			headers: {
 				'Authorization': `Bearer ${session.get("request_token")}`,

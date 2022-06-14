@@ -43,7 +43,7 @@ const ChatConversation = (props: any) => {
 
 	const handleInvitation = async (e: any) => {
 		e.preventDefault();
-		let res = await fetch("http://c1r2p8.42nice.fr:3030/invitations/create", {
+		let res = await fetch("http://localhost:3030/invitations/create", {
 			method: "POST",
 			headers: {
 				"Authorization": `Bearer ${session.get("request_token")}`,
@@ -60,7 +60,7 @@ const ChatConversation = (props: any) => {
 
 	const setupStatus = async (chan_slug: string | undefined) => {
 		if (!chan_slug || !slug || chan_slug != slug) return;
-		const res = await fetch(`http://c1r2p8.42nice.fr:3030/channels/${chan_slug}/users`, {
+		const res = await fetch(`http://localhost:3030/channels/${chan_slug}/users`, {
 			method: "GET",
 			headers: {
 				'Authorization': `Bearer ${session.get("request_token")}`,
@@ -73,7 +73,7 @@ const ChatConversation = (props: any) => {
 
 	const setupMessages = async (chan_slug: string | undefined) => {
 		if (!chan_slug || !slug || chan_slug != slug) return;
-		const res = await fetch(`http://c1r2p8.42nice.fr:3030/channels/${chan_slug}/messages`, {
+		const res = await fetch(`http://localhost:3030/channels/${chan_slug}/messages`, {
 			method: "GET",
 			headers: {
 				'Authorization': `Bearer ${session.get("request_token")}`
@@ -85,7 +85,7 @@ const ChatConversation = (props: any) => {
 
 	const setupInfos = async (chan_slug: string | undefined) => {
 		if (!chan_slug || !slug || chan_slug != slug) return;
-		const res = await fetch(`http://c1r2p8.42nice.fr:3030/channels/${chan_slug}`, {
+		const res = await fetch(`http://localhost:3030/channels/${chan_slug}`, {
 			method: "GET",
 			headers: {
 				'Authorization': `Bearer ${session.get("request_token")}`

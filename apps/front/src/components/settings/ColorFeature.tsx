@@ -23,7 +23,7 @@ const ColorFeature = (props: any) => {
 			return setStatus("No color selected")
 
 		let res = await fetch(
-			`http://c1r2p8.42nice.fr:3030/users/${session.get("id")}/color/${type}`,
+			`http://localhost:3030/users/${session.get("id")}/color/${type}`,
 			{
 				method: "POST",
 				headers: {

@@ -17,7 +17,7 @@ const TwoFactorFeature = () => {
 	}
 
 	const handleDesactivation = async () => {
-		let res = await fetch("http://c1r2p8.42nice.fr:3030/auth/twofactor", {
+		let res = await fetch("http://localhost:3030/auth/twofactor", {
 			method: "DELETE",
 			headers: {
 				'Authorization': `Bearer ${session.get("request_token")}`,

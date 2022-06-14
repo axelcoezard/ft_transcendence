@@ -23,7 +23,7 @@ const ChatCreate = () => {
 	const handleClick = async (e: any) => {
 		e.preventDefault();
 		setLoading(true);
-		let res = await fetch("http://c1r2p8.42nice.fr:3030/channels/create", {
+		let res = await fetch("http://localhost:3030/channels/create", {
 			method: "POST",
 			headers: {
 				'Authorization': `Bearer ${session.get("request_token")}`,

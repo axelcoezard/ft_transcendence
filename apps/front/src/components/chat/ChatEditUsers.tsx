@@ -18,7 +18,7 @@ const ChatEditUsers = (props: any) => {
 
 	const fetchUsers = async () => {
 		let res, data;
-		res = await fetch(`http://c1r2p8.42nice.fr:3030/channels/${slug}/users`, {
+		res = await fetch(`http://localhost:3030/channels/${slug}/users`, {
 			method: "GET",
 			headers: {
 				'Authorization': `Bearer ${session.get("request_token")}`,
@@ -77,7 +77,7 @@ const RankButton = (props: any) => {
 	const handleClick = async (e:any, newRank: string) => {
 		e.preventDefault();
 		let res, data;
-		res = await fetch(`http://c1r2p8.42nice.fr:3030/channels/${slug}/users/${user.id}/rank`, {
+		res = await fetch(`http://localhost:3030/channels/${slug}/users/${user.id}/rank`, {
 			method: "POST",
 			headers: {
 				'Authorization': `Bearer ${session.get("request_token")}`,
@@ -112,7 +112,7 @@ const StatusButton = (props: any) => {
 	const handleClick = async (e: any, newStatus: string) => {
 		e.preventDefault();
 		let res, data;
-		res = await fetch(`http://c1r2p8.42nice.fr:3030/channels/${slug}/users/${user.id}/status`, {
+		res = await fetch(`http://localhost:3030/channels/${slug}/users/${user.id}/status`, {
 			method: "POST",
 			headers: {
 				'Authorization': `Bearer ${session.get("request_token")}`,

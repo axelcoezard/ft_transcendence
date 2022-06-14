@@ -35,7 +35,7 @@ const useAppContext = (): AppContextType => useContext(AppContext);
 
 const AppProvider = (props: any) => {
 	/*const session = useSession("session", {});*/
-	const socket = useSocket("http://c1r2p8.42nice.fr:3030")
+	const socket = useSocket("http://localhost:3030")
 
 	const defaultValue = {
 		/*session,*/

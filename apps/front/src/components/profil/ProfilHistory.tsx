@@ -41,7 +41,7 @@ const ProfilHistory = (props: any) => {
 
 	const fechHistory = async () => {
 		if (!user.id) return;
-		let res = await fetch(`http://c1r2p8.42nice.fr:3030/users/${user.id}/games`, {
+		let res = await fetch(`http://localhost:3030/users/${user.id}/games`, {
 			method: "GET",
 			headers: {
 				'Authorization': `Bearer ${session.get("request_token")}`

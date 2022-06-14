@@ -16,7 +16,7 @@ const ChatEdit = () => {
 
 	useEffect(() => {
 		if (slug)
-			fetch(`http://c1r2p8.42nice.fr:3030/channels/${slug}/users/${session.get("id")}/rank`, {
+			fetch(`http://localhost:3030/channels/${slug}/users/${session.get("id")}/rank`, {
 				method: "GET",
 				headers: {
 					'Authorization': `Bearer ${session.get("request_token")}`,

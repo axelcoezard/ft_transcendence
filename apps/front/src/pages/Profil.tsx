@@ -16,7 +16,7 @@ const Profil = () => {
 
 	let fetchSession = () => setUser(session.value)
 	let fetchUser = async () => {
-		let res = await fetch(`http://c1r2p8.42nice.fr:3030/users/${id}`, {
+		let res = await fetch(`http://localhost:3030/users/${id}`, {
 			method: "GET",
 			headers: {
 				'Authorization': `Bearer ${session.get("request_token")}`,

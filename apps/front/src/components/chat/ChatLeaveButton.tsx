@@ -9,7 +9,7 @@ const ChatLeaveButton = (props: any) => {
 
 	const handleClick = async (e: any) => {
 		e.preventDefault();
-		let res = await fetch(`http://c1r2p8.42nice.fr:3030/channels/${slug}/leave`, {
+		let res = await fetch(`http://localhost:3030/channels/${slug}/leave`, {
 			method: "DELETE",
 			headers: {
 				'Authorization': `Bearer ${session.get("request_token")}`,

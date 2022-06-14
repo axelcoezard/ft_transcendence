@@ -12,7 +12,7 @@ const UsernameFeature = () => {
 		e.preventDefault()
 
 		let res = await fetch(
-			`http://c1r2p8.42nice.fr:3030/users/${session.get("id")}/username`,
+			`http://localhost:3030/users/${session.get("id")}/username`,
 			{
 				method: "POST",
 				headers: {

@@ -10,7 +10,7 @@ const ProfilBlockedButton = (props: any) => {
 	const session = useSession("session");
 
 	const fetchBlockeds = async () => {
-		let res = await fetch(`http://c1r2p8.42nice.fr:3030/users/${session.get("id")}/blockeds`, {
+		let res = await fetch(`http://localhost:3030/users/${session.get("id")}/blockeds`, {
 			method: "GET",
 			headers: {
 				'Authorization': `Bearer ${session.get("request_token")}`,
@@ -24,7 +24,7 @@ const ProfilBlockedButton = (props: any) => {
 
 	const handleBlocked = async (e: any, type: string) => {
 		e.preventDefault()
-		let res = await fetch(`http://c1r2p8.42nice.fr:3030/users/${session.get("id")}/blockeds`, {
+		let res = await fetch(`http://localhost:3030/users/${session.get("id")}/blockeds`, {
 			method: type,
 			headers: {
 				"Authorization": `Bearer ${session.get("request_token")}`,

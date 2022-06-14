@@ -19,7 +19,7 @@ const Chat = () => {
 	let {slug} = useParams();
 
 	const setupBloqued = async () => {
-		const res = await fetch(`http://c1r2p8.42nice.fr:3030/users/${session.get("id")}/blockeds`, {
+		const res = await fetch(`http://localhost:3030/users/${session.get("id")}/blockeds`, {
 			method: "GET",
 			headers: {
 				'Authorization': `Bearer ${session.get("request_token")}`,
@@ -31,7 +31,7 @@ const Chat = () => {
 	}
 
 	const setupChannels = async () => {
-		const res = await fetch(`http://c1r2p8.42nice.fr:3030/users/${session.get("id")}/channels`, {
+		const res = await fetch(`http://localhost:3030/users/${session.get("id")}/channels`, {
 			method: "GET",
 			headers: {
 				'Authorization': `Bearer ${session.get("request_token")}`,
