@@ -1,5 +1,5 @@
 # ft_transcendence
-Mon projet ft_transcendence de 42, réalisé avec [mboy](https://github.com/mboy29) et cie. 
+Mon projet ft_transcendence de 42, réalisé avec [Melody](https://github.com/mboy29) et Jean-Baptiste.
 
 ## Résumé
 > Surprise
